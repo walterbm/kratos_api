@@ -10,6 +10,7 @@ defmodule KratosApi.Router do
 
     get "/", RootController, :index
     post "/district", DistrictController, :post
+    get "/district/:state/:id", DistrictController, :show
   end
 
 end
