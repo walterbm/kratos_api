@@ -29,6 +29,7 @@ defmodule KratosApi.Mixfile do
         :postgrex,
         :httpotion,
         :govtrack,
+        :exrm,
         :edeliver
       ]
     ]
