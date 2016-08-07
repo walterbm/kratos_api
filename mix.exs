@@ -27,6 +27,7 @@ defmodule KratosApi.Mixfile do
         :gettext,
         :phoenix_ecto,
         :postgrex,
+        :govtrack,
         :httpotion,
       ]
     ]
@@ -49,6 +50,7 @@ defmodule KratosApi.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:govtrack, "~> 0.5.0"},
       {:httpotion, "~> 3.0.0"},
     ]
   end
