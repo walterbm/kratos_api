@@ -40,3 +40,5 @@ config :kratos_api, KratosApi.Repo,
   database: "kratos_api_dev",
   hostname: "localhost",
   pool_size: 10
+
+import_config "dev.secret.exs"
