@@ -27,8 +27,9 @@ defmodule KratosApi.Mixfile do
         :gettext,
         :phoenix_ecto,
         :postgrex,
-        :govtrack,
         :httpotion,
+        :govtrack,
+        :edeliver
       ]
     ]
   end
@@ -52,6 +53,7 @@ defmodule KratosApi.Mixfile do
       {:cowboy, "~> 1.0"},
       {:govtrack, "~> 0.5.0"},
       {:httpotion, "~> 3.0.0"},
+      {:edeliver, "~> 1.3.0"}
     ]
   end
 
