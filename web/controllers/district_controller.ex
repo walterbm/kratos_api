@@ -12,9 +12,10 @@ defmodule KratosApi.DistrictController do
   end
 
   def show(conn, %{"state" => state, "id" => id}) do
-    representatives = Enum.filter(
-      Govtrack.roles([current: true, state: state]).body["objects"],
-      fn(x) -> x["district"] == String.to_integer(id) || x["role_type"] == "senator" end)
+    representatives =
+      Govtrack.roles([current: true, state: state]).body["objects"]
+      |> Enum.filter(fn(x) -> x["district"] == String.to_integer(id) || x["role_type"] == "senator" end)
+      |> Enum.map( fn(x) -> Map.put(x, "image","#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{x["person"]["bioguideid"]}.jpg") end)
     json conn, representatives
   end
 
