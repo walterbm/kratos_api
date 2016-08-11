@@ -7,6 +7,6 @@
 ## Deploy
 Deployment uses edeliver.
 
-    $ mix edeliver update
+    $ mix edeliver update -V
 
-    $ mix edeliver start
+    $ mix edeliver start staging -V
