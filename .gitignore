@@ -18,3 +18,4 @@ erl_crash.dump
 # Deployment
 .deliver/
 rel/
+node_modules
