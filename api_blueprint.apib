@@ -96,52 +96,52 @@ Find information on congressional district and representatives.
 
 ## Group Representative
 
-Resources related congressional representatives.
+Information related congressional representatives.
 
 ## Representative [/api/representatives/{id}/votes]
 
-### Get Voting Information [GET]
+### Get Voting Record [GET]
 
 + Parameters
     + id: `412223` (number, required) - representative's Govtrack ID.
 
 + Response 200 (application/json)
 
-              [
-                  {
-                      "vote_type": "On the Cloture Motion",
-                      "vote": 118690,
-                      "value": "Nay",
-                      "total_plus": 52,
-                      "total_other": 4,
-                      "total_minus": 44,
-                      "source_label": "senate.gov",
-                      "source": "senate",
-                      "session": "2016",
-                      "result": "Cloture Motion Rejected",
-                      "required": "3/5",
-                      "related_bill": 339956,
-                      "related_amendment": null,
-                      "question_details": null,
-                      "question": "Cloture on H.R. 2577: Military Construction, Veterans Affairs, and Related Agencies Appropriations Act, 2017",
-                      "percent_plus": 0.52,
-                      "number": 134,
-                      "missing_data": false,
-                      "margin": 0.0833333,
-                      "link": "https://www.govtrack.us/congress/votes/114-2016/s134",
-                      "key": "-",
-                      "id": 118690,
-                      "created": "2016-07-14T13:59:00",
-                      "congress": 114,
-                      "chamber_label": "Senate",
-                      "chamber": "senate",
-                      "category_label": "Cloture",
-                      "category": "cloture"
-                  },
-              ]
+            [
+                {
+                    "vote_type": "On the Cloture Motion",
+                    "vote": 118690,
+                    "value": "Nay",
+                    "total_plus": 52,
+                    "total_other": 4,
+                    "total_minus": 44,
+                    "source_label": "senate.gov",
+                    "source": "senate",
+                    "session": "2016",
+                    "result": "Cloture Motion Rejected",
+                    "required": "3/5",
+                    "related_bill": 339956,
+                    "related_amendment": null,
+                    "question_details": null,
+                    "question": "Cloture on H.R. 2577: Military Construction, Veterans Affairs, and Related Agencies Appropriations Act, 2017",
+                    "percent_plus": 0.52,
+                    "number": 134,
+                    "missing_data": false,
+                    "margin": 0.0833333,
+                    "link": "https://www.govtrack.us/congress/votes/114-2016/s134",
+                    "key": "-",
+                    "id": 118690,
+                    "created": "2016-07-14T13:59:00",
+                    "congress": 114,
+                    "chamber_label": "Senate",
+                    "chamber": "senate",
+                    "category_label": "Cloture",
+                    "category": "cloture"
+                },
+            ]
 
 ## Group Legislation
 
-Resources related congressional bills and resolutions.
+PENDING. Resources related congressional bills & resolutions.
 
 ## Legislation [/api/bills/{chamber}]
