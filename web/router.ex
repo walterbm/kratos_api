@@ -9,8 +9,11 @@ defmodule KratosApi.Router do
     pipe_through :api
 
     get "/", RootController, :index
-    post "/district", DistrictController, :post
-    get "/district/:state/:id", DistrictController, :show
+
+    post "/districts", DistrictController, :post
+    get "/districts/:state/:id", DistrictController, :show
+
+    get "/representatives/:id/votes", RepresentativeController, :show
   end
 
 end
