@@ -1,0 +1,147 @@
+FORMAT: 1A
+HOST: http://198.199.73.246
+
+# Kratos API
+
+Kratos API documentation.
+
+## Group Root
+
+## Kratos API Root [/]
+
+This resource does not have any attributes. Instead it offers a short welcome message.
+
+## Retrieve the Entry Point [GET]
+
++ Response 200 (application/json)
+
+        {
+            "Welcome to the Kratos API!"
+        }
+
+## Group Districts
+
+Resources related congressional districts.
+
+## Show District [/api/districts]
+
+Find information on congressional district and representatives.
+
+### Find Congressional District [POST]
+
++ Request (application/json)
+
+    + Attributes(object)
+
+        + address: 1 Infinite Loop. Cupertino, CA 95014 (string, required)
+
++ Response 200 (application/json)
+
+            [
+                {
+                    "website": "https://www.boxer.senate.gov",
+                    "title_long": "Senator",
+                    "title": "Sen.",
+                    "state": "CA",
+                    "startdate": "2011-01-05",
+                    "senator_rank_label": "Junior",
+                    "senator_rank": "junior",
+                    "senator_class_label": "Class 3",
+                    "senator_class": "class3",
+                    "role_type_label": "Senator",
+                    "role_type": "senator",
+                    "phone": "202-224-3553",
+                    "person": {
+                        "youtubeid": "SenatorBoxer",
+                        "twitterid": "SenatorBoxer",
+                        "sortname": "Boxer, Barbara (Sen.) [D-CA]",
+                        "pvsid": "53274",
+                        "osid": "N00006692",
+                        "nickname": "",
+                        "namemod": "",
+                        "name": "Sen. Barbara Boxer [D-CA]",
+                        "middlename": "",
+                        "link": "https://www.govtrack.us/congress/members/barbara_boxer/300011",
+                        "lastname": "Boxer",
+                        "id": 300011,
+                        "gender_label": "Female",
+                        "gender": "female",
+                        "firstname": "Barbara",
+                        "cspanid": 2470,
+                        "birthday": "1940-11-11",
+                        "bioguideid": "B000711"
+                    },
+                    "party": "Democrat",
+                    "leadership_title": null,
+                    "image": "https://theunitedstates.io/images/congress/225x275/B000711.jpg",
+                    "id": 3853,
+                    "extra": {
+                        "office": "112 Hart Senate Office Building",
+                        "fax": "202-224-0454",
+                        "contact_form": "https://www.boxer.senate.gov/contact/shareyourviews.html",
+                        "address": "112 Hart Senate Office Building Washington DC 20510"
+                    },
+                    "enddate": "2017-01-03",
+                    "district": null,
+                    "description": "Junior Senator from California",
+                    "current": true,
+                    "congress_numbers": [
+                        112,
+                        113,
+                        114
+                    ],
+                    "caucus": null
+                }
+            ]
+
+## Group Representative
+
+Resources related congressional representatives.
+
+## Representative [/api/representatives/{id}/votes]
+
+### Get Voting Information [GET]
+
++ Parameters
+    + id: `412223` (number, required) - representative's Govtrack ID.
+
++ Response 200 (application/json)
+
+              [
+                  {
+                      "vote_type": "On the Cloture Motion",
+                      "vote": 118690,
+                      "value": "Nay",
+                      "total_plus": 52,
+                      "total_other": 4,
+                      "total_minus": 44,
+                      "source_label": "senate.gov",
+                      "source": "senate",
+                      "session": "2016",
+                      "result": "Cloture Motion Rejected",
+                      "required": "3/5",
+                      "related_bill": 339956,
+                      "related_amendment": null,
+                      "question_details": null,
+                      "question": "Cloture on H.R. 2577: Military Construction, Veterans Affairs, and Related Agencies Appropriations Act, 2017",
+                      "percent_plus": 0.52,
+                      "number": 134,
+                      "missing_data": false,
+                      "margin": 0.0833333,
+                      "link": "https://www.govtrack.us/congress/votes/114-2016/s134",
+                      "key": "-",
+                      "id": 118690,
+                      "created": "2016-07-14T13:59:00",
+                      "congress": 114,
+                      "chamber_label": "Senate",
+                      "chamber": "senate",
+                      "category_label": "Cloture",
+                      "category": "cloture"
+                  },
+              ]
+
+## Group Legislation
+
+Resources related congressional bills and resolutions.
+
+## Legislation [/api/bills/{chamber}]

@@ -1,0 +1,12 @@
+{
+  "name": "kratos_api",
+  "version": "1.0.0",
+  "author": "Walter Beller-Morales",
+  "license": "None",
+  "scripts": {
+    "doc": "node_modules/.bin/aglio --theme-variables flatly -i api_blueprint.apib -o docs/api.html"
+  },
+  "devDependencies": {
+    "aglio": "^2.2.1"
+  }
+}
