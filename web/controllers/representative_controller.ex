@@ -7,6 +7,8 @@ defmodule KratosApi.RepresentativeController do
     |> Enum.map(fn(x) -> Map.merge(x["option"], x["vote"]) end)
     |> Enum.filter(fn(x) -> x["category"] != "cloture" end)
     |> Enum.filter(fn(x) -> x["category"] != "procedural" end)
+    |> Enum.map( fn(x) -> Map.put(x, "question_title", List.last(Regex.split(~r/: /, x["question"])) ) end)
+    |> Enum.map( fn(x) -> Map.put(x, "question_code", List.first(Regex.split(~r/: /, x["question"])) ) end)
     json conn, voting_record
   end
 
