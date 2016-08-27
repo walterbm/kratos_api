@@ -94,7 +94,7 @@ Find information on congressional district and representatives.
                 }
             ]
 
-## Group Representative
+## Group Representatives
 
 Information related congressional representatives.
 
@@ -142,8 +142,169 @@ Information related congressional representatives.
                 },
             ]
 
-## Group Legislation
+## Group Bills
 
-PENDING. Resources related congressional bills & resolutions.
+Resources related congressional bills & resolutions.
 
-## Legislation [/api/bills/{chamber}]
+## Bill [/api/bills/{id}]
+
+### Get Detailed Bill Information [GET]
+
++ Parameters
+    + id: `336967` (number, required) - bill's Govtrack ID.
+
++ Response 200 (application/json)
+
+        {
+          "committees": [
+            {
+              "url": "http://judiciary.senate.gov/",
+              "obsolete": false,
+              "name": "Senate Committee on the Judiciary",
+              "jurisdiction_link": null,
+              "jurisdiction": null,
+              "id": 2650,
+              "committee_type_label": "Senate",
+              "committee_type": "senate",
+              "committee": null,
+              "code": "SSJU",
+              "abbrev": "Judiciary"
+            }
+          ],
+          "link": "https://www.govtrack.us/congress/bills/114/s524",
+          "cosponsors": [
+            {
+              "youtubeid": "lamaralexander",
+              "twitterid": "SenAlexander",
+              "sortname": "Alexander, Lamar (Sen.) [R-TN]",
+              "pvsid": "15691",
+              "osid": "N00009888",
+              "nickname": "",
+              "namemod": "",
+              "name": "Sen. Lamar Alexander [R-TN]",
+              "middlename": "",
+              "link": "https://www.govtrack.us/congress/members/lamar_alexander/300002",
+              "lastname": "Alexander",
+              "id": 300002,
+              "gender_label": "Male",
+              "gender": "male",
+              "firstname": "Lamar",
+              "cspanid": 5,
+              "birthday": "1940-07-03",
+              "bioguideid": "A000360"
+            }
+          ],
+          "title_without_number": "Comprehensive Addiction and Recovery Act of 2016",
+          "is_current": true,
+          "sponsor_role": {
+            "website": "http://www.whitehouse.senate.gov",
+            "title_long": "Senator",
+            "title": "Sen.",
+            "state": "RI",
+            "startdate": "2013-01-03",
+            "senator_rank_label": "Junior",
+            "senator_rank": "junior",
+            "senator_class_label": "Class 1",
+            "senator_class": "class1",
+            "role_type_label": "Senator",
+            "role_type": "senator",
+            "phone": "202-224-2921",
+            "person": 412247,
+            "party": "Democrat",
+            "leadership_title": null,
+            "id": 42937,
+            "extra": {
+              "rss_url": "http://www.whitehouse.senate.gov/rss/feeds/?type=all&amp;cachebuster=1",
+              "office": "530 Hart Senate Office Building",
+              "fax": "202-228-6362",
+              "contact_form": "http://www.whitehouse.senate.gov/contact",
+              "address": "530 Hart Senate Office Building Washington DC 20510"
+            },
+            "enddate": "2019-01-03",
+            "district": null,
+            "description": "Junior Senator from Rhode Island",
+            "current": true,
+            "congress_numbers": [
+              113,
+              114,
+              115
+            ],
+            "caucus": null
+          },
+          "lock_title": false,
+          "titles": [
+            [
+              "official",
+              "amended by house",
+              "To authorize the Attorney General and Secretary of Health and Human Services to award grants to address the national epidemics of prescription opioid abuse and heroin use, and to provide for the establishment of an inter-agency task force to review, modify, and update best practices for pain management and prescribing pain medication, and for other purposes."
+            ],
+            [
+              "display",
+              null,
+              "Comprehensive Addiction and Recovery Act of 2016"
+            ]
+          ],
+          "senate_floor_schedule_postdate": null,
+          "sliplawnum": 198,
+          "bill_type": "senate_bill",
+          "docs_house_gov_postdate": null,
+          "noun": "bill",
+          "current_status_date": "2016-07-22",
+          "source_link": null,
+          "current_status": "enacted_signed",
+          "related_bills": [
+            {
+              "relation": "identical",
+              "bill": 336943
+            }
+          ],
+          "introduced_date": "2015-02-12",
+          "major_actions": [
+            [
+              "datetime.datetime(2016, 7, 22, 0, 0)",
+              28,
+              "Signed by President.",
+              "<signed datetime=\"2016-07-22\" state=\"ENACTED:SIGNED\">\n      <text>Signed by President.</text>\n    </signed>\n    "
+            ]
+          ],
+          "congress": 114,
+          "sponsor": {
+            "youtubeid": "SenatorWhitehouse",
+            "twitterid": "SenWhitehouse",
+            "sortname": "Whitehouse, Sheldon (Sen.) [D-RI]",
+            "pvsid": "2572",
+            "osid": "N00027533",
+            "nickname": "",
+            "namemod": "",
+            "name": "Sen. Sheldon Whitehouse [D-RI]",
+            "middlename": "",
+            "link": "https://www.govtrack.us/congress/members/sheldon_whitehouse/412247",
+            "lastname": "Whitehouse",
+            "id": 412247,
+            "gender_label": "Male",
+            "gender": "male",
+            "firstname": "Sheldon",
+            "cspanid": 92235,
+            "birthday": "1955-10-20",
+            "bioguideid": "W000802"
+          },
+          "id": 336967,
+          "terms": [
+            {
+              "term_type_label": "New",
+              "term_type": "new",
+              "name": "Drug therapy",
+              "id": 6878
+            }
+          ],
+          "bill_type_label": "S.",
+          "bill_resolution_type": "bill",
+          "display_number": "S. 524",
+          "title": "S. 524: Comprehensive Addiction and Recovery Act of 2016",
+          "sliplawpubpriv": "PUB",
+          "current_status_label": "Enacted — Signed by the President",
+          "is_alive": false,
+          "number": 524,
+          "source": "thomas-congproj",
+          "current_status_description": "This bill was enacted after being signed by the President on July 22, 2016."
+        }
