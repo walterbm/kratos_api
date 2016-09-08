@@ -1,6 +1,8 @@
 defmodule KratosApi.User do
   use KratosApi.Web, :model
 
+  @derive {Poison.Encoder, except: [:__meta__], only: [:id, :first_name, :last_name, :phone]}
+
   schema "users" do
     field :first_name, :string
     field :last_name, :string
