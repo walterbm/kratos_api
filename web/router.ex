@@ -11,6 +11,8 @@ defmodule KratosApi.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.LoadResource
   end
 
   scope "/", KratosApi do
@@ -30,6 +32,13 @@ defmodule KratosApi.Router do
     get "/representatives/:id/votes", RepresentativeController, :show
 
     get "/bills/:id", BillController, :show
+
+    post "/registrations", RegistrationController, :create
+
+    post "/sessions", SessionController, :create
+    delete "/sessions", SessionController, :delete
+
+    get "/me", CurrentUserController, :show
   end
 
 end
