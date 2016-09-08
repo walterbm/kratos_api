@@ -29,6 +29,7 @@ defmodule KratosApi.Mixfile do
         :postgrex,
         :httpotion,
         :govtrack,
+        :comeonin,
         :exrm,
         :edeliver
       ]
@@ -54,6 +55,8 @@ defmodule KratosApi.Mixfile do
       {:cowboy, "~> 1.0"},
       {:govtrack, "~> 0.5.0"},
       {:httpotion, "~> 3.0.0"},
+      {:guardian, "~> 0.12.0"},
+      {:comeonin, "~> 2.5"},
       {:exrm, "~> 1.0.8"},
       {:edeliver, "~> 1.3.0"}
     ]
