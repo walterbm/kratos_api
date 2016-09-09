@@ -1,6 +1,8 @@
 defmodule KratosApi.Router do
   use KratosApi.Web, :router
 
+  require Guardian
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
