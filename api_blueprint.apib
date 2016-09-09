@@ -60,6 +60,37 @@ Register and modify user's information.
               "token": "eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"
             }
 
+## Login [/api/login]
+
+Login and existing user and start a session.
+
+### Login & Create a New Session [POST]
+
++ Request (application/json)
+
+    + Attributes(object)
+
+        + session
+            + phone: `1234567890` (number, required)
+            + password: `password` (string, required)
+
++ Response 200 (application/json)
+
+            {
+              "user": {
+                "zip": 11211,
+                "state": "NY",
+                "phone": 1234567890,
+                "last_name": "Andre",
+                "id": 4,
+                "first_name": "Eric",
+                "district": 7,
+                "city": "Brooklyn",
+                "address": "700 Ranch"
+              },
+              "token": "eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"
+            }
+
 ## Me [/api/me]
 
 Get information on the current user based on the session.
