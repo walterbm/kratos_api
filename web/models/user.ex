@@ -23,7 +23,7 @@ defmodule KratosApi.User do
   end
 
   @required_fields ~w(first_name last_name password phone)
-  @optional_fields ~w(encrypted_password address city zip district)
+  @optional_fields ~w(encrypted_password address city zip state district)
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
