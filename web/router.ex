@@ -34,8 +34,7 @@ defmodule KratosApi.Router do
 
     post "/registrations", RegistrationController, :create
 
-    post "/sessions", SessionController, :create
-    delete "/sessions", SessionController, :delete
+    post "/login", SessionController, :create
 
     get "/me", CurrentUserController, :show
   end
