@@ -19,21 +19,93 @@ This resource does not have any attributes. Instead it offers a short welcome me
             "Welcome to the Kratos API!"
         }
 
-## Group Districts
+## Group User
 
-Resources related congressional districts.
+Resources related users, on-boarding, and registration.
 
-## Show District [/api/districts]
+## Register [/api/registrations]
 
-Find information on congressional district and representatives.
+Register and modify user's information.
 
-### Find Congressional District [POST]
+### Create A New User Registration [POST]
 
 + Request (application/json)
 
     + Attributes(object)
 
-        + address: 1 Infinite Loop. Cupertino, CA 95014 (string, required)
+        + user
+            + first_name: `Eric` (string, required)
+            + last_name: `Andre` (string, required)
+            + phone: `1234567890` (number, required)
+            + password: `password` (string, required)
+            + address: `700 Ranch` (string)
+            + city: `Brooklyn` (string)
+            + state: `NY` (string)
+            + zip: `11211` (number)
+
++ Response 200 (application/json)
+
+            {
+              "user": {
+                "zip": 11211,
+                "state": "NY",
+                "phone": 1234567890,
+                "last_name": "Andre",
+                "id": 4,
+                "first_name": "Eric",
+                "district": 7,
+                "city": "Brooklyn",
+                "address": "700 Ranch"
+              },
+              "token": "eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"
+            }
+
+## Me [/api/me]
+
+Get information on the current user based on the session.
+
+### Current User information [GET]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+            {
+              "zip": 11211,
+              "state": "NY",
+              "phone": 1234567890,
+              "last_name": "Andre",
+              "id": 4,
+              "first_name": "Eric",
+              "district": 7,
+              "city": "Brooklyn",
+              "address": "700 Ranch"
+            }
+
+
+
+## Group Districts
+
+Resources related congressional districts.
+
+## Show District [/api/districts/{state}/{id}]
+
+Find information and representatives for a congressional district.
+
+### Show Congressional District [GET]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+
+    + state: `NY` (string, required) - state abbreviation.
+    + id: `7` (number, required) - number for the congressional district.
 
 + Response 200 (application/json)
 
@@ -102,6 +174,11 @@ Information related congressional representatives.
 
 ### Get Voting Record [GET]
 
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
 + Parameters
     + id: `412223` (number, required) - representative's Govtrack ID.
 
@@ -149,6 +226,11 @@ Resources related congressional bills & resolutions.
 ## Bill [/api/bills/{id}]
 
 ### Get Detailed Bill Information [GET]
+
++ Request
+    + Headers
+
+            Authorization: Bearer <token>
 
 + Parameters
     + id: `336967` (number, required) - bill's Govtrack ID.
