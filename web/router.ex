@@ -11,7 +11,7 @@ defmodule KratosApi.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
     plug Guardian.Plug.LoadResource
   end
 
@@ -26,7 +26,6 @@ defmodule KratosApi.Router do
 
     get "/", RootController, :index
 
-    post "/districts", DistrictController, :post
     get "/districts/:state/:id", DistrictController, :show
 
     get "/representatives/:id/votes", RepresentativeController, :show
