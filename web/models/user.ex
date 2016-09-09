@@ -1,25 +1,36 @@
 defmodule KratosApi.User do
   use KratosApi.Web, :model
 
-  @derive {Poison.Encoder, except: [:__meta__], only: [:id, :first_name, :last_name, :phone]}
+  @derive {
+    Poison.Encoder,
+    except: [:__meta__],
+    only: [:id, :first_name, :last_name, :phone, :address, :city, :zip, :state, :district]
+  }
 
   schema "users" do
     field :first_name, :string
     field :last_name, :string
-    field :phone, :string
+    field :phone, :integer
+    field :address, :string
+    field :city, :string
+    field :state, :string
+    field :zip, :integer
+    field :district, :integer
     field :encrypted_password, :string
     field :password, :string, virtual: true
 
     timestamps()
   end
 
+  @required_fields ~w(first_name last_name password phone)
+  @optional_fields ~w(encrypted_password address city zip district)
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, ~w(first_name last_name password phone), ~w(encrypted_password))
-    |> validate_format(:email, ~r/[\d\W]/)
+    |> cast(params, @required_fields, @optional_fields)
     |> validate_length(:password, min: 5)
     |> validate_confirmation(:password, message: "Password does not match")
     |> unique_constraint(:phone, message: "Phone number is already taken")
