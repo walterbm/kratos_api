@@ -1,6 +1,8 @@
 defmodule KratosApi.DistrictController do
   use KratosApi.Web, :controller
 
+  plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
+
   def show(conn, %{"state" => state, "id" => id}) do
     representatives =
       Govtrack.roles([current: true, state: state]).body["objects"]
