@@ -6,11 +6,11 @@ defmodule KratosApi.RepresentativeController do
   def show(conn, %{"id" => id}) do
     voting_record =
     Govtrack.vote_voters([person: id, order_by: "-created", limit: 100]).body["objects"]
-    |> Enum.map(fn(x) -> Map.merge(x["option"], x["vote"]) end)
-    |> Enum.filter(fn(x) -> x["category"] != "cloture" end)
-    |> Enum.filter(fn(x) -> x["category"] != "procedural" end)
-    |> Enum.map( fn(x) -> Map.put(x, "question_title", List.last(Regex.split(~r/: /, x["question"])) ) end)
-    |> Enum.map( fn(x) -> Map.put(x, "question_code", List.first(Regex.split(~r/: /, x["question"])) ) end)
+    |> Enum.map(&(Map.merge(&1["option"], &1["vote"])))
+    |> Enum.filter(&(&1["category"] != "cloture"))
+    |> Enum.filter(&(&1["category"] != "procedural"))
+    |> Enum.map( &(Map.put(&1, "question_title", List.last(Regex.split(~r/: /, &1["question"])) )))
+    |> Enum.map( &(Map.put(&1, "question_code", List.first(Regex.split(~r/: /, &1["question"])) )))
     json conn, voting_record
   end
 
