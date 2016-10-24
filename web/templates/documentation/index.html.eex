@@ -235,8 +235,10 @@
     {
       "<span class="hljs-attribute">youtubeid</span>": <span class="hljs-value"><span class="hljs-string">"lamaralexander"</span></span>,
       "<span class="hljs-attribute">twitterid</span>": <span class="hljs-value"><span class="hljs-string">"SenAlexander"</span></span>,
+      "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"TN"</span></span>,
       "<span class="hljs-attribute">sortname</span>": <span class="hljs-value"><span class="hljs-string">"Alexander, Lamar (Sen.) [R-TN]"</span></span>,
       "<span class="hljs-attribute">pvsid</span>": <span class="hljs-value"><span class="hljs-string">"15691"</span></span>,
+      "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"R"</span></span>,
       "<span class="hljs-attribute">osid</span>": <span class="hljs-value"><span class="hljs-string">"N00009888"</span></span>,
       "<span class="hljs-attribute">nickname</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
       "<span class="hljs-attribute">namemod</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
@@ -244,6 +246,7 @@
       "<span class="hljs-attribute">middlename</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
       "<span class="hljs-attribute">link</span>": <span class="hljs-value"><span class="hljs-string">"https://www.govtrack.us/congress/members/lamar_alexander/300002"</span></span>,
       "<span class="hljs-attribute">lastname</span>": <span class="hljs-value"><span class="hljs-string">"Alexander"</span></span>,
+      "<span class="hljs-attribute">image</span>": <span class="hljs-value"><span class="hljs-string">"https://theunitedstates.io/images/congress/225x275/A000360.jpg"</span></span>,
       "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">300002</span></span>,
       "<span class="hljs-attribute">gender_label</span>": <span class="hljs-value"><span class="hljs-string">"Male"</span></span>,
       "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"male"</span></span>,
@@ -256,7 +259,7 @@
   "<span class="hljs-attribute">title_without_number</span>": <span class="hljs-value"><span class="hljs-string">"Comprehensive Addiction and Recovery Act of 2016"</span></span>,
   "<span class="hljs-attribute">is_current</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
   "<span class="hljs-attribute">sponsor_role</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">website</span>": <span class="hljs-value"><span class="hljs-string">"http://www.whitehouse.senate.gov"</span></span>,
+    "<span class="hljs-attribute">website</span>": <span class="hljs-value"><span class="hljs-string">"https://www.whitehouse.senate.gov"</span></span>,
     "<span class="hljs-attribute">title_long</span>": <span class="hljs-value"><span class="hljs-string">"Senator"</span></span>,
     "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Sen."</span></span>,
     "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"RI"</span></span>,
@@ -293,9 +296,19 @@
   "<span class="hljs-attribute">lock_title</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
   "<span class="hljs-attribute">titles</span>": <span class="hljs-value">[
     [
+      <span class="hljs-string">"short"</span>,
+      <span class="hljs-string">"introduced"</span>,
+      <span class="hljs-string">"Comprehensive Addiction and Recovery Act of 2015"</span>
+    ],
+    [
+      <span class="hljs-string">"short-partial"</span>,
+      <span class="hljs-string">"passed house"</span>,
+      <span class="hljs-string">"Co-Prescribing to Reduce Overdoses Act of 2016"</span>
+    ],
+    [
       <span class="hljs-string">"official"</span>,
-      <span class="hljs-string">"amended by house"</span>,
-      <span class="hljs-string">"To authorize the Attorney General and Secretary of Health and Human Services to award grants to address the national epidemics of prescription opioid abuse and heroin use, and to provide for the establishment of an inter-agency task force to review, modify, and update best practices for pain management and prescribing pain medication, and for other purposes."</span>
+      <span class="hljs-string">"enacted"</span>,
+      <span class="hljs-string">"An Act to authorize the Attorney General and Secretary of Health and Human Services to award grants to address the prescription opioid abuse and heroin use crisis, and for other purposes."</span>
     ],
     [
       <span class="hljs-string">"display"</span>,
@@ -315,10 +328,20 @@
     {
       "<span class="hljs-attribute">relation</span>": <span class="hljs-value"><span class="hljs-string">"identical"</span></span>,
       "<span class="hljs-attribute">bill</span>": <span class="hljs-value"><span class="hljs-number">336943</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">relation</span>": <span class="hljs-value"><span class="hljs-string">"procedurally-rel"</span></span>,
+      "<span class="hljs-attribute">bill</span>": <span class="hljs-value"><span class="hljs-number">345691</span>
     </span>}
   ]</span>,
   "<span class="hljs-attribute">introduced_date</span>": <span class="hljs-value"><span class="hljs-string">"2015-02-12"</span></span>,
   "<span class="hljs-attribute">major_actions</span>": <span class="hljs-value">[
+    [
+      <span class="hljs-string">"datetime.datetime(2015, 2, 12, 0, 0)"</span>,
+      <span class="hljs-number">2</span>,
+      <span class="hljs-string">"Read twice and referred to the Committee on the Judiciary."</span>,
+      <span class="hljs-string">"&lt;action datetime=\"2015-02-12\" state=\"REFERRED\"&gt;\n      &lt;text&gt;Read twice and referred to the Committee on the Judiciary.&lt;/text&gt;\n    &lt;/action&gt;\n    "</span>
+    ],
     [
       <span class="hljs-string">"datetime.datetime(2016, 7, 22, 0, 0)"</span>,
       <span class="hljs-number">28</span>,
@@ -330,8 +353,10 @@
   "<span class="hljs-attribute">sponsor</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">youtubeid</span>": <span class="hljs-value"><span class="hljs-string">"SenatorWhitehouse"</span></span>,
     "<span class="hljs-attribute">twitterid</span>": <span class="hljs-value"><span class="hljs-string">"SenWhitehouse"</span></span>,
+    "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"RI"</span></span>,
     "<span class="hljs-attribute">sortname</span>": <span class="hljs-value"><span class="hljs-string">"Whitehouse, Sheldon (Sen.) [D-RI]"</span></span>,
     "<span class="hljs-attribute">pvsid</span>": <span class="hljs-value"><span class="hljs-string">"2572"</span></span>,
+    "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"D"</span></span>,
     "<span class="hljs-attribute">osid</span>": <span class="hljs-value"><span class="hljs-string">"N00027533"</span></span>,
     "<span class="hljs-attribute">nickname</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
     "<span class="hljs-attribute">namemod</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
@@ -339,6 +364,7 @@
     "<span class="hljs-attribute">middlename</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
     "<span class="hljs-attribute">link</span>": <span class="hljs-value"><span class="hljs-string">"https://www.govtrack.us/congress/members/sheldon_whitehouse/412247"</span></span>,
     "<span class="hljs-attribute">lastname</span>": <span class="hljs-value"><span class="hljs-string">"Whitehouse"</span></span>,
+    "<span class="hljs-attribute">image</span>": <span class="hljs-value"><span class="hljs-string">"https://theunitedstates.io/images/congress/225x275/W000802.jpg"</span></span>,
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">412247</span></span>,
     "<span class="hljs-attribute">gender_label</span>": <span class="hljs-value"><span class="hljs-string">"Male"</span></span>,
     "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"male"</span></span>,
@@ -352,8 +378,14 @@
     {
       "<span class="hljs-attribute">term_type_label</span>": <span class="hljs-value"><span class="hljs-string">"New"</span></span>,
       "<span class="hljs-attribute">term_type</span>": <span class="hljs-value"><span class="hljs-string">"new"</span></span>,
-      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Drug therapy"</span></span>,
-      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">6878</span>
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Elementary and secondary education"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">5999</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">term_type_label</span>": <span class="hljs-value"><span class="hljs-string">"New"</span></span>,
+      "<span class="hljs-attribute">term_type</span>": <span class="hljs-value"><span class="hljs-string">"new"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Higher education"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">6002</span>
     </span>}
   ]</span>,
   "<span class="hljs-attribute">bill_type_label</span>": <span class="hljs-value"><span class="hljs-string">"S."</span></span>,
@@ -366,7 +398,7 @@
   "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-number">524</span></span>,
   "<span class="hljs-attribute">source</span>": <span class="hljs-value"><span class="hljs-string">"thomas-congproj"</span></span>,
   "<span class="hljs-attribute">current_status_description</span>": <span class="hljs-value"><span class="hljs-string">"This bill was enacted after being signed by the President on July 22, 2016."</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 27 Sep 2016</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 24 Oct 2016</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
