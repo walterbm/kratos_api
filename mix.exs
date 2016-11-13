@@ -54,7 +54,7 @@ defmodule KratosApi.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:govtrack, "~> 0.5.0"},
+      {:govtrack, "~> 0.7.2"},
       {:httpotion, "~> 3.0.0"},
       {:guardian, "~> 0.12.0"},
       {:comeonin, "~> 2.5"},
