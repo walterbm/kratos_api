@@ -57,4 +57,14 @@ defmodule KratosApi.Role do
     struct
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  def find_or_mark(role_id, caller, caller_id) do
+    role = KratosApi.Role |> KratosApi.Repo.get_by(govtrack_id: role_id)
+    if !role do
+      KratosApi.Repo.insert(%KratosApi.MissingData{type: "role", govtrack_id: role_id, caller: caller, caller_id: caller_id})
+      nil
+    else
+      role
+    end
+  end
 end
