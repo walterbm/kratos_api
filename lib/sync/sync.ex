@@ -36,6 +36,11 @@ defmodule KratosApi.Sync.Role do
     response["objects"] |> Enum.map(&save/1)
   end
 
+  def sync(id) do
+    response = Govtrack.role([current: true, id: id])
+    save(response["objects"])
+  end
+
   def save(data) do
     params = prepare(data)
     changeset = Role.changeset(%Role{}, params) |> add_associations(data)
@@ -102,6 +107,11 @@ defmodule KratosApi.Sync.Bill do
     response["objects"] |> Enum.map(&save/1)
   end
 
+  def sync(id) do
+    response = Govtrack.bill([id: id])
+    save(response["objects"])
+  end
+
   def save(data) do
     params = prepare(data)
     changeset = Bill.changeset(%Bill{}, params) |> add_associations(data)
@@ -142,10 +152,10 @@ defmodule KratosApi.Sync.Bill do
 
   def add_associations(changeset, data) do
     congress_number = KratosApi.CongressNumber.find_or_create(data["congress"])
-    sponsor = KratosApi.Role.find_or_mark(data["sponsor"]["id"], "bill", data["id"])
+    sponsor = KratosApi.Sync.Role.sync(data["sponsor"]["id"])
     committees = if data["committees"], do: Enum.map(data["committees"], &(KratosApi.Committee.find_or_create(&1)))
     terms = if data["terms"], do: Enum.map(data["terms"], &(KratosApi.Term.find_or_create(&1)))
-    cosponsors = if data["cosponsors"], do: Enum.map(data["cosponsors"],&(KratosApi.Role.find_or_mark(&1["id"], "bill", data["id"])))
+    cosponsors = if data["cosponsors"], do: Enum.map(data["cosponsors"],&(KratosApi.Sync.Role.sync(&1["id"])))
 
     changeset
       |> SyncHelpers.apply_assoc(:congress_number, congress_number)
@@ -163,6 +173,11 @@ defmodule KratosApi.Sync.Vote do
   def sync do
     response = Govtrack.votes([limit: 1])
     response["objects"] |> Enum.map(&save/1)
+  end
+
+  def sync(id) do
+    response = Govtrack.vote([id: id])
+    save(response["objects"])
   end
 
   def save(data) do
@@ -201,7 +216,7 @@ defmodule KratosApi.Sync.Vote do
 
   def add_associations(changeset, data) do
     congress_number = KratosApi.CongressNumber.find_or_create(data["congress"])
-    related_bill = KratosApi.Bill.find_or_mark(data["related_bill"]["id"], "vote", data["id"])
+    related_bill = KratosApi.Sync.Bill.sync(data["related_bill"]["id"])
 
     changeset
       |> SyncHelpers.apply_assoc(:congress_number, congress_number)
@@ -216,6 +231,11 @@ defmodule KratosApi.Sync.Tally do
   def sync do
     response = Govtrack.vote_voters([limit: 1])
     response["objects"] |> Enum.map(&save/1)
+  end
+
+  def sync(id) do
+    response = Govtrack.vote_voter([id: id])
+    save(response["objects"])
   end
 
   def save(data) do
@@ -238,7 +258,7 @@ defmodule KratosApi.Sync.Tally do
 
   def add_associations(changeset, data) do
     person = KratosApi.Role.find_or_create(Map.merge(data["person_role"],%{"person" => data["person"]}))
-    vote = KratosApi.Vote.find_or_mark(data["vote"]["id"], "tally", data["id"])
+    vote = KratosApi.Sync.Vote.sync(data["vote"]["id"])
 
     changeset
       |> SyncHelpers.apply_assoc(:person, person)
