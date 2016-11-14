@@ -45,5 +45,7 @@ defmodule KratosApi.Repo.Migrations.CreateRole do
       timestamps()
     end
 
+    create index(:roles, [:govtrack_id], unique: true)
+
   end
 end

@@ -17,6 +17,7 @@ defmodule KratosApi.Repo.Migrations.CreateTally do
     end
     create index(:tallies, [:person_id])
     create index(:tallies, [:vote_id])
-
+    create index(:tallies, [:govtrack_id], unique: true)
+    
   end
 end
