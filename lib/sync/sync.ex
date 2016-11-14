@@ -1,34 +1,51 @@
+defmodule KratosApi.SyncHelpers do
+
+  def apply_assoc(changeset, _, nil), do: changeset
+  def apply_assoc(changeset, field, data), do: Ecto.Changeset.put_assoc(changeset, field, data)
+
+  def convert_date(date_as_string), do: convert_date_or_datetime(date_as_string, Date)
+
+  def convert_datetime(date_as_string), do: convert_date_or_datetime(date_as_string, NaiveDateTime)
+
+  defp convert_date_or_datetime(date_as_string, date_module) do
+    unless is_nil(date_as_string) do
+      case date_module.from_iso8601(date_as_string) do
+        {:ok, date} -> date
+        {:error, _} -> nil
+      end
+    end
+  end
+
+  def save(changeset) do
+    case KratosApi.Repo.insert(changeset) do
+      {:ok, record} ->
+        record
+      {:error, changeset} ->
+        changeset.errors
+    end
+  end
+
+end
+
 defmodule KratosApi.Sync.Role do
   alias KratosApi.Role
+  alias KratosApi.SyncHelpers
 
   def sync do
-    response = Govtrack.roles([current: true, limit: 10])
-
+    response = Govtrack.roles([current: true, limit: 1])
     response["objects"] |> Enum.map(&save/1)
   end
 
   def save(data) do
     params = prepare(data)
     changeset = Role.changeset(%Role{}, params) |> add_associations(data)
-
-    case KratosApi.Repo.insert(changeset) do
-      {:ok, role} ->
-        role
-      {:error, changeset} ->
-        changeset.errors
-    end
-
+    SyncHelpers.save(changeset)
   end
 
   def prepare (data) do
-
-    {:ok, enddate} =  Date.from_iso8601(data["enddate"])
-    {:ok, birthday} =  Date.from_iso8601(data["person"]["birthday"])
-    {:ok, startdate} =  Date.from_iso8601(data["startdate"])
-
     %{
       current: data["current"],
-      enddate: enddate,
+      enddate: SyncHelpers.convert_date(data["enddate"]),
       description: data["description"],
       govtrack_id: data["person"]["id"],
       caucus: data["caucus"],
@@ -37,7 +54,7 @@ defmodule KratosApi.Sync.Role do
       leadership_title: data["leadership_title"],
       party: data["party"],
       bioguideid: data["person"]["bioguideid"],
-      birthday: birthday,
+      birthday: SyncHelpers.convert_date(data["person"]["birthday"]),
       cspanid: data["person"]["cspanid"],
       firstname: data["person"]["firstname"],
       gender: data["person"]["gender"],
@@ -60,7 +77,7 @@ defmodule KratosApi.Sync.Role do
       senator_class_label: data["senator_class_label"],
       senator_rank: data["senator_rank"],
       senator_rank_label: data["senator_rank_label"],
-      startdate: startdate,
+      startdate: SyncHelpers.convert_date(data["startdate"]),
       state: data["state"],
       title: data["title"],
       title_long: data["title_long"],
@@ -71,40 +88,24 @@ defmodule KratosApi.Sync.Role do
   def add_associations(changeset, data) do
     congress_numbers = Enum.map(data["congress_numbers"], &(KratosApi.CongressNumber.find_or_create(&1)))
 
-    changeset |> Ecto.Changeset.put_assoc(:congress_numbers, congress_numbers)
+    changeset
+      |> SyncHelpers.apply_assoc(:congress_numbers, congress_numbers)
   end
-
 end
 
 defmodule KratosApi.Sync.Bill do
   alias KratosApi.Bill
+  alias KratosApi.SyncHelpers
 
   def sync do
     response = Govtrack.bills([limit: 1])
-
     response["objects"] |> Enum.map(&save/1)
   end
 
   def save(data) do
     params = prepare(data)
     changeset = Bill.changeset(%Bill{}, params) |> add_associations(data)
-
-    case KratosApi.Repo.insert(changeset) do
-      {:ok, bill} ->
-        bill
-      {:error, changeset} ->
-        changeset.errors
-    end
-
-  end
-
-  def convert_date(date_as_string) do
-    unless is_nil(date_as_string) do
-      case Date.from_iso8601(date_as_string) do
-        {:ok, date} -> date
-        {:error, _} -> nil
-      end
-    end
+    SyncHelpers.save(changeset)
   end
 
   def prepare(data) do
@@ -114,15 +115,15 @@ defmodule KratosApi.Sync.Bill do
       title_without_number: data["title_without_number"],
       is_current: data["is_current"],
       lock_title: data["lock_title"],
-      senate_floor_schedule_postdate: convert_date(data["senate_floor_schedule_postdate"]),
+      senate_floor_schedule_postdate: SyncHelpers.convert_date(data["senate_floor_schedule_postdate"]),
       sliplawnum: data["sliplawnum"],
       bill_type: data["bill_type"],
-      docs_house_gov_postdate: convert_date(data["docs_house_gov_postdate"]),
+      docs_house_gov_postdate: SyncHelpers.convert_date(data["docs_house_gov_postdate"]),
       noun: data["noun"],
-      current_status_date: convert_date(data["current_status_date"]),
+      current_status_date: SyncHelpers.convert_date(data["current_status_date"]),
       source_link: data["source_link"],
       current_status: data["current_status"],
-      introduced_date: convert_date(data["introduced_date"]),
+      introduced_date: SyncHelpers.convert_date(data["introduced_date"]),
       bill_type_label: data["bill_type_label"],
       bill_resolution_type: data["bill_resolution_type"],
       display_number: data["display_number"],
@@ -142,54 +143,32 @@ defmodule KratosApi.Sync.Bill do
   def add_associations(changeset, data) do
     congress_number = KratosApi.CongressNumber.find_or_create(data["congress"])
     sponsor = KratosApi.Role.find_or_mark(data["sponsor"]["id"], "bill", data["id"])
-
     committees = if data["committees"], do: Enum.map(data["committees"], &(KratosApi.Committee.find_or_create(&1)))
     terms = if data["terms"], do: Enum.map(data["terms"], &(KratosApi.Term.find_or_create(&1)))
     cosponsors = if data["cosponsors"], do: Enum.map(data["cosponsors"],&(KratosApi.Role.find_or_mark(&1["id"], "bill", data["id"])))
 
     changeset
-      |> apply_assoc(:congress_number, congress_number)
-      |> apply_assoc(:sponsor, sponsor)
-      |> apply_assoc(:committees, committees)
-      |> apply_assoc(:cosponsors, cosponsors)
-      |> apply_assoc(:terms, terms)
-
+      |> SyncHelpers.apply_assoc(:congress_number, congress_number)
+      |> SyncHelpers.apply_assoc(:sponsor, sponsor)
+      |> SyncHelpers.apply_assoc(:committees, committees)
+      |> SyncHelpers.apply_assoc(:cosponsors, cosponsors)
+      |> SyncHelpers.apply_assoc(:terms, terms)
   end
-
-  defp apply_assoc(changeset, _, nil), do: changeset
-  defp apply_assoc(changeset, field, data), do: Ecto.Changeset.put_assoc(changeset, field, data)
-
 end
 
 defmodule KratosApi.Sync.Vote do
   alias KratosApi.Vote
+  alias KratosApi.SyncHelpers
 
   def sync do
     response = Govtrack.votes([limit: 1])
-
     response["objects"] |> Enum.map(&save/1)
   end
 
   def save(data) do
     params = prepare(data)
     changeset = Vote.changeset(%Vote{}, params) |> add_associations(data)
-
-    case KratosApi.Repo.insert(changeset) do
-      {:ok, vote} ->
-        vote
-      {:error, changeset} ->
-        changeset.errors
-    end
-
-  end
-
-  def convert_datetime(date_as_string) do
-    unless is_nil(date_as_string) do
-      case NaiveDateTime.from_iso8601(date_as_string) do
-        {:ok, date} -> date
-        {:error, _} -> nil
-      end
-    end
+    SyncHelpers.save(changeset)
   end
 
   def prepare(data) do
@@ -199,7 +178,7 @@ defmodule KratosApi.Sync.Vote do
       category_label: data["category_label"],
       chamber: data["chamber"],
       chamber_label: data["chamber_label"],
-      created: convert_datetime(data["created"]),
+      created: SyncHelpers.convert_datetime(data["created"]),
       link: data["link"],
       margin: data["margin"],
       missing_data: data["missing_data"],
@@ -225,50 +204,29 @@ defmodule KratosApi.Sync.Vote do
     related_bill = KratosApi.Bill.find_or_mark(data["related_bill"]["id"], "vote", data["id"])
 
     changeset
-      |> apply_assoc(:congress_number, congress_number)
-      |> apply_assoc(:related_bill, related_bill)
-
+      |> SyncHelpers.apply_assoc(:congress_number, congress_number)
+      |> SyncHelpers.apply_assoc(:related_bill, related_bill)
   end
-
-  defp apply_assoc(changeset, _, nil), do: changeset
-  defp apply_assoc(changeset, field, data), do: Ecto.Changeset.put_assoc(changeset, field, data)
-
 end
 
 defmodule KratosApi.Sync.Tally do
   alias KratosApi.Tally
+  alias KratosApi.SyncHelpers
 
   def sync do
     response = Govtrack.vote_voters([limit: 1])
-
     response["objects"] |> Enum.map(&save/1)
   end
 
   def save(data) do
     params = prepare(data)
     changeset = Tally.changeset(%Tally{}, params) |> add_associations(data)
-
-    case KratosApi.Repo.insert(changeset) do
-      {:ok, tally} ->
-        tally
-      {:error, changeset} ->
-        changeset.errors
-    end
-
-  end
-
-  def convert_datetime(date_as_string) do
-    unless is_nil(date_as_string) do
-      case NaiveDateTime.from_iso8601(date_as_string) do
-        {:ok, date} -> date
-        {:error, _} -> nil
-      end
-    end
+    SyncHelpers.save(changeset)
   end
 
   def prepare(data) do
     %{
-      created: convert_datetime(data["created"]),
+      created: SyncHelpers.convert_datetime(data["created"]),
       govtrack_id: data["id"],
       key: data["option"]["key"],
       value: data["option"]["value"],
@@ -283,12 +241,7 @@ defmodule KratosApi.Sync.Tally do
     vote = KratosApi.Vote.find_or_mark(data["vote"]["id"], "tally", data["id"])
 
     changeset
-      |> apply_assoc(:person, person)
-      |> apply_assoc(:vote, vote)
-
+      |> SyncHelpers.apply_assoc(:person, person)
+      |> SyncHelpers.apply_assoc(:vote, vote)
   end
-
-  defp apply_assoc(changeset, _, nil), do: changeset
-  defp apply_assoc(changeset, field, data), do: Ecto.Changeset.put_assoc(changeset, field, data)
-
 end
