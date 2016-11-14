@@ -79,8 +79,6 @@ end
 defmodule KratosApi.Sync.Bill do
   alias KratosApi.Bill
 
-  require IEx
-
   def sync do
     response = Govtrack.bills([limit: 1])
 
@@ -155,6 +153,138 @@ defmodule KratosApi.Sync.Bill do
       |> apply_assoc(:committees, committees)
       |> apply_assoc(:cosponsors, cosponsors)
       |> apply_assoc(:terms, terms)
+
+  end
+
+  defp apply_assoc(changeset, _, nil), do: changeset
+  defp apply_assoc(changeset, field, data), do: Ecto.Changeset.put_assoc(changeset, field, data)
+
+end
+
+defmodule KratosApi.Sync.Vote do
+  alias KratosApi.Vote
+
+  def sync do
+    response = Govtrack.votes([limit: 1])
+
+    response["objects"] |> Enum.map(&save/1)
+  end
+
+  def save(data) do
+    params = prepare(data)
+    changeset = Vote.changeset(%Vote{}, params) |> add_associations(data)
+
+    case KratosApi.Repo.insert(changeset) do
+      {:ok, vote} ->
+        vote
+      {:error, changeset} ->
+        changeset.errors
+    end
+
+  end
+
+  def convert_datetime(date_as_string) do
+    unless is_nil(date_as_string) do
+      case NaiveDateTime.from_iso8601(date_as_string) do
+        {:ok, date} -> date
+        {:error, _} -> nil
+      end
+    end
+  end
+
+  def prepare(data) do
+    %{
+      govtrack_id: data["id"],
+      category: data["category"],
+      category_label: data["category_label"],
+      chamber: data["chamber"],
+      chamber_label: data["chamber_label"],
+      created: convert_datetime(data["created"]),
+      link: data["link"],
+      margin: data["margin"],
+      missing_data: data["missing_data"],
+      number: data["number"],
+      percent_plus: data["percent_plus"],
+      question: data["question"],
+      question_details: data["question_details"],
+      related_amendment: data["related_amendment"],
+      required: data["required"],
+      result: data["result"],
+      session: data["session"],
+      source: data["source"],
+      source_label: data["source_label"],
+      total_minus: data["total_minus"],
+      total_other: data["total_other"],
+      total_plus: data["total_plus"],
+      vote_type: data["vote_type"],
+    }
+  end
+
+  def add_associations(changeset, data) do
+    congress_number = KratosApi.CongressNumber.find_or_create(data["congress"])
+    related_bill = KratosApi.Bill.find_or_mark(data["related_bill"]["id"], "vote", data["id"])
+
+    changeset
+      |> apply_assoc(:congress_number, congress_number)
+      |> apply_assoc(:related_bill, related_bill)
+
+  end
+
+  defp apply_assoc(changeset, _, nil), do: changeset
+  defp apply_assoc(changeset, field, data), do: Ecto.Changeset.put_assoc(changeset, field, data)
+
+end
+
+defmodule KratosApi.Sync.Tally do
+  alias KratosApi.Tally
+
+  def sync do
+    response = Govtrack.vote_voters([limit: 1])
+
+    response["objects"] |> Enum.map(&save/1)
+  end
+
+  def save(data) do
+    params = prepare(data)
+    changeset = Tally.changeset(%Tally{}, params) |> add_associations(data)
+
+    case KratosApi.Repo.insert(changeset) do
+      {:ok, tally} ->
+        tally
+      {:error, changeset} ->
+        changeset.errors
+    end
+
+  end
+
+  def convert_datetime(date_as_string) do
+    unless is_nil(date_as_string) do
+      case NaiveDateTime.from_iso8601(date_as_string) do
+        {:ok, date} -> date
+        {:error, _} -> nil
+      end
+    end
+  end
+
+  def prepare(data) do
+    %{
+      created: convert_datetime(data["created"]),
+      govtrack_id: data["id"],
+      key: data["option"]["key"],
+      value: data["option"]["value"],
+      voter_type: data["voter_type"],
+      voter_type_label: data["voter_type_label"],
+      voteview_extra_code: data["voteview_extra_code"],
+    }
+  end
+
+  def add_associations(changeset, data) do
+    person = KratosApi.Role.find_or_create(Map.merge(data["person_role"],%{"person" => data["person"]}))
+    vote = KratosApi.Vote.find_or_mark(data["vote"]["id"], "tally", data["id"])
+
+    changeset
+      |> apply_assoc(:person, person)
+      |> apply_assoc(:vote, vote)
 
   end
 

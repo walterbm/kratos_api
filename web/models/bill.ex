@@ -32,7 +32,7 @@ defmodule KratosApi.Bill do
     field :related_bills, {:array, :map}
 
     belongs_to :congress_number, KratosApi.CongressNumber, references: :number
-    belongs_to :sponsor, KratosApi.Role, foreign_key: :role_id
+    belongs_to :sponsor, KratosApi.Role, references: :role_id
 
     many_to_many :committees, KratosApi.Committee, join_through: "bill_committees"
     many_to_many :cosponsors, KratosApi.Role, join_through: "bill_cosponsors"
@@ -54,4 +54,15 @@ defmodule KratosApi.Bill do
     struct
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  def find_or_mark(bill_id, caller, caller_id) do
+    role = KratosApi.Bill |> KratosApi.Repo.get_by(govtrack_id: bill_id)
+    if !role do
+      KratosApi.Repo.insert(%KratosApi.MissingData{type: "bill", govtrack_id: bill_id, caller: caller, caller_id: caller_id})
+      nil
+    else
+      role
+    end
+  end
+
 end
