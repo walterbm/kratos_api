@@ -52,29 +52,12 @@ defmodule KratosApi.Sync.Role do
       current: data["current"],
       enddate: SyncHelpers.convert_date(data["enddate"]),
       description: data["description"],
-      govtrack_id: data["person"]["id"],
+      govtrack_id: data["id"],
       caucus: data["caucus"],
       district: data["district"],
       extra: data["extra"],
       leadership_title: data["leadership_title"],
       party: data["party"],
-      bioguideid: data["person"]["bioguideid"],
-      birthday: SyncHelpers.convert_date(data["person"]["birthday"]),
-      cspanid: data["person"]["cspanid"],
-      firstname: data["person"]["firstname"],
-      gender: data["person"]["gender"],
-      gender_label: data["person"]["gender_label"],
-      lastname: data["person"]["lastname"],
-      link: data["person"]["link"],
-      middlename: data["person"]["middlename"],
-      name: data["person"]["name"],
-      namemod: data["person"]["namemod"],
-      nickname: data["person"]["nickname"],
-      osid: data["person"]["osid"],
-      pvsid: data["person"]["pvsid"],
-      sortname: data["person"]["sortname"],
-      twitterid: data["person"]["twitterid"],
-      youtubeid: data["person"]["youtubeid"],
       phone: data["phone"],
       role_type: data["role_type"],
       role_type_label: data["role_type_label"],
@@ -92,9 +75,57 @@ defmodule KratosApi.Sync.Role do
 
   def add_associations(changeset, data) do
     congress_numbers = Enum.map(data["congress_numbers"], &(KratosApi.CongressNumber.find_or_create(&1)))
+    person = KratosApi.Person.find_or_create(data["person"])
+
+    # IEx.pry
 
     changeset
       |> SyncHelpers.apply_assoc(:congress_numbers, congress_numbers)
+      |> SyncHelpers.apply_assoc(:person, person)
+  end
+end
+
+defmodule KratosApi.Sync.Person do
+  alias KratosApi.Person
+  alias KratosApi.SyncHelpers
+
+  def sync do
+    response = Govtrack.persons([limit: 1])
+    response["objects"] |> Enum.map(&save/1)
+  end
+
+  def sync(id) do
+    response = Govtrack.persons([id: id])
+    save(response["objects"])
+  end
+
+  def save(data) do
+    params = prepare(data)
+    changeset = Person.changeset(%Person{}, params)
+    SyncHelpers.save(changeset)
+  end
+
+  def prepare (data) do
+    %{
+      govtrack_id: data["id"],
+      bioguideid: data["bioguideid"],
+      birthday: SyncHelpers.convert_date(data["birthday"]),
+      cspanid: data["cspanid"],
+      firstname: data["firstname"],
+      gender: data["gender"],
+      gender_label: data["gender_label"],
+      lastname: data["lastname"],
+      link: data["link"],
+      middlename: data["middlename"],
+      name: data["name"],
+      namemod: data["namemod"],
+      nickname: data["nickname"],
+      osid: data["osid"],
+      pvsid: data["pvsid"],
+      sortname: data["sortname"],
+      twitterid: data["twitterid"],
+      youtubeid: data["youtubeid"]
+    }
   end
 end
 
