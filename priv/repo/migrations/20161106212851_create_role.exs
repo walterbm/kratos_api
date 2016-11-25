@@ -25,6 +25,8 @@ defmodule KratosApi.Repo.Migrations.CreateRole do
       add :title_long, :string
       add :website, :string
 
+      add :person_id, references(:persons, on_delete: :nothing)
+
       timestamps()
     end
 

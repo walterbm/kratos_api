@@ -21,8 +21,9 @@ defmodule KratosApi.Person do
     field :twitterid, :string
     field :youtubeid, :string
 
-    many_to_many :roles, KratosApi.Role, join_through: "person_roles"
-    many_to_many :committeeassignments, KratosApi.Role, join_through: "person_committees", join_keys: [person_id: :id, committeeassignment_id: :committee_id]
+    has_many :roles, KratosApi.Roles
+
+    many_to_many :committeeassignments, KratosApi.Committee, join_through: "person_committees", join_keys: [person_id: :id, committeeassignment_id: :committee_id]
 
     timestamps()
   end

@@ -25,6 +25,8 @@ defmodule KratosApi.Role do
     field :title_long, :string
     field :website, :string
 
+    belongs_to :person, KratosApi.Person, references: :person_id
+
     many_to_many :congress_numbers, KratosApi.CongressNumber, join_through: "role_congress_numbers", join_keys: [role_id: :id, congress_number_id: :number]
 
     timestamps()
