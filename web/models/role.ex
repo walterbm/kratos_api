@@ -25,7 +25,7 @@ defmodule KratosApi.Role do
     field :title_long, :string
     field :website, :string
 
-    belongs_to :person, KratosApi.Person, references: :person_id
+    belongs_to :person, KratosApi.Person
 
     many_to_many :congress_numbers, KratosApi.CongressNumber, join_through: "role_congress_numbers", join_keys: [role_id: :id, congress_number_id: :number]
 
@@ -33,7 +33,9 @@ defmodule KratosApi.Role do
   end
 
   @required_fields ~w(govtrack_id)
-  @optional_fields ~w(current enddate description caucus district extra leadership_title party phone role_type role_type_label senator_class senator_class_label senator_rank senator_rank_label startdate state title title_long website)
+  @optional_fields ~w(current enddate description caucus district extra leadership_title party phone role_type
+    role_type_label senator_class senator_class_label senator_rank senator_rank_label startdate state title
+    title_long website)
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

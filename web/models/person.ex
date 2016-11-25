@@ -21,7 +21,7 @@ defmodule KratosApi.Person do
     field :twitterid, :string
     field :youtubeid, :string
 
-    has_many :roles, KratosApi.Roles
+    has_many :roles, KratosApi.Role
 
     many_to_many :committeeassignments, KratosApi.Committee, join_through: "person_committees", join_keys: [person_id: :id, committeeassignment_id: :committee_id]
 
@@ -29,7 +29,8 @@ defmodule KratosApi.Person do
   end
 
   @required_fields ~w(govtrack_id)
-  @optional_fields ~w( cspanid bioguideid birthday firstname gender gender_label lastname link middlename name namemod nickname osid pvsid sortname twitterid youtubeid)
+  @optional_fields ~w( cspanid bioguideid birthday firstname gender gender_label lastname link middlename
+    name namemod nickname osid pvsid sortname twitterid youtubeid)
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -37,5 +38,14 @@ defmodule KratosApi.Person do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @required_fields, @optional_fields)
+  end
+
+  def find_or_create(data) do
+    person = KratosApi.Repo.get_by(KratosApi.Person, govtrack_id: data["id"])
+    if !person do
+      KratosApi.Sync.Person.save(data)
+    else
+      person
+    end
   end
 end
