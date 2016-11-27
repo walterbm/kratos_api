@@ -9,6 +9,8 @@ defmodule KratosApi.CongressNumber do
     timestamps()
   end
 
+  def primary_key, do: elem(@primary_key, 0)
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
@@ -21,8 +23,8 @@ defmodule KratosApi.CongressNumber do
   def find_or_create(number) do
     congress_number = KratosApi.CongressNumber |> KratosApi.Repo.get(number)
     if !congress_number do
-      congress_number = %KratosApi.CongressNumber{number: number}
-      KratosApi.Repo.insert(congress_number)
+      {:ok, congress_number} = KratosApi.Repo.insert(%KratosApi.CongressNumber{number: number})
+      congress_number
     else
       congress_number
     end
