@@ -4,11 +4,14 @@ defmodule KratosApi.DistrictController do
   plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
   def show(conn, %{"state" => state, "id" => id}) do
-    representatives =
-      Govtrack.roles([current: true, state: state]).body["objects"]
-      |> Enum.filter(&(&1["district"] == String.to_integer(id) || &1["role_type"] == "senator"))
-      |> Enum.map(&(Map.put(&1, "image","#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{&1["person"]["bioguideid"]}.jpg")))
-    json conn, representatives
+
+    query = from r in KratosApi.Role,
+      where: r.state == ^String.upcase(state),
+      where: r.district == ^id or r.role_type ==  "senator",
+      preload: [:person, :congress_numbers]
+
+    representatives = KratosApi.Repo.all(query)
+    render conn, "roles.json", roles: representatives
   end
 
 end
