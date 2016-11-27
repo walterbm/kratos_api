@@ -40,7 +40,7 @@ defmodule KratosApi.Sync.Role do
   @govtrack_api Application.get_env(:kratos_api, :govtrack_api)
 
   def sync do
-    response = @govtrack_api.roles([current: true])
+    response = @govtrack_api.roles([current: true, limit: 6000])
     response["objects"] |> Enum.map(&save/1)
   end
 
