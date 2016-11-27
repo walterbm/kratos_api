@@ -130,7 +130,8 @@ defmodule KratosApi.Sync.Person do
       pvsid: data["pvsid"],
       sortname: data["sortname"],
       twitterid: data["twitterid"],
-      youtubeid: data["youtubeid"]
+      youtubeid: data["youtubeid"],
+      image_url: "#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{data["bioguideid"]}.jpg"
     }
   end
 end

@@ -20,6 +20,7 @@ defmodule KratosApi.Person do
     field :sortname, :string
     field :twitterid, :string
     field :youtubeid, :string
+    field :image_url, :string
 
     has_many :roles, KratosApi.Role
 
@@ -29,8 +30,8 @@ defmodule KratosApi.Person do
   end
 
   @required_fields ~w(govtrack_id)
-  @optional_fields ~w( cspanid bioguideid birthday firstname gender gender_label lastname link middlename
-    name namemod nickname osid pvsid sortname twitterid youtubeid)
+  @optional_fields ~w(cspanid bioguideid birthday firstname gender gender_label lastname link middlename
+    name namemod nickname osid pvsid sortname twitterid youtubeid image_url)
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

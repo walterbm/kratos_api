@@ -21,6 +21,7 @@ defmodule KratosApi.Repo.Migrations.CreatePerson do
       add :sortname, :string
       add :twitterid, :string
       add :youtubeid, :string
+      add :image_url, :string
 
       timestamps()
     end
