@@ -22,7 +22,8 @@ defmodule KratosApi.PersonTest do
     pvsid: "some content",
     sortname: "some content",
     twitterid: "some content",
-    youtubeid: "some content"
+    youtubeid: "some content",
+    image_url: "some content",
   }
   @invalid_attrs %{}
 
