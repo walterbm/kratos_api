@@ -17,11 +17,17 @@ defmodule KratosApi.SyncHelpers do
   end
 
   def save(changeset) do
-    case KratosApi.Repo.insert(changeset) do
-      {:ok, record} ->
-        record
-      {:error, changeset} ->
-        changeset.errors
+    result =
+      case KratosApi.Repo.get_by(changeset.data.__struct__, govtrack_id: changeset.changes.govtrack_id) do
+        nil  -> KratosApi.Repo.insert(changeset)
+        record ->
+          changes = changeset.data.__struct__.changeset(record, changeset.changes)
+          KratosApi.Repo.update(changes)
+      end
+
+    case result do
+      {:ok, record}       -> record
+      {:error, changeset} -> changeset.errors
     end
   end
 
@@ -31,13 +37,15 @@ defmodule KratosApi.Sync.Role do
   alias KratosApi.Role
   alias KratosApi.SyncHelpers
 
+  @govtrack_api Application.get_env(:kratos_api, :govtrack_api)
+
   def sync do
-    response = Govtrack.roles([current: true, limit: 1])
+    response = @govtrack_api.roles([current: true])
     response["objects"] |> Enum.map(&save/1)
   end
 
   def sync(id) do
-    response = Govtrack.role([current: true, id: id])
+    response = @govtrack_api.role([current: true, id: id])
     save(response["objects"])
   end
 
@@ -76,8 +84,6 @@ defmodule KratosApi.Sync.Role do
   def add_associations(changeset, data) do
     congress_numbers = Enum.map(data["congress_numbers"], &(KratosApi.CongressNumber.find_or_create(&1)))
     person = KratosApi.Person.find_or_create(data["person"])
-
-    # IEx.pry
 
     changeset
       |> SyncHelpers.apply_assoc(:congress_numbers, congress_numbers)
