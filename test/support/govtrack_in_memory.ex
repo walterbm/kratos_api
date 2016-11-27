@@ -39,8 +39,7 @@ defmodule KratosApi.Govtrack.InMemory do
             "nickname" => "",
             "osid" => "N00005195",
             "pvsid" => "418",
-            "sortname" => "Blunt,
-            Roy (Sen.) [R-MO]",
+            "sortname" => "Blunt, Roy (Sen.) [R-MO]",
             "twitterid" => "RoyBlunt",
             "youtubeid" => "SenatorBlunt"
           },
