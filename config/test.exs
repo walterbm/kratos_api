@@ -17,3 +17,15 @@ config :kratos_api, KratosApi.Repo,
   database: "kratos_api_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Environment Dependencies
+
+config :kratos_api, :govtrack_api, KratosApi.Govtrack.InMemory
+
+# Authentication
+config :guardian, Guardian,
+  issuer: "KratosApiTest",
+  ttl: { 1, :days },
+  verify_issuer: true,
+  secret_key: "testing123",
+  serializer: KratosApi.GuardianSerializer
