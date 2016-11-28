@@ -4,6 +4,10 @@
 
     $ mix phoenix.server
 
+## Tests
+
+    $ mix test
+
 ## Deploy
 Deployment uses edeliver.
 
