@@ -3,41 +3,39 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
 
   def change do
     create table(:bills) do
-      add :govtrack_id, :integer
-      add :link, :string
-      add :title_without_number, :string
-      add :is_current, :boolean, default: false, null: false
-      add :lock_title, :boolean, default: false, null: false
-      add :senate_floor_schedule_postdate, :date
-      add :sliplawnum, :integer
-      add :bill_type, :string
-      add :docs_house_gov_postdate, :date
-      add :noun, :string
-      add :current_status_date, :date
-      add :source_link, :string
-      add :current_status, :string
-      add :introduced_date, :date
-      add :bill_type_label, :string
-      add :bill_resolution_type,:string
-      add :display_number, :string
-      add :title, :string
-      add :sliplawpubpriv, :string
-      add :current_status_label, :string
-      add :is_alive, :boolean, default: false, null: false
-      add :number, :integer
-      add :source, :string
-      add :current_status_description, :string
-      add :titles, :map
-      add :major_actions, :map
+      add :actions, :map
+      add :amendments, :map
+      add :gpo_id, :string
+      add :type, :string
+      add :committee_history, :map
+      add :enacted_as, :string
+      add :active, :boolean
+      add :awaiting_signature, :boolean
+      add :enacted, :boolean
+      add :vetoed, :boolean
+      add :history, :map
+      add :introduced_at, :date
+      add :number, :string
+      add :official_title, :string
+      add :popular_title, :string
       add :related_bills, :map
+      add :short_title, :string
+      add :status, :string
+      add :status_at, :date
+      add :top_term, :string
+      add :summary_text, :text
+      add :summary_date, :datetime
+      add :titles, :map
+      add :gpo_data_updated_at, :datetime
+      add :pdf_url, :string
 
       add :congress_number_id, references(:congress_numbers, on_delete: :nothing, column: :number)
-      add :role_id, references(:roles, on_delete: :nothing)
+      add :sponsor_id, references(:roles, on_delete: :nothing)
 
       timestamps()
     end
 
-    create index(:bills, [:govtrack_id], unique: true)
+    create index(:bills, [:gpo_id], unique: true)
 
   end
 end
