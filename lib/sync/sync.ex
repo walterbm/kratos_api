@@ -96,12 +96,12 @@ defmodule KratosApi.Sync.Person do
   alias KratosApi.SyncHelpers
 
   def sync do
-    response = Govtrack.persons([limit: 1])
+    response = Govtrack.persons([limit: 6000])
     response["objects"] |> Enum.map(&save/1)
   end
 
   def sync(id) do
-    response = Govtrack.persons([id: id])
+    response = Govtrack.person([id: id])
     save(response["objects"])
   end
 
@@ -133,6 +133,50 @@ defmodule KratosApi.Sync.Person do
       youtubeid: data["youtubeid"],
       image_url: "#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{data["bioguideid"]}.jpg"
     }
+  end
+end
+
+defmodule KratosApi.Sync.Committee do
+  alias KratosApi.Committee
+  alias KratosApi.SyncHelpers
+
+  def sync do
+    response = Govtrack.committees([limit: 6000])
+    response["objects"] |> Enum.map(&save/1)
+  end
+
+  def sync(id) do
+    response = Govtrack.committee([id: id])
+    save(response["objects"])
+  end
+
+  def save(data) do
+    params = prepare(data)
+    changeset = Committee.changeset(%Committee{}, params)
+    SyncHelpers.save(changeset)
+  end
+
+  def prepare (data) do
+    %{
+      abbrev: data["abbrev"],
+      code: data["code"],
+      committee_type: data["committee_type"],
+      govtrack_id: data["id"],
+      jurisdiction: data["jurisdiction"],
+      jurisdiction_link: data["jurisdiction_link"],
+      name: data["name"],
+      obsolete: data["obsolete"],
+      url: data["url"],
+      committee_type: data["committee_type"],
+      committee_type_label: data["committee_type_label"],
+    }
+  end
+
+  def add_associations(changeset, data) do
+    parent = Committee.find_or_create(data["committee"])
+
+    changeset
+      |> SyncHelpers.apply_assoc(:parent, parent)
   end
 end
 
