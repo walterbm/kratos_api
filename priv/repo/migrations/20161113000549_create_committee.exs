@@ -9,7 +9,7 @@ defmodule KratosApi.Repo.Migrations.CreateCommittee do
       add :govtrack_id, :integer
       add :committee_type, :string
       add :committee_type_label, :string
-      add :jurisdiction, :string
+      add :jurisdiction, :text
       add :jurisdiction_link, :string
       add :obsolete, :boolean, default: false, null: false
       add :url, :string
