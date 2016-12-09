@@ -1,8 +1,8 @@
 defmodule KratosApi.Committee do
   use KratosApi.Web, :model
 
+  @primary_key {:code, :string, []}
   schema "committees" do
-    field :code, :string
     field :abbrev, :string
     field :name, :string
     field :govtrack_id, :integer
@@ -27,6 +27,15 @@ defmodule KratosApi.Committee do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @required_fields, @optional_fields)
+  end
+
+  def find_or_create(data) do
+    committee = KratosApi.Repo.get_by(KratosApi.Committee, govtrack_id: data["id"])
+    if !committee do
+      KratosApi.Sync.Committee.save(data)
+    else
+      committee
+    end
   end
 
 end
