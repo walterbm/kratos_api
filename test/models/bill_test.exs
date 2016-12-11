@@ -3,7 +3,7 @@ defmodule KratosApi.BillTest do
 
   alias KratosApi.Bill
 
-  @valid_attrs %{govtrack_id: 42}
+  @valid_attrs %{gpo_id: "42"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
