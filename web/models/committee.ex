@@ -1,8 +1,8 @@
 defmodule KratosApi.Committee do
   use KratosApi.Web, :model
 
-  @primary_key {:code, :string, []}
   schema "committees" do
+    field :code, :string
     field :abbrev, :string
     field :name, :string
     field :govtrack_id, :integer
@@ -13,7 +13,8 @@ defmodule KratosApi.Committee do
     field :obsolete, :boolean, default: false
     field :url, :string
 
-    belongs_to :parent, KratosApi.CongressNumber, foreign_key: :parent_code
+    belongs_to :parent, KratosApi.Committee, foreign_key: :parent_id
+    has_many :sub_committees, KratosApi.Committee, foreign_key: :parent_id
 
     timestamps()
   end
