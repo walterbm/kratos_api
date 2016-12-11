@@ -84,4 +84,27 @@ defmodule KratosApi.Govtrack.InMemory do
       "title_long" => "Senator", "website" => "http://www.blunt.senate.gov"}
   end
 
+  def committees(_) do
+    %{"meta" => %{"limit" => 1, "offset" => 0, "total_count" => 228},
+      "objects" => [%{"abbrev" => "", "code" => "SSFR09",
+         "committee" => %{"abbrev" => "ForRel", "code" => "SSFR",
+           "committee" => nil, "committee_type" => "senate",
+           "committee_type_label" => "Senate", "id" => 2627, "jurisdiction" => nil,
+           "jurisdiction_link" => nil,
+           "name" => "Senate Committee on Foreign Relations", "obsolete" => false,
+           "url" => "http://foreign.senate.gov/"}, "committee_type" => nil,
+         "id" => 2853, "jurisdiction" => nil, "jurisdiction_link" => nil,
+         "name" => "Africa and Global Health Policy", "obsolete" => false,
+         "url" => nil}]
+      }
+  end
+
+  def committee(_) do
+    %{"abbrev" => "ForRel", "code" => "SSFR", "committee" => nil,
+      "committee_type" => "senate", "committee_type_label" => "Senate",
+      "id" => 2627, "jurisdiction" => nil, "jurisdiction_link" => nil,
+      "name" => "Senate Committee on Foreign Relations", "obsolete" => false,
+      "url" => "http://foreign.senate.gov/"}
+  end
+
 end
