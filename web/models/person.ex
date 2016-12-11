@@ -24,7 +24,7 @@ defmodule KratosApi.Person do
 
     has_many :roles, KratosApi.Role
 
-    many_to_many :committeeassignments, KratosApi.Committee, join_through: "person_committees", join_keys: [person_id: :id, committeeassignment_id: :committee_id]
+    many_to_many :committee_assignments, KratosApi.Committee, join_through: "person_committees", join_keys: [person_id: :id, committeeassignment_id: :committee_id]
 
     timestamps()
   end
