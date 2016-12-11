@@ -2,8 +2,8 @@ defmodule KratosApi.Repo.Migrations.CreateCommittee do
   use Ecto.Migration
 
   def change do
-    create table(:committees, primary_key: false) do
-      add :code, :string, primary_key: true
+    create table(:committees) do
+      add :code, :string
       add :abbrev, :string
       add :name, :string
       add :govtrack_id, :integer
@@ -14,12 +14,13 @@ defmodule KratosApi.Repo.Migrations.CreateCommittee do
       add :obsolete, :boolean, default: false, null: false
       add :url, :string
 
-      add :parent_code, references(:committees, on_delete: :nothing, column: :code, type: :string)
+      add :parent_id, references(:committees, on_delete: :nothing)
 
       timestamps()
     end
 
     create index(:committees, [:govtrack_id], unique: true)
+    create index(:committees, [:code], unique: true)
 
   end
 end

@@ -19,7 +19,8 @@ defmodule KratosApi.SyncHelpers do
   def save(changeset) do
     result =
       case KratosApi.Repo.get_by(changeset.data.__struct__, govtrack_id: changeset.changes.govtrack_id) do
-        nil  -> KratosApi.Repo.insert(changeset)
+        nil  ->
+          KratosApi.Repo.insert(changeset)
         record ->
           changes = changeset.data.__struct__.changeset(record, changeset.changes)
           KratosApi.Repo.update(changes)
@@ -140,19 +141,21 @@ defmodule KratosApi.Sync.Committee do
   alias KratosApi.Committee
   alias KratosApi.SyncHelpers
 
+  @govtrack_api Application.get_env(:kratos_api, :govtrack_api)
+
   def sync do
-    response = Govtrack.committees([limit: 6000])
+    response = @govtrack_api.committees([limit: 6000])
     response["objects"] |> Enum.map(&save/1)
   end
 
   def sync(id) do
-    response = Govtrack.committee([id: id])
+    response = @govtrack_api.committee([id: id])
     save(response["objects"])
   end
 
   def save(data) do
     params = prepare(data)
-    changeset = Committee.changeset(%Committee{}, params)
+    changeset = Committee.changeset(%Committee{}, params) |> add_associations(data)
     SyncHelpers.save(changeset)
   end
 
@@ -173,7 +176,11 @@ defmodule KratosApi.Sync.Committee do
   end
 
   def add_associations(changeset, data) do
-    parent = Committee.find_or_create(data["committee"])
+    parent =
+      case data["committee"]["id"] do
+        nil -> nil
+        _ -> Committee.find_or_create(data["committee"])
+      end
 
     changeset
       |> SyncHelpers.apply_assoc(:parent, parent)
