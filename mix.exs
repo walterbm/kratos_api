@@ -32,7 +32,8 @@ defmodule KratosApi.Mixfile do
         :guardian,
         :comeonin,
         :exrm,
-        :edeliver
+        :edeliver,
+        :ex_aws
       ]
     ]
   end
@@ -58,6 +59,8 @@ defmodule KratosApi.Mixfile do
       {:httpotion, "~> 3.0.0"},
       {:guardian, "~> 0.12.0"},
       {:comeonin, "~> 2.5"},
+      {:ex_aws, "~> 1.0.0-rc.4"},
+      {:sweet_xml, "~> 0.6.2"},
       {:exrm, "~> 1.0.8"},
       {:edeliver, "~> 1.3.0"}
     ]
