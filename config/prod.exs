@@ -21,6 +21,7 @@ config :kratos_api, KratosApi.Endpoint,
 
 # Environment Dependencies
 config :kratos_api, :govtrack_api, Govtrack
+config :kratos_api, :aws_api, ExAws
 
 # Do not print debug messages in production
 config :logger, level: :info

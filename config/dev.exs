@@ -27,6 +27,7 @@ config :kratos_api, KratosApi.Endpoint,
 
 # Environment Dependencies
 config :kratos_api, :govtrack_api, Govtrack
+config :kratos_api, :aws_api, ExAws
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
