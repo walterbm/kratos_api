@@ -1,4 +1,4 @@
-defmodule KratosApi.CommitteSyncTest do
+defmodule KratosApi.CommitteeSyncTest do
   use KratosApi.ModelCase
   import Ecto.Query
 

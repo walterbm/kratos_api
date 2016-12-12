@@ -69,7 +69,7 @@ defmodule KratosApi.Govtrack.InMemory do
         "fax" => "202-224-8149", "office" => "260 Russell Senate Office Building",
         "rss_url" => "http://www.blunt.senate.gov/public/?a=rss.feed"}, "id" => 268,
       "leadership_title" => nil, "party" => "Republican",
-      "person" => %{"bioguideid" => "B000575", "birthday" => "1950-01-10",
+      "person" => %{"bioguideid" => "T000462", "birthday" => "1950-01-10",
         "cspanid" => 45465, "firstname" => "Roy", "gender" => "male",
         "gender_label" => "Male", "id" => 400034, "lastname" => "Blunt",
         "link" => "https://www.govtrack.us/congress/members/roy_blunt/400034",

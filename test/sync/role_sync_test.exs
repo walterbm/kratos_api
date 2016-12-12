@@ -15,6 +15,13 @@ defmodule KratosApi.RoleSyncTest do
     assert Enum.map(role.congress_numbers, fn congress -> congress.number end) == [112,113,114]
   end
 
+  test "syncing creates reverse relationship from Person to Role" do
+    KratosApi.Sync.Role.sync
+    person = KratosApi.Repo.one(from person in KratosApi.Person, preload: [:roles])
+    assert person
+    assert List.first(person.roles).description == "Junior Senator from Missouri"
+  end
+
   test "syncing a duplicate Role updates that role" do
     KratosApi.Sync.Role.sync
     KratosApi.Sync.Role.sync
