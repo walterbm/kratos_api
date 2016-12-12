@@ -1,9 +1,9 @@
-defmodule KratosApi.PersonCommittee do
+defmodule KratosApi.BillSubject do
   use KratosApi.Web, :model
 
-  schema "person_committees" do
-    belongs_to :person, KratosApi.Person
-    belongs_to :committee, KratosApi.Committee
+  schema "bill_subjects" do
+    belongs_to :bill, KratosApi.Bill
+    belongs_to :subjects, KratosApi.Subject
   end
 
   @doc """

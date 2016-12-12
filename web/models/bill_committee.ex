@@ -4,8 +4,6 @@ defmodule KratosApi.BillCommittee do
   schema "bill_committees" do
     belongs_to :bill, KratosApi.Bill
     belongs_to :committee, KratosApi.Committee
-
-    timestamps()
   end
 
   @doc """
