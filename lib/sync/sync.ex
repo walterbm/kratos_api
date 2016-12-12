@@ -32,6 +32,23 @@ defmodule KratosApi.SyncHelpers do
     end
   end
 
+  def save(changeset, kargs) do
+    result =
+      case KratosApi.Repo.get_by(changeset.data.__struct__, kargs) do
+        nil  ->
+          KratosApi.Repo.insert(changeset)
+        record ->
+          changes = changeset.data.__struct__.changeset(record, changeset.changes)
+          KratosApi.Repo.update(changes)
+      end
+
+    case result do
+      {:ok, record}       -> record
+      {:error, changeset} ->
+        changeset.errors
+    end
+  end
+
 end
 
 defmodule KratosApi.Sync.Role do
@@ -47,7 +64,7 @@ defmodule KratosApi.Sync.Role do
 
   def sync(id) do
     response = @govtrack_api.role([current: true, id: id])
-    save(response["objects"])
+    save(response)
   end
 
   def save(data) do
@@ -191,166 +208,171 @@ defmodule KratosApi.Sync.Bill do
   alias KratosApi.Bill
   alias KratosApi.SyncHelpers
 
+  @aws_api Application.get_env(:kratos_api, :aws_api)
+
   def sync do
-    response = Govtrack.bills([limit: 1])
-    response["objects"] |> Enum.map(&save/1)
+    {:ok, response} = @aws_api.SQS.receive_message("congress-bills") |> @aws_api.request
+    response.body.messages |> Enum.map(&save/1)
   end
 
-  def sync(id) do
-    response = Govtrack.bill([id: id])
-    save(response["objects"])
+  def save(raw_message) do
+    unless KratosApi.Repo.get_by(Bill, md5_of_body: raw_message.md5_of_body) do
+      case Poison.decode(raw_message.body) do
+        {:ok, data} ->
+          params = prepare(data, raw_message)
+          changeset = Bill.changeset(%Bill{}, params) |> add_associations(data)
+          SyncHelpers.save(changeset, [gpo_id: data["bill_id"]])
+        {:error, message} -> message
+      end
+    end
   end
 
-  def save(data) do
-    params = prepare(data)
-    changeset = Bill.changeset(%Bill{}, params) |> add_associations(data)
-    SyncHelpers.save(changeset)
-  end
-
-  def prepare(data) do
+  def prepare(data, raw_message) do
     %{
-      govtrack_id: data["id"],
-      link: data["link"],
-      title_without_number: data["title_without_number"],
-      is_current: data["is_current"],
-      lock_title: data["lock_title"],
-      senate_floor_schedule_postdate: SyncHelpers.convert_date(data["senate_floor_schedule_postdate"]),
-      sliplawnum: data["sliplawnum"],
-      bill_type: data["bill_type"],
-      docs_house_gov_postdate: SyncHelpers.convert_date(data["docs_house_gov_postdate"]),
-      noun: data["noun"],
-      current_status_date: SyncHelpers.convert_date(data["current_status_date"]),
-      source_link: data["source_link"],
-      current_status: data["current_status"],
-      introduced_date: SyncHelpers.convert_date(data["introduced_date"]),
-      bill_type_label: data["bill_type_label"],
-      bill_resolution_type: data["bill_resolution_type"],
-      display_number: data["display_number"],
-      title: data["title"],
-      sliplawpubpriv: data["sliplawpubpriv"],
-      current_status_label: data["current_status_label"],
-      is_alive: data["is_alive"],
+      actions: data["actions"],
+      amendments: data["amendments"],
+      gpo_id: data["bill_id"],
+      type: data["bill_type"],
+      committee_history: data["committees"],
+      enacted_as: data["enacted_as"],
+      active: data["history"]["active"],
+      awaiting_signature: data["history"]["awaiting_signature"],
+      enacted: data["history"]["enacted"],
+      vetoed: data["history"]["vetoed"],
+      history: data["history"],
+      introduced_at: SyncHelpers.convert_date(data["introduced_at"]),
       number: data["number"],
-      source: data["source"],
-      current_status_description: data["current_status_description"],
+      official_title: data["official_title"],
+      popular_title: data["popular_title"],
+      related_bills: data["related_bills"],
+      short_title: data["short_title"],
+      status: data["status"],
+      status_at: SyncHelpers.convert_date(data["status_at"]),
+      top_term: data["subjects_top_term"],
+      summary_text: data["summary"]["text"],
+      summary_date: SyncHelpers.convert_datetime(data["date"]),
       titles: data["titles"],
-      major_actions: data["major_actions"],
-      related_bills: data["related_bills"]
+      gpo_data_updated_at: SyncHelpers.convert_datetime(data["updated_at"]),
+      md5_of_body: raw_message.md5_of_body
     }
   end
 
   def add_associations(changeset, data) do
-    congress_number = KratosApi.CongressNumber.find_or_create(data["congress"])
-    sponsor = KratosApi.Sync.Role.sync(data["sponsor"]["id"])
-    committees = if data["committees"], do: Enum.map(data["committees"], &(KratosApi.Committee.find_or_create(&1)))
-    terms = if data["terms"], do: Enum.map(data["terms"], &(KratosApi.Term.find_or_create(&1)))
-    cosponsors = if data["cosponsors"], do: Enum.map(data["cosponsors"],&(KratosApi.Sync.Role.sync(&1["id"])))
+    congress_number = KratosApi.CongressNumber.find_or_create(elem(Integer.parse(data["congress"]),0))
+    sponsor = KratosApi.Repo.get_by(KratosApi.Person, bioguideid: data["sponsor"]["bioguide_id"])
+    committees =
+      Enum.map(data["committees"], &(KratosApi.Repo.get_by(KratosApi.Committee, code: &1["committee_id"])))
+      |> Enum.reject(&(is_nil(&1)))
+    subjects = Enum.map(data["subjects"], &(KratosApi.Subject.find_or_create(&1)))
+    cosponsors =
+      Enum.map(data["cosponsors"],&(KratosApi.Repo.get_by(KratosApi.Person, bioguideid: &1["bioguide_id"])))
+      |> Enum.reject(&(is_nil(&1)))
 
     changeset
       |> SyncHelpers.apply_assoc(:congress_number, congress_number)
       |> SyncHelpers.apply_assoc(:sponsor, sponsor)
       |> SyncHelpers.apply_assoc(:committees, committees)
       |> SyncHelpers.apply_assoc(:cosponsors, cosponsors)
-      |> SyncHelpers.apply_assoc(:terms, terms)
+      |> SyncHelpers.apply_assoc(:subjects, subjects)
   end
 end
 
-defmodule KratosApi.Sync.Vote do
-  alias KratosApi.Vote
-  alias KratosApi.SyncHelpers
-
-  def sync do
-    response = Govtrack.votes([limit: 1])
-    response["objects"] |> Enum.map(&save/1)
-  end
-
-  def sync(id) do
-    response = Govtrack.vote([id: id])
-    save(response["objects"])
-  end
-
-  def save(data) do
-    params = prepare(data)
-    changeset = Vote.changeset(%Vote{}, params) |> add_associations(data)
-    SyncHelpers.save(changeset)
-  end
-
-  def prepare(data) do
-    %{
-      govtrack_id: data["id"],
-      category: data["category"],
-      category_label: data["category_label"],
-      chamber: data["chamber"],
-      chamber_label: data["chamber_label"],
-      created: SyncHelpers.convert_datetime(data["created"]),
-      link: data["link"],
-      margin: data["margin"],
-      missing_data: data["missing_data"],
-      number: data["number"],
-      percent_plus: data["percent_plus"],
-      question: data["question"],
-      question_details: data["question_details"],
-      related_amendment: data["related_amendment"],
-      required: data["required"],
-      result: data["result"],
-      session: data["session"],
-      source: data["source"],
-      source_label: data["source_label"],
-      total_minus: data["total_minus"],
-      total_other: data["total_other"],
-      total_plus: data["total_plus"],
-      vote_type: data["vote_type"],
-    }
-  end
-
-  def add_associations(changeset, data) do
-    congress_number = KratosApi.CongressNumber.find_or_create(data["congress"])
-    related_bill = KratosApi.Sync.Bill.sync(data["related_bill"]["id"])
-
-    changeset
-      |> SyncHelpers.apply_assoc(:congress_number, congress_number)
-      |> SyncHelpers.apply_assoc(:related_bill, related_bill)
-  end
-end
-
-defmodule KratosApi.Sync.Tally do
-  alias KratosApi.Tally
-  alias KratosApi.SyncHelpers
-
-  def sync do
-    response = Govtrack.vote_voters([limit: 1])
-    response["objects"] |> Enum.map(&save/1)
-  end
-
-  def sync(id) do
-    response = Govtrack.vote_voter([id: id])
-    save(response["objects"])
-  end
-
-  def save(data) do
-    params = prepare(data)
-    changeset = Tally.changeset(%Tally{}, params) |> add_associations(data)
-    SyncHelpers.save(changeset)
-  end
-
-  def prepare(data) do
-    %{
-      created: SyncHelpers.convert_datetime(data["created"]),
-      govtrack_id: data["id"],
-      key: data["option"]["key"],
-      value: data["option"]["value"],
-      voter_type: data["voter_type"],
-      voter_type_label: data["voter_type_label"],
-      voteview_extra_code: data["voteview_extra_code"],
-    }
-  end
-
-  def add_associations(changeset, data) do
-    person = KratosApi.Role.find_or_create(Map.merge(data["person_role"],%{"person" => data["person"]}))
-    vote = KratosApi.Sync.Vote.sync(data["vote"]["id"])
-
-    changeset
-      |> SyncHelpers.apply_assoc(:person, person)
-      |> SyncHelpers.apply_assoc(:vote, vote)
-  end
-end
+# defmodule KratosApi.Sync.Vote do
+#   alias KratosApi.Vote
+#   alias KratosApi.SyncHelpers
+#
+#   def sync do
+#     response = Govtrack.votes([limit: 1])
+#     response["objects"] |> Enum.map(&save/1)
+#   end
+#
+#   def sync(id) do
+#     response = Govtrack.vote([id: id])
+#     save(response["objects"])
+#   end
+#
+#   def save(data) do
+#     params = prepare(data)
+#     changeset = Vote.changeset(%Vote{}, params) |> add_associations(data)
+#     SyncHelpers.save(changeset)
+#   end
+#
+#   def prepare(data) do
+#     %{
+#       govtrack_id: data["id"],
+#       category: data["category"],
+#       category_label: data["category_label"],
+#       chamber: data["chamber"],
+#       chamber_label: data["chamber_label"],
+#       created: SyncHelpers.convert_datetime(data["created"]),
+#       link: data["link"],
+#       margin: data["margin"],
+#       missing_data: data["missing_data"],
+#       number: data["number"],
+#       percent_plus: data["percent_plus"],
+#       question: data["question"],
+#       question_details: data["question_details"],
+#       related_amendment: data["related_amendment"],
+#       required: data["required"],
+#       result: data["result"],
+#       session: data["session"],
+#       source: data["source"],
+#       source_label: data["source_label"],
+#       total_minus: data["total_minus"],
+#       total_other: data["total_other"],
+#       total_plus: data["total_plus"],
+#       vote_type: data["vote_type"],
+#     }
+#   end
+#
+#   def add_associations(changeset, data) do
+#     congress_number = KratosApi.CongressNumber.find_or_create(data["congress"])
+#     related_bill = nil
+#
+#     changeset
+#       |> SyncHelpers.apply_assoc(:congress_number, congress_number)
+#       |> SyncHelpers.apply_assoc(:related_bill, related_bill)
+#   end
+# end
+#
+# defmodule KratosApi.Sync.Tally do
+#   alias KratosApi.Tally
+#   alias KratosApi.SyncHelpers
+#
+#   def sync do
+#     response = Govtrack.vote_voters([limit: 1])
+#     response["objects"] |> Enum.map(&save/1)
+#   end
+#
+#   def sync(id) do
+#     response = Govtrack.vote_voter([id: id])
+#     save(response["objects"])
+#   end
+#
+#   def save(data) do
+#     params = prepare(data)
+#     changeset = Tally.changeset(%Tally{}, params) |> add_associations(data)
+#     SyncHelpers.save(changeset)
+#   end
+#
+#   def prepare(data) do
+#     %{
+#       created: SyncHelpers.convert_datetime(data["created"]),
+#       govtrack_id: data["id"],
+#       key: data["option"]["key"],
+#       value: data["option"]["value"],
+#       voter_type: data["voter_type"],
+#       voter_type_label: data["voter_type_label"],
+#       voteview_extra_code: data["voteview_extra_code"],
+#     }
+#   end
+#
+#   def add_associations(changeset, data) do
+#     person = KratosApi.Role.find_or_create(Map.merge(data["person_role"],%{"person" => data["person"]}))
+#     vote = KratosApi.Sync.Vote.sync(data["vote"]["id"])
+#
+#     changeset
+#       |> SyncHelpers.apply_assoc(:person, person)
+#       |> SyncHelpers.apply_assoc(:vote, vote)
+#   end
+# end
