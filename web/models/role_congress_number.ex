@@ -4,8 +4,6 @@ defmodule KratosApi.RoleCongressNumber do
   schema "role_congress_numbers" do
     belongs_to :role, KratosApi.Role
     belongs_to :congress_number, KratosApi.CongressNumber
-
-    timestamps()
   end
 
   @doc """
