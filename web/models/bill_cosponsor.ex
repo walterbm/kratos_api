@@ -4,8 +4,6 @@ defmodule KratosApi.BillCosponsor do
   schema "bill_cosponsors" do
     belongs_to :bill, KratosApi.Bill
     belongs_to :cosponsor, KratosApi.Role, foreign_key: :role_id
-
-    timestamps()
   end
 
   @doc """

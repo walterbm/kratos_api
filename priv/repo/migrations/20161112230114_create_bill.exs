@@ -27,15 +27,17 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
       add :summary_date, :datetime
       add :titles, :map
       add :gpo_data_updated_at, :datetime
-      add :pdf_url, :string
+      add :urls, :map
+      add :md5_of_body, :string
 
       add :congress_number_id, references(:congress_numbers, on_delete: :nothing, column: :number)
-      add :sponsor_id, references(:roles, on_delete: :nothing)
+      add :sponsor_id, references(:persons, on_delete: :nothing)
 
       timestamps()
     end
 
     create index(:bills, [:gpo_id], unique: true)
+    create index(:bills, [:md5_of_body], unique: true)
 
   end
 end
