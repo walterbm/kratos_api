@@ -130,6 +130,8 @@ defmodule KratosApi.Sync.Person do
   end
 
   def prepare (data) do
+    extract_party_and_state = ~r/\[(?<party>[A-Z])-(?<state>\w+)/
+
     %{
       govtrack_id: data["id"],
       bioguideid: data["bioguideid"],
@@ -142,6 +144,8 @@ defmodule KratosApi.Sync.Person do
       link: data["link"],
       middlename: data["middlename"],
       name: data["name"],
+      current_party: Regex.named_captures(extract_party_and_state, data["name"])["party"],
+      current_state: Regex.named_captures(extract_party_and_state, data["name"])["state"],
       namemod: data["namemod"],
       nickname: data["nickname"],
       osid: data["osid"],
@@ -167,7 +171,7 @@ defmodule KratosApi.Sync.Committee do
 
   def sync(id) do
     response = @govtrack_api.committee([id: id])
-    save(response["objects"])
+    save(response)
   end
 
   def save(data) do
@@ -250,7 +254,7 @@ defmodule KratosApi.Sync.Bill do
       status_at: SyncHelpers.convert_date(data["status_at"]),
       top_term: data["subjects_top_term"],
       summary_text: data["summary"]["text"],
-      summary_date: SyncHelpers.convert_datetime(data["date"]),
+      summary_date: SyncHelpers.convert_datetime(data["summary"]["date"]),
       titles: data["titles"],
       gpo_data_updated_at: SyncHelpers.convert_datetime(data["updated_at"]),
       md5_of_body: raw_message.md5_of_body

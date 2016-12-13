@@ -14,6 +14,8 @@ defmodule KratosApi.Repo.Migrations.CreatePerson do
       add :link, :string
       add :middlename, :string
       add :name, :string
+      add :current_party, :string
+      add :current_state, :string
       add :namemod, :string
       add :nickname, :string
       add :osid, :string
