@@ -12,6 +12,8 @@ defmodule KratosApi.RoleSyncTest do
     assert role.description == "Junior Senator from Missouri"
     assert role.govtrack_id == 268
     assert role.person.name == "Sen. Roy Blunt [R-MO]"
+    assert role.person.current_state == "MO"
+    assert role.person.current_party == "R"
     assert Enum.map(role.congress_numbers, fn congress -> congress.number end) == [112,113,114]
   end
 
