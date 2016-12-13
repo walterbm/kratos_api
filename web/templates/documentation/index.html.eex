@@ -215,192 +215,205 @@
             "<span class="hljs-attribute">category</span>": <span class="hljs-value"><span class="hljs-string">"passage"</span>
         </span>},
     ]</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="bills" class="resource-group"><h2 class="group-heading">Bills <a href="#bills" class="permalink">&para;</a></h2><p>Resources related congressional bills &amp; resolutions.</p>
-<div id="bills-bill" class="resource"><h3 class="resource-heading">Bill <a href="#bills-bill" class="permalink">&nbsp;&para;</a></h3><div id="bills-bill-get" class="action get"><h4 class="action-heading"><div class="name">Get Detailed Bill Information</div><a href="#bills-bill-get" class="method get">GET</a><code class="uri">/api/bills/{id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.website</span>/api/bills/<span class="hljs-attribute" title="id">336967</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>336967</span></span><p>bill’s Govtrack ID.</p>
+<div id="bills-bill" class="resource"><h3 class="resource-heading">Bill <a href="#bills-bill" class="permalink">&nbsp;&para;</a></h3><div id="bills-bill-get" class="action get"><h4 class="action-heading"><div class="name">Get Detailed Bill Information</div><a href="#bills-bill-get" class="method get">GET</a><code class="uri">/api/bills/{id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.website</span>/api/bills/<span class="hljs-attribute" title="id">1</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>bill’s ID.</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;token&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">committees</span>": <span class="hljs-value">[
-    {
-      "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"http://judiciary.senate.gov/"</span></span>,
-      "<span class="hljs-attribute">obsolete</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
-      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Senate Committee on the Judiciary"</span></span>,
-      "<span class="hljs-attribute">jurisdiction_link</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-      "<span class="hljs-attribute">jurisdiction</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">2650</span></span>,
-      "<span class="hljs-attribute">committee_type_label</span>": <span class="hljs-value"><span class="hljs-string">"Senate"</span></span>,
-      "<span class="hljs-attribute">committee_type</span>": <span class="hljs-value"><span class="hljs-string">"senate"</span></span>,
-      "<span class="hljs-attribute">committee</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-      "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-string">"SSJU"</span></span>,
-      "<span class="hljs-attribute">abbrev</span>": <span class="hljs-value"><span class="hljs-string">"Judiciary"</span>
-    </span>}
-  ]</span>,
-  "<span class="hljs-attribute">link</span>": <span class="hljs-value"><span class="hljs-string">"https://www.govtrack.us/congress/bills/114/s524"</span></span>,
-  "<span class="hljs-attribute">cosponsors</span>": <span class="hljs-value">[
-    {
-      "<span class="hljs-attribute">youtubeid</span>": <span class="hljs-value"><span class="hljs-string">"lamaralexander"</span></span>,
-      "<span class="hljs-attribute">twitterid</span>": <span class="hljs-value"><span class="hljs-string">"SenAlexander"</span></span>,
-      "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"TN"</span></span>,
-      "<span class="hljs-attribute">sortname</span>": <span class="hljs-value"><span class="hljs-string">"Alexander, Lamar (Sen.) [R-TN]"</span></span>,
-      "<span class="hljs-attribute">pvsid</span>": <span class="hljs-value"><span class="hljs-string">"15691"</span></span>,
-      "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"R"</span></span>,
-      "<span class="hljs-attribute">osid</span>": <span class="hljs-value"><span class="hljs-string">"N00009888"</span></span>,
-      "<span class="hljs-attribute">nickname</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
-      "<span class="hljs-attribute">namemod</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
-      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Sen. Lamar Alexander [R-TN]"</span></span>,
-      "<span class="hljs-attribute">middlename</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
-      "<span class="hljs-attribute">link</span>": <span class="hljs-value"><span class="hljs-string">"https://www.govtrack.us/congress/members/lamar_alexander/300002"</span></span>,
-      "<span class="hljs-attribute">lastname</span>": <span class="hljs-value"><span class="hljs-string">"Alexander"</span></span>,
-      "<span class="hljs-attribute">image</span>": <span class="hljs-value"><span class="hljs-string">"https://theunitedstates.io/images/congress/225x275/A000360.jpg"</span></span>,
-      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">300002</span></span>,
-      "<span class="hljs-attribute">gender_label</span>": <span class="hljs-value"><span class="hljs-string">"Male"</span></span>,
-      "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"male"</span></span>,
-      "<span class="hljs-attribute">firstname</span>": <span class="hljs-value"><span class="hljs-string">"Lamar"</span></span>,
-      "<span class="hljs-attribute">cspanid</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
-      "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"1940-07-03"</span></span>,
-      "<span class="hljs-attribute">bioguideid</span>": <span class="hljs-value"><span class="hljs-string">"A000360"</span>
-    </span>}
-  ]</span>,
-  "<span class="hljs-attribute">title_without_number</span>": <span class="hljs-value"><span class="hljs-string">"Comprehensive Addiction and Recovery Act of 2016"</span></span>,
-  "<span class="hljs-attribute">is_current</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
-  "<span class="hljs-attribute">sponsor_role</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">website</span>": <span class="hljs-value"><span class="hljs-string">"https://www.whitehouse.senate.gov"</span></span>,
-    "<span class="hljs-attribute">title_long</span>": <span class="hljs-value"><span class="hljs-string">"Senator"</span></span>,
-    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Sen."</span></span>,
-    "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"RI"</span></span>,
-    "<span class="hljs-attribute">startdate</span>": <span class="hljs-value"><span class="hljs-string">"2013-01-03"</span></span>,
-    "<span class="hljs-attribute">senator_rank_label</span>": <span class="hljs-value"><span class="hljs-string">"Junior"</span></span>,
-    "<span class="hljs-attribute">senator_rank</span>": <span class="hljs-value"><span class="hljs-string">"junior"</span></span>,
-    "<span class="hljs-attribute">senator_class_label</span>": <span class="hljs-value"><span class="hljs-string">"Class 1"</span></span>,
-    "<span class="hljs-attribute">senator_class</span>": <span class="hljs-value"><span class="hljs-string">"class1"</span></span>,
-    "<span class="hljs-attribute">role_type_label</span>": <span class="hljs-value"><span class="hljs-string">"Senator"</span></span>,
-    "<span class="hljs-attribute">role_type</span>": <span class="hljs-value"><span class="hljs-string">"senator"</span></span>,
-    "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"202-224-2921"</span></span>,
-    "<span class="hljs-attribute">person</span>": <span class="hljs-value"><span class="hljs-number">412247</span></span>,
-    "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
-    "<span class="hljs-attribute">leadership_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">42937</span></span>,
-    "<span class="hljs-attribute">extra</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">rss_url</span>": <span class="hljs-value"><span class="hljs-string">"http://www.whitehouse.senate.gov/rss/feeds/?type=all&amp;amp;cachebuster=1"</span></span>,
-      "<span class="hljs-attribute">office</span>": <span class="hljs-value"><span class="hljs-string">"530 Hart Senate Office Building"</span></span>,
-      "<span class="hljs-attribute">fax</span>": <span class="hljs-value"><span class="hljs-string">"202-228-6362"</span></span>,
-      "<span class="hljs-attribute">contact_form</span>": <span class="hljs-value"><span class="hljs-string">"http://www.whitehouse.senate.gov/contact"</span></span>,
-      "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"530 Hart Senate Office Building Washington DC 20510"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">enddate</span>": <span class="hljs-value"><span class="hljs-string">"2019-01-03"</span></span>,
-    "<span class="hljs-attribute">district</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Junior Senator from Rhode Island"</span></span>,
-    "<span class="hljs-attribute">current</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
-    "<span class="hljs-attribute">congress_numbers</span>": <span class="hljs-value">[
-      <span class="hljs-number">113</span>,
-      <span class="hljs-number">114</span>,
-      <span class="hljs-number">115</span>
-    ]</span>,
-    "<span class="hljs-attribute">caucus</span>": <span class="hljs-value"><span class="hljs-literal">null</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">lock_title</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+  "<span class="hljs-attribute">vetoed</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+  "<span class="hljs-attribute">urls</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"hr"</span></span>,
+  "<span class="hljs-attribute">top_term</span>": <span class="hljs-value"><span class="hljs-string">"Taxation"</span></span>,
   "<span class="hljs-attribute">titles</span>": <span class="hljs-value">[
-    [
-      <span class="hljs-string">"short"</span>,
-      <span class="hljs-string">"introduced"</span>,
-      <span class="hljs-string">"Comprehensive Addiction and Recovery Act of 2015"</span>
-    ],
-    [
-      <span class="hljs-string">"short-partial"</span>,
-      <span class="hljs-string">"passed house"</span>,
-      <span class="hljs-string">"Co-Prescribing to Reduce Overdoses Act of 2016"</span>
-    ],
-    [
-      <span class="hljs-string">"official"</span>,
-      <span class="hljs-string">"enacted"</span>,
-      <span class="hljs-string">"An Act to authorize the Attorney General and Secretary of Health and Human Services to award grants to address the prescription opioid abuse and heroin use crisis, and for other purposes."</span>
-    ],
-    [
-      <span class="hljs-string">"display"</span>,
-      <span class="hljs-literal">null</span>,
-      <span class="hljs-string">"Comprehensive Addiction and Recovery Act of 2016"</span>
-    ]
-  ]</span>,
-  "<span class="hljs-attribute">senate_floor_schedule_postdate</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-  "<span class="hljs-attribute">sliplawnum</span>": <span class="hljs-value"><span class="hljs-number">198</span></span>,
-  "<span class="hljs-attribute">bill_type</span>": <span class="hljs-value"><span class="hljs-string">"senate_bill"</span></span>,
-  "<span class="hljs-attribute">docs_house_gov_postdate</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-  "<span class="hljs-attribute">noun</span>": <span class="hljs-value"><span class="hljs-string">"bill"</span></span>,
-  "<span class="hljs-attribute">current_status_date</span>": <span class="hljs-value"><span class="hljs-string">"2016-07-22"</span></span>,
-  "<span class="hljs-attribute">source_link</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
-  "<span class="hljs-attribute">current_status</span>": <span class="hljs-value"><span class="hljs-string">"enacted_signed"</span></span>,
-  "<span class="hljs-attribute">related_bills</span>": <span class="hljs-value">[
     {
-      "<span class="hljs-attribute">relation</span>": <span class="hljs-value"><span class="hljs-string">"identical"</span></span>,
-      "<span class="hljs-attribute">bill</span>": <span class="hljs-value"><span class="hljs-number">336943</span>
-    </span>},
-    {
-      "<span class="hljs-attribute">relation</span>": <span class="hljs-value"><span class="hljs-string">"procedurally-rel"</span></span>,
-      "<span class="hljs-attribute">bill</span>": <span class="hljs-value"><span class="hljs-number">345691</span>
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"official"</span></span>,
+      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air."</span></span>,
+      "<span class="hljs-attribute">is_for_portion</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+      "<span class="hljs-attribute">as</span>": <span class="hljs-value"><span class="hljs-string">"introduced"</span>
     </span>}
   ]</span>,
-  "<span class="hljs-attribute">introduced_date</span>": <span class="hljs-value"><span class="hljs-string">"2015-02-12"</span></span>,
-  "<span class="hljs-attribute">major_actions</span>": <span class="hljs-value">[
-    [
-      <span class="hljs-string">"datetime.datetime(2015, 2, 12, 0, 0)"</span>,
-      <span class="hljs-number">2</span>,
-      <span class="hljs-string">"Read twice and referred to the Committee on the Judiciary."</span>,
-      <span class="hljs-string">"&lt;action datetime=\"2015-02-12\" state=\"REFERRED\"&gt;\n      &lt;text&gt;Read twice and referred to the Committee on the Judiciary.&lt;/text&gt;\n    &lt;/action&gt;\n    "</span>
-    ],
-    [
-      <span class="hljs-string">"datetime.datetime(2016, 7, 22, 0, 0)"</span>,
-      <span class="hljs-number">28</span>,
-      <span class="hljs-string">"Signed by President."</span>,
-      <span class="hljs-string">"&lt;signed datetime=\"2016-07-22\" state=\"ENACTED:SIGNED\"&gt;\n      &lt;text&gt;Signed by President.&lt;/text&gt;\n    &lt;/signed&gt;\n    "</span>
-    ]
+  "<span class="hljs-attribute">summary_text</span>": <span class="hljs-value"><span class="hljs-string">"(Sec. 1) This bill amends the Internal Revenue Code to exempt from the excise tax on transportation of persons and property by air amounts paid by an aircraft owner or lessee for aircraft management services related to maintenance and support of the aircraft or flights on such aircraft.\n\nAircraft management services include assisting an aircraft owner with administrative and support services; obtaining insurance; maintenance, storage and fueling of aircraft; hiring, training, and provision of pilots and crew; establishing and complying with safety standards; or other services necessary to support flights operated by an aircraft owner.\n\nIn the case of an aircraft owner that is wholly-owned by another person, amounts paid by the other person on behalf of the aircraft owner must be treated as having been paid directly by the aircraft owner."</span></span>,
+  "<span class="hljs-attribute">summary_date</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+  "<span class="hljs-attribute">subjects</span>": <span class="hljs-value">[
+    <span class="hljs-string">"Aviation and airports"</span>,
+    <span class="hljs-string">"Sales and excise taxes"</span>,
+    <span class="hljs-string">"Taxation"</span>,
+    <span class="hljs-string">"Transportation safety and security"</span>
   ]</span>,
-  "<span class="hljs-attribute">congress</span>": <span class="hljs-value"><span class="hljs-number">114</span></span>,
+  "<span class="hljs-attribute">status_at</span>": <span class="hljs-value"><span class="hljs-string">"2016-07-13"</span></span>,
+  "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"REPORTED"</span></span>,
   "<span class="hljs-attribute">sponsor</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">youtubeid</span>": <span class="hljs-value"><span class="hljs-string">"SenatorWhitehouse"</span></span>,
-    "<span class="hljs-attribute">twitterid</span>": <span class="hljs-value"><span class="hljs-string">"SenWhitehouse"</span></span>,
-    "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"RI"</span></span>,
-    "<span class="hljs-attribute">sortname</span>": <span class="hljs-value"><span class="hljs-string">"Whitehouse, Sheldon (Sen.) [D-RI]"</span></span>,
-    "<span class="hljs-attribute">pvsid</span>": <span class="hljs-value"><span class="hljs-string">"2572"</span></span>,
-    "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"D"</span></span>,
-    "<span class="hljs-attribute">osid</span>": <span class="hljs-value"><span class="hljs-string">"N00027533"</span></span>,
-    "<span class="hljs-attribute">nickname</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
-    "<span class="hljs-attribute">namemod</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
-    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Sen. Sheldon Whitehouse [D-RI]"</span></span>,
-    "<span class="hljs-attribute">middlename</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
-    "<span class="hljs-attribute">link</span>": <span class="hljs-value"><span class="hljs-string">"https://www.govtrack.us/congress/members/sheldon_whitehouse/412247"</span></span>,
-    "<span class="hljs-attribute">lastname</span>": <span class="hljs-value"><span class="hljs-string">"Whitehouse"</span></span>,
-    "<span class="hljs-attribute">image</span>": <span class="hljs-value"><span class="hljs-string">"https://theunitedstates.io/images/congress/225x275/W000802.jpg"</span></span>,
-    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">412247</span></span>,
+    "<span class="hljs-attribute">youtubeid</span>": <span class="hljs-value"><span class="hljs-string">"PatTiberi"</span></span>,
+    "<span class="hljs-attribute">twitterid</span>": <span class="hljs-value"><span class="hljs-string">"TiberiPress"</span></span>,
+    "<span class="hljs-attribute">sortname</span>": <span class="hljs-value"><span class="hljs-string">"Tiberi, Patrick “Pat” (Rep.) [R-OH12]"</span></span>,
+    "<span class="hljs-attribute">roles</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">website</span>": <span class="hljs-value"><span class="hljs-string">"http://tiberi.house.gov"</span></span>,
+        "<span class="hljs-attribute">title_long</span>": <span class="hljs-value"><span class="hljs-string">"Representative"</span></span>,
+        "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Rep."</span></span>,
+        "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"OH"</span></span>,
+        "<span class="hljs-attribute">startdate</span>": <span class="hljs-value"><span class="hljs-string">"2015-01-06"</span></span>,
+        "<span class="hljs-attribute">senator_rank_label</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">senator_rank</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">senator_class_label</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">senator_class</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">role_type_label</span>": <span class="hljs-value"><span class="hljs-string">"Representative"</span></span>,
+        "<span class="hljs-attribute">role_type</span>": <span class="hljs-value"><span class="hljs-string">"representative"</span></span>,
+        "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"202-225-5355"</span></span>,
+        "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Republican"</span></span>,
+        "<span class="hljs-attribute">leadership_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">govtrack_id</span>": <span class="hljs-value"><span class="hljs-number">43398</span></span>,
+        "<span class="hljs-attribute">extra</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">rss_url</span>": <span class="hljs-value"><span class="hljs-string">"http://tiberi.house.gov/news/rss.aspx"</span></span>,
+          "<span class="hljs-attribute">office</span>": <span class="hljs-value"><span class="hljs-string">"1203 Longworth House Office Building"</span></span>,
+          "<span class="hljs-attribute">fax</span>": <span class="hljs-value"><span class="hljs-string">"202-226-4523"</span></span>,
+          "<span class="hljs-attribute">contact_form</span>": <span class="hljs-value"><span class="hljs-string">"https://tiberi.house.gov/contact/contactform.htm"</span></span>,
+          "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"1203 Longworth HOB; Washington DC 20515-3512"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">enddate</span>": <span class="hljs-value"><span class="hljs-string">"2017-01-03"</span></span>,
+        "<span class="hljs-attribute">district</span>": <span class="hljs-value"><span class="hljs-number">12</span></span>,
+        "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Representative for Ohio's 12th congressional district"</span></span>,
+        "<span class="hljs-attribute">current</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+        "<span class="hljs-attribute">caucus</span>": <span class="hljs-value"><span class="hljs-literal">null</span>
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">pvsid</span>": <span class="hljs-value"><span class="hljs-string">"8404"</span></span>,
+    "<span class="hljs-attribute">osid</span>": <span class="hljs-value"><span class="hljs-string">"N00009699"</span></span>,
+    "<span class="hljs-attribute">nickname</span>": <span class="hljs-value"><span class="hljs-string">"Pat"</span></span>,
+    "<span class="hljs-attribute">namemod</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Rep. Patrick “Pat” Tiberi [R-OH12]"</span></span>,
+    "<span class="hljs-attribute">middlename</span>": <span class="hljs-value"><span class="hljs-string">"J."</span></span>,
+    "<span class="hljs-attribute">link</span>": <span class="hljs-value"><span class="hljs-string">"https://www.govtrack.us/congress/members/patrick_tiberi/400406"</span></span>,
+    "<span class="hljs-attribute">lastname</span>": <span class="hljs-value"><span class="hljs-string">"Tiberi"</span></span>,
+    "<span class="hljs-attribute">image_url</span>": <span class="hljs-value"><span class="hljs-string">"https://theunitedstates.io/images/congress/225x275/T000462.jpg"</span></span>,
+    "<span class="hljs-attribute">govtrack_id</span>": <span class="hljs-value"><span class="hljs-number">400406</span></span>,
     "<span class="hljs-attribute">gender_label</span>": <span class="hljs-value"><span class="hljs-string">"Male"</span></span>,
     "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"male"</span></span>,
-    "<span class="hljs-attribute">firstname</span>": <span class="hljs-value"><span class="hljs-string">"Sheldon"</span></span>,
-    "<span class="hljs-attribute">cspanid</span>": <span class="hljs-value"><span class="hljs-number">92235</span></span>,
-    "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"1955-10-20"</span></span>,
-    "<span class="hljs-attribute">bioguideid</span>": <span class="hljs-value"><span class="hljs-string">"W000802"</span>
+    "<span class="hljs-attribute">firstname</span>": <span class="hljs-value"><span class="hljs-string">"Patrick"</span></span>,
+    "<span class="hljs-attribute">current_state</span>": <span class="hljs-value"><span class="hljs-string">"OH12"</span></span>,
+    "<span class="hljs-attribute">current_party</span>": <span class="hljs-value"><span class="hljs-string">"R"</span></span>,
+    "<span class="hljs-attribute">cspanid</span>": <span class="hljs-value"><span class="hljs-number">88155</span></span>,
+    "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"1962-10-21"</span></span>,
+    "<span class="hljs-attribute">bioguideid</span>": <span class="hljs-value"><span class="hljs-string">"T000462"</span>
   </span>}</span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">336967</span></span>,
-  "<span class="hljs-attribute">terms</span>": <span class="hljs-value">[
+  "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+  "<span class="hljs-attribute">related_bills</span>": <span class="hljs-value">[
     {
-      "<span class="hljs-attribute">term_type_label</span>": <span class="hljs-value"><span class="hljs-string">"New"</span></span>,
-      "<span class="hljs-attribute">term_type</span>": <span class="hljs-value"><span class="hljs-string">"new"</span></span>,
-      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Elementary and secondary education"</span></span>,
-      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">5999</span>
-    </span>},
-    {
-      "<span class="hljs-attribute">term_type_label</span>": <span class="hljs-value"><span class="hljs-string">"New"</span></span>,
-      "<span class="hljs-attribute">term_type</span>": <span class="hljs-value"><span class="hljs-string">"new"</span></span>,
-      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Higher education"</span></span>,
-      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">6002</span>
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"bill"</span></span>,
+      "<span class="hljs-attribute">reason</span>": <span class="hljs-value"><span class="hljs-string">"identical"</span></span>,
+      "<span class="hljs-attribute">identified_by</span>": <span class="hljs-value"><span class="hljs-string">"CRS"</span></span>,
+      "<span class="hljs-attribute">bill_id</span>": <span class="hljs-value"><span class="hljs-string">"s2092-114"</span>
     </span>}
   ]</span>,
-  "<span class="hljs-attribute">bill_type_label</span>": <span class="hljs-value"><span class="hljs-string">"S."</span></span>,
-  "<span class="hljs-attribute">bill_resolution_type</span>": <span class="hljs-value"><span class="hljs-string">"bill"</span></span>,
-  "<span class="hljs-attribute">display_number</span>": <span class="hljs-value"><span class="hljs-string">"S. 524"</span></span>,
-  "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"S. 524: Comprehensive Addiction and Recovery Act of 2016"</span></span>,
-  "<span class="hljs-attribute">sliplawpubpriv</span>": <span class="hljs-value"><span class="hljs-string">"PUB"</span></span>,
-  "<span class="hljs-attribute">current_status_label</span>": <span class="hljs-value"><span class="hljs-string">"Enacted — Signed by the President"</span></span>,
-  "<span class="hljs-attribute">is_alive</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
-  "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-number">524</span></span>,
-  "<span class="hljs-attribute">source</span>": <span class="hljs-value"><span class="hljs-string">"thomas-congproj"</span></span>,
-  "<span class="hljs-attribute">current_status_description</span>": <span class="hljs-value"><span class="hljs-string">"This bill was enacted after being signed by the President on July 22, 2016."</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 28 Nov 2016</p><script>/* eslint-env browser */
+  "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+  "<span class="hljs-attribute">official_title</span>": <span class="hljs-value"><span class="hljs-string">"To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air."</span></span>,
+  "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-string">"3608"</span></span>,
+  "<span class="hljs-attribute">introduced_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-09-24"</span></span>,
+  "<span class="hljs-attribute">history</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">vetoed</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">enacted</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">awaiting_signature</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+    "<span class="hljs-attribute">active_at</span>": <span class="hljs-value"><span class="hljs-string">"2016-07-13"</span></span>,
+    "<span class="hljs-attribute">active</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"hr3608-114"</span></span>,
+  "<span class="hljs-attribute">gpo_data_updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2016-11-14T15:01:09"</span></span>,
+  "<span class="hljs-attribute">enacted_as</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+  "<span class="hljs-attribute">enacted</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+  "<span class="hljs-attribute">cosponsors</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">youtubeid</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+      "<span class="hljs-attribute">twitterid</span>": <span class="hljs-value"><span class="hljs-string">"RepBeatty"</span></span>,
+      "<span class="hljs-attribute">sortname</span>": <span class="hljs-value"><span class="hljs-string">"Beatty, Joyce (Rep.) [D-OH3]"</span></span>,
+      "<span class="hljs-attribute">roles</span>": <span class="hljs-value">[
+        {
+          "<span class="hljs-attribute">website</span>": <span class="hljs-value"><span class="hljs-string">"http://beatty.house.gov"</span></span>,
+          "<span class="hljs-attribute">title_long</span>": <span class="hljs-value"><span class="hljs-string">"Representative"</span></span>,
+          "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Rep."</span></span>,
+          "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"OH"</span></span>,
+          "<span class="hljs-attribute">startdate</span>": <span class="hljs-value"><span class="hljs-string">"2015-01-06"</span></span>,
+          "<span class="hljs-attribute">senator_rank_label</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+          "<span class="hljs-attribute">senator_rank</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+          "<span class="hljs-attribute">senator_class_label</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+          "<span class="hljs-attribute">senator_class</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+          "<span class="hljs-attribute">role_type_label</span>": <span class="hljs-value"><span class="hljs-string">"Representative"</span></span>,
+          "<span class="hljs-attribute">role_type</span>": <span class="hljs-value"><span class="hljs-string">"representative"</span></span>,
+          "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-string">"202-225-4324"</span></span>,
+          "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
+          "<span class="hljs-attribute">leadership_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+          "<span class="hljs-attribute">govtrack_id</span>": <span class="hljs-value"><span class="hljs-number">43641</span></span>,
+          "<span class="hljs-attribute">extra</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">rss_url</span>": <span class="hljs-value"><span class="hljs-string">"http://beatty.house.gov/rss.xml"</span></span>,
+            "<span class="hljs-attribute">office</span>": <span class="hljs-value"><span class="hljs-string">"133 Cannon House Office Building"</span></span>,
+            "<span class="hljs-attribute">fax</span>": <span class="hljs-value"><span class="hljs-string">"202-225-1984"</span></span>,
+            "<span class="hljs-attribute">contact_form</span>": <span class="hljs-value"><span class="hljs-string">"https://beattyforms.house.gov/forms/writeyourrep/"</span></span>,
+            "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"133 Cannon HOB; Washington DC 20515-3503"</span>
+          </span>}</span>,
+          "<span class="hljs-attribute">enddate</span>": <span class="hljs-value"><span class="hljs-string">"2017-01-03"</span></span>,
+          "<span class="hljs-attribute">district</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
+          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Representative for Ohio's 3rd congressional district"</span></span>,
+          "<span class="hljs-attribute">current</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+          "<span class="hljs-attribute">caucus</span>": <span class="hljs-value"><span class="hljs-literal">null</span>
+        </span>}
+      ]</span>,
+      "<span class="hljs-attribute">pvsid</span>": <span class="hljs-value"><span class="hljs-string">"2427"</span></span>,
+      "<span class="hljs-attribute">osid</span>": <span class="hljs-value"><span class="hljs-string">"N00033904"</span></span>,
+      "<span class="hljs-attribute">nickname</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+      "<span class="hljs-attribute">namemod</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Rep. Joyce Beatty [D-OH3]"</span></span>,
+      "<span class="hljs-attribute">middlename</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+      "<span class="hljs-attribute">link</span>": <span class="hljs-value"><span class="hljs-string">"https://www.govtrack.us/congress/members/joyce_beatty/412565"</span></span>,
+      "<span class="hljs-attribute">lastname</span>": <span class="hljs-value"><span class="hljs-string">"Beatty"</span></span>,
+      "<span class="hljs-attribute">image_url</span>": <span class="hljs-value"><span class="hljs-string">"https://theunitedstates.io/images/congress/225x275/B001281.jpg"</span></span>,
+      "<span class="hljs-attribute">govtrack_id</span>": <span class="hljs-value"><span class="hljs-number">412565</span></span>,
+      "<span class="hljs-attribute">gender_label</span>": <span class="hljs-value"><span class="hljs-string">"Female"</span></span>,
+      "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"female"</span></span>,
+      "<span class="hljs-attribute">firstname</span>": <span class="hljs-value"><span class="hljs-string">"Joyce"</span></span>,
+      "<span class="hljs-attribute">current_state</span>": <span class="hljs-value"><span class="hljs-string">"OH3"</span></span>,
+      "<span class="hljs-attribute">current_party</span>": <span class="hljs-value"><span class="hljs-string">"D"</span></span>,
+      "<span class="hljs-attribute">cspanid</span>": <span class="hljs-value"><span class="hljs-number">67294</span></span>,
+      "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"1950-03-12"</span></span>,
+      "<span class="hljs-attribute">bioguideid</span>": <span class="hljs-value"><span class="hljs-string">"B001281"</span>
+    </span>}
+  ]</span>,
+  "<span class="hljs-attribute">congress_number</span>": <span class="hljs-value"><span class="hljs-number">114</span></span>,
+  "<span class="hljs-attribute">committees</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"http://waysandmeans.house.gov/"</span></span>,
+      "<span class="hljs-attribute">sub_committees</span>": <span class="hljs-value">[]</span>,
+      "<span class="hljs-attribute">parent</span>": <span class="hljs-value">[]</span>,
+      "<span class="hljs-attribute">obsolete</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"House Committee on Ways and Means"</span></span>,
+      "<span class="hljs-attribute">jurisdiction_link</span>": <span class="hljs-value"><span class="hljs-string">"http://waysandmeans.house.gov/about/history.htm"</span></span>,
+      "<span class="hljs-attribute">jurisdiction</span>": <span class="hljs-value"><span class="hljs-string">"The Committee on Ways and Means is the oldest committee of the United States Congress, and is the chief tax-writing committee in the House of Representatives. The Committee derives a large share of its jurisdiction from Article I, Section VII of the U.S. Constitution which declares, “All Bills for raising Revenue shall originate in the House of Representatives.”"</span></span>,
+      "<span class="hljs-attribute">govtrack_id</span>": <span class="hljs-value"><span class="hljs-number">2779</span></span>,
+      "<span class="hljs-attribute">committee_type_label</span>": <span class="hljs-value"><span class="hljs-string">"House"</span></span>,
+      "<span class="hljs-attribute">committee_type</span>": <span class="hljs-value"><span class="hljs-string">"house"</span></span>,
+      "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-string">"HSWM"</span></span>,
+      "<span class="hljs-attribute">abbrev</span>": <span class="hljs-value"><span class="hljs-string">"W&amp;M"</span>
+    </span>}
+  ]</span>,
+  "<span class="hljs-attribute">committee_history</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">committee_id</span>": <span class="hljs-value"><span class="hljs-string">"HSWM"</span></span>,
+      "<span class="hljs-attribute">committee</span>": <span class="hljs-value"><span class="hljs-string">"House Ways and Means"</span></span>,
+      "<span class="hljs-attribute">activity</span>": <span class="hljs-value">[
+        <span class="hljs-string">"reporting"</span>,
+        <span class="hljs-string">"markup"</span>,
+        <span class="hljs-string">"referral"</span>
+      ]
+    </span>}
+  ]</span>,
+  "<span class="hljs-attribute">awaiting_signature</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+  "<span class="hljs-attribute">amendments</span>": <span class="hljs-value">[]</span>,
+  "<span class="hljs-attribute">active</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">actions</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+      "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Introduced in House"</span></span>,
+      "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+      "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"Intro-H"</span></span>,
+      "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-09-24"</span>
+    </span>}
+  ]
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 13 Dec 2016</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
