@@ -33,3 +33,28 @@ defmodule Mix.Tasks.Sync.Bills do
     Mix.shell.error "~~ALL BILLS SYNCED & SAVED~~"
   end
 end
+
+defmodule Mix.Tasks.Sync.Talls do
+  use Mix.Task
+
+  @shortdoc "Sync Tallies and Votes"
+  def run(_) do
+    Mix.Task.run "app.start"
+    Mix.shell.error "=== SYNC ==="
+    KratosApi.Sync.Tally.sync
+    Mix.shell.error "~~ALL TALLIES + VOTES SYNCED & SAVED~~"
+  end
+end
+
+defmodule Mix.Tasks.Sync.All do
+  use Mix.Task
+
+  @shortdoc "Sync Everything"
+  def run(_) do
+    Mix.Task.run "app.start"
+    Mix.Task.run "sync.reps"
+    Mix.Task.run "sync.comms"
+    Mix.Task.run "sync.bills"
+    Mix.Task.run "sync.talls"
+  end
+end

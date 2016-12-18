@@ -33,6 +33,7 @@ defmodule KratosApi.Bill do
     belongs_to :sponsor, KratosApi.Person
 
     has_many :related_bills, KratosApi.RelatedBill
+    has_many :tallies, KratosApi.Tally
 
     many_to_many :committees, KratosApi.Committee, join_through: "bill_committees"
     many_to_many :cosponsors, KratosApi.Person, join_through: "bill_cosponsors", join_keys: [bill_id: :id, cosponsor_id: :id]
