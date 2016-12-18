@@ -6,7 +6,7 @@ defmodule KratosApi.BillSyncTest do
 
   test "syncing creates Bill models" do
     KratosApi.Sync.Bill.sync
-    bill = KratosApi.Repo.one(from b in Bill)
+    bill = KratosApi.Repo.one(from b in Bill, where: b.gpo_id == "hr3608-114")
     assert bill
     assert bill.gpo_id == "hr3608-114"
     assert bill.active == true
@@ -17,12 +17,15 @@ defmodule KratosApi.BillSyncTest do
   test "syncing create Bill model with proper relationships" do
     KratosApi.Sync.Role.sync "sponsor-for-this-bill"
     KratosApi.Sync.Bill.sync
-    bill = KratosApi.Repo.one(from b in Bill, preload: [:congress_number, :subjects, :sponsor, :cosponsors])
+    bill = KratosApi.Repo.one(from b in Bill, where: b.gpo_id == "hr3608-114", preload: [:congress_number, :subjects, :sponsor, :cosponsors, :related_bills])
     assert bill
     assert bill.congress_number.number == 114
     assert bill.sponsor.name == "Sen. Roy Blunt [R-MO]"
     assert List.first(bill.subjects).name == "Aviation and airports"
     assert List.first(bill.cosponsors).name == "Sen. Roy Blunt [R-MO]"
+    first_related_bill = List.first(bill.related_bills) |> KratosApi.Repo.preload([:bill, :related_bill])
+    assert first_related_bill.bill.gpo_id == "hr3608-114"
+    assert first_related_bill.related_bill.gpo_id == "hr3609-114"
   end
 
 end
