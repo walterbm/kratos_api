@@ -18,7 +18,6 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
       add :number, :string
       add :official_title, :string
       add :popular_title, :string
-      add :related_bills, :map
       add :short_title, :string
       add :status, :string
       add :status_at, :date
