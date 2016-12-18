@@ -30,6 +30,7 @@ defmodule KratosApi.Person do
     field :image_url, :string
 
     has_many :roles, KratosApi.Role
+    has_many :votes, KratosApi.Vote
 
     many_to_many :committee_assignments, KratosApi.Committee, join_through: "person_committees", join_keys: [person_id: :id, committeeassignment_id: :committee_id]
 
