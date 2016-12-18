@@ -1,6 +1,11 @@
 defmodule KratosApi.Subject do
   use KratosApi.Web, :model
 
+  alias KratosApi.{
+    Repo,
+    Subject
+  }
+
   schema "subjects" do
     field :name, :string
 
@@ -17,12 +22,11 @@ defmodule KratosApi.Subject do
   end
 
   def find_or_create(data) do
-    subject = KratosApi.Subject |> KratosApi.Repo.get_by(name: data)
-    if !subject do
-      {:ok, subject} = KratosApi.Repo.insert(%KratosApi.Subject{name: data})
-      subject
-    else
-      subject
+    case Repo.get_by(Subject, name: data) do
+      nil ->
+        {:ok, subject} = Repo.insert(%Subject{name: data})
+        subject
+      subject -> subject
     end
   end
 end

@@ -1,6 +1,11 @@
 defmodule KratosApi.Person do
   use KratosApi.Web, :model
 
+  alias KratosApi.{
+    Repo,
+    Person
+  }
+
   schema "persons" do
     field :govtrack_id, :integer
     field :cspanid, :integer
@@ -45,11 +50,9 @@ defmodule KratosApi.Person do
   end
 
   def find_or_create(data) do
-    person = KratosApi.Repo.get_by(KratosApi.Person, govtrack_id: data["id"])
-    if !person do
-      KratosApi.Sync.Person.save(data)
-    else
-      person
+    case Repo.get_by(Person, govtrack_id: data["id"]) do
+      nil -> KratosApi.Sync.Person.save(data)
+      person -> person
     end
   end
 end

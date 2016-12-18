@@ -52,9 +52,7 @@ defmodule KratosApi.Role do
 
   def find_or_create(data) do
     case Repo.get_by(Role, govtrack_id: data["id"]) do
-      nil ->
-        KratosApi.Sync.Role.save(data)
-        nil
+      nil -> KratosApi.Sync.Role.save(data)
       role -> role
     end
   end
