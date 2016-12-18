@@ -1,6 +1,11 @@
 defmodule KratosApi.Committee do
   use KratosApi.Web, :model
 
+  alias KratosApi.{
+    Repo,
+    Committee
+  }
+
   schema "committees" do
     field :code, :string
     field :abbrev, :string
@@ -31,11 +36,9 @@ defmodule KratosApi.Committee do
   end
 
   def find_or_create(data) do
-    committee = KratosApi.Repo.get_by(KratosApi.Committee, govtrack_id: data["id"])
-    if !committee do
-      KratosApi.Sync.Committee.save(data)
-    else
-      committee
+    case Repo.get_by(Committee, govtrack_id: data["id"]) do
+      nil -> KratosApi.Sync.Committee.save(data)
+      committee -> committee
     end
   end
 
