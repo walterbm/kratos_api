@@ -21,7 +21,7 @@ config :kratos_api, KratosApi.Repo,
 # Environment Dependencies
 
 config :kratos_api, :govtrack_api, KratosApi.Govtrack.InMemory
-config :kratos_api, :aws_api, KratosApi.ExAws.InMemory
+config :kratos_api, :remote_queue, KratosApi.RemoteQueue.InMemory
 
 # Authentication
 config :guardian, Guardian,

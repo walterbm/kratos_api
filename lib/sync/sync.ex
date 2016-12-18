@@ -212,11 +212,10 @@ defmodule KratosApi.Sync.Bill do
   alias KratosApi.Bill
   alias KratosApi.SyncHelpers
 
-  @aws_api Application.get_env(:kratos_api, :aws_api)
+  @remote_queue Application.get_env(:kratos_api, :remote_queue)
 
   def sync do
-    {:ok, response} = @aws_api.SQS.receive_message("congress-bills") |> @aws_api.request
-    response.body.messages |> Enum.map(&save/1)
+    @remote_queue.fetch_queue("congress-bills") |> Enum.map(&save/1)
   end
 
   def save(raw_message) do
@@ -248,7 +247,6 @@ defmodule KratosApi.Sync.Bill do
       number: data["number"],
       official_title: data["official_title"],
       popular_title: data["popular_title"],
-      related_bills: data["related_bills"],
       short_title: data["short_title"],
       status: data["status"],
       status_at: SyncHelpers.convert_date(data["status_at"]),
@@ -271,6 +269,9 @@ defmodule KratosApi.Sync.Bill do
     cosponsors =
       Enum.map(data["cosponsors"],&(KratosApi.Repo.get_by(KratosApi.Person, bioguideid: &1["bioguide_id"])))
       |> Enum.reject(&(is_nil(&1)))
+    related_bills =
+      Enum.map(data["related_bills"], &(KratosApi.RelatedBill.create(&1)))
+      |> Enum.reject(&(is_nil(&1)))
 
     changeset
       |> SyncHelpers.apply_assoc(:congress_number, congress_number)
@@ -278,6 +279,7 @@ defmodule KratosApi.Sync.Bill do
       |> SyncHelpers.apply_assoc(:committees, committees)
       |> SyncHelpers.apply_assoc(:cosponsors, cosponsors)
       |> SyncHelpers.apply_assoc(:subjects, subjects)
+      |> SyncHelpers.apply_assoc(:related_bills, related_bills)
   end
 end
 
