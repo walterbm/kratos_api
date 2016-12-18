@@ -164,6 +164,8 @@ defmodule KratosApi.Sync.Committee do
 
   @govtrack_api Application.get_env(:kratos_api, :govtrack_api)
 
+  @committee_types %{"S" => "Senate", "J" => "Joint", "H" => "House"}
+
   def sync do
     response = @govtrack_api.committees([limit: 6000])
     response["objects"] |> Enum.map(&save/1)
@@ -191,8 +193,8 @@ defmodule KratosApi.Sync.Committee do
       name: data["name"],
       obsolete: data["obsolete"],
       url: data["url"],
-      committee_type: data["committee_type"],
-      committee_type_label: data["committee_type_label"],
+      committee_type: String.downcase(@committee_types[String.first(data["code"])]),
+      committee_type_label: @committee_types[String.first(data["code"])],
     }
   end
 
