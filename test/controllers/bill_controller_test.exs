@@ -15,7 +15,7 @@ defmodule KratosApi.BillControllerTest do
 
 
   test "GET /api/bills/:id", %{conn: conn, jwt: jwt} do
-    bill = KratosApi.Repo.all(from b in KratosApi.Bill, limit: 1) |> List.first
+    bill = KratosApi.Repo.all(from b in KratosApi.Bill, where: b.gpo_id == "hr3608-114", limit: 1) |> List.first
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> get("/api/bills/#{bill.id}")
@@ -32,5 +32,6 @@ defmodule KratosApi.BillControllerTest do
     assert one["cosponsors"] |> List.first |> Map.get("roles") |> List.first |> Map.get("description") == "Junior Senator from Missouri"
     assert one["congress_number"] == 114
     assert one["committees"] |> List.first |> Map.get("code") == "SSFR"
+    assert one["related_bills"] |> List.first |> Map.get("reason") == "identical"
   end
 end

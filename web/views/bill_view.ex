@@ -18,7 +18,6 @@ defmodule KratosApi.BillView do
       number: bill.number,
       official_title: bill.official_title,
       popular_title: bill.popular_title,
-      related_bills: bill.related_bills,
       short_title: bill.short_title,
       status: bill.status,
       status_at: bill.status_at,
@@ -34,7 +33,8 @@ defmodule KratosApi.BillView do
 
       committees: render_many(bill.committees, KratosApi.CommitteeView, "committee.json"),
       cosponsors: render_many(bill.cosponsors, KratosApi.PersonView, "person.json"),
-      subjects: render_many(bill.subjects, KratosApi.SubjectView, "subject.json")
+      subjects: render_many(bill.subjects, KratosApi.SubjectView, "subject.json"),
+      related_bills: render_many(bill.related_bills, KratosApi.RelatedBillView, "related_bill.json")
     }
   end
 
