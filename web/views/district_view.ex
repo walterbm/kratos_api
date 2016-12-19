@@ -1,8 +1,12 @@
 defmodule KratosApi.DistrictView do
   use KratosApi.Web, :view
+  import Kerosene.JSON
 
-  def render("roles.json", %{roles: roles}) do
-    %{data: render_many(roles, KratosApi.DistrictView, "role.json", as: :role)}
+  def render("roles.json", %{roles: roles, kerosene: kerosene, conn: conn}) do
+    %{
+      data: render_many(roles, KratosApi.DistrictView, "role.json", as: :role),
+      pagination: paginate(conn, kerosene)
+    }
   end
 
   def render("role.json", %{role: role}) do

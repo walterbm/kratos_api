@@ -140,64 +140,75 @@ Find information and representatives for a congressional district.
 
 + Response 200 (application/json)
 
-        {
-          "data": [
             {
-              "website": "https://www.schumer.senate.gov",
-              "title_long": "Senator",
-              "title": "Sen.",
-              "state": "NY",
-              "startdate": "2011-01-05",
-              "senator_rank_label": "Senior",
-              "senator_rank": "senior",
-              "senator_class_label": "Class 3",
-              "senator_class": "class3",
-              "role_type_label": "Senator",
-              "role_type": "senator",
-              "phone": "202-224-6542",
-              "person": {
-                "youtubeid": "SenatorSchumer",
-                "twitterid": "SenSchumer",
-                "sortname": "Schumer, Charles “Chuck” (Sen.) [D-NY]",
-                "pvsid": "26976",
-                "osid": "N00001093",
-                "nickname": "Chuck",
-                "namemod": null,
-                "name": "Sen. Charles “Chuck” Schumer [D-NY]",
-                "middlename": "E.",
-                "link": "https://www.govtrack.us/congress/members/charles_schumer/300087",
-                "lastname": "Schumer",
-                "image_url": "https://theunitedstates.io/images/congress/225x275/S000148.jpg",
-                "govtrack_id": 300087,
-                "gender_label": "Male",
-                "gender": "male",
-                "firstname": "Charles",
-                "cspanid": 5929,
-                "birthday": "1950-11-23",
-                "bioguideid": "S000148"
-              },
-              "party": "Democrat",
-              "leadership_title": null,
-              "govtrack_id": 4282,
-              "extra": {
-                "office": "322 Hart Senate Office Building",
-                "fax": "202-228-3027",
-                "contact_form": "http://www.schumer.senate.gov/Contact/email-chuck",
-                "address": "322 Hart Senate Office Building Washington DC 20510"
-              },
-              "enddate": "2017-01-03",
-              "district": null,
-              "description": "Senior Senator from New York",
-              "current": true,
-              "congress_numbers": [
-                114,
-                113,
-                112
+              "pagination": [
+                {
+                  "url": "/api/districts/ny/12?id=12&page=1&state=ny",
+                  "page": 1,
+                  "label": "1",
+                  "current": true
+                }
               ],
-              "caucus": null
+              "data": [
+                {
+                  "website": "https://www.schumer.senate.gov",
+                  "title_long": "Senator",
+                  "title": "Sen.",
+                  "state": "NY",
+                  "startdate": "2011-01-05",
+                  "senator_rank_label": "Senior",
+                  "senator_rank": "senior",
+                  "senator_class_label": "Class 3",
+                  "senator_class": "class3",
+                  "role_type_label": "Senator",
+                  "role_type": "senator",
+                  "phone": "202-224-6542",
+                  "person": {
+                    "youtubeid": "SenatorSchumer",
+                    "twitterid": "SenSchumer",
+                    "sortname": "Schumer, Charles “Chuck” (Sen.) [D-NY]",
+                    "roles": [],
+                    "pvsid": "26976",
+                    "osid": "N00001093",
+                    "nickname": "Chuck",
+                    "namemod": null,
+                    "name": "Sen. Charles “Chuck” Schumer [D-NY]",
+                    "middlename": "E.",
+                    "link": "https://www.govtrack.us/congress/members/charles_schumer/300087",
+                    "lastname": "Schumer",
+                    "image_url": "https://theunitedstates.io/images/congress/225x275/S000148.jpg",
+                    "govtrack_id": 300087,
+                    "gender_label": "Male",
+                    "gender": "male",
+                    "firstname": "Charles",
+                    "current_state": "NY",
+                    "current_party": "D",
+                    "cspanid": 5929,
+                    "birthday": "1950-11-23",
+                    "bioguideid": "S000148"
+                  },
+                  "party": "Democrat",
+                  "leadership_title": null,
+                  "govtrack_id": 4282,
+                  "extra": {
+                    "office": "322 Hart Senate Office Building",
+                    "fax": "202-228-3027",
+                    "contact_form": "http://www.schumer.senate.gov/Contact/email-chuck",
+                    "address": "322 Hart Senate Office Building Washington DC 20510"
+                  },
+                  "enddate": "2017-01-03",
+                  "district": null,
+                  "description": "Senior Senator from New York",
+                  "current": true,
+                  "congress_numbers": [
+                    112,
+                    113,
+                    114
+                  ],
+                  "caucus": null
+                }
+              ]
             }
-          ]
-        }
 
 ## Group Representatives
 
