@@ -17,13 +17,15 @@ defmodule KratosApi.User do
     field :zip, :integer
     field :district, :integer
     field :encrypted_password, :string
+    field :party, :string
+    field :birthday, Ecto.Date
     field :password, :string, virtual: true
 
     timestamps()
   end
 
-  @required_fields ~w(first_name last_name password phone)
-  @optional_fields ~w(encrypted_password address city zip state district)
+  @required_fields ~w(password phone)
+  @optional_fields ~w(encrypted_password address city zip state district first_name last_name party birthday)
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -31,7 +33,7 @@ defmodule KratosApi.User do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @required_fields, @optional_fields)
-    |> validate_length(:password, min: 5)
+    |> validate_length(:password, min: 8)
     |> validate_confirmation(:password, message: "Password does not match")
     |> unique_constraint(:phone, message: "Phone number is already taken")
     |> generate_encrypted_password
