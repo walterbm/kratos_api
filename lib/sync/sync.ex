@@ -251,7 +251,7 @@ defmodule KratosApi.Sync.Bill do
       popular_title: data["popular_title"],
       short_title: data["short_title"],
       status: data["status"],
-      status_at: SyncHelpers.convert_date(data["status_at"]),
+      status_at: SyncHelpers.convert_datetime(data["status_at"]),
       top_term: data["subjects_top_term"],
       summary_text: data["summary"]["text"],
       summary_date: SyncHelpers.convert_datetime(data["summary"]["date"]),
