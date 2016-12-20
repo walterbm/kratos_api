@@ -8,7 +8,7 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
       add :gpo_id, :string
       add :type, :string
       add :committee_history, :map
-      add :enacted_as, :string
+      add :enacted_as, :text
       add :active, :boolean
       add :awaiting_signature, :boolean
       add :enacted, :boolean
@@ -16,12 +16,12 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
       add :history, :map
       add :introduced_at, :date
       add :number, :string
-      add :official_title, :string
-      add :popular_title, :string
-      add :short_title, :string
+      add :official_title, :text
+      add :popular_title, :text
+      add :short_title, :text
       add :status, :string
-      add :status_at, :date
-      add :top_term, :string
+      add :status_at, :datetime
+      add :top_term, :text
       add :summary_text, :text
       add :summary_date, :datetime
       add :titles, :map

@@ -9,18 +9,18 @@ defmodule KratosApi.Repo.Migrations.CreateTally do
       add :chamber, :string
       add :date, :datetime
       add :number, :integer
-      add :question, :string
+      add :question, :text
       add :requires, :string
       add :result, :string
-      add :result_text, :string
+      add :result_text, :text
       add :session, :string
       add :source_url, :string
-      add :subject, :string
+      add :subject, :text
       add :type, :string
       add :record_updated_at, :datetime
       add :gpo_id, :string
       add :md5_of_body, :string
-      
+
       add :bill_id, references(:bills, on_delete: :nothing)
       add :nomination_id, references(:nominations, on_delete: :nothing)
       add :congress_number_id, references(:congress_numbers, on_delete: :nothing, column: :number)

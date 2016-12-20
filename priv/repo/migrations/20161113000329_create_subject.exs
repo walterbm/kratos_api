@@ -3,7 +3,7 @@ defmodule KratosApi.Repo.Migrations.CreateSubject do
 
   def change do
     create table(:subjects) do
-      add :name, :string
+      add :name, :text
 
       timestamps()
     end
