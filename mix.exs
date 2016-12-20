@@ -31,6 +31,8 @@ defmodule KratosApi.Mixfile do
         :govtrack,
         :guardian,
         :comeonin,
+        :kerosene,
+        :sweet_xml
         :exrm,
         :edeliver,
         :ex_aws
