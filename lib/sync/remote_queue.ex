@@ -3,7 +3,7 @@ defmodule KratosApi.RemoteQueue do
   def fetch_queue(name), do: build_queue(name)
 
   defp build_queue(name, queue \\ [], num_empty_responses \\ 0)
-  defp build_queue(name, queue, num_empty_responses) when num_empty_responses < 3 do
+  defp build_queue(name, queue, num_empty_responses) when num_empty_responses < 5 do
     {:ok, response} = ExAws.SQS.receive_message(name) |> ExAws.request
     cond do
       Enum.empty?(response.body.messages) -> build_queue(name, queue, num_empty_responses + 1)
