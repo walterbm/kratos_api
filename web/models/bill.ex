@@ -20,7 +20,7 @@ defmodule KratosApi.Bill do
     field :popular_title, :string
     field :short_title, :string
     field :status, :string
-    field :status_at, Ecto.Date
+    field :status_at, Ecto.DateTime
     field :top_term, :string
     field :summary_text, :string
     field :summary_date, Ecto.DateTime

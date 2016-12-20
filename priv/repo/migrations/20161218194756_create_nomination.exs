@@ -3,7 +3,7 @@ defmodule KratosApi.Repo.Migrations.CreateNomination do
 
   def change do
     create table(:nominations) do
-      add :title, :string
+      add :title, :text
 
       timestamps()
     end

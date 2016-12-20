@@ -5,7 +5,7 @@ defmodule KratosApi.Repo.Migrations.CreateCommittee do
     create table(:committees) do
       add :code, :string
       add :abbrev, :string
-      add :name, :string
+      add :name, :text
       add :govtrack_id, :integer
       add :committee_type, :string
       add :committee_type_label, :string
