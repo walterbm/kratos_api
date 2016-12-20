@@ -27,14 +27,15 @@ defmodule KratosApi.BillView do
       titles: bill.titles,
       gpo_data_updated_at: bill.gpo_data_updated_at,
       urls: bill.urls,
+      congress_number: bill.congress_number_id,
 
-      congress_number: render_one(bill.congress_number, KratosApi.CongressNumberView, "congress_number.json"),
       sponsor: render_one(bill.sponsor, KratosApi.PersonView, "person.json"),
 
       committees: render_many(bill.committees, KratosApi.CommitteeView, "committee.json"),
       cosponsors: render_many(bill.cosponsors, KratosApi.PersonView, "person.json"),
       subjects: render_many(bill.subjects, KratosApi.SubjectView, "subject.json"),
-      related_bills: render_many(bill.related_bills, KratosApi.RelatedBillView, "related_bill.json")
+      related_bills: render_many(bill.related_bills, KratosApi.RelatedBillView, "related_bill.json"),
+      tallies: render_many(bill.tallies, KratosApi.TallyView, "tally.json")
     }
   end
 
