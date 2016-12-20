@@ -27,7 +27,7 @@ defmodule KratosApi.Vote do
   def create(data, key) do
     person_id = case Repo.get_by(Person, bioguideid: data["id"]) do
       nil ->
-        case Repo.get_by(Person, lastname: Map.get(data, "last_name", "")) do
+        case Repo.one(from p in Person, where: [lastname: ^Map.get(data, "last_name", ""), firstname: ^Map.get(data, "first_name", "")]) do
           nil -> nil
           person -> person.id
         end
@@ -46,37 +46,3 @@ defmodule KratosApi.Vote do
   end
 
 end
-
-# "votes": {
-#     "Nay": [
-#       {
-#         "display_name": "Baldwin (D-WI)",
-#         "first_name": "Tammy",
-#         "id": "S354",
-#         "last_name": "Baldwin",
-#         "party": "D",
-#         "state": "WI"
-#       }
-#     ],
-#     "Not Voting": [
-#       {
-#         "display_name": "Kaine (D-VA)",
-#         "first_name": "Timothy",
-#         "id": "S362",
-#         "last_name": "Kaine",
-#         "party": "D",
-#         "state": "VA"
-#       }
-#     ],
-#     "Present": [],
-#     "Yea": [
-#       {
-#         "display_name": "Alexander (R-TN)",
-#         "first_name": "Lamar",
-#         "id": "S289",
-#         "last_name": "Alexander",
-#         "party": "R",
-#         "state": "TN"
-#       }
-#     ]
-#   }
