@@ -228,40 +228,94 @@ Information related congressional representatives.
 
 + Response 200 (application/json)
 
-            [
+            {
+              "pagination": [
                 {
-                    "vote_type": "On the Conference Report",
-                    "vote": 118659,
+                  "url": "/api/representatives/19/votes?id=19&page=1",
+                  "page": 1,
+                  "label": "1",
+                  "current": true
+                }
+              ],
+              "data": {
+                "voting_record": [
+                  {
                     "value": "Yea",
-                    "total_plus": 92,
-                    "total_other": 6,
-                    "total_minus": 2,
-                    "source_label": "senate.gov",
-                    "source": "senate",
-                    "session": "2016",
-                    "result": "Conference Report Agreed to",
-                    "required": "1/2",
-                    "related_bill": 336967,
-                    "related_amendment": null,
-                    "question_title": "Comprehensive Addiction and Recovery Act of 2016",
-                    "question_details": "On the Conference Report in the Senate",
-                    "question_code": "S. 524",
-                    "question": "S. 524: Comprehensive Addiction and Recovery Act of 2016",
-                    "percent_plus": 0.92,
-                    "number": 129,
-                    "missing_data": false,
-                    "margin": 0.957447,
-                    "link": "https://www.govtrack.us/congress/votes/114-2016/s129",
-                    "key": "+",
-                    "id": 118659,
-                    "created": "2016-07-13T18:20:00",
-                    "congress": 114,
-                    "chamber_label": "Senate",
-                    "chamber": "senate",
-                    "category_label": "Passage",
-                    "category": "passage"
-                },
-            ]
+                    "tally": {
+                      "type": "On the Nomination",
+                      "treaty": null,
+                      "subject": "Confirmation Peter Michael McKinley, of Virginia, to be Ambassador to the Federative Republic of Brazil",
+                      "source_url": "http://www.senate.gov/legislative/LIS/roll_call_votes/vote1142/vote_114_2_00137.xml",
+                      "session": "2016",
+                      "result_text": "Nomination Confirmed (92-0)",
+                      "result": "Nomination Confirmed",
+                      "requires": "1/2",
+                      "record_updated_at": null,
+                      "question": "On the Nomination PN1500: Peter Michael McKinley, of Virginia, to be Ambassador to the Federative Republic of Brazil",
+                      "number": 137,
+                      "gpo_id": "s137-114.2016",
+                      "date": "2016-09-08T13:46:00",
+                      "chamber": "Senate",
+                      "category": "nomination",
+                      "amendment": null
+                    }
+                  }
+                ],
+                "person": {
+                  "youtubeid": "SenatorSchumer",
+                  "twitterid": "SenSchumer",
+                  "sortname": "Schumer, Charles “Chuck” (Sen.) [D-NY]",
+                  "roles": [
+                    {
+                      "website": "https://www.schumer.senate.gov",
+                      "title_long": "Senator",
+                      "title": "Sen.",
+                      "state": "NY",
+                      "startdate": "2011-01-05",
+                      "senator_rank_label": "Senior",
+                      "senator_rank": "senior",
+                      "senator_class_label": "Class 3",
+                      "senator_class": "class3",
+                      "role_type_label": "Senator",
+                      "role_type": "senator",
+                      "phone": "202-224-6542",
+                      "party": "Democrat",
+                      "leadership_title": null,
+                      "govtrack_id": 4282,
+                      "extra": {
+                        "office": "322 Hart Senate Office Building",
+                        "fax": "202-228-3027",
+                        "contact_form": "http://www.schumer.senate.gov/Contact/email-chuck",
+                        "address": "322 Hart Senate Office Building Washington DC 20510"
+                      },
+                      "enddate": "2017-01-03",
+                      "district": null,
+                      "description": "Senior Senator from New York",
+                      "current": true,
+                      "caucus": null
+                    }
+                  ],
+                  "pvsid": "26976",
+                  "osid": "N00001093",
+                  "nickname": "Chuck",
+                  "namemod": null,
+                  "name": "Sen. Charles “Chuck” Schumer [D-NY]",
+                  "middlename": "E.",
+                  "link": "https://www.govtrack.us/congress/members/charles_schumer/300087",
+                  "lastname": "Schumer",
+                  "image_url": "https://theunitedstates.io/images/congress/225x275/S000148.jpg",
+                  "govtrack_id": 300087,
+                  "gender_label": "Male",
+                  "gender": "male",
+                  "firstname": "Charles",
+                  "current_state": "NY",
+                  "current_party": "D",
+                  "cspanid": 5929,
+                  "birthday": "1950-11-23",
+                  "bioguideid": "S000148"
+                }
+              }
+            }
 
 ## Group Bills
 
@@ -284,198 +338,189 @@ Resources related congressional bills & resolutions.
             {
               "vetoed": false,
               "urls": null,
-              "type": "hr",
-              "top_term": "Taxation",
+              "type": "s",
+              "top_term": "Energy",
               "titles": [
                 {
-                  "type": "official",
-                  "title": "To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air.",
+                  "type": "short",
+                  "title": "Energy Policy Modernization Act of 2015",
                   "is_for_portion": false,
                   "as": "introduced"
+                },
+
+              ],
+              "tallies": [
+                {
+                  "Yea": 70,
+                  "Not Voting": 2,
+                  "Nay": 9,
+                  "votes": [
+                    {
+                      "value": "Yea",
+                      "person_name": "Sen. Ron Wyden [D-OR]",
+                      "person_image": "https://theunitedstates.io/images/congress/225x275/W000779.jpg"
+                    },
+                    {
+                      "value": "Not Voting",
+                      "person_name": "Sen. Ted Cruz [R-TX]",
+                      "person_image": "https://theunitedstates.io/images/congress/225x275/C001098.jpg"
+                    },
+                    {
+                      "value": "Nay",
+                      "person_name": "Sen. Jefferson “Jeff” Sessions [R-AL]",
+                      "person_image": "https://theunitedstates.io/images/congress/225x275/S001141.jpg"
+                    }
+                  ],
+                  "type": "On Passage of the Bill",
+                  "treaty": null,
+                  "subject": "S. 2012, As Amended",
+                  "source_url": "http://www.senate.gov/legislative/LIS/roll_call_votes/vote1142/vote_114_2_00054.xml",
+                  "session": "2016",
+                  "result_text": "Bill Passed (85-12)",
+                  "result": "Bill Passed",
+                  "requires": "1/2",
+                  "record_updated_at": null,
+                  "question": "On Passage of the Bill S. 2012",
+                  "number": 54,
+                  "gpo_id": "s54-114.2016",
+                  "date": "2016-04-20T10:01:00",
+                  "chamber": "Senate",
+                  "category": "passage",
+                  "amendment": null
                 }
               ],
-              "summary_text": "(Sec. 1) This bill amends the Internal Revenue Code to exempt from the excise tax on transportation of persons and property by air amounts paid by an aircraft owner or lessee for aircraft management services related to maintenance and support of the aircraft or flights on such aircraft.\n\nAircraft management services include assisting an aircraft owner with administrative and support services; obtaining insurance; maintenance, storage and fueling of aircraft; hiring, training, and provision of pilots and crew; establishing and complying with safety standards; or other services necessary to support flights operated by an aircraft owner.\n\nIn the case of an aircraft owner that is wholly-owned by another person, amounts paid by the other person on behalf of the aircraft owner must be treated as having been paid directly by the aircraft owner.",
-              "summary_date": null,
+              "summary_text": "Energy Policy Modernization Act of 2015\n\nThis bill amends the Energy Conservation and Production Act, the Energy Policy and Conservation Act (EPCA), and the Energy Independence and Security Act of 2007 with respect to energy efficiency in buildings and appliances.\n\nThe Office of Energy Efficiency and Renewable Energy of the Department of Energy (DOE) shall conduct activities with respect to manufacturing energy efficiency.\n\nVehicle Innovation Act of 2015\n\nDOE shall conduct research, development, engineering, demonstration, and commercial application programs regarding passenger as well as medium- and heavy-duty commercial vehicles and transit vehicles. . .",
+              "summary_date": "2015-09-09T04:00:00",
               "subjects": [
-                "Aviation and airports",
-                "Sales and excise taxes",
-                "Taxation",
-                "Transportation safety and security"
+                "Wildlife conservation and habitat protection",
               ],
-              "status_at": "2016-07-13",
-              "status": "REPORTED",
+              "status_at": null,
+              "status": "PASS_BACK:HOUSE",
               "sponsor": {
-                "youtubeid": "PatTiberi",
-                "twitterid": "TiberiPress",
-                "sortname": "Tiberi, Patrick “Pat” (Rep.) [R-OH12]",
+                "youtubeid": "senatormurkowski",
+                "twitterid": "LisaMurkowski",
+                "sortname": "Murkowski, Lisa (Sen.) [R-AK]",
                 "roles": [
                   {
-                    "website": "http://tiberi.house.gov",
-                    "title_long": "Representative",
-                    "title": "Rep.",
-                    "state": "OH",
-                    "startdate": "2015-01-06",
-                    "senator_rank_label": null,
-                    "senator_rank": null,
-                    "senator_class_label": null,
-                    "senator_class": null,
-                    "role_type_label": "Representative",
-                    "role_type": "representative",
-                    "phone": "202-225-5355",
+                    "website": "https://www.murkowski.senate.gov",
+                    "title_long": "Senator",
+                    "title": "Sen.",
+                    "state": "AK",
+                    "startdate": "2011-01-05",
+                    "senator_rank_label": "Senior",
+                    "senator_rank": "senior",
+                    "senator_class_label": "Class 3",
+                    "senator_class": "class3",
+                    "role_type_label": "Senator",
+                    "role_type": "senator",
+                    "phone": "202-224-6665",
                     "party": "Republican",
                     "leadership_title": null,
-                    "govtrack_id": 43398,
+                    "govtrack_id": 4209,
                     "extra": {
-                      "rss_url": "http://tiberi.house.gov/news/rss.aspx",
-                      "office": "1203 Longworth House Office Building",
-                      "fax": "202-226-4523",
-                      "contact_form": "https://tiberi.house.gov/contact/contactform.htm",
-                      "address": "1203 Longworth HOB; Washington DC 20515-3512"
+                      "rss_url": "http://www.murkowski.senate.gov/public/?a=rss.feed",
+                      "office": "709 Hart Senate Office Building",
+                      "fax": "202-224-5301",
+                      "contact_form": "http://www.murkowski.senate.gov/public/index.cfm?p=EMailLisa",
+                      "address": "709 Hart Senate Office Building Washington DC 20510"
                     },
                     "enddate": "2017-01-03",
-                    "district": 12,
-                    "description": "Representative for Ohio's 12th congressional district",
+                    "district": null,
+                    "description": "Senior Senator from Alaska",
                     "current": true,
                     "caucus": null
                   }
                 ],
-                "pvsid": "8404",
-                "osid": "N00009699",
-                "nickname": "Pat",
+                "pvsid": "15841",
+                "osid": "N00026050",
+                "nickname": null,
                 "namemod": null,
-                "name": "Rep. Patrick “Pat” Tiberi [R-OH12]",
-                "middlename": "J.",
-                "link": "https://www.govtrack.us/congress/members/patrick_tiberi/400406",
-                "lastname": "Tiberi",
-                "image_url": "https://theunitedstates.io/images/congress/225x275/T000462.jpg",
-                "govtrack_id": 400406,
-                "gender_label": "Male",
-                "gender": "male",
-                "firstname": "Patrick",
-                "current_state": "OH12",
+                "name": "Sen. Lisa Murkowski [R-AK]",
+                "middlename": "A.",
+                "link": "https://www.govtrack.us/congress/members/lisa_murkowski/300075",
+                "lastname": "Murkowski",
+                "image_url": "https://theunitedstates.io/images/congress/225x275/M001153.jpg",
+                "govtrack_id": 300075,
+                "gender_label": "Female",
+                "gender": "female",
+                "firstname": "Lisa",
+                "current_state": "AK",
                 "current_party": "R",
-                "cspanid": 88155,
-                "birthday": "1962-10-21",
-                "bioguideid": "T000462"
+                "cspanid": 1004138,
+                "birthday": "1957-05-22",
+                "bioguideid": "M001153"
               },
-              "short_title": null,
+              "short_title": "Energy Policy Modernization Act of 2016",
               "related_bills": [
                 {
-                  "type": "bill",
-                  "reason": "identical",
-                  "identified_by": "CRS",
-                  "bill_id": "s2092-114"
-                }
+                  "related_bill_id": 5908,
+                  "reason": "related"
+                },
               ],
               "popular_title": null,
-              "official_title": "To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air.",
-              "number": "3608",
-              "introduced_at": "2015-09-24",
+              "official_title": "An original bill to provide for the modernization of the energy policy of the United States, and for other purposes.",
+              "number": "2012",
+              "introduced_at": "2015-09-09",
               "history": {
                 "vetoed": false,
+                "senate_passage_result_at": "2016-04-20",
+                "senate_passage_result": "pass",
+                "house_passage_result_at": "2016-05-25T17:31:47-04:00",
+                "house_passage_result": "pass",
                 "enacted": false,
                 "awaiting_signature": false,
-                "active_at": "2016-07-13",
+                "active_at": "2015-09-09",
                 "active": true
               },
-              "gpo_id": "hr3608-114",
-              "gpo_data_updated_at": "2016-11-14T15:01:09",
+              "gpo_id": "s2012-114",
+              "gpo_data_updated_at": "2016-11-08T15:21:21",
               "enacted_as": null,
               "enacted": false,
-              "cosponsors": [
-                {
-                  "youtubeid": null,
-                  "twitterid": "RepBeatty",
-                  "sortname": "Beatty, Joyce (Rep.) [D-OH3]",
-                  "roles": [
-                    {
-                      "website": "http://beatty.house.gov",
-                      "title_long": "Representative",
-                      "title": "Rep.",
-                      "state": "OH",
-                      "startdate": "2015-01-06",
-                      "senator_rank_label": null,
-                      "senator_rank": null,
-                      "senator_class_label": null,
-                      "senator_class": null,
-                      "role_type_label": "Representative",
-                      "role_type": "representative",
-                      "phone": "202-225-4324",
-                      "party": "Democrat",
-                      "leadership_title": null,
-                      "govtrack_id": 43641,
-                      "extra": {
-                        "rss_url": "http://beatty.house.gov/rss.xml",
-                        "office": "133 Cannon House Office Building",
-                        "fax": "202-225-1984",
-                        "contact_form": "https://beattyforms.house.gov/forms/writeyourrep/",
-                        "address": "133 Cannon HOB; Washington DC 20515-3503"
-                      },
-                      "enddate": "2017-01-03",
-                      "district": 3,
-                      "description": "Representative for Ohio's 3rd congressional district",
-                      "current": true,
-                      "caucus": null
-                      }
-                  ],
-                  "pvsid": "2427",
-                  "osid": "N00033904",
-                  "nickname": null,
-                  "namemod": null,
-                  "name": "Rep. Joyce Beatty [D-OH3]",
-                  "middlename": null,
-                  "link": "https://www.govtrack.us/congress/members/joyce_beatty/412565",
-                  "lastname": "Beatty",
-                  "image_url": "https://theunitedstates.io/images/congress/225x275/B001281.jpg",
-                  "govtrack_id": 412565,
-                  "gender_label": "Female",
-                  "gender": "female",
-                  "firstname": "Joyce",
-                  "current_state": "OH3",
-                  "current_party": "D",
-                  "cspanid": 67294,
-                  "birthday": "1950-03-12",
-                  "bioguideid": "B001281"
-                }
-              ],
+              "cosponsors": [],
               "congress_number": 114,
               "committees": [
                 {
-                "url": "http://waysandmeans.house.gov/",
-                "sub_committees": [],
-                "parent": [],
-                "obsolete": false,
-                "name": "House Committee on Ways and Means",
-                "jurisdiction_link": "http://waysandmeans.house.gov/about/history.htm",
-                "jurisdiction": "The Committee on Ways and Means is the oldest committee of the United States Congress, and is the chief tax-writing committee in the House of Representatives. The Committee derives a large share of its jurisdiction from Article I, Section VII of the U.S. Constitution which declares, “All Bills for raising Revenue shall originate in the House of Representatives.”",
-                "govtrack_id": 2779,
-                "committee_type_label": "House",
-                "committee_type": "house",
-                "code": "HSWM",
-                "abbrev": "W&M"
+                  "url": "http://energy.senate.gov/",
+                  "sub_committees": [],
+                  "parent": [],
+                  "obsolete": false,
+                  "name": "Senate Committee on Energy and Natural Resources",
+                  "jurisdiction_link": null,
+                  "jurisdiction": null,
+                  "govtrack_id": 2615,
+                  "committee_type_label": "Senate",
+                  "committee_type": "senate",
+                  "code": "SSEG",
+                  "abbrev": "E&NatRes"
                 }
               ],
               "committee_history": [
                 {
-                  "committee_id": "HSWM",
-                  "committee": "House Ways and Means",
+                  "committee_id": "SSEG",
+                  "committee": "Senate Energy and Natural Resources",
                   "activity": [
-                    "reporting",
-                    "markup",
-                    "referral"
+                    "origin",
+                    "reporting"
                   ]
                 }
               ],
               "awaiting_signature": false,
-              "amendments": [],
+              "amendments": [
+                {
+                  "number": "3787",
+                  "chamber": "s",
+                  "amendment_type": "samdt",
+                  "amendment_id": "samdt3787-114"
+                }
+              ],
               "active": true,
               "actions": [
                 {
                   "type": "action",
-                  "text": "Introduced in House",
+                  "text": "Introduced in Senate",
                   "references": [],
-                  "action_code": "Intro-H",
-                  "acted_at": "2015-09-24"
-                }
+                  "action_code": "10000",
+                  "acted_at": "2015-09-09"
+                },
               ]
             }
