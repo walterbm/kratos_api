@@ -32,7 +32,7 @@ defmodule KratosApi.Mixfile do
         :guardian,
         :comeonin,
         :kerosene,
-        :sweet_xml
+        :sweet_xml,
         :exrm,
         :edeliver,
         :ex_aws
