@@ -12,6 +12,7 @@ defmodule KratosApi.RepresentativeController do
 
     query = from v in KratosApi.Vote,
       where: v.person_id == ^params["id"],
+      order_by: v.date,
       preload: [:tally]
 
     {voting_records, kerosene} = query |> KratosApi.Repo.paginate(params)
