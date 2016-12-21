@@ -14,6 +14,7 @@ defmodule KratosApi.PersonView do
       end
 
     %{
+      id: person.id, 
       govtrack_id: person.govtrack_id,
       cspanid: person.cspanid,
       bioguideid: person.bioguideid,

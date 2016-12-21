@@ -7,6 +7,7 @@ defmodule KratosApi.CommitteeView do
 
   def render("committee.json", %{committee: committee}) do
     %{
+      id: committee.id,
       code: committee.code,
       abbrev: committee.abbrev,
       name: committee.name,

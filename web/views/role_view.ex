@@ -7,6 +7,7 @@ defmodule KratosApi.RoleView do
 
   def render("role.json", %{role: role}) do
     %{
+      id: role.id, 
       current: role.current,
       enddate: role.enddate,
       description: role.description,

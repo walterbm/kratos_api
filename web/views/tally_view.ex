@@ -3,6 +3,7 @@ defmodule KratosApi.TallyView do
 
   def render("tally.json", %{tally: tally}) do
     Map.merge(%{
+      id: tally.id,
       amendment: tally.amendment,
       treaty: tally.treaty,
       category: tally.category,
@@ -25,6 +26,7 @@ defmodule KratosApi.TallyView do
 
   def render("tally_flat.json", %{tally: tally}) do
     %{
+      id: tally.id, 
       amendment: tally.amendment,
       treaty: tally.treaty,
       category: tally.category,
