@@ -34,14 +34,16 @@ Register and modify user's information.
     + Attributes(object)
 
         + user
-            + first_name: `Eric` (string, required)
-            + last_name: `Andre` (string, required)
             + phone: `1234567890` (number, required)
             + password: `password` (string, required)
+            + first_name: `Eric` (string)
+            + last_name: `Andre` (string)
             + address: `700 Ranch` (string)
             + city: `Brooklyn` (string)
             + state: `NY` (string)
             + zip: `11211` (number)
+            + party: `Democrat` (string)
+            + birthday: `2001-03-11` (string)
 
 + Response 200 (application/json)
 
@@ -56,6 +58,8 @@ Register and modify user's information.
                 "district": 7,
                 "city": "Brooklyn",
                 "address": "700 Ranch"
+                "party": "Democrat",
+                "birthday": "2001-03-11"
               },
               "token": "eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"
             }
@@ -86,7 +90,9 @@ Login and existing user and start a session.
                 "first_name": "Eric",
                 "district": 7,
                 "city": "Brooklyn",
-                "address": "700 Ranch"
+                "address": "700 Ranch",
+                "party": "Democrat",
+                "birthday": "2001-03-11"
               },
               "token": "eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"
             }
@@ -113,7 +119,9 @@ Get information on the current user based on the session.
               "first_name": "Eric",
               "district": 7,
               "city": "Brooklyn",
-              "address": "700 Ranch"
+              "address": "700 Ranch",
+              "party": "Democrat",
+              "birthday": "2001-03-11"
             }
 
 
@@ -143,7 +151,7 @@ Find information and representatives for a congressional district.
             {
               "pagination": [
                 {
-                  "url": "/api/districts/ny/12?id=12&page=1&state=ny",
+                  "url": "/api/districts/NY/7?id=7&page=1&state=NY",
                   "page": 1,
                   "label": "1",
                   "current": true
@@ -177,6 +185,7 @@ Find information and representatives for a congressional district.
                     "link": "https://www.govtrack.us/congress/members/charles_schumer/300087",
                     "lastname": "Schumer",
                     "image_url": "https://theunitedstates.io/images/congress/225x275/S000148.jpg",
+                    "id": 19,
                     "govtrack_id": 300087,
                     "gender_label": "Male",
                     "gender": "male",
@@ -189,6 +198,7 @@ Find information and representatives for a congressional district.
                   },
                   "party": "Democrat",
                   "leadership_title": null,
+                  "id": 19,
                   "govtrack_id": 4282,
                   "extra": {
                     "office": "322 Hart Senate Office Building",
@@ -201,12 +211,12 @@ Find information and representatives for a congressional district.
                   "description": "Senior Senator from New York",
                   "current": true,
                   "congress_numbers": [
-                    112,
+                    114,
                     113,
-                    114
+                    112
                   ],
                   "caucus": null
-                }
+                },
               ]
             }
 
@@ -224,7 +234,7 @@ Information related congressional representatives.
             Authorization: Bearer <token>
 
 + Parameters
-    + id: `412223` (number, required) - representative's Govtrack ID.
+    + id: `412223` (number, required) - representative's PERSON ID.
 
 + Response 200 (application/json)
 
@@ -235,87 +245,112 @@ Information related congressional representatives.
                   "page": 1,
                   "label": "1",
                   "current": true
+                },
+                {
+                  "url": "/api/representatives/19/votes?id=19&page=2",
+                  "page": 2,
+                  "label": "Next",
+                  "current": false
                 }
               ],
               "data": {
                 "voting_record": [
                   {
-                    "value": "Yea",
-                    "tally": {
-                      "type": "On the Nomination",
-                      "treaty": null,
-                      "subject": "Confirmation Peter Michael McKinley, of Virginia, to be Ambassador to the Federative Republic of Brazil",
-                      "source_url": "http://www.senate.gov/legislative/LIS/roll_call_votes/vote1142/vote_114_2_00137.xml",
-                      "session": "2016",
-                      "result_text": "Nomination Confirmed (92-0)",
-                      "result": "Nomination Confirmed",
-                      "requires": "1/2",
-                      "record_updated_at": null,
-                      "question": "On the Nomination PN1500: Peter Michael McKinley, of Virginia, to be Ambassador to the Federative Republic of Brazil",
-                      "number": 137,
-                      "gpo_id": "s137-114.2016",
-                      "date": "2016-09-08T13:46:00",
-                      "chamber": "Senate",
-                      "category": "nomination",
-                      "amendment": null
-                    }
-                  }
-                ],
-                "person": {
-                  "youtubeid": "SenatorSchumer",
-                  "twitterid": "SenSchumer",
-                  "sortname": "Schumer, Charles “Chuck” (Sen.) [D-NY]",
-                  "roles": [
-                    {
-                      "website": "https://www.schumer.senate.gov",
-                      "title_long": "Senator",
-                      "title": "Sen.",
-                      "state": "NY",
-                      "startdate": "2011-01-05",
-                      "senator_rank_label": "Senior",
-                      "senator_rank": "senior",
-                      "senator_class_label": "Class 3",
-                      "senator_class": "class3",
-                      "role_type_label": "Senator",
-                      "role_type": "senator",
-                      "phone": "202-224-6542",
-                      "party": "Democrat",
-                      "leadership_title": null,
-                      "govtrack_id": 4282,
-                      "extra": {
-                        "office": "322 Hart Senate Office Building",
-                        "fax": "202-228-3027",
-                        "contact_form": "http://www.schumer.senate.gov/Contact/email-chuck",
-                        "address": "322 Hart Senate Office Building Washington DC 20510"
-                      },
-                      "enddate": "2017-01-03",
-                      "district": null,
-                      "description": "Senior Senator from New York",
-                      "current": true,
-                      "caucus": null
-                    }
-                  ],
-                  "pvsid": "26976",
-                  "osid": "N00001093",
-                  "nickname": "Chuck",
-                  "namemod": null,
-                  "name": "Sen. Charles “Chuck” Schumer [D-NY]",
-                  "middlename": "E.",
-                  "link": "https://www.govtrack.us/congress/members/charles_schumer/300087",
-                  "lastname": "Schumer",
-                  "image_url": "https://theunitedstates.io/images/congress/225x275/S000148.jpg",
-                  "govtrack_id": 300087,
-                  "gender_label": "Male",
-                  "gender": "male",
-                  "firstname": "Charles",
-                  "current_state": "NY",
-                  "current_party": "D",
-                  "cspanid": 5929,
-                  "birthday": "1950-11-23",
-                  "bioguideid": "S000148"
-                }
+                  "value": "Nay",
+                  "tally": {
+                    "type": "On the Cloture Motion",
+                    "treaty": null,
+                    "subject": "Motion to Invoke Cloture on the Motion to Concur in the House Amendment to the Senate Amendment to H.R. 2028",
+                    "session": "2016",
+                    "result_text": "Cloture Motion Agreed to (61-38, 3/5 majority required)",
+                    "result": "Cloture Motion Agreed to",
+                    "requires": "3/5",
+                    "record_updated_at": null,
+                    "question": "On the Cloture Motion H.R. 2028",
+                    "number": 160,
+                    "id": 158,
+                    "date": "2016-12-09T22:00:00",
+                    "chamber": "Senate",
+                    "category": "cloture",
+                    "amendment": null
+                  },
+                  "id": 56682
+                  },
+                ]
               }
             }
+
+## Group Tallies
+
+Resources related congressional tallies (votes & questions on Bills).
+
+## Tally [/api/tallies/{id}]
+
+### Get Detailed Tally Information [GET]
+
++ Request
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+    + id: `7141` (number, required) - tallies' TALLY ID.
+
++ Response 200 (application/json)
+
+              {
+                "Not Voting": 14,
+                "No": 162,
+                "Aye": 254,
+                "votes": [
+                  {
+                    "value": "Not Voting",
+                    "person_lastname": "Barletta",
+                    "person_image": "https://theunitedstates.io/images/congress/225x275/B001269.jpg",
+                    "person_firstname": "Lou",
+                    "person_current_state": "PA11",
+                    "person_current_party": "R",
+                    "id": 72071
+                  },
+                  {
+                    "value": "No",
+                    "person_lastname": "Yarmuth",
+                    "person_image": "https://theunitedstates.io/images/congress/225x275/Y000062.jpg",
+                    "person_firstname": "John",
+                    "person_current_state": "KY3",
+                    "person_current_party": "D",
+                    "id": 72070
+                  },
+                  {
+                    "value": "Aye",
+                    "person_lastname": "Abraham",
+                    "person_image": "https://theunitedstates.io/images/congress/225x275/A000374.jpg",
+                    "person_firstname": "Ralph",
+                    "person_current_state": "LA5",
+                    "person_current_party": "R",
+                    "id": 71655
+                  }
+                ],
+                "type": "On Passage of the Bill",
+                "treaty": null,
+                "subject": "To provide for the prohibition on cash payments to the Government of Iran, and for other purposes",
+                "source_url": "http://clerk.house.gov/evs/2016/roll554.xml",
+                "session": "2016",
+                "result_text": "Passed",
+                "result": "Passed",
+                "requires": "1/2",
+                "record_updated_at": null,
+                "question": "On Passage: H R 5931 To provide for the prohibition on cash payments to the Government of Iran, and for other purposes",
+                "number": 554,
+                "id": 201,
+                "gpo_id": "h554-114.2016",
+                "date": "2016-09-22T21:19:00",
+                "chamber": "House",
+                "category": "passage",
+                "bill_id": 7529,
+                "amendment": null
+              }
+
 
 ## Group Bills
 
@@ -331,7 +366,7 @@ Resources related congressional bills & resolutions.
             Authorization: Bearer <token>
 
 + Parameters
-    + id: `1` (number, required) - bill's ID.
+    + id: `7141` (number, required) - bill's BILL ID.
 
 + Response 200 (application/json)
 
@@ -339,73 +374,109 @@ Resources related congressional bills & resolutions.
               "vetoed": false,
               "urls": null,
               "type": "s",
-              "top_term": "Energy",
+              "top_term": "Armed forces and national security",
               "titles": [
                 {
-                  "type": "short",
-                  "title": "Energy Policy Modernization Act of 2015",
+                  "type": "display",
+                  "title": "National Defense Authorization Act for Fiscal Year 2017",
                   "is_for_portion": false,
-                  "as": "introduced"
-                },
-
+                  "as": null
+                }
               ],
               "tallies": [
                 {
                   "Yea": 70,
-                  "Not Voting": 2,
-                  "Nay": 9,
+                  "Not Voting": 1,
+                  "Nay": 10,
                   "votes": [
                     {
                       "value": "Yea",
-                      "person_name": "Sen. Ron Wyden [D-OR]",
-                      "person_image": "https://theunitedstates.io/images/congress/225x275/W000779.jpg"
-                    },
-                    {
-                      "value": "Not Voting",
-                      "person_name": "Sen. Ted Cruz [R-TX]",
-                      "person_image": "https://theunitedstates.io/images/congress/225x275/C001098.jpg"
+                      "person_lastname": "Wicker",
+                      "person_image": "https://theunitedstates.io/images/congress/225x275/W000437.jpg",
+                      "person_firstname": "Roger",
+                      "person_current_state": "MS",
+                      "person_current_party": "R",
+                      "id": 19133
                     },
                     {
                       "value": "Nay",
-                      "person_name": "Sen. Jefferson “Jeff” Sessions [R-AL]",
-                      "person_image": "https://theunitedstates.io/images/congress/225x275/S001141.jpg"
-                    }
+                      "person_lastname": "Gillibrand",
+                      "person_image": "https://theunitedstates.io/images/congress/225x275/G000555.jpg",
+                      "person_firstname": "Kirsten",
+                      "person_current_state": "NY",
+                      "person_current_party": "D",
+                      "id": 19054
+                    },
                   ],
                   "type": "On Passage of the Bill",
                   "treaty": null,
-                  "subject": "S. 2012, As Amended",
-                  "source_url": "http://www.senate.gov/legislative/LIS/roll_call_votes/vote1142/vote_114_2_00054.xml",
+                  "subject": "S. 2943 As Amended",
+                  "source_url": "http://www.senate.gov/legislative/LIS/roll_call_votes/vote1142/vote_114_2_00098.xml",
                   "session": "2016",
-                  "result_text": "Bill Passed (85-12)",
+                  "result_text": "Bill Passed (85-13)",
                   "result": "Bill Passed",
                   "requires": "1/2",
                   "record_updated_at": null,
-                  "question": "On Passage of the Bill S. 2012",
-                  "number": 54,
-                  "gpo_id": "s54-114.2016",
-                  "date": "2016-04-20T10:01:00",
+                  "question": "On Passage of the Bill S. 2943",
+                  "number": 98,
+                  "id": 51,
+                  "gpo_id": "s98-114.2016",
+                  "date": "2016-06-14T11:04:00",
                   "chamber": "Senate",
                   "category": "passage",
                   "amendment": null
+                },
+                {
+                  "Yea": 395,
+                  "Not Voting": 21,
+                  "Nay": 14,
+                  "votes": [
+                    {
+                      "value": "Nay",
+                      "person_lastname": "Amash",
+                      "person_image": "https://theunitedstates.io/images/congress/225x275/A000367.jpg",
+                      "person_firstname": "Justin",
+                      "person_current_state": "MI3",
+                      "person_current_party": "R",
+                      "id": 43894
+                    }
+                  ],
+                  "type": "On Closing Portions of the Conference",
+                  "treaty": null,
+                  "subject": "National Defense Authorization Act for Fiscal Year 2017",
+                  "source_url": "http://clerk.house.gov/evs/2016/roll400.xml",
+                  "session": "2016",
+                  "result_text": "Passed",
+                  "result": "Passed",
+                  "requires": "1/2",
+                  "record_updated_at": null,
+                  "question": "On Closing Portions of the Conference: S 2943 National Defense Authorization Act for Fiscal Year 2017",
+                  "number": 400,
+                  "id": 121,
+                  "gpo_id": "h400-114.2016",
+                  "date": "2016-07-08T12:08:00",
+                  "chamber": "House",
+                  "category": "unknown",
+                  "amendment": null
                 }
               ],
-              "summary_text": "Energy Policy Modernization Act of 2015\n\nThis bill amends the Energy Conservation and Production Act, the Energy Policy and Conservation Act (EPCA), and the Energy Independence and Security Act of 2007 with respect to energy efficiency in buildings and appliances.\n\nThe Office of Energy Efficiency and Renewable Energy of the Department of Energy (DOE) shall conduct activities with respect to manufacturing energy efficiency.\n\nVehicle Innovation Act of 2015\n\nDOE shall conduct research, development, engineering, demonstration, and commercial application programs regarding passenger as well as medium- and heavy-duty commercial vehicles and transit vehicles. . .",
-              "summary_date": "2015-09-09T04:00:00",
+              "summary_text": "Highlights: This bill authorizes FY2017 appropriations and sets forth policies regarding the military activities of the Department of Defense (DOD), military construction, and the national security programs of the Department of Energy (DOE).The bill authorizes appropriations, but does not provide budget authority, which is provided by appropriations legislation.The bill authorizes appropriations to DOD for: Procurement; Research, Development, Test, and Evaluation; Operation and Maintenance; Cooperative Threat Reduction; Working Capital Funds; the National Defense Sealift Fund; Chemical Agents and Munitions Destruction; Defense-Wide Drug Interdiction and Counter-Drug Activities; the Defense Inspector General; the Defense Health Program; and the National Sea-Based Deterrence Fund. The bill also authorizes appropriations for Overseas Contingency Operations (OCO) . . . ",
+              "summary_date": "2016-07-07T12:10:06",
               "subjects": [
-                "Wildlife conservation and habitat protection",
+                "National and community service",
               ],
               "status_at": null,
-              "status": "PASS_BACK:HOUSE",
+              "status": "PASSED:BILL",
               "sponsor": {
-                "youtubeid": "senatormurkowski",
-                "twitterid": "LisaMurkowski",
-                "sortname": "Murkowski, Lisa (Sen.) [R-AK]",
+                "youtubeid": "SenatorJohnMcCain",
+                "twitterid": "SenJohnMcCain",
+                "sortname": "McCain, John (Sen.) [R-AZ]",
                 "roles": [
                   {
-                    "website": "https://www.murkowski.senate.gov",
+                    "website": "http://www.mccain.senate.gov",
                     "title_long": "Senator",
                     "title": "Sen.",
-                    "state": "AK",
+                    "state": "AZ",
                     "startdate": "2011-01-05",
                     "senator_rank_label": "Senior",
                     "senator_rank": "senior",
@@ -413,106 +484,105 @@ Resources related congressional bills & resolutions.
                     "senator_class": "class3",
                     "role_type_label": "Senator",
                     "role_type": "senator",
-                    "phone": "202-224-6665",
+                    "phone": "202-224-2235",
                     "party": "Republican",
                     "leadership_title": null,
-                    "govtrack_id": 4209,
+                    "id": 14,
+                    "govtrack_id": 4190,
                     "extra": {
-                      "rss_url": "http://www.murkowski.senate.gov/public/?a=rss.feed",
-                      "office": "709 Hart Senate Office Building",
-                      "fax": "202-224-5301",
-                      "contact_form": "http://www.murkowski.senate.gov/public/index.cfm?p=EMailLisa",
-                      "address": "709 Hart Senate Office Building Washington DC 20510"
+                      "office": "218 Russell Senate Office Building",
+                      "fax": "202-228-2862",
+                      "contact_form": "http://www.mccain.senate.gov/public/index.cfm/contact-form",
+                      "address": "218 Russell Senate Office Building Washington DC 20510"
                     },
                     "enddate": "2017-01-03",
                     "district": null,
-                    "description": "Senior Senator from Alaska",
+                    "description": "Senior Senator from Arizona",
                     "current": true,
                     "caucus": null
                   }
                 ],
-                "pvsid": "15841",
-                "osid": "N00026050",
+                "pvsid": "53270",
+                "osid": "N00006424",
                 "nickname": null,
                 "namemod": null,
-                "name": "Sen. Lisa Murkowski [R-AK]",
-                "middlename": "A.",
-                "link": "https://www.govtrack.us/congress/members/lisa_murkowski/300075",
-                "lastname": "Murkowski",
-                "image_url": "https://theunitedstates.io/images/congress/225x275/M001153.jpg",
-                "govtrack_id": 300075,
-                "gender_label": "Female",
-                "gender": "female",
-                "firstname": "Lisa",
-                "current_state": "AK",
+                "name": "Sen. John McCain [R-AZ]",
+                "middlename": "S.",
+                "link": "https://www.govtrack.us/congress/members/john_mccain/300071",
+                "lastname": "McCain",
+                "image_url": "https://theunitedstates.io/images/congress/225x275/M000303.jpg",
+                "id": 14,
+                "govtrack_id": 300071,
+                "gender_label": "Male",
+                "gender": "male",
+                "firstname": "John",
+                "current_state": "AZ",
                 "current_party": "R",
-                "cspanid": 1004138,
-                "birthday": "1957-05-22",
-                "bioguideid": "M001153"
+                "cspanid": 7476,
+                "birthday": "1936-08-29",
+                "bioguideid": "M000303"
               },
-              "short_title": "Energy Policy Modernization Act of 2016",
+              "short_title": "National Defense Authorization Act for Fiscal Year 2017",
               "related_bills": [
                 {
-                  "related_bill_id": 5908,
+                  "related_bill_id": 74,
                   "reason": "related"
                 },
               ],
               "popular_title": null,
-              "official_title": "An original bill to provide for the modernization of the energy policy of the United States, and for other purposes.",
-              "number": "2012",
-              "introduced_at": "2015-09-09",
+              "official_title": "An original bill to authorize appropriations for fiscal year 2017 for military activities of the Department of Defense, for military construction, and for defense activities of the Department of Energy, to prescribe military personnel strengths for such fiscal year, and for other purposes.",
+              "number": "2943",
+              "introduced_at": "2016-05-18",
+              "id": 784,
               "history": {
                 "vetoed": false,
-                "senate_passage_result_at": "2016-04-20",
+                "senate_passage_result_at": "2016-12-08",
                 "senate_passage_result": "pass",
-                "house_passage_result_at": "2016-05-25T17:31:47-04:00",
+                "senate_cloture_result_at": "2016-05-25",
+                "senate_cloture_result": "pass",
+                "house_passage_result_at": "2016-12-02T11:37:54-05:00",
                 "house_passage_result": "pass",
                 "enacted": false,
-                "awaiting_signature": false,
-                "active_at": "2015-09-09",
+                "awaiting_signature_since": "2016-12-14",
+                "awaiting_signature": true,
+                "active_at": "2016-05-18",
                 "active": true
               },
-              "gpo_id": "s2012-114",
-              "gpo_data_updated_at": "2016-11-08T15:21:21",
+              "gpo_id": "s2943-114",
+              "gpo_data_updated_at": "2016-12-16T09:56:36",
               "enacted_as": null,
               "enacted": false,
               "cosponsors": [],
               "congress_number": 114,
               "committees": [
                 {
-                  "url": "http://energy.senate.gov/",
+                  "url": "http://armed-services.senate.gov/",
                   "sub_committees": [],
                   "parent": [],
                   "obsolete": false,
-                  "name": "Senate Committee on Energy and Natural Resources",
+                  "name": "Senate Committee on Armed Services",
                   "jurisdiction_link": null,
                   "jurisdiction": null,
-                  "govtrack_id": 2615,
+                  "id": 11,
+                  "govtrack_id": 2594,
                   "committee_type_label": "Senate",
                   "committee_type": "senate",
-                  "code": "SSEG",
-                  "abbrev": "E&NatRes"
+                  "code": "SSAS",
+                  "abbrev": "ArmServs"
                 }
               ],
               "committee_history": [
                 {
-                  "committee_id": "SSEG",
-                  "committee": "Senate Energy and Natural Resources",
+                  "committee_id": "SSAS",
+                  "committee": "Senate Armed Services",
                   "activity": [
                     "origin",
                     "reporting"
                   ]
                 }
               ],
-              "awaiting_signature": false,
-              "amendments": [
-                {
-                  "number": "3787",
-                  "chamber": "s",
-                  "amendment_type": "samdt",
-                  "amendment_id": "samdt3787-114"
-                }
-              ],
+              "awaiting_signature": true,
+              "amendments": [],
               "active": true,
               "actions": [
                 {
@@ -520,7 +590,14 @@ Resources related congressional bills & resolutions.
                   "text": "Introduced in Senate",
                   "references": [],
                   "action_code": "10000",
-                  "acted_at": "2015-09-09"
+                  "acted_at": "2016-05-18"
                 },
+                {
+                  "type": "topresident",
+                  "text": "Presented to President.",
+                  "references": [],
+                  "action_code": "E20000",
+                  "acted_at": "2016-12-14"
+                }
               ]
             }
