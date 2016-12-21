@@ -14,7 +14,7 @@ defmodule KratosApi.PersonView do
       end
 
     %{
-      id: person.id, 
+      id: person.id,
       govtrack_id: person.govtrack_id,
       cspanid: person.cspanid,
       bioguideid: person.bioguideid,
@@ -40,10 +40,9 @@ defmodule KratosApi.PersonView do
     }
   end
 
-  def render("voting_records.json", %{person: person, voting_records: voting_records, kerosene: kerosene, conn: conn}) do
+  def render("voting_records.json", %{voting_records: voting_records, kerosene: kerosene, conn: conn}) do
     %{
       data: %{
-        person: render_one(person, KratosApi.PersonView, "person.json"),
         voting_record: render_many(voting_records, KratosApi.VoteView, "vote_record.json", as: :vote),
       },
       pagination: paginate(conn, kerosene)
