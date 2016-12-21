@@ -10,8 +10,9 @@ defmodule KratosApi.TallyController do
 
   def show(conn, %{"id" => id}) do
     tally  =
-      Repo.get(Tally, id)
-      |> Repo.preload([:votes, votes: :person])
+      Repo.get!(Tally, id)
+      |> Repo.preload([:votes])
+      |> Repo.preload(votes: :person)
 
     render conn, "tally.json", tally: tally
   end
