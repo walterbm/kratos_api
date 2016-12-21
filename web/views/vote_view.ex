@@ -5,7 +5,10 @@ defmodule KratosApi.VoteView do
     %{
       id: vote.id,
       value: vote.value,
-      person_name: vote.person.name,
+      person_firstname: vote.person.firstname,
+      person_lastname: vote.person.lastname,
+      person_current_party: vote.person.current_party,
+      person_current_state: vote.person.current_state,
       person_image: vote.person.image_url
     }
   end
