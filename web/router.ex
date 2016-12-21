@@ -34,6 +34,8 @@ defmodule KratosApi.Router do
 
     get "/bills/:id", BillController, :show
 
+    get "/tallies/:id", TallyController, :show
+
     post "/registrations", RegistrationController, :create
 
     post "/login", SessionController, :create
