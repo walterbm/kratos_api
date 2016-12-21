@@ -4,6 +4,7 @@ defmodule KratosApi.TallyView do
   def render("tally.json", %{tally: tally}) do
     Map.merge(%{
       id: tally.id,
+      bill_id: tally.bill_id,
       amendment: tally.amendment,
       treaty: tally.treaty,
       category: tally.category,
@@ -26,7 +27,7 @@ defmodule KratosApi.TallyView do
 
   def render("tally_flat.json", %{tally: tally}) do
     %{
-      id: tally.id, 
+      id: tally.id,
       amendment: tally.amendment,
       treaty: tally.treaty,
       category: tally.category,
@@ -38,11 +39,9 @@ defmodule KratosApi.TallyView do
       result: tally.result,
       result_text: tally.result_text,
       session: tally.session,
-      source_url: tally.source_url,
       subject: tally.subject,
       type: tally.type,
       record_updated_at: tally.record_updated_at,
-      gpo_id: tally.gpo_id,
     }
   end
 
