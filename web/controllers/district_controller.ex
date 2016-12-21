@@ -1,7 +1,7 @@
 defmodule KratosApi.DistrictController do
   use KratosApi.Web, :controller
 
-  #plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
+  plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
   def show(conn, params) do
     query = from p in KratosApi.Person,
