@@ -4,7 +4,7 @@ defmodule KratosApi.User do
   @derive {
     Poison.Encoder,
     except: [:__meta__],
-    only: [:id, :first_name, :last_name, :phone, :address, :city, :zip, :state, :district]
+    only: [:id, :first_name, :last_name, :phone, :address, :city, :zip, :state, :district, :party, :birthday]
   }
 
   schema "users" do
