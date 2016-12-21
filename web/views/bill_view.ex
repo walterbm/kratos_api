@@ -3,6 +3,7 @@ defmodule KratosApi.BillView do
 
   def render("bill.json", %{bill: bill}) do
     %{
+      id: bill.id,
       actions: bill.actions,
       amendments: bill.amendments,
       gpo_id: bill.gpo_id,

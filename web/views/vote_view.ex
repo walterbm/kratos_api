@@ -3,6 +3,7 @@ defmodule KratosApi.VoteView do
 
   def render("vote.json", %{vote: vote}) do
     %{
+      id: vote.id,
       value: vote.value,
       person_name: vote.person.name,
       person_image: vote.person.image_url
@@ -11,6 +12,7 @@ defmodule KratosApi.VoteView do
 
   def render("vote_record.json", %{vote: vote}) do
     %{
+      id: vote.id,
       value: vote.value,
       tally: render_one(vote.tally, KratosApi.TallyView, "tally_flat.json"),
     }
