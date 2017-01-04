@@ -49,4 +49,15 @@ defmodule KratosApi.PersonView do
     }
   end
 
+  def render("person_light.json", %{person: person}) do
+    %{
+      firstname: person.firstname,
+      lastname: person.lastname,
+      current_party: person.current_party,
+      current_state: person.current_state,
+      image: person.image_url,
+      id: person.id
+    }
+  end
+
 end
