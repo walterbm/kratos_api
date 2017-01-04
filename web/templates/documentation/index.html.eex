@@ -8,6 +8,7 @@
   "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1234567890</span></span>,
     "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"password"</span></span>,
+    "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span></span>,
     "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Eric"</span></span>,
     "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Andre"</span></span>,
     "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span></span>,
@@ -28,6 +29,9 @@
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
         </span>}</span>,
         "<span class="hljs-attribute">password</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
         </span>}</span>,
         "<span class="hljs-attribute">first_name</span>": <span class="hljs-value">{
@@ -73,7 +77,8 @@
         "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Brooklyn"</span></span>,
         "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span>
         <span class="hljs-string">"party"</span>: <span class="hljs-string">"Democrat"</span></span>,
-        "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span>
+        "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
+        "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
       </span>}</span>,
       "<span class="hljs-attribute">token</span>": <span class="hljs-value"><span class="hljs-string">"eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"</span>
     </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="user-login" class="resource"><h3 class="resource-heading">Login <a href="#user-login" class="permalink">&nbsp;&para;</a></h3><p>Login and existing user and start a session.</p>
@@ -114,7 +119,8 @@
     "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Brooklyn"</span></span>,
     "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span></span>,
     "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
-    "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span>
+    "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
+    "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
   </span>}</span>,
   "<span class="hljs-attribute">token</span>": <span class="hljs-value"><span class="hljs-string">"eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="user-me" class="resource"><h3 class="resource-heading">Me <a href="#user-me" class="permalink">&nbsp;&para;</a></h3><p>Get information on the current user based on the session.</p>
@@ -129,7 +135,8 @@
   "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Brooklyn"</span></span>,
   "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span></span>,
   "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
-  "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span>
+  "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
+  "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="districts" class="resource-group"><h2 class="group-heading">Districts <a href="#districts" class="permalink">&para;</a></h2><p>Resources related congressional districts.</p>
 <div id="districts-show-district" class="resource"><h3 class="resource-heading">Show District <a href="#districts-show-district" class="permalink">&nbsp;&para;</a></h3><p>Find information and representatives for a congressional district.</p>
 <div id="districts-show-district-get" class="action get"><h4 class="action-heading"><div class="name">Show Congressional District</div><a href="#districts-show-district-get" class="method get">GET</a><code class="uri">/api/districts/{state}/{id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.website</span>/api/districts/<span class="hljs-attribute" title="state">NY</span>/<span class="hljs-attribute" title="id">7</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>state</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>NY</span></span><p>state abbreviation.</p>
@@ -536,7 +543,7 @@
           "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2016-12-14"</span>
         </span>}
       ]
-    </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 03 Jan 2017</p><script>/* eslint-env browser */
+    </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 04 Jan 2017</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 

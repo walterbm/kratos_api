@@ -4,7 +4,7 @@ defmodule KratosApi.User do
   @derive {
     Poison.Encoder,
     except: [:__meta__],
-    only: [:id, :first_name, :last_name, :phone, :address, :city, :zip, :state, :district, :party, :birthday]
+    only: [:id, :first_name, :last_name, :phone, :address, :city, :zip, :state, :district, :party, :birthday, :apn_token]
   }
 
   schema "users" do
@@ -19,13 +19,14 @@ defmodule KratosApi.User do
     field :encrypted_password, :string
     field :party, :string
     field :birthday, Ecto.Date
+    field :apn_token, :string
     field :password, :string, virtual: true
 
     timestamps()
   end
 
   @required_fields ~w(password phone)
-  @optional_fields ~w(encrypted_password address city zip state district first_name last_name party birthday)
+  @optional_fields ~w(encrypted_password address city zip state district first_name last_name party birthday apn_token)
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
