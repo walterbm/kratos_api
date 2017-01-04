@@ -290,7 +290,7 @@ Resources related congressional tallies (votes & questions on Bills).
             Authorization: Bearer <token>
 
 + Parameters
-    + id: `7141` (number, required) - tallies' TALLY ID.
+    + id: `201` (number, required) - tallies' TALLY ID.
 
 + Response 200 (application/json)
 
@@ -301,31 +301,40 @@ Resources related congressional tallies (votes & questions on Bills).
                 "votes": [
                   {
                     "value": "Not Voting",
-                    "person_lastname": "Barletta",
-                    "person_image": "https://theunitedstates.io/images/congress/225x275/B001269.jpg",
-                    "person_firstname": "Lou",
-                    "person_current_state": "PA11",
-                    "person_current_party": "R",
-                    "id": 72071
+                    "person": {
+                      "lastname": "Sanchez",
+                      "image": "https://theunitedstates.io/images/congress/225x275/S000030.jpg",
+                      "id": 192,
+                      "firstname": "Loretta",
+                      "current_state": "CA46",
+                      "current_party": "D"
+                    },
+                    "id": 72083
                   },
                   {
                     "value": "No",
-                    "person_lastname": "Yarmuth",
-                    "person_image": "https://theunitedstates.io/images/congress/225x275/Y000062.jpg",
-                    "person_firstname": "John",
-                    "person_current_state": "KY3",
-                    "person_current_party": "D",
-                    "id": 72070
+                    "person": {
+                      "lastname": "Wasserman Schultz",
+                      "image": "https://theunitedstates.io/images/congress/225x275/W000797.jpg",
+                      "id": 226,
+                      "firstname": "Debbie",
+                      "current_state": "FL23",
+                      "current_party": "D"
+                    },
+                    "id": 72065
                   },
                   {
                     "value": "Aye",
-                    "person_lastname": "Abraham",
-                    "person_image": "https://theunitedstates.io/images/congress/225x275/A000374.jpg",
-                    "person_firstname": "Ralph",
-                    "person_current_state": "LA5",
-                    "person_current_party": "R",
-                    "id": 71655
-                  }
+                    "person": {
+                      "lastname": "Yoho",
+                      "image": "https://theunitedstates.io/images/congress/225x275/Y000065.jpg",
+                      "id": 418,
+                      "firstname": "Ted",
+                      "current_state": "FL3",
+                      "current_party": "R"
+                    },
+                    "id": 71903
+                  },
                 ],
                 "type": "On Passage of the Bill",
                 "treaty": null,
