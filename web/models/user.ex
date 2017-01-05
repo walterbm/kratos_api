@@ -22,6 +22,8 @@ defmodule KratosApi.User do
     field :apn_token, :string
     field :password, :string, virtual: true
 
+    has_many :votes, KratosApi.UserVote
+
     timestamps()
   end
 
