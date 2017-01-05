@@ -40,7 +40,11 @@ defmodule KratosApi.Router do
 
     post "/login", SessionController, :create
 
-    get "/me", CurrentUserController, :show
+    scope "/me" do
+      get "/", CurrentUserController, :show
+      resources "/votes", CurrentUserVoteController, except: [:edit, :new]
+    end
+
   end
 
 end
