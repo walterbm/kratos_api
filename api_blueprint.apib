@@ -128,7 +128,191 @@ Get information on the current user based on the session.
               "apn_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
             }
 
+## My Voting Record [/api/me/votes]
 
+List the current user's voting record and create new votes.
+
+### View Voting Record [GET]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+            {
+              "pagination": [
+                {
+                  "url": "/api/me/votes?page=1",
+                  "page": 1,
+                  "label": "1",
+                  "current": true
+                }
+              ],
+              "data": {
+                "voting_record": [
+                  {
+                    "value": "Nay",
+                    "tally": {
+                      "type": "On Motion to Suspend the Rules and Pass",
+                      "treaty": null,
+                      "subject": "Intelligence Authorization Act for Fiscal Year 2017",
+                      "session": "2016",
+                      "result_text": "Passed",
+                      "result": "Passed",
+                      "requires": "2/3",
+                      "record_updated_at": null,
+                      "question": "On Motion to Suspend the Rules and Pass: H R 6393 Intelligence Authorization Act for Fiscal Year 2017",
+                      "number": 593,
+                      "id": 1,
+                      "date": "2016-11-30T18:47:00",
+                      "chamber": "House",
+                      "category": "passage-suspension",
+                      "amendment": null
+                    },
+                    "id": 1
+                  }
+                ]
+              }
+            }
+
+### Create new Vote [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
+    + Attributes(object)
+
+        + vote
+            + tally_id: `420` (number, required)
+            + value: `Aye` (string, required)
+
++ Response 200 (application/json)
+
+            {
+              "value": "Aye",
+              "tally": {
+                "type": "On the Cloture Motion",
+                "treaty": null,
+                "subject": "Upon Reconsideration Motion to Invoke Cloture on the Motion to Proceed to H.R. 5293",
+                "session": "2016",
+                "result_text": "Cloture on the Motion to Proceed Rejected (55-42, 3/5 majority required)",
+                "result": "Cloture on the Motion to Proceed Rejected",
+                "requires": "3/5",
+                "record_updated_at": null,
+                "question": "On Cloture on the Motion to Proceed H.R. 5293",
+                "number": 133,
+                "id": 420,
+                "date": "2016-07-14T12:46:00",
+                "chamber": "Senate",
+                "category": "cloture",
+                "amendment": null
+              },
+              "id": 3
+            }
+
+## My Individual Votes [/api/me/votes/{id}]
+
+Read, update, & destroy the current user's individual votes.
+
+### View Vote [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+
+    + id: `3` (number, required) - individual vote database ID.
+
++ Response 200 (application/json)
+
+            {
+              "value": "Aye",
+              "tally": {
+                "type": "On the Cloture Motion",
+                "treaty": null,
+                "subject": "Upon Reconsideration Motion to Invoke Cloture on the Motion to Proceed to H.R. 5293",
+                "session": "2016",
+                "result_text": "Cloture on the Motion to Proceed Rejected (55-42, 3/5 majority required)",
+                "result": "Cloture on the Motion to Proceed Rejected",
+                "requires": "3/5",
+                "record_updated_at": null,
+                "question": "On Cloture on the Motion to Proceed H.R. 5293",
+                "number": 133,
+                "id": 420,
+                "date": "2016-07-14T12:46:00",
+                "chamber": "Senate",
+                "category": "cloture",
+                "amendment": null
+              },
+              "id": 3
+            }
+
+### Update a Vote [PUT]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
+    + Attributes(object)
+
+        + vote
+            + value: `Nay` (string, required)
+
++ Parameters
+
+    + id: `3` (number, required) - individual vote database ID.
+
++ Response 200 (application/json)
+
+            {
+              "value": "Nay",
+              "tally": {
+                "type": "On the Cloture Motion",
+                "treaty": null,
+                "subject": "Upon Reconsideration Motion to Invoke Cloture on the Motion to Proceed to H.R. 5293",
+                "session": "2016",
+                "result_text": "Cloture on the Motion to Proceed Rejected (55-42, 3/5 majority required)",
+                "result": "Cloture on the Motion to Proceed Rejected",
+                "requires": "3/5",
+                "record_updated_at": null,
+                "question": "On Cloture on the Motion to Proceed H.R. 5293",
+                "number": 133,
+                "id": 420,
+                "date": "2016-07-14T12:46:00",
+                "chamber": "Senate",
+                "category": "cloture",
+                "amendment": null
+              },
+              "id": 3
+            }
+
+### Delete a Vote [DELETE]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+
+    + id: `3` (number, required) - individual vote database ID.
+
++ Response 200 (application/json)
+
+            {
+              "ok":true
+            }
 
 ## Group Districts
 
