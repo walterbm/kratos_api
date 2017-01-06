@@ -4,13 +4,14 @@ defmodule KratosApi.User do
   @derive {
     Poison.Encoder,
     except: [:__meta__],
-    only: [:id, :first_name, :last_name, :phone, :address, :city, :zip, :state, :district, :party, :birthday, :apn_token]
+    only: [:id, :first_name, :last_name, :email, :phone, :address, :city, :zip, :state, :district, :party, :birthday, :apn_token]
   }
 
   schema "users" do
     field :first_name, :string
     field :last_name, :string
     field :phone, :integer
+    field :email, :string
     field :address, :string
     field :city, :string
     field :state, :string
@@ -27,8 +28,8 @@ defmodule KratosApi.User do
     timestamps()
   end
 
-  @required_fields ~w(password phone)
-  @optional_fields ~w(encrypted_password address city zip state district first_name last_name party birthday apn_token)
+  @required_fields ~w(password)
+  @optional_fields ~w(encrypted_password email phone address city zip state district first_name last_name party birthday apn_token)
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -38,7 +39,9 @@ defmodule KratosApi.User do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_length(:password, min: 8)
     |> validate_confirmation(:password, message: "Password does not match")
-    |> unique_constraint(:phone, message: "Phone number is already taken")
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email, message: "An account with that email already exists")
+    |> unique_constraint(:phone, message: "An account with that phone number already exists")
     |> generate_encrypted_password
   end
 
