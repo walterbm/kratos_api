@@ -34,8 +34,9 @@ Register and modify user's information.
     + Attributes(object)
 
         + user
-            + phone: `1234567890` (number, required)
             + password: `password` (string, required)
+            + phone: `1234567890` (number)
+            + email: `legalize@ranch.com` (string)
             + apn_token: `<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>` (string)
             + first_name: `Eric` (string)
             + last_name: `Andre` (string)
@@ -53,6 +54,7 @@ Register and modify user's information.
                 "zip": 11211,
                 "state": "NY",
                 "phone": 1234567890,
+                "email": "legalize@ranch.com",
                 "last_name": "Andre",
                 "id": 4,
                 "first_name": "Eric",
@@ -87,6 +89,7 @@ Login and existing user and start a session.
                 "zip": 11211,
                 "state": "NY",
                 "phone": 1234567890,
+                "email": "legalize@ranch.com",
                 "last_name": "Andre",
                 "id": 4,
                 "first_name": "Eric",
@@ -117,6 +120,7 @@ Get information on the current user based on the session.
               "zip": 11211,
               "state": "NY",
               "phone": 1234567890,
+              "email": "legalize@ranch.com",
               "last_name": "Andre",
               "id": 4,
               "first_name": "Eric",
