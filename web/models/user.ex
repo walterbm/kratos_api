@@ -24,19 +24,21 @@ defmodule KratosApi.User do
     field :password, :string, virtual: true
 
     has_many :votes, KratosApi.UserVote
+    has_many :actions, KratosApi.UserAction
 
     timestamps()
   end
 
-  @required_fields ~w(password)
-  @optional_fields ~w(encrypted_password email phone address city zip state district first_name last_name party birthday apn_token)
+  @required_fields ~w(password)a
+  @allowed_fields ~w(password encrypted_password email phone address city zip state district first_name last_name party birthday apn_token)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @allowed_fields)
+    |> validate_required(@required_fields)
     |> validate_length(:password, min: 8)
     |> validate_confirmation(:password, message: "Password does not match")
     |> validate_format(:email, ~r/@/)

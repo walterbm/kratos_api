@@ -37,17 +37,18 @@ defmodule KratosApi.Person do
     timestamps()
   end
 
-  @required_fields ~w(govtrack_id)
-  @optional_fields ~w(cspanid bioguideid birthday firstname gender gender_label lastname link middlename
+  @required_fields ~w(govtrack_id)a
+  @allowed_fields ~w(govtrack_id cspanid bioguideid birthday firstname gender gender_label lastname link middlename
     name current_party current_state namemod nickname osid pvsid sortname twitterid
-    youtubeid image_url)
+    youtubeid image_url)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @allowed_fields)
+    |> validate_required(@required_fields)
   end
 
   def find_or_create(data) do

@@ -29,21 +29,22 @@ defmodule KratosApi.Tally do
     timestamps()
   end
 
-  @required_fields ~w(gpo_id)
-  @optional_fields ~w(amendment treaty category chamber date number question requires result result_text session source_url subject type record_updated_at md5_of_body)
+  @required_fields ~w(gpo_id)a
+  @allowed_fields ~w(gpo_id amendment treaty category chamber date number question requires result result_text session source_url subject type record_updated_at md5_of_body)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @allowed_fields)
+    |> validate_required(@required_fields)
   end
 
   def tallyup_votes(votes) do
     Enum.reduce(votes, %{}, fn (vote, acc) ->
       Map.put(acc, vote.value, Map.get(acc, vote.value, 0) + 1)
-    end) 
+    end)
   end
 
 end

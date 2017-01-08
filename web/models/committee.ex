@@ -24,15 +24,16 @@ defmodule KratosApi.Committee do
     timestamps()
   end
 
-  @required_fields ~w(code govtrack_id)
-  @optional_fields ~w(abbrev name committee_type committee_type_label jurisdiction jurisdiction_link obsolete url)
+  @required_fields ~w(code govtrack_id)a
+  @allowed_fields ~w(code govtrack_id abbrev name committee_type committee_type_label jurisdiction jurisdiction_link obsolete url)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @allowed_fields)
+    |> validate_required(@required_fields)
   end
 
   def find_or_create(data) do
