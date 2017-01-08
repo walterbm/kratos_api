@@ -42,17 +42,18 @@ defmodule KratosApi.Bill do
     timestamps()
   end
 
-  @required_fields ~w(gpo_id)
-  @optional_fields ~w(actions amendments gpo_id type committee_history enacted_as active awaiting_signature
+  @required_fields ~w(gpo_id)a
+  @allowed_fields ~w(gpo_id actions amendments gpo_id type committee_history enacted_as active awaiting_signature
     enacted vetoed history introduced_at number official_title popular_title short_title
-    status status_at top_term summary_text summary_date titles gpo_data_updated_at urls md5_of_body)
+    status status_at top_term summary_text summary_date titles gpo_data_updated_at urls md5_of_body)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @allowed_fields)
+    |> validate_required(@required_fields)
   end
 
 end

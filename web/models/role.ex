@@ -37,17 +37,18 @@ defmodule KratosApi.Role do
     timestamps()
   end
 
-  @required_fields ~w(govtrack_id)
-  @optional_fields ~w(current enddate description caucus district extra leadership_title party phone role_type
+  @required_fields ~w(govtrack_id)a
+  @allowed_fields ~w(govtrack_id current enddate description caucus district extra leadership_title party phone role_type
     role_type_label senator_class senator_class_label senator_rank senator_rank_label startdate state title
-    title_long website)
+    title_long website)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @allowed_fields)
+    |> validate_required(@required_fields)
   end
 
   def find_or_create(data) do
