@@ -318,6 +318,34 @@ Read, update, & destroy the current user's individual votes.
               "ok":true
             }
 
+## My Actions [/api/me/actions]
+
+List the current user's voting record and create new votes.
+
+### Record a new Action [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
+    + Attributes(object)
+
+        + user_action
+            + action: `call` (string, required)
+            + last_bill_id: 1 (number, required)
+            + last_tally_id: 2 (number, required)
+            + last_bill_seen_at: `2015-05-05T12:30:00` (optional, string) - datetime in UTC (ISO8601 format)
+            + last_tally_seen_at: `2015-05-05T12:30:00` (optional, string) - datetime in UTC (ISO8601 format)
+
++ Response 200 (application/json)
+
+            {
+              "ok":true
+            }
+
+
 ## Group Districts
 
 Resources related congressional districts.
