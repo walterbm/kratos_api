@@ -24,5 +24,7 @@ defmodule KratosApi.UserAction do
     struct
     |> cast(params, [:action, :last_bill_seen_at, :last_tally_seen_at, :user_id, :last_bill_id, :last_tally_id])
     |> validate_required([:action, :user_id])
+    |> foreign_key_constraint(:last_bill_id)
+    |> foreign_key_constraint(:last_tally_id)
   end
 end
