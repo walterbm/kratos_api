@@ -35,9 +35,9 @@ Register and modify user's information.
 
         + user
             + password: `password` (string, required)
+            + email: `legalize@ranch.com` (string, required)
+            + apn_token: `<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>` (string, required)
             + phone: `1234567890` (number)
-            + email: `legalize@ranch.com` (string)
-            + apn_token: `<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>` (string)
             + first_name: `Eric` (string)
             + last_name: `Andre` (string)
             + address: `700 Ranch` (string)
@@ -79,7 +79,7 @@ Login and existing user and start a session.
     + Attributes(object)
 
         + session
-            + phone: `1234567890` (number, required)
+            + email: `1234567890` (string, required)
             + password: `password` (string, required)
 
 + Response 200 (application/json)
@@ -105,9 +105,9 @@ Login and existing user and start a session.
 
 ## Me [/api/me]
 
-Get information on the current user based on the session.
+Get & update information on the current user based on the session.
 
-### Current User information [GET]
+### Get My information [GET]
 
 + Request (application/json)
     + Headers
@@ -129,6 +129,47 @@ Get information on the current user based on the session.
               "address": "700 Ranch",
               "party": "Democrat",
               "birthday": "2001-03-11",
+              "apn_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
+            }
+
+### Update My information [POST]
+
+Note! Does not automatically update district when address details are updated!
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
+    + Attributes(object)
+
+        + user
+            + phone: `1111111111` (number)
+            + district: 11 (number)
+            + first_name: `Lebron` (string)
+            + last_name: `James` (string)
+            + address: `Quicken Loans Arena` (string)
+            + city: `Cleveland` (string)
+            + state: `OH` (string)
+            + zip: `44115` (number)
+            + party: `Democrat` (string)
+            + birthday: `1984-12-30` (string)
+
++ Response 200 (application/json)
+
+            {
+              "zip": 44115,
+              "state": "OH",
+              "phone": 1111111111,
+              "email": "legalize@ranch.com",
+              "last_name": "James",
+              "id": 4,
+              "first_name": "Lebron",
+              "district": 11,
+              "city": "Cleveland",
+              "address": "Quicken Loans Arena",
+              "party": "Democrat",
+              "birthday": "1984-12-30",
               "apn_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
             }
 
