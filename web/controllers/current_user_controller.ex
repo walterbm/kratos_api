@@ -2,10 +2,12 @@ defmodule KratosApi.CurrentUserController do
   use KratosApi.Web, :controller
 
   plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
+  plug :scrub_params, "user" when action in [:update]
   plug :scrub_params, "user_action" when action in [:record_action]
 
   alias KratosApi.{
     Repo,
+    User,
     UserAction
   }
 
@@ -15,6 +17,21 @@ defmodule KratosApi.CurrentUserController do
     conn
     |> put_status(:ok)
     |> render("show.json", user: user)
+  end
+
+  def update(conn, %{"user" => user_params }) do
+    changeset = User.update_changeset(Guardian.Plug.current_resource(conn), user_params)
+
+    case Repo.update(changeset) do
+      {:ok, user} ->
+        conn
+        |> put_status(:ok)
+        |> render("show.json", user: user)
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(KratosApi.RegistrationView, "error.json", changeset: changeset)
+    end
   end
 
   def record_action(conn, %{"user_action" => user_action }) do

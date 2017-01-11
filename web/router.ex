@@ -42,6 +42,7 @@ defmodule KratosApi.Router do
 
     scope "/me" do
       get "/", CurrentUserController, :show
+      post "/", CurrentUserController, :update
       post "/actions", CurrentUserController, :record_action
       resources "/votes", CurrentUserVoteController, except: [:edit, :new]
     end
