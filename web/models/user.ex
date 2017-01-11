@@ -29,8 +29,9 @@ defmodule KratosApi.User do
     timestamps()
   end
 
-  @required_fields ~w(password)a
+  @required_fields ~w(password email apn_token)a
   @allowed_fields ~w(password encrypted_password email phone address city zip state district first_name last_name party birthday apn_token)a
+  @updated_fields ~w(phone address city zip state district first_name last_name party birthday)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -44,7 +45,14 @@ defmodule KratosApi.User do
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email, message: "An account with that email already exists")
     |> unique_constraint(:phone, message: "An account with that phone number already exists")
+    |> unique_constraint(:apn_token, message: "An account with that APN token already exists")
     |> generate_encrypted_password
+  end
+
+  def update_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, @updated_fields)
+    |> unique_constraint(:phone, message: "An account with that phone number already exists")
   end
 
   defp generate_encrypted_password(current_changeset) do
