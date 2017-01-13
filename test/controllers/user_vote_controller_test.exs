@@ -11,7 +11,7 @@ defmodule KratosApi.UserVoteControllerTest do
   setup do
     KratosApi.Sync.Tally.sync
     tally = Repo.all(Tally) |> List.first
-    user = Repo.insert!(User.changeset(%User{}, %{first_name: "Test", last_name: "McTest", phone: 12404180363, password: "password", address: "700 Grand", city: "ToonTown", state: "NY", zip: 123456, district: 7}))
+    user = Repo.insert!(User.changeset(%User{}, KratosApi.Teststubs.user))
     _vote = Repo.insert!(%UserVote{user_id: user.id, tally_id: tally.id, value: "Aye"})
 
     {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
