@@ -3,7 +3,7 @@ defmodule KratosApi.UserTest do
 
   alias KratosApi.User
 
-  @valid_attrs %{password: "some content", first_name: "some content", last_name: "some content", phone: 1234567890}
+  @valid_attrs %{password: "some content", email: "some content", apn_token: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

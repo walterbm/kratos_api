@@ -10,7 +10,7 @@ defmodule KratosApi.CurrentUserControllerTest do
   }
 
   setup do
-    user = Repo.insert!(User.changeset(%User{}, %{first_name: "Test", last_name: "McTest", phone: 12404180363, password: "password", address: "700 Grand", city: "ToonTown", state: "NY", zip: 123456, district: 7}))
+    user = Repo.insert!(User.changeset(%User{}, KratosApi.Teststubs.user))
 
     {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
     %{jwt: jwt}
@@ -29,7 +29,7 @@ defmodule KratosApi.CurrentUserControllerTest do
       |> post("/api/me/actions", Poison.encode!(%{user_action: %{action: "call", last_bill_id: bill.id, last_tally_id: tally.id, last_bill_seen_at: "2017-01-08T18:06:54+00:00", last_tally_seen_at: "2017-01-08T18:06:54+00:00"}}))
 
     assert json_response(conn, 200) == %{"ok" => true}
-    
+
     user_action = Repo.all(UserAction) |> List.first |> Repo.preload([:last_bill, :last_tally])
     assert user_action.action == "call"
     assert user_action.last_bill.id == bill.id
