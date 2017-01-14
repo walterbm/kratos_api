@@ -20,12 +20,12 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
       add :popular_title, :text
       add :short_title, :text
       add :status, :string
-      add :status_at, :datetime
+      add :status_at, :utc_datetime
       add :top_term, :text
       add :summary_text, :text
-      add :summary_date, :datetime
+      add :summary_date, :utc_datetime
       add :titles, :map
-      add :gpo_data_updated_at, :datetime
+      add :gpo_data_updated_at, :utc_datetime
       add :urls, :map
       add :md5_of_body, :string
 

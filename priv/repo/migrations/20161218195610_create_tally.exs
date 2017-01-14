@@ -7,7 +7,7 @@ defmodule KratosApi.Repo.Migrations.CreateTally do
       add :treaty, :map
       add :category, :string
       add :chamber, :string
-      add :date, :datetime
+      add :date, :utc_datetime
       add :number, :integer
       add :question, :text
       add :requires, :string
@@ -17,7 +17,7 @@ defmodule KratosApi.Repo.Migrations.CreateTally do
       add :source_url, :string
       add :subject, :text
       add :type, :string
-      add :record_updated_at, :datetime
+      add :record_updated_at, :utc_datetime
       add :gpo_id, :string
       add :md5_of_body, :string
 

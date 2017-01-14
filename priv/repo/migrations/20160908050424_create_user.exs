@@ -3,9 +3,13 @@ defmodule KratosApi.Repo.Migrations.CreateUser do
 
   def change do
     create table(:users) do
-      add :first_name, :string, null: false
-      add :last_name, :string, null: false
-      add :phone, :bigint, null: false
+      add :email, :string, null: false
+      add :first_name, :string
+      add :last_name, :string
+      add :phone, :bigint
+      add :apn_token, :string
+      add :party, :string
+      add :birthday, :date
       add :address, :string
       add :city, :string
       add :state, :string
@@ -16,7 +20,9 @@ defmodule KratosApi.Repo.Migrations.CreateUser do
       timestamps()
     end
 
+    create index(:users, [:email], unique: true)
     create index(:users, [:phone], unique: true)
+    create index(:users, [:apn_token], unique: true)
 
   end
 end
