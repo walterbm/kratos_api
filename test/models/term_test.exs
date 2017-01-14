@@ -11,11 +11,6 @@ defmodule KratosApi.TermTest do
     assert changeset.valid?
   end
 
-  test "changeset with invalid attributes" do
-    changeset = Term.changeset(%Term{}, @invalid_attrs)
-    refute changeset.valid?
-  end
-
   test "add Term to database" do
     Term.changeset(%Term{}, @valid_attrs) |> KratosApi.Repo.insert
     term = KratosApi.Repo.one(Term)
