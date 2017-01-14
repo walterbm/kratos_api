@@ -6,9 +6,9 @@ defmodule KratosApi.Repo.Migrations.CreateUserAction do
       add :action, :string
       add :user_id, references(:users, on_delete: :nothing)
       add :last_bill_id, references(:bills, on_delete: :nothing)
-      add :last_bill_seen_at, :datetime
+      add :last_bill_seen_at, :utc_datetime
       add :last_tally_id, references(:tallies, on_delete: :nothing)
-      add :last_tally_seen_at, :datetime
+      add :last_tally_seen_at, :utc_datetime
 
       timestamps()
     end
