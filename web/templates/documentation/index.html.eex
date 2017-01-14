@@ -65,8 +65,7 @@
       </span>}</span>,
       "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
         <span class="hljs-string">"password"</span>,
-        <span class="hljs-string">"email"</span>,
-        <span class="hljs-string">"apn_token"</span>
+        <span class="hljs-string">"email"</span>
       ]
     </span>}
   </span>}
@@ -149,6 +148,7 @@
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.website</span>/api/me</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;token&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1111111111</span></span>,
+    "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;goat&gt;"</span></span>,
     "<span class="hljs-attribute">district</span>": <span class="hljs-value"><span class="hljs-number">11</span></span>,
     "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Lebron"</span></span>,
     "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"James"</span></span>,
@@ -168,6 +168,9 @@
       "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
         "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
         </span>}</span>,
         "<span class="hljs-attribute">district</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
@@ -212,7 +215,7 @@
   "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"Quicken Loans Arena"</span></span>,
   "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
   "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"1984-12-30"</span></span>,
-  "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
+  "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;goat&gt;"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="user-my-voting-record" class="resource"><h3 class="resource-heading">My Voting Record <a href="#user-my-voting-record" class="permalink">&nbsp;&para;</a></h3><p>List the current user’s voting record and create new votes.</p>
 <div id="user-my-voting-record-get" class="action get"><h4 class="action-heading"><div class="name">View Voting Record</div><a href="#user-my-voting-record-get" class="method get">GET</a><code class="uri">/api/me/votes</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.website</span>/api/me/votes</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;token&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">pagination</span>": <span class="hljs-value">[
@@ -808,7 +811,7 @@
           "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2016-12-14"</span>
         </span>}
       ]
-    </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 10 Jan 2017</p><script>/* eslint-env browser */
+    </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 13 Jan 2017</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 

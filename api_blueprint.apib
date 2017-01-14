@@ -36,7 +36,7 @@ Register and modify user's information.
         + user
             + password: `password` (string, required)
             + email: `legalize@ranch.com` (string, required)
-            + apn_token: `<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>` (string, required)
+            + apn_token: `<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>` (string)
             + phone: `1234567890` (number)
             + first_name: `Eric` (string)
             + last_name: `Andre` (string)
@@ -145,6 +145,7 @@ Note! Does not automatically update district when address details are updated!
 
         + user
             + phone: `1111111111` (number)
+            + apn_token: `<goat>` (string)
             + district: 11 (number)
             + first_name: `Lebron` (string)
             + last_name: `James` (string)
@@ -170,7 +171,7 @@ Note! Does not automatically update district when address details are updated!
               "address": "Quicken Loans Arena",
               "party": "Democrat",
               "birthday": "1984-12-30",
-              "apn_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
+              "apn_token": "<goat>"
             }
 
 ## My Voting Record [/api/me/votes]
