@@ -7,36 +7,42 @@ defmodule KratosApi.PersonView do
   end
 
   def render("person.json", %{person: person}) do
-    roles =
-      case person.roles do
+    terms =
+      case person.terms do
         %Ecto.Association.NotLoaded{} -> []
-        _ -> person.roles
+        _ -> person.terms
       end
 
     %{
       id: person.id,
-      govtrack_id: person.govtrack_id,
-      cspanid: person.cspanid,
-      bioguideid: person.bioguideid,
+      bioguide: person.bioguide,
+      thomas: person.thomas,
+      lis: person.lis,
+      opensecrets: person.opensecrets,
+      votesmart: person.votesmart,
+      cspan: person.cspan,
+      wikipedia: person.wikipedia,
+      house_history: person.house_history,
+      ballotpedia: person.ballotpedia,
+      maplight: person.maplight,
+      icpsr: person.icpsr,
+      wikidata: person.wikidata,
+      google_entity_id: person.google_entity_id,
+      first_name: person.first_name,
+      last_name: person.last_name,
+      official_full_name: person.official_full_name,
       birthday: person.birthday,
-      firstname: person.firstname,
       gender: person.gender,
-      gender_label: person.gender_label,
-      lastname: person.lastname,
-      link: person.link,
-      middlename: person.middlename,
-      name: person.name,
-      current_party: person.current_party,
-      current_state: person.current_state,
-      namemod: person.namemod,
-      nickname: person.nickname,
-      osid: person.osid,
-      pvsid: person.pvsid,
-      sortname: person.sortname,
-      twitterid: person.twitterid,
-      youtubeid: person.youtubeid,
+      religion: person.religion,
+      twitter: person.twitter,
+      facebook: person.facebook,
+      facebook_id: person.facebook_id,
+      youtube_id: person.youtube_id,
+      twitter_id: person.twitter_id,
       image_url: person.image_url,
-      roles: render_many(roles, KratosApi.RoleView, "role.json")
+
+      terms: render_many(terms, KratosApi.TermView, "term.json")
+
     }
   end
 
@@ -51,12 +57,10 @@ defmodule KratosApi.PersonView do
 
   def render("person_light.json", %{person: person}) do
     %{
-      firstname: person.firstname,
-      lastname: person.lastname,
-      current_party: person.current_party,
-      current_state: person.current_state,
-      image: person.image_url,
-      id: person.id
+      id: person.id,
+      first_name: person.first_name,
+      last_name: person.last_name,
+      image_url: person.image_url,
     }
   end
 

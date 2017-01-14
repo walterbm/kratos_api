@@ -5,11 +5,11 @@ defmodule KratosApi.DistrictController do
 
   def show(conn, params) do
     query = from p in KratosApi.Person,
-      join: r in KratosApi.Role,
+      join: r in KratosApi.Term,
       where: r.person_id == p.id,
       where: r.state == ^String.upcase(params["state"]),
       where: r.district == ^params["id"] or r.role_type ==  "senator",
-      preload: [:roles]
+      preload: [:terms]
 
 
     {representatives, kerosene} = query |> KratosApi.Repo.paginate(params)
