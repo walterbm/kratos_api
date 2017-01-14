@@ -7,8 +7,8 @@ defmodule KratosApi.BillController do
     bill =
       KratosApi.Repo.get!(KratosApi.Bill, id)
       |> KratosApi.Repo.preload([:subjects, :sponsor, :cosponsors, :committees, :related_bills, :tallies])
-      |> KratosApi.Repo.preload(sponsor: :roles)
-      |> KratosApi.Repo.preload(cosponsors: :roles)
+      |> KratosApi.Repo.preload(sponsor: :terms)
+      |> KratosApi.Repo.preload(cosponsors: :terms)
       |> KratosApi.Repo.preload(tallies: [:votes, votes: :person])
     render conn, "bill.json", bill: bill
   end

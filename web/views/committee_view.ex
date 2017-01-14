@@ -8,18 +8,19 @@ defmodule KratosApi.CommitteeView do
   def render("committee.json", %{committee: committee}) do
     %{
       id: committee.id,
-      code: committee.code,
-      abbrev: committee.abbrev,
+      type: committee.type,
       name: committee.name,
-      govtrack_id: committee.govtrack_id,
-      committee_type: committee.committee_type,
-      committee_type_label: committee.committee_type_label,
+      thomas_id: committee.thomas_id,
+      senate_committee_id: committee.senate_committee_id,
+      house_committee_id: committee.house_committee_id,
       jurisdiction: committee.jurisdiction,
-      jurisdiction_link: committee.jurisdiction_link,
-      obsolete: committee.obsolete,
+      jurisdiction_source: committee.jurisdiction_source,
       url: committee.url,
-      parent: [],
-      sub_committees: [],
+      address: committee.address,
+      phone: committee.phone,
+      rss_url: committee.rss_url,
+      minority_rss_url: committee.minority_rss_url,
+      past_names: committee.past_names,
     }
   end
 

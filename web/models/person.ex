@@ -7,29 +7,36 @@ defmodule KratosApi.Person do
   }
 
   schema "persons" do
-    field :govtrack_id, :integer
-    field :cspanid, :integer
-    field :bioguideid, :string
+    field :bioguide, :string
+    field :thomas, :string
+    field :lis, :string
+    field :opensecrets, :string
+    field :votesmart, :string
+    field :cspan, :string
+    field :wikipedia, :string
+    field :house_history, :string
+    field :ballotpedia, :string
+    field :maplight, :string
+    field :icpsr, :string
+    field :wikidata, :string
+    field :google_entity_id, :string
+    field :first_name, :string
+    field :last_name, :string
+    field :official_full_name, :string
     field :birthday, Ecto.Date
-    field :firstname, :string
     field :gender, :string
-    field :gender_label, :string
-    field :lastname, :string
-    field :link, :string
-    field :middlename, :string
-    field :name, :string
-    field :current_party, :string
-    field :current_state, :string
-    field :namemod, :string
-    field :nickname, :string
-    field :osid, :string
-    field :pvsid, :string
-    field :sortname, :string
-    field :twitterid, :string
-    field :youtubeid, :string
+    field :religion, :string
+    field :twitter, :string
+    field :facebook, :string
+    field :facebook_id, :string
+    field :youtube_id, :string
+    field :twitter_id, :string
     field :image_url, :string
 
-    has_many :roles, KratosApi.Role
+    has_many :fec, KratosApi.Fec
+    has_many :committee_membership, KratosApi.CommitteeMember
+    has_many :terms, KratosApi.Terms
+    has_many :leadership_roles, KratosApi.LeadershipRole
     has_many :votes, KratosApi.Vote
 
     many_to_many :committee_assignments, KratosApi.Committee, join_through: "person_committees", join_keys: [person_id: :id, committeeassignment_id: :committee_id]
@@ -37,10 +44,10 @@ defmodule KratosApi.Person do
     timestamps()
   end
 
-  @required_fields ~w(govtrack_id)a
-  @allowed_fields ~w(govtrack_id cspanid bioguideid birthday firstname gender gender_label lastname link middlename
-    name current_party current_state namemod nickname osid pvsid sortname twitterid
-    youtubeid image_url)a
+  @required_fields ~w(bioguide)a
+  @allowed_fields ~w(bioguide thomas lis opensecrets votesmart cspan wikipedia house_history ballotpedia maplight icpsr wikidata
+    google_entity_id first_name last_name official_full_name birthday gender religion twitter facebook facebook_id youtube_id
+    twitter_id image_url)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
