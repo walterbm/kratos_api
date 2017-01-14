@@ -29,9 +29,9 @@ defmodule KratosApi.User do
     timestamps()
   end
 
-  @required_fields ~w(password email apn_token)a
+  @required_fields ~w(password email)a
   @allowed_fields ~w(password encrypted_password email phone address city zip state district first_name last_name party birthday apn_token)a
-  @updated_fields ~w(phone address city zip state district first_name last_name party birthday)a
+  @updated_fields ~w(apn_token phone address city zip state district first_name last_name party birthday)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
