@@ -7,6 +7,9 @@ defmodule KratosApi.SyncHelpers do
 
   def convert_datetime(date_as_string), do: convert_date_or_datetime(date_as_string, NaiveDateTime)
 
+  defp convert_date_or_datetime(date, date_module) when is_list(date) do
+    convert_date_or_datetime(to_string(date), date_module)
+  end
   defp convert_date_or_datetime(date_as_string, date_module) do
     unless is_nil(date_as_string) do
       case date_module.from_iso8601(date_as_string) do
@@ -16,21 +19,31 @@ defmodule KratosApi.SyncHelpers do
     end
   end
 
-  def save(changeset) do
-    result =
-      case KratosApi.Repo.get_by(changeset.data.__struct__, govtrack_id: changeset.changes.govtrack_id) do
-        nil  ->
-          KratosApi.Repo.insert(changeset)
-        record ->
-          changes = changeset.data.__struct__.changeset(record, changeset.changes)
-          KratosApi.Repo.update(changes)
-      end
-
-    case result do
-      {:ok, record}       -> record
-      {:error, changeset} -> changeset.errors
-    end
+  def convert_to_map([head | tail]) when is_list(head) do
+    Enum.map([head | tail], &(convert_to_map(&1)))
   end
+  def convert_to_map([head | tail]) when is_tuple(head) do
+    Enum.into([head | tail], %{}) |> convert_to_map
+  end
+  def convert_to_map(x) when is_map(x) do
+    Enum.reduce(x, %{}, fn({k, v}, acc) ->
+      Map.merge(acc, %{k => convert_to_map(v)})
+    end)
+  end
+  def convert_to_map({key, value}) do
+    %{key => value} |> convert_to_map
+  end
+  def convert_to_map(x), do: x
+
+  def flat_map_to_string(data) when is_list(data) do
+    Enum.map(data, &flat_map_to_string/1)
+  end
+  def flat_map_to_string(data) when is_map(data) do
+    Enum.reduce(data, %{}, fn({k, v}, acc) ->
+      Map.merge(acc, %{to_string(k) => to_string(v)})
+    end)
+  end
+  def flat_map_to_string(nil), do: nil
 
   def save(changeset, kargs) do
     result =
@@ -48,171 +61,239 @@ defmodule KratosApi.SyncHelpers do
         changeset.errors
     end
   end
-
 end
 
-defmodule KratosApi.Sync.Role do
-  alias KratosApi.Role
-  alias KratosApi.SyncHelpers
 
-  @govtrack_api Application.get_env(:kratos_api, :govtrack_api)
+defmodule KratosApi.Sync.Person do
+  alias KratosApi.{
+    Repo,
+    SyncHelpers,
+    Person,
+    Fec,
+    Term
+  }
+
+  @remote_storage Application.get_env(:kratos_api, :remote_storage)
 
   def sync do
-    response = @govtrack_api.roles([current: true, limit: 6000])
-    response["objects"] |> Enum.map(&save/1)
-  end
-
-  def sync(id) do
-    response = @govtrack_api.role([current: true, id: id])
-    save(response)
+    {document, hash} = @remote_storage.fetch_file("legislators-current.yaml")
+    document
+      |> @remote_storage.parse_file
+      |> Enum.map(&SyncHelpers.convert_to_map/1)
+      |> Enum.map(&save/1)
   end
 
   def save(data) do
     params = prepare(data)
-    changeset = Role.changeset(%Role{}, params) |> add_associations(data)
-    SyncHelpers.save(changeset)
+    changeset = Person.changeset(%Person{}, params) |> add_associations(data)
+    SyncHelpers.save(changeset, [bioguide: data['id']['bioguide'] |> to_string ])
   end
 
-  def prepare (data) do
+  def prepare(data) do
     %{
-      current: data["current"],
-      enddate: SyncHelpers.convert_date(data["enddate"]),
-      description: data["description"],
-      govtrack_id: data["id"],
-      caucus: data["caucus"],
-      district: data["district"],
-      extra: data["extra"],
-      leadership_title: data["leadership_title"],
-      party: data["party"],
-      phone: data["phone"],
-      role_type: data["role_type"],
-      role_type_label: data["role_type_label"],
-      senator_class: data["senator_class"],
-      senator_class_label: data["senator_class_label"],
-      senator_rank: data["senator_rank"],
-      senator_rank_label: data["senator_rank_label"],
-      startdate: SyncHelpers.convert_date(data["startdate"]),
-      state: data["state"],
-      title: data["title"],
-      title_long: data["title_long"],
-      website: data["website"]
+      bioguide: data['id']['bioguide'] |> to_string,
+      thomas: data['id']['thomas'] |> to_string,
+      lis: data['id']['lis'] |> to_string,
+      opensecrets: data['id']['opensecrets'] |> to_string,
+      votesmart: data['id']['votesmart'] |> to_string,
+      cspan: data['id']['cspan'] |> to_string,
+      wikipedia: data['id']['wikipedia'] |> to_string,
+      house_history: data['id']['house_history'] |> to_string,
+      ballotpedia: data['id']['ballotpedia'] |> to_string,
+      maplight: data['id']['maplight'] |> to_string,
+      icpsr: data['id']['icpsr'] |> to_string,
+      wikidata: data['id']['wikidata'] |> to_string,
+      google_entity_id: data['id']['google_entity_id'] |> to_string,
+      first_name: data['name']['first'] |> to_string,
+      last_name: data['name']['last'] |> to_string,
+      official_full_name: data['name']['official_full'] |> to_string,
+      birthday: SyncHelpers.convert_date(data['bio']['birthday']),
+      gender: data['bio']['gender'] |> to_string,
+      religion: data['bio']['religion'] |> to_string,
+      image_url: "#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{data['id']['bioguide'] |> to_string}.jpg"
     }
   end
 
   def add_associations(changeset, data) do
-    congress_numbers = Enum.map(data["congress_numbers"], &(KratosApi.CongressNumber.find_or_create(&1)))
-    person = KratosApi.Person.find_or_create(data["person"])
+    fec = Enum.map(Map.get(data['id'],'fec', []), &(Fec.create(&1 |> to_string))) |> Enum.reject(&is_nil/1)
+    terms = Enum.map(Map.get(data, 'terms', []), fn(term) ->
+      term |> KratosApi.Sync.Term.prepare |> Term.create
+    end) |> Enum.reject(&is_nil/1)
 
     changeset
-      |> SyncHelpers.apply_assoc(:congress_numbers, congress_numbers)
-      |> SyncHelpers.apply_assoc(:person, person)
+      |> SyncHelpers.apply_assoc(:fec, fec)
+      |> SyncHelpers.apply_assoc(:terms, terms)
   end
 end
 
-defmodule KratosApi.Sync.Person do
-  alias KratosApi.Person
-  alias KratosApi.SyncHelpers
+defmodule  KratosApi.Sync.Term do
+
+  alias KratosApi.{
+    SyncHelpers
+  }
+
+  @term_types %{"sen" => "Senate", "rep" => "House"}
+
+  def prepare(data) do
+    %{
+      type: @term_types[data['type'] |> to_string],
+      start: SyncHelpers.convert_date(data['start']),
+      end: SyncHelpers.convert_date(data['end']),
+      state: data['state'] |> to_string,
+      district: data['district'] |> to_string,
+      class: data['class'] |> to_string,
+      state_rank: data['state_rank'] |> to_string,
+      party: data['party'] |> to_string,
+      caucus: data['caucus'] |> to_string,
+      party_affiliations: data['party_affiliations'] |> SyncHelpers.flat_map_to_string,
+      url: data['url'] |> to_string,
+      address: data['address'] |> to_string,
+      phone: data['phone'] |> to_string,
+      fax: data['fax'] |> to_string,
+      contact_form: data['contact_form'] |> to_string,
+      office: data['office'] |> to_string,
+      rss_url: data['rss_url'] |> to_string,
+    }
+  end
+end
+
+defmodule KratosApi.Sync.Person.SocialMedia do
+  alias KratosApi.{
+    Repo,
+    Person,
+    SyncHelpers
+  }
+
+  @remote_storage Application.get_env(:kratos_api, :remote_storage)
 
   def sync do
-    response = Govtrack.persons([limit: 6000])
-    response["objects"] |> Enum.map(&save/1)
-  end
-
-  def sync(id) do
-    response = Govtrack.person([id: id])
-    save(response["objects"])
+    {document, hash} = @remote_storage.fetch_file("legislators-social-media.yaml")
+    document
+      |> @remote_storage.parse_file
+      |> Enum.map(&SyncHelpers.convert_to_map/1)
+      |> Enum.map(&save/1)
   end
 
   def save(data) do
     params = prepare(data)
-    changeset = Person.changeset(%Person{}, params)
-    SyncHelpers.save(changeset)
+    Repo.get_by!(Person, bioguide: data['id']['bioguide'] |> to_string)
+      |> Ecto.Changeset.change(params)
+      |> Repo.update!
   end
 
-  def prepare (data) do
-    extract_party_and_state = ~r/\[(?<party>[A-Z])-(?<state>\w+)/
-
+  def prepare(data) do
     %{
-      govtrack_id: data["id"],
-      bioguideid: data["bioguideid"],
-      birthday: SyncHelpers.convert_date(data["birthday"]),
-      cspanid: data["cspanid"],
-      firstname: data["firstname"],
-      gender: data["gender"],
-      gender_label: data["gender_label"],
-      lastname: data["lastname"],
-      link: data["link"],
-      middlename: data["middlename"],
-      name: data["name"],
-      current_party: Regex.named_captures(extract_party_and_state, data["name"])["party"],
-      current_state: Regex.named_captures(extract_party_and_state, data["name"])["state"],
-      namemod: data["namemod"],
-      nickname: data["nickname"],
-      osid: data["osid"],
-      pvsid: data["pvsid"],
-      sortname: data["sortname"],
-      twitterid: data["twitterid"],
-      youtubeid: data["youtubeid"],
-      image_url: "#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{data["bioguideid"]}.jpg"
+      facebook: data['social']['facebook'] |> to_string,
+      facebook_id: data['social']['facebook_id'] |> to_string,
+      twitter: data['social']['twitter'] |> to_string,
+      youtube: data['social']['youtube'] |> to_string,
+      youtube_id: data['social']['youtube_id'] |> to_string,
+      twitter_id: data['social']['twitter_id'] |> to_string,
+      instagram: data['id']['instagram'] |> to_string,
+      instagram_id: data['id']['instagram_id'] |> to_string,
     }
   end
 end
 
 defmodule KratosApi.Sync.Committee do
-  alias KratosApi.Committee
-  alias KratosApi.SyncHelpers
+  alias KratosApi.{
+    Committee,
+    SyncHelpers
+  }
 
-  @govtrack_api Application.get_env(:kratos_api, :govtrack_api)
-
-  @committee_types %{"S" => "Senate", "J" => "Joint", "H" => "House"}
+  @remote_storage Application.get_env(:kratos_api, :remote_storage)
 
   def sync do
-    response = @govtrack_api.committees([limit: 6000])
-    response["objects"] |> Enum.map(&save/1)
-  end
-
-  def sync(id) do
-    response = @govtrack_api.committee([id: id])
-    save(response)
+    {document, hash} = @remote_storage.fetch_file("committees-current.yaml")
+    document
+      |> @remote_storage.parse_file
+      |> Enum.map(&SyncHelpers.convert_to_map/1)
+      |> Enum.map(&save/1)
   end
 
   def save(data) do
     params = prepare(data)
-    changeset = Committee.changeset(%Committee{}, params) |> add_associations(data)
-    SyncHelpers.save(changeset)
+    changeset = Committee.changeset(%Committee{}, params)
+    SyncHelpers.save(changeset, [thomas_id: data['thomas_id'] |> to_string ])
   end
 
   def prepare (data) do
     %{
-      abbrev: data["abbrev"],
-      code: data["code"],
-      committee_type: data["committee_type"],
-      govtrack_id: data["id"],
-      jurisdiction: data["jurisdiction"],
-      jurisdiction_link: data["jurisdiction_link"],
-      name: data["name"],
-      obsolete: data["obsolete"],
-      url: data["url"],
-      committee_type: String.downcase(@committee_types[String.first(data["code"])]),
-      committee_type_label: @committee_types[String.first(data["code"])],
+      type: data['type'] |> to_string,
+      name: data['name'] |> to_string,
+      thomas_id: data['thomas_id'] |> to_string,
+      senate_committee_id: data['senate_committee_id'] |> to_string,
+      house_committee_id: data['house_committee_id'] |> to_string,
+      jurisdiction: data['jurisdiction'] |> to_string,
+      jurisdiction_source: data['jurisdiction_source'] |> to_string,
+      url: data['url'] |> to_string,
+      address: data['address'] |> to_string,
+      phone: data['phone'] |> to_string,
+      rss_url: data['rss_url'] |> to_string,
+      minority_rss_url: data['minority_rss_url'] |> to_string,
+      minority_url: data['minority_url'] |> to_string,
+      past_names: data['past_names'] |> to_string,
     }
+  end
+end
+
+defmodule KratosApi.Sync.Committee.Membership do
+  import Ecto.Query
+
+  alias KratosApi.{
+    Repo,
+    Person,
+    Committee,
+    SyncHelpers,
+  }
+
+  @remote_storage Application.get_env(:kratos_api, :remote_storage)
+
+  def sync do
+    {document, hash} = @remote_storage.fetch_file("committee-membership-current.yaml")
+    document
+      |> @remote_storage.parse_file
+      |> Enum.map(&SyncHelpers.convert_to_map/1)
+      |> Enum.map(&save/1)
+  end
+
+  def save(data) do
+    thomas_id = Map.keys(data) |> List.first |> to_string
+    Repo.one(from c in Committee, where: c.thomas_id == ^thomas_id, preload: [:members])
+      |> build_members(data)
+  end
+
+  def build_members(nil, _data), do: false
+  def build_members(committee, data) do
+    unless committee.members |> Enum.empty?, do: Repo.delete_all committee.members
+    changeset = Committee.changeset(committee) |> add_associations(data)
+    SyncHelpers.save(changeset, [thomas_id: committee.thomas_id])
   end
 
   def add_associations(changeset, data) do
-    parent =
-      case data["committee"]["id"] do
-        nil -> nil
-        _ -> Committee.find_or_create(data["committee"])
-      end
+    [ members ] = Map.values(data)
+    members = Enum.map(members, fn(member) ->
+      person = Repo.get_by(Person, bioguide: member['bioguide'] |> to_string)
+      KratosApi.CommitteeMember.create(person, changeset.data, member['title'] |> to_string)
+    end) |> Enum.reject(&(is_nil(&1)))
 
     changeset
-      |> SyncHelpers.apply_assoc(:parent, parent)
+      |> SyncHelpers.apply_assoc(:members, members)
   end
 end
 
 defmodule KratosApi.Sync.Bill do
-  alias KratosApi.Bill
-  alias KratosApi.SyncHelpers
+
+  alias KratosApi.{
+    Repo,
+    Bill,
+    Person,
+    Subject,
+    Committee,
+    CongressNumber,
+    RelatedBill,
+    SyncHelpers
+  }
 
   @remote_queue Application.get_env(:kratos_api, :remote_queue)
 
@@ -262,17 +343,17 @@ defmodule KratosApi.Sync.Bill do
   end
 
   def add_associations(changeset, data) do
-    congress_number = KratosApi.CongressNumber.find_or_create(elem(Integer.parse(data["congress"]),0))
-    sponsor = KratosApi.Repo.get_by(KratosApi.Person, bioguideid: data["sponsor"]["bioguide_id"])
+    congress_number = CongressNumber.find_or_create(elem(Integer.parse(data["congress"]),0))
+    sponsor = Repo.get_by(Person, bioguide: data["sponsor"]["bioguide_id"])
     committees =
-      Enum.map(data["committees"], &(KratosApi.Repo.get_by(KratosApi.Committee, code: &1["committee_id"])))
+      Enum.map(data["committees"], &(Repo.get_by(Committee, thomas_id: &1["committee_id"])))
       |> Enum.reject(&(is_nil(&1)))
-    subjects = Enum.map(data["subjects"], &(KratosApi.Subject.find_or_create(&1)))
+    subjects = Enum.map(data["subjects"], &(Subject.find_or_create(&1)))
     cosponsors =
-      Enum.map(data["cosponsors"],&(KratosApi.Repo.get_by(KratosApi.Person, bioguideid: &1["bioguide_id"])))
+      Enum.map(data["cosponsors"],&(Repo.get_by(Person, bioguide: &1["bioguide_id"])))
       |> Enum.reject(&(is_nil(&1)))
     related_bills =
-      Enum.map(data["related_bills"], &(KratosApi.RelatedBill.create(&1)))
+      Enum.map(data["related_bills"], &(RelatedBill.create(&1)))
       |> Enum.reject(&(is_nil(&1)))
 
     changeset
@@ -286,6 +367,7 @@ defmodule KratosApi.Sync.Bill do
 end
 
 defmodule KratosApi.Sync.Tally do
+
   alias KratosApi.{
     SyncHelpers,
     CongressNumber,
@@ -349,7 +431,5 @@ defmodule KratosApi.Sync.Tally do
       |> SyncHelpers.apply_assoc(:bill, bill)
       |> SyncHelpers.apply_assoc(:nomination, nomination)
       |> SyncHelpers.apply_assoc(:votes, votes)
-
   end
-
 end
