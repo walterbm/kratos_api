@@ -33,11 +33,15 @@ defmodule KratosApi.Repo.Migrations.CreatePerson do
       add :instagram_id, :string
       add :image_url, :string
       add :bio, :text
+      add :is_current, :boolean, default: false, null: false
+      add :current_office, :string
+      add :current_state, :string
+      add :current_district, :integer
 
       timestamps()
     end
 
     create index(:persons, [:bioguide], unique: true)
-
+    create index(:persons, [:lis], unique: true)
   end
 end
