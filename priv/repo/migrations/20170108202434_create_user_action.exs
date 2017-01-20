@@ -9,10 +9,12 @@ defmodule KratosApi.Repo.Migrations.CreateUserAction do
       add :last_bill_seen_at, :utc_datetime
       add :last_tally_id, references(:tallies, on_delete: :nothing)
       add :last_tally_seen_at, :utc_datetime
+      add :person_id, references(:persons, on_delete: :nothing)
 
       timestamps()
     end
     create index(:user_actions, [:user_id])
+    create index(:user_actions, [:person_id])
     create index(:user_actions, [:last_bill_id])
     create index(:user_actions, [:last_tally_id])
     create index(:user_actions, [:action])
