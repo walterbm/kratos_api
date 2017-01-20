@@ -57,14 +57,14 @@ defmodule KratosApi.SyncHelpers do
 
     case result do
       {:ok, record}       -> record
-      {:error, changeset} ->
-        changeset.errors
+      {:error, changeset} -> changeset.errors
     end
   end
 end
 
 
 defmodule KratosApi.Sync.Person do
+
   alias KratosApi.{
     Repo,
     SyncHelpers,
@@ -74,6 +74,7 @@ defmodule KratosApi.Sync.Person do
   }
 
   @remote_storage Application.get_env(:kratos_api, :remote_storage)
+  @term_types %{"sen" => "Senate", "rep" => "House"}
 
   def sync do
     {document, hash} = @remote_storage.fetch_file("legislators-current.yaml")
@@ -90,6 +91,12 @@ defmodule KratosApi.Sync.Person do
   end
 
   def prepare(data) do
+
+    current_term =
+      Map.get(data, 'terms', [%{}])
+      |> Enum.sort(&(&1['end'] >= &2['end']))
+      |> List.first
+
     %{
       bioguide: data['id']['bioguide'] |> to_string,
       thomas: data['id']['thomas'] |> to_string,
@@ -110,7 +117,11 @@ defmodule KratosApi.Sync.Person do
       birthday: SyncHelpers.convert_date(data['bio']['birthday']),
       gender: data['bio']['gender'] |> to_string,
       religion: data['bio']['religion'] |> to_string,
-      image_url: "#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{data['id']['bioguide'] |> to_string}.jpg"
+      image_url: "#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{data['id']['bioguide'] |> to_string}.jpg",
+      is_current: true,
+      current_office: @term_types[current_term['type'] |> to_string],
+      current_state: current_term['state'] |> to_string,
+      current_district: current_term['district'] |> to_string,
     }
   end
 
