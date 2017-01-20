@@ -28,6 +28,7 @@ config :kratos_api, KratosApi.Endpoint,
 # Environment Dependencies
 config :kratos_api, :govtrack_api, Govtrack
 config :kratos_api, :remote_queue, KratosApi.RemoteQueue
+config :kratos_api, :remote_storage, KratosApi.RemoteStorage
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

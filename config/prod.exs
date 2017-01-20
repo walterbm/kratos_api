@@ -22,6 +22,7 @@ config :kratos_api, KratosApi.Endpoint,
 # Environment Dependencies
 config :kratos_api, :govtrack_api, Govtrack
 config :kratos_api, :remote_queue, KratosApi.RemoteQueue
+config :kratos_api, :remote_storage, KratosApi.RemoteStorage
 
 # Do not print debug messages in production
 config :logger, level: :info
