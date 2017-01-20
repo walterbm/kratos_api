@@ -8,16 +8,15 @@ defmodule KratosApi.Repo.Migrations.CreateCommittee do
       add :thomas_id, :string
       add :senate_committee_id, :string
       add :house_committee_id, :string
-      add :jurisdiction, :string
+      add :jurisdiction, :text
       add :jurisdiction_source, :string
       add :url, :string
       add :address, :string
       add :phone, :string
       add :rss_url, :string
       add :minority_rss_url, :string
+      add :minority_url, :string
       add :past_names, :map
-
-      add :parent_id, references(:committees, on_delete: :nothing)
 
       timestamps()
     end
