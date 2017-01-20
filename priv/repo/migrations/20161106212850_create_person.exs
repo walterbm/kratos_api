@@ -24,11 +24,15 @@ defmodule KratosApi.Repo.Migrations.CreatePerson do
       add :gender, :string
       add :religion, :string
       add :twitter, :string
+      add :twitter_id, :string
       add :facebook, :string
       add :facebook_id, :string
+      add :youtube, :string
       add :youtube_id, :string
-      add :twitter_id, :string
+      add :instagram, :string
+      add :instagram_id, :string
       add :image_url, :string
+      add :bio, :text
 
       timestamps()
     end

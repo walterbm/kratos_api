@@ -27,15 +27,19 @@ defmodule KratosApi.Person do
     field :gender, :string
     field :religion, :string
     field :twitter, :string
+    field :twitter_id, :string
     field :facebook, :string
     field :facebook_id, :string
+    field :youtube, :string
     field :youtube_id, :string
-    field :twitter_id, :string
+    field :instagram, :string
+    field :instagram_id, :string
     field :image_url, :string
+    field :bio, :string
 
     has_many :fec, KratosApi.Fec
-    has_many :committee_membership, KratosApi.CommitteeMember
-    has_many :terms, KratosApi.Terms
+    has_many :committee_memberships, KratosApi.CommitteeMember
+    has_many :terms, KratosApi.Term
     has_many :leadership_roles, KratosApi.LeadershipRole
     has_many :votes, KratosApi.Vote
 
@@ -46,8 +50,8 @@ defmodule KratosApi.Person do
 
   @required_fields ~w(bioguide)a
   @allowed_fields ~w(bioguide thomas lis opensecrets votesmart cspan wikipedia house_history ballotpedia maplight icpsr wikidata
-    google_entity_id first_name last_name official_full_name birthday gender religion twitter facebook facebook_id youtube_id
-    twitter_id image_url)a
+    google_entity_id first_name last_name official_full_name birthday gender religion twitter facebook youtube instagram facebook_id youtube_id
+    twitter_id instagram_id image_url)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
