@@ -5,10 +5,10 @@ defmodule KratosApi.DistrictController do
 
   def show(conn, params) do
     query = from p in KratosApi.Person,
-      join: r in KratosApi.Term,
-      where: r.person_id == p.id,
-      where: r.state == ^String.upcase(params["state"]),
-      where: r.district == ^params["id"] or r.role_type ==  "senator",
+      join: t in KratosApi.Term,
+      where: t.person_id == p.id,
+      where: p.current_state == ^String.upcase(params["state"]),
+      where: p.current_district == ^params["id"] or p.current_office ==  "Senate",
       preload: [:terms]
 
 
