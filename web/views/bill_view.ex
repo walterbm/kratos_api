@@ -27,7 +27,8 @@ defmodule KratosApi.BillView do
       summary_date: bill.summary_date,
       titles: bill.titles,
       gpo_data_updated_at: bill.gpo_data_updated_at,
-      urls: bill.urls,
+      source_url: bill.source_url,
+      full_text_url: bill.full_text_url,
       congress_number: bill.congress_number_id,
 
       sponsor: render_one(bill.sponsor, KratosApi.PersonView, "person.json"),
