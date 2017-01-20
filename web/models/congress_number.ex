@@ -8,9 +8,6 @@ defmodule KratosApi.CongressNumber do
 
   @primary_key {:number, :integer, []}
   schema "congress_numbers" do
-
-    many_to_many :roles, KratosApi.Role, join_through: "role_congress_numbers", join_keys: [congress_number_id: :number, role_id: :id]
-
     timestamps()
   end
 
@@ -33,5 +30,5 @@ defmodule KratosApi.CongressNumber do
       congress_number -> congress_number
     end
   end
-  
+
 end
