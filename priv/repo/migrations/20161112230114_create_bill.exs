@@ -26,7 +26,8 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
       add :summary_date, :utc_datetime
       add :titles, :map
       add :gpo_data_updated_at, :utc_datetime
-      add :urls, :map
+      add :source_url, :string
+      add :full_text_url, :string
       add :md5_of_body, :string
 
       add :congress_number_id, references(:congress_numbers, on_delete: :nothing, column: :number)

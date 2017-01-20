@@ -315,7 +315,7 @@ defmodule KratosApi.Sync.Bill do
 
   def prepare(data, raw_message) do
     %{
-      actions: data["actions"],
+      actions: Enum.sort(data["actions"], &(&1["acted_at"] >= &2["acted_at"])),
       amendments: data["amendments"],
       gpo_id: data["bill_id"],
       type: data["bill_type"],
@@ -338,6 +338,7 @@ defmodule KratosApi.Sync.Bill do
       summary_date: SyncHelpers.convert_datetime(data["summary"]["date"]),
       titles: data["titles"],
       gpo_data_updated_at: SyncHelpers.convert_datetime(data["updated_at"]),
+      source_url: data["url"],
       md5_of_body: raw_message.md5_of_body
     }
   end
