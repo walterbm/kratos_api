@@ -1,12 +1,13 @@
-defmodule Mix.Tasks.Sync.Reps do
+defmodule Mix.Tasks.Sync.People do
   use Mix.Task
 
-  @shortdoc "Sync Roles and People."
+  @shortdoc "Sync People and Terms."
   def run(_) do
     Mix.Task.run "app.start"
     Mix.shell.error "=== SYNC ==="
-    KratosApi.Sync.Role.sync
-      Mix.shell.error "~~ALL ROLES + PEOPLE SYNCED & SAVED~~"
+    KratosApi.Sync.Person.sync
+    KratosApi.Sync.Person.SocialMedia.sync
+    Mix.shell.error "~~ALL PEOPLE + TERMS SYNCED & SAVED~~"
   end
 end
 
@@ -18,6 +19,7 @@ defmodule Mix.Tasks.Sync.Comms do
     Mix.Task.run "app.start"
     Mix.shell.error "=== SYNC ==="
     KratosApi.Sync.Committee.sync
+    KratosApi.Sync.Committee.Membership.sync
     Mix.shell.error "~~ALL COMMITTESS SYNCED & SAVED~~"
   end
 end
@@ -52,7 +54,7 @@ defmodule Mix.Tasks.Sync.All do
   @shortdoc "Sync Everything"
   def run(_) do
     Mix.Task.run "app.start"
-    Mix.Task.run "sync.reps"
+    Mix.Task.run "sync.people"
     Mix.Task.run "sync.comms"
     Mix.Task.run "sync.bills"
     Mix.Task.run "sync.talls"
