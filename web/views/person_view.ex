@@ -10,7 +10,7 @@ defmodule KratosApi.PersonView do
     terms =
       case person.terms do
         %Ecto.Association.NotLoaded{} -> []
-        _ -> person.terms
+        _ -> Enum.sort(person.terms, &(&1.end >= &2.end))
       end
 
     %{
@@ -35,14 +35,21 @@ defmodule KratosApi.PersonView do
       gender: person.gender,
       religion: person.religion,
       twitter: person.twitter,
+      twitter_id: person.twitter_id,
       facebook: person.facebook,
       facebook_id: person.facebook_id,
+      youtube: person.youtube,
       youtube_id: person.youtube_id,
-      twitter_id: person.twitter_id,
+      instagram: person.instagram,
+      instagram_id: person.instagram_id,
       image_url: person.image_url,
+      bio: person.bio,
+      is_current: person.is_current,
+      current_office: person.current_office,
+      current_state: person.current_state,
+      current_district: person.current_district,
 
       terms: render_many(terms, KratosApi.TermView, "term.json")
-
     }
   end
 
@@ -61,6 +68,10 @@ defmodule KratosApi.PersonView do
       first_name: person.first_name,
       last_name: person.last_name,
       image_url: person.image_url,
+      is_current: person.is_current,
+      current_office: person.current_office,
+      current_state: person.current_state,
+      current_district: person.current_district,
     }
   end
 
