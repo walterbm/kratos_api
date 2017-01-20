@@ -13,7 +13,14 @@ defmodule KratosApi.Fec do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:number])
+    |> cast(params, [:number, :person_id])
     |> validate_required([:number])
   end
+
+  def create(number) do
+    case KratosApi.Repo.insert(%KratosApi.Fec{number: number}) do
+      {:ok, fec} -> fec
+    end
+  end
+
 end

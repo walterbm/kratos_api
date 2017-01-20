@@ -25,9 +25,9 @@ defmodule KratosApi.Vote do
   end
 
   def create(data, key) do
-    person_id = case Repo.get_by(Person, bioguideid: data["id"]) do
+    person_id = case Repo.get_by(Person, bioguide: data["id"]) do
       nil ->
-        case Repo.one(from p in Person, where: [lastname: ^Map.get(data, "last_name", ""), firstname: ^Map.get(data, "first_name", "")]) do
+        case Repo.one(from p in Person, where: [lis: ^Map.get(data, "id")]) do
           nil -> nil
           person -> person.id
         end

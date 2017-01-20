@@ -12,7 +12,7 @@ defmodule KratosApi.Term do
     field :state_rank, :string
     field :party, :string
     field :caucus, :string
-    field :party_affiliations, :map
+    field :party_affiliations, {:array, :map}
     field :url, :string
     field :address, :string
     field :phone, :string
@@ -42,11 +42,11 @@ defmodule KratosApi.Term do
     |> validate_required(@required_fields)
   end
 
-  def find_or_create(data) do
-    # case Repo.get_by(Term, govtrack_id: data["id"]) do
-    #   nil -> KratosApi.Sync.Term.save(data)
-    #   role -> role
-    # end
+  def create(params) do
+    changeset = KratosApi.Term.changeset(%KratosApi.Term{}, params)
+    case KratosApi.Repo.insert(changeset) do
+      {:ok, term} -> term
+    end
   end
 
 end
