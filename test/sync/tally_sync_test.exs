@@ -18,12 +18,12 @@ defmodule KratosApi.TallySyncTest do
   end
 
   test "syncing creates Vote model with proper relationships" do
-    KratosApi.Sync.Role.sync "person-for-this-bill"
+    KratosApi.Sync.Person.sync
     KratosApi.Sync.Tally.sync
     tally = Repo.one(from t in Tally, where: t.number == 133, preload: [:votes])
     votes = tally.votes |> KratosApi.Repo.preload([:person])
     assert List.first(votes).value == "Yea"
-    assert List.first(votes).person.name == "Sen. Roy Blunt [R-MO]"
+    assert List.first(votes).person.official_full_name == "Roy Blunt"
   end
 
   test "syncing create Tally model with proper relationships" do

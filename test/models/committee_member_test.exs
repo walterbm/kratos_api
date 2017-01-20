@@ -3,7 +3,7 @@ defmodule KratosApi.CommitteeMemberTest do
 
   alias KratosApi.CommitteeMember
 
-  @valid_attrs %{title: "some content"}
+  @valid_attrs %{person_id: 1, committee_id: 2}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
