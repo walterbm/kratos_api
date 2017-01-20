@@ -19,14 +19,10 @@ defmodule KratosApi.Committee do
     field :phone, :string
     field :rss_url, :string
     field :minority_rss_url, :string
+    field :minority_url, :string
     field :past_names, :map
 
-    belongs_to :parent_committee, KratosApi.Committee, foreign_key: :parent_id
-
-    has_many :sub_committees, KratosApi.Committee, foreign_key: :parent_id
     has_many :members, KratosApi.CommitteeMember
-
-    many_to_many :congress_numbers, KratosApi.CongressNumber, join_through: "committee_congress_numbers", join_keys: [committee_id: :id, congress_number_id: :number]
 
     timestamps()
   end
@@ -34,7 +30,7 @@ defmodule KratosApi.Committee do
 
   @required_fields []
   @allowed_fields ~w(type name thomas_id senate_committee_id house_committee_id jurisdiction jurisdiction_source url
-    address phone rss_url minority_rss_url past_names parent_id)a
+    address phone rss_url minority_rss_url minority_url past_names)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
