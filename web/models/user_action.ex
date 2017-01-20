@@ -6,6 +6,7 @@ defmodule KratosApi.UserAction do
     field :last_bill_seen_at, Ecto.DateTime
     field :last_tally_seen_at, Ecto.DateTime
     belongs_to :user, KratosApi.User
+    belongs_to :person, KratosApi.Person
     belongs_to :last_bill, KratosApi.Bill
     belongs_to :last_tally, KratosApi.Tally
 
@@ -22,8 +23,8 @@ defmodule KratosApi.UserAction do
     })
 
     struct
-    |> cast(params, [:action, :last_bill_seen_at, :last_tally_seen_at, :user_id, :last_bill_id, :last_tally_id])
-    |> validate_required([:action, :user_id])
+    |> cast(params, [:action, :last_bill_seen_at, :last_tally_seen_at, :user_id, :person_id, :last_bill_id, :last_tally_id])
+    |> validate_required([:action, :user_id, :person_id])
     |> foreign_key_constraint(:last_bill_id)
     |> foreign_key_constraint(:last_tally_id)
   end
