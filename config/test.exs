@@ -22,6 +22,7 @@ config :kratos_api, KratosApi.Repo,
 
 config :kratos_api, :govtrack_api, KratosApi.Govtrack.InMemory
 config :kratos_api, :remote_queue, KratosApi.RemoteQueue.InMemory
+config :kratos_api, :remote_storage, KratosApi.RemoteStorage.InMemory
 
 # Authentication
 config :guardian, Guardian,
@@ -30,3 +31,6 @@ config :guardian, Guardian,
   verify_issuer: true,
   secret_key: "testing123",
   serializer: KratosApi.GuardianSerializer
+
+# Assets
+config :kratos_api, :assets_url, "https://supersecretdatabase.com"
