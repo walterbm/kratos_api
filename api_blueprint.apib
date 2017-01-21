@@ -362,7 +362,7 @@ Read, update, & destroy the current user's individual votes.
 
 ## My Actions [/api/me/actions]
 
-List the current user's voting record and create new votes.
+Create User Actions to record when a user contacts specific representatives.
 
 ### Record a new Action [POST]
 
@@ -376,6 +376,7 @@ List the current user's voting record and create new votes.
 
         + user_action
             + action: `call` (string, required)
+            + person_id: 3 (number, required)
             + last_bill_id: 1 (number, required)
             + last_tally_id: 2 (number, required)
             + last_bill_seen_at: `2015-05-05T12:30:00` (optional, string) - datetime in UTC (ISO8601 format)
@@ -421,68 +422,125 @@ Find information and representatives for a congressional district.
               ],
               "data": [
                 {
-                  "youtubeid": "SenatorSchumer",
-                  "twitterid": "SenSchumer",
-                  "sortname": "Schumer, Charles “Chuck” (Sen.) [D-NY]",
-                  "roles": [
-                    {
-                      "website": "https://www.schumer.senate.gov",
-                      "title_long": "Senator",
-                      "title": "Sen.",
-                      "state": "NY",
-                      "startdate": "2011-01-05",
-                      "senator_rank_label": "Senior",
-                      "senator_rank": "senior",
-                      "senator_class_label": "Class 3",
-                      "senator_class": "class3",
-                      "role_type_label": "Senator",
-                      "role_type": "senator",
-                      "phone": "202-224-6542",
-                      "party": "Democrat",
-                      "leadership_title": null,
-                      "id": 19,
-                      "govtrack_id": 4282,
-                      "extra": {
-                        "office": "322 Hart Senate Office Building",
-                        "fax": "202-228-3027",
-                        "contact_form": "http://www.schumer.senate.gov/Contact/email-chuck",
-                        "address": "322 Hart Senate Office Building Washington DC 20510"
-                      },
-                      "enddate": "2017-01-03",
-                      "district": null,
-                      "description": "Senior Senator from New York",
-                      "current": true,
-                      "caucus": null
-                    }
-                  ],
-                  "pvsid": "26976",
-                  "osid": "N00001093",
-                  "nickname": "Chuck",
-                  "namemod": null,
-                  "name": "Sen. Charles “Chuck” Schumer [D-NY]",
-                  "middlename": "E.",
-                  "link": "https://www.govtrack.us/congress/members/charles_schumer/300087",
-                  "lastname": "Schumer",
-                  "image_url": "https://theunitedstates.io/images/congress/225x275/S000148.jpg",
-                  "id": 19,
-                  "govtrack_id": 300087,
-                  "gender_label": "Male",
-                  "gender": "male",
-                  "firstname": "Charles",
-                  "current_state": "NY",
-                  "current_party": "D",
-                  "cspanid": 5929,
-                  "birthday": "1950-11-23",
-                  "bioguideid": "S000148"
-                },
+                "maplight": "606",
+                "is_current": true,
+                "wikipedia": "Chuck Schumer",
+                "image_url": "https://theunitedstates.io/images/congress/225x275/S000148.jpg",
+                "gender": "M",
+                "google_entity_id": "kg:/m/01w74d",
+                "facebook": "chuckschumer",
+                "id": 12138,
+                "bioguide": "S000148",
+                "first_name": "Charles",
+                "lis": "S270",
+                "terms": [],
+                "religion": "Jewish",
+                "instagram_id": "",
+                "wikidata": "Q380900",
+                "thomas": "01036",
+                "current_office": "Senate",
+                "house_history": "21322",
+                "votesmart": "26976",
+                "last_name": "Schumer",
+                "current_district": null,
+                "cspan": "5929",
+                "twitter": "SenSchumer",
+                "twitter_id": "17494010",
+                "icpsr": "14858",
+                "current_state": "NY",
+                "youtube_id": "UC-ABttxh8uQv_10qmwGaidw",
+                "bio": null,
+                "instagram": "",
+                "opensecrets": "N00001093",
+                "official_full_name": "Charles E. Schumer",
+                "ballotpedia": "Chuck Schumer",
+                "youtube": "SenatorSchumer",
+                "facebook_id": "15771239406",
+                "birthday": "1950-11-23"
+                }
               ]
             }
 
-## Group Representatives
+## Group People
 
 Information related congressional representatives.
 
-## Representative [/api/representatives/{id}/votes]
+## People [/api/People/{id}]
+
+### Get Person [GET]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+    + id: `12138` (number, required) - representative's PERSON ID.
+
++ Response 200 (application/json)
+
+            {
+              "maplight": "606",
+              "is_current": true,
+              "wikipedia": "Chuck Schumer",
+              "image_url": "https://theunitedstates.io/images/congress/225x275/S000148.jpg",
+              "gender": "M",
+              "google_entity_id": "kg:/m/01w74d",
+              "facebook": "chuckschumer",
+              "id": 12138,
+              "bioguide": "S000148",
+              "first_name": "Charles",
+              "lis": "S270",
+              "terms": [
+                {
+                  "url": "https://www.schumer.senate.gov",
+                  "type": "Senate",
+                  "state_rank": "senior",
+                  "state": "NY",
+                  "start": "2017-01-03",
+                  "rss_url": null,
+                  "phone": "202-224-6542",
+                  "party_affiliations": null,
+                  "party": "Democrat",
+                  "office": "322 Hart Senate Office Building",
+                  "is_current": null,
+                  "id": 42560,
+                  "fax": null,
+                  "end": "2023-01-03",
+                  "district": null,
+                  "contact_form": "http://www.schumer.senate.gov/contact/email-chuck",
+                  "class": "3",
+                  "caucus": null,
+                  "address": "322 Hart Senate Office Building Washington DC 20510"
+                },
+              ],
+              "religion": "Jewish",
+              "instagram_id": "",
+              "wikidata": "Q380900",
+              "thomas": "01036",
+              "current_office": "Senate",
+              "house_history": "21322",
+              "votesmart": "26976",
+              "last_name": "Schumer",
+              "current_district": null,
+              "cspan": "5929",
+              "twitter": "SenSchumer",
+              "twitter_id": "17494010",
+              "icpsr": "14858",
+              "current_state": "NY",
+              "youtube_id": "UC-ABttxh8uQv_10qmwGaidw",
+              "bio": null,
+              "instagram": "",
+              "opensecrets": "N00001093",
+              "official_full_name": "Charles E. Schumer",
+              "ballotpedia": "Chuck Schumer",
+              "youtube": "SenatorSchumer",
+              "facebook_id": "15771239406",
+              "birthday": "1950-11-23"
+            }
+
+
+## People's Votes [/api/People/{id}/votes]
 
 ### Get Voting Record [GET]
 
@@ -492,47 +550,53 @@ Information related congressional representatives.
             Authorization: Bearer <token>
 
 + Parameters
-    + id: `412223` (number, required) - representative's PERSON ID.
+    + id: `12138` (number, required) - representative's PERSON ID.
 
 + Response 200 (application/json)
 
             {
               "pagination": [
                 {
-                  "url": "/api/representatives/19/votes?id=19&page=1",
+                  "url": "/api/people/12138/votes?id=12138&page=1",
                   "page": 1,
                   "label": "1",
                   "current": true
                 },
                 {
-                  "url": "/api/representatives/19/votes?id=19&page=2",
+                  "url": "/api/people/12138/votes?id=12138&page=2",
                   "page": 2,
                   "label": "Next",
+                  "current": false
+                },
+                {
+                  "url": "/api/people/12138/votes?id=12138&page=9",
+                  "page": 9,
+                  "label": "Last",
                   "current": false
                 }
               ],
               "data": {
                 "voting_record": [
                   {
-                  "value": "Nay",
-                  "tally": {
-                    "type": "On the Cloture Motion",
-                    "treaty": null,
-                    "subject": "Motion to Invoke Cloture on the Motion to Concur in the House Amendment to the Senate Amendment to H.R. 2028",
-                    "session": "2016",
-                    "result_text": "Cloture Motion Agreed to (61-38, 3/5 majority required)",
-                    "result": "Cloture Motion Agreed to",
-                    "requires": "3/5",
-                    "record_updated_at": null,
-                    "question": "On the Cloture Motion H.R. 2028",
-                    "number": 160,
-                    "id": 158,
-                    "date": "2016-12-09T22:00:00",
-                    "chamber": "Senate",
-                    "category": "cloture",
-                    "amendment": null
-                  },
-                  "id": 56682
+                    "value": "Nay",
+                    "tally": {
+                      "type": "On the Motion (Motion to Concur in the House Amendment to S. 612)",
+                      "treaty": null,
+                      "subject": "Motion to Concur in the House Amendment to S. 612",
+                      "session": "2016",
+                      "result_text": "Motion Agreed to (78-21)",
+                      "result": "Motion Agreed to",
+                      "requires": "1/2",
+                      "record_updated_at": null,
+                      "question": "On the Motion (Motion to Concur in the House Amendment to S. 612)",
+                      "number": 163,
+                      "id": 769,
+                      "date": "2016-12-10T00:57:00",
+                      "chamber": "Senate",
+                      "category": "passage",
+                      "amendment": null
+                    },
+                    "id": 279847
                   },
                 ]
               }
@@ -552,72 +616,77 @@ Resources related congressional tallies (votes & questions on Bills).
             Authorization: Bearer <token>
 
 + Parameters
-    + id: `201` (number, required) - tallies' TALLY ID.
+    + id: `286` (number, required) - tallies' TALLY ID.
 
 + Response 200 (application/json)
 
-              {
-                "Not Voting": 14,
-                "No": 162,
-                "Aye": 254,
-                "votes": [
-                  {
-                    "value": "Not Voting",
-                    "person": {
-                      "lastname": "Sanchez",
-                      "image": "https://theunitedstates.io/images/congress/225x275/S000030.jpg",
-                      "id": 192,
-                      "firstname": "Loretta",
-                      "current_state": "CA46",
-                      "current_party": "D"
-                    },
-                    "id": 72083
+            {
+              "Yea": 346,
+              "Not Voting": 21,
+              "Nay": 66,
+              "votes": [
+                {
+                  "value": "Yea",
+                  "person": {
+                    "last_name": "Zinke",
+                    "is_current": true,
+                    "image_url": "https://theunitedstates.io/images/congress/225x275/Z000018.jpg",
+                    "id": 12312,
+                    "first_name": "Ryan",
+                    "current_state": "MT",
+                    "current_office": "House",
+                    "current_district": 0
                   },
-                  {
-                    "value": "No",
-                    "person": {
-                      "lastname": "Wasserman Schultz",
-                      "image": "https://theunitedstates.io/images/congress/225x275/W000797.jpg",
-                      "id": 226,
-                      "firstname": "Debbie",
-                      "current_state": "FL23",
-                      "current_party": "D"
-                    },
-                    "id": 72065
+                  "id": 105150
+                },
+                {
+                  "value": "Not Voting",
+                  "person": {
+                    "last_name": "Pompeo",
+                    "is_current": true,
+                    "image_url": "https://theunitedstates.io/images/congress/225x275/P000602.jpg",
+                    "id": 12105,
+                    "first_name": "Mike",
+                    "current_state": "KS",
+                    "current_office": "House",
+                    "current_district": 4
                   },
-                  {
-                    "value": "Aye",
-                    "person": {
-                      "lastname": "Yoho",
-                      "image": "https://theunitedstates.io/images/congress/225x275/Y000065.jpg",
-                      "id": 418,
-                      "firstname": "Ted",
-                      "current_state": "FL3",
-                      "current_party": "R"
-                    },
-                    "id": 71903
+                  "id": 104798
+                },
+                {
+                  "value": "Nay",
+                  "person": {
+                    "last_name": "Mooney",
+                    "is_current": true,
+                    "image_url": "https://theunitedstates.io/images/congress/225x275/M001195.jpg",
+                    "id": 12332,
+                    "first_name": "Alex",
+                    "current_state": "WV",
+                    "current_office": "House",
+                    "current_district": 2
                   },
-                ],
-                "type": "On Passage of the Bill",
-                "treaty": null,
-                "subject": "To provide for the prohibition on cash payments to the Government of Iran, and for other purposes",
-                "source_url": "http://clerk.house.gov/evs/2016/roll554.xml",
-                "session": "2016",
-                "result_text": "Passed",
-                "result": "Passed",
-                "requires": "1/2",
-                "record_updated_at": null,
-                "question": "On Passage: H R 5931 To provide for the prohibition on cash payments to the Government of Iran, and for other purposes",
-                "number": 554,
-                "id": 201,
-                "gpo_id": "h554-114.2016",
-                "date": "2016-09-22T21:19:00",
-                "chamber": "House",
-                "category": "passage",
-                "bill_id": 7529,
-                "amendment": null
-              }
-
+                  "id": 104763
+                },
+              ],
+              "type": "On Motion to Suspend the Rules and Pass, as Amended",
+              "treaty": null,
+              "subject": "To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer’s Disease and Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism",
+              "source_url": "http://clerk.house.gov/evs/2016/roll619.xml",
+              "session": "2016",
+              "result_text": "Passed",
+              "result": "Passed",
+              "requires": "2/3",
+              "record_updated_at": null,
+              "question": "On Motion to Suspend the Rules and Pass, as Amended: H R 4919 To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer’s Disease and Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism",
+              "number": 619,
+              "id": 286,
+              "gpo_id": "h619-114.2016",
+              "date": "2016-12-08T10:50:00",
+              "chamber": "House",
+              "category": "passage-suspension",
+              "bill_id": 10867,
+              "amendment": null
+            }
 
 ## Group Bills
 
@@ -638,233 +707,270 @@ Resources related congressional bills & resolutions.
 + Response 200 (application/json)
 
             {
+              "short_title": "Kevin and Avonte's Law of 2016",
+              "summary_date": "2016-04-12T04:00:00",
+              "congress_number": 114,
               "vetoed": false,
-              "urls": null,
-              "type": "s",
-              "top_term": "Armed forces and national security",
               "titles": [
                 {
-                  "type": "display",
-                  "title": "National Defense Authorization Act for Fiscal Year 2017",
-                  "is_for_portion": false,
-                  "as": null
-                }
+                "type": "short",
+                "title": "Kevin and Avonte's Law of 2016",
+                "is_for_portion": false,
+                "as": "introduced"
+                },
               ],
+              "id": 10867,
+              "popular_title": null,
+              "committee_history": [
+                {
+                  "committee_id": "HSED",
+                  "committee": "House Education and the Workforce",
+                  "activity": [
+                    "referral"
+                  ]
+                },
+              ],
+              "number": "4919",
+              "history": {
+                "vetoed": false,
+                "house_passage_result_at": "2016-12-08T10:51:13-05:00",
+                "house_passage_result": "pass",
+                "enacted": false,
+                "awaiting_signature": false,
+                "active_at": "2016-12-07T18:01:18-05:00",
+                "active": true
+              },
+              "enacted": false,
+              "subjects": [
+                "Right of privacy",
+                "Neurological disorders"
+              ],
+              "sponsor": {
+                "maplight": "469",
+                "is_current": true,
+                "wikipedia": "Chris Smith (New Jersey politician)",
+                "image_url": "https://theunitedstates.io/images/congress/225x275/S000522.jpg",
+                "gender": "M",
+                "google_entity_id": "kg:/m/033f4d",
+                "facebook": "RepChrisSmith",
+                "id": 12157,
+                "bioguide": "S000522",
+                "first_name": "Christopher",
+                "lis": null,
+                "terms": [
+                  {
+                    "url": "http://chrissmith.house.gov",
+                    "type": "House",
+                    "state_rank": null,
+                    "state": "NJ",
+                    "start": "2017-01-03",
+                    "rss_url": "http://chrissmith.house.gov/news/rss.aspx",
+                    "phone": "202-225-3765",
+                    "party_affiliations": null,
+                    "party": "Republican",
+                    "office": "2373 Rayburn House Office Building",
+                    "is_current": null,
+                    "id": 42753,
+                    "fax": null,
+                    "end": "2019-01-03",
+                    "district": 4,
+                    "contact_form": "https://chrissmith.house.gov/contact/write.htm",
+                    "class": null,
+                    "caucus": null,
+                    "address": "2373 Rayburn HOB; Washington DC 20515-3004"
+                  },
+                ],
+                "religion": "Roman Catholic",
+                "instagram_id": "",
+                "wikidata": "Q981167",
+                "thomas": "01071",
+                "current_office": "House",
+                "house_history": "21787",
+                "votesmart": "26952",
+                "last_name": "Smith",
+                "current_district": 4,
+                "cspan": "6411",
+                "twitter": "RepChrisSmith",
+                "twitter_id": "1289319271",
+                "icpsr": "14863",
+                "current_state": "NJ",
+                "youtube_id": "UCtCNUDo3-I1gsd_03ppDfZg",
+                "bio": null,
+                "instagram": "",
+                "opensecrets": "N00009816",
+                "official_full_name": "Christopher H. Smith",
+                "ballotpedia": null,
+                "youtube": "USRepChrisSmith",
+                "facebook_id": "371621772908416",
+                "birthday": "1953-03-04"
+              },
               "tallies": [
                 {
-                  "Yea": 70,
-                  "Not Voting": 1,
-                  "Nay": 10,
+                  "Yea": 346,
+                  "Not Voting": 21,
+                  "Nay": 66,
                   "votes": [
                     {
                       "value": "Yea",
-                      "person_lastname": "Wicker",
-                      "person_image": "https://theunitedstates.io/images/congress/225x275/W000437.jpg",
-                      "person_firstname": "Roger",
-                      "person_current_state": "MS",
-                      "person_current_party": "R",
-                      "id": 19133
-                    },
-                    {
-                      "value": "Nay",
-                      "person_lastname": "Gillibrand",
-                      "person_image": "https://theunitedstates.io/images/congress/225x275/G000555.jpg",
-                      "person_firstname": "Kirsten",
-                      "person_current_state": "NY",
-                      "person_current_party": "D",
-                      "id": 19054
+                      "person": {
+                        "last_name": "Zinke",
+                        "is_current": true,
+                        "image_url": "https://theunitedstates.io/images/congress/225x275/Z000018.jpg",
+                        "id": 12312,
+                        "first_name": "Ryan",
+                        "current_state": "MT",
+                        "current_office": "House",
+                        "current_district": 0
+                      },
+                      "id": 105150
                     },
                   ],
-                  "type": "On Passage of the Bill",
+                  "type": "On Motion to Suspend the Rules and Pass, as Amended",
                   "treaty": null,
-                  "subject": "S. 2943 As Amended",
-                  "source_url": "http://www.senate.gov/legislative/LIS/roll_call_votes/vote1142/vote_114_2_00098.xml",
-                  "session": "2016",
-                  "result_text": "Bill Passed (85-13)",
-                  "result": "Bill Passed",
-                  "requires": "1/2",
-                  "record_updated_at": null,
-                  "question": "On Passage of the Bill S. 2943",
-                  "number": 98,
-                  "id": 51,
-                  "gpo_id": "s98-114.2016",
-                  "date": "2016-06-14T11:04:00",
-                  "chamber": "Senate",
-                  "category": "passage",
-                  "amendment": null
-                },
-                {
-                  "Yea": 395,
-                  "Not Voting": 21,
-                  "Nay": 14,
-                  "votes": [
-                    {
-                      "value": "Nay",
-                      "person_lastname": "Amash",
-                      "person_image": "https://theunitedstates.io/images/congress/225x275/A000367.jpg",
-                      "person_firstname": "Justin",
-                      "person_current_state": "MI3",
-                      "person_current_party": "R",
-                      "id": 43894
-                    }
-                  ],
-                  "type": "On Closing Portions of the Conference",
-                  "treaty": null,
-                  "subject": "National Defense Authorization Act for Fiscal Year 2017",
-                  "source_url": "http://clerk.house.gov/evs/2016/roll400.xml",
+                  "subject": "To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer’s Disease and Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism",
+                  "source_url": "http://clerk.house.gov/evs/2016/roll619.xml",
                   "session": "2016",
                   "result_text": "Passed",
                   "result": "Passed",
-                  "requires": "1/2",
+                  "requires": "2/3",
                   "record_updated_at": null,
-                  "question": "On Closing Portions of the Conference: S 2943 National Defense Authorization Act for Fiscal Year 2017",
-                  "number": 400,
-                  "id": 121,
-                  "gpo_id": "h400-114.2016",
-                  "date": "2016-07-08T12:08:00",
+                  "question": "On Motion to Suspend the Rules and Pass, as Amended: H R 4919 To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer’s Disease and Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism",
+                  "number": 619,
+                  "id": 286,
+                  "gpo_id": "h619-114.2016",
+                  "date": "2016-12-08T10:50:00",
                   "chamber": "House",
-                  "category": "unknown",
+                  "category": "passage-suspension",
+                  "bill_id": 10867,
                   "amendment": null
                 }
               ],
-              "summary_text": "Highlights: This bill authorizes FY2017 appropriations and sets forth policies regarding the military activities of the Department of Defense (DOD), military construction, and the national security programs of the Department of Energy (DOE).The bill authorizes appropriations, but does not provide budget authority, which is provided by appropriations legislation.The bill authorizes appropriations to DOD for: Procurement; Research, Development, Test, and Evaluation; Operation and Maintenance; Cooperative Threat Reduction; Working Capital Funds; the National Defense Sealift Fund; Chemical Agents and Munitions Destruction; Defense-Wide Drug Interdiction and Counter-Drug Activities; the Defense Inspector General; the Defense Health Program; and the National Sea-Based Deterrence Fund. The bill also authorizes appropriations for Overseas Contingency Operations (OCO) . . . ",
-              "summary_date": "2016-07-07T12:10:06",
-              "subjects": [
-                "National and community service",
-              ],
-              "status_at": null,
-              "status": "PASSED:BILL",
-              "sponsor": {
-                "youtubeid": "SenatorJohnMcCain",
-                "twitterid": "SenJohnMcCain",
-                "sortname": "McCain, John (Sen.) [R-AZ]",
-                "roles": [
-                  {
-                    "website": "http://www.mccain.senate.gov",
-                    "title_long": "Senator",
-                    "title": "Sen.",
-                    "state": "AZ",
-                    "startdate": "2011-01-05",
-                    "senator_rank_label": "Senior",
-                    "senator_rank": "senior",
-                    "senator_class_label": "Class 3",
-                    "senator_class": "class3",
-                    "role_type_label": "Senator",
-                    "role_type": "senator",
-                    "phone": "202-224-2235",
-                    "party": "Republican",
-                    "leadership_title": null,
-                    "id": 14,
-                    "govtrack_id": 4190,
-                    "extra": {
-                      "office": "218 Russell Senate Office Building",
-                      "fax": "202-228-2862",
-                      "contact_form": "http://www.mccain.senate.gov/public/index.cfm/contact-form",
-                      "address": "218 Russell Senate Office Building Washington DC 20510"
-                    },
-                    "enddate": "2017-01-03",
-                    "district": null,
-                    "description": "Senior Senator from Arizona",
-                    "current": true,
-                    "caucus": null
-                  }
-                ],
-                "pvsid": "53270",
-                "osid": "N00006424",
-                "nickname": null,
-                "namemod": null,
-                "name": "Sen. John McCain [R-AZ]",
-                "middlename": "S.",
-                "link": "https://www.govtrack.us/congress/members/john_mccain/300071",
-                "lastname": "McCain",
-                "image_url": "https://theunitedstates.io/images/congress/225x275/M000303.jpg",
-                "id": 14,
-                "govtrack_id": 300071,
-                "gender_label": "Male",
-                "gender": "male",
-                "firstname": "John",
-                "current_state": "AZ",
-                "current_party": "R",
-                "cspanid": 7476,
-                "birthday": "1936-08-29",
-                "bioguideid": "M000303"
-              },
-              "short_title": "National Defense Authorization Act for Fiscal Year 2017",
-              "related_bills": [
-                {
-                  "related_bill_id": 74,
-                  "reason": "related"
-                },
-              ],
-              "popular_title": null,
-              "official_title": "An original bill to authorize appropriations for fiscal year 2017 for military activities of the Department of Defense, for military construction, and for defense activities of the Department of Energy, to prescribe military personnel strengths for such fiscal year, and for other purposes.",
-              "number": "2943",
-              "introduced_at": "2016-05-18",
-              "id": 784,
-              "history": {
-                "vetoed": false,
-                "senate_passage_result_at": "2016-12-08",
-                "senate_passage_result": "pass",
-                "senate_cloture_result_at": "2016-05-25",
-                "senate_cloture_result": "pass",
-                "house_passage_result_at": "2016-12-02T11:37:54-05:00",
-                "house_passage_result": "pass",
-                "enacted": false,
-                "awaiting_signature_since": "2016-12-14",
-                "awaiting_signature": true,
-                "active_at": "2016-05-18",
-                "active": true
-              },
-              "gpo_id": "s2943-114",
-              "gpo_data_updated_at": "2016-12-16T09:56:36",
-              "enacted_as": null,
-              "enacted": false,
-              "cosponsors": [],
-              "congress_number": 114,
+              "gpo_data_updated_at": "2017-01-17T12:34:41",
+              "awaiting_signature": false,
+              "gpo_id": "hr4919-114",
+              "official_title": "To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer's Disease Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism.",
+              "active": true,
               "committees": [
                 {
-                  "url": "http://armed-services.senate.gov/",
-                  "sub_committees": [],
-                  "parent": [],
-                  "obsolete": false,
-                  "name": "Senate Committee on Armed Services",
-                  "jurisdiction_link": null,
-                  "jurisdiction": null,
-                  "id": 11,
-                  "govtrack_id": 2594,
-                  "committee_type_label": "Senate",
-                  "committee_type": "senate",
-                  "code": "SSAS",
-                  "abbrev": "ArmServs"
-                }
+                  "url": "http://judiciary.house.gov/",
+                  "type": "house",
+                  "thomas_id": "HSJU",
+                  "senate_committee_id": null,
+                  "rss_url": null,
+                  "phone": "(202) 225-3951",
+                  "past_names": null,
+                  "name": "House Committee on the Judiciary",
+                  "minority_rss_url": "http://democrats.judiciary.house.gov/rss.xml",
+                  "jurisdiction_source": "http://judiciary.house.gov/index.cfm/about-the-committee",
+                  "jurisdiction": "The Committee on the Judiciary has been called the lawyer for the House of Representatives because of its jurisdiction over matters relating to the administration of justice in federal courts, administrative bodies, and law enforcement agencies. Its infrequent but important role in impeachment proceedings has also brought it much attention.",
+                  "id": 14,
+                  "house_committee_id": "JU",
+                  "address": "2138 RHOB; Washington, DC 20515-6216"
+                },
               ],
-              "committee_history": [
+              "enacted_as": null,
+              "top_term": "Crime and law enforcement",
+              "related_bills": [
                 {
-                  "committee_id": "SSAS",
-                  "committee": "Senate Armed Services",
-                  "activity": [
-                    "origin",
-                    "reporting"
-                  ]
+                  "related_bill_id": 3329,
+                  "reason": "identical"
                 }
               ],
-              "awaiting_signature": true,
-              "amendments": [],
-              "active": true,
+              "type": "hr",
+              "status": "PASS_OVER:HOUSE",
+              "cosponsors": [
+                {
+                  "maplight": "2084",
+                  "is_current": true,
+                  "wikipedia": "David Young (Iowa politician)",
+                  "image_url": "https://theunitedstates.io/images/congress/225x275/Y000066.jpg",
+                  "gender": "M",
+                  "google_entity_id": "kg:/m/0127pc92",
+                  "facebook": "RepDavidYoung",
+                  "id": 12300,
+                  "bioguide": "Y000066",
+                  "first_name": "David",
+                  "lis": null,
+                  "terms": [
+                    {
+                      "url": "https://davidyoung.house.gov",
+                      "type": "House",
+                      "state_rank": null,
+                      "state": "IA",
+                      "start": "2017-01-03",
+                      "rss_url": null,
+                      "phone": "202-225-5476",
+                      "party_affiliations": null,
+                      "party": "Republican",
+                      "office": "240 Cannon House Office Building",
+                      "is_current": null,
+                      "id": 43356,
+                      "fax": null,
+                      "end": "2019-01-03",
+                      "district": 3,
+                      "contact_form": "https://davidyoung.house.gov/contact",
+                      "class": null,
+                      "caucus": null,
+                      "address": "240 Cannon HOB; Washington DC 20515-1503"
+                    }
+                  ],
+                  "religion": null,
+                  "instagram_id": "",
+                  "wikidata": "Q19321008",
+                  "thomas": "02242",
+                  "current_office": "House",
+                  "house_history": null,
+                  "votesmart": null,
+                  "last_name": "Young",
+                  "current_district": 3,
+                  "cspan": null,
+                  "twitter": "RepDavidYoung",
+                  "twitter_id": "314205957",
+                  "icpsr": null,
+                  "current_state": "IA",
+                  "youtube_id": "",
+                  "bio": null,
+                  "instagram": "",
+                  "opensecrets": "N00035509",
+                  "official_full_name": "David Young",
+                  "ballotpedia": null,
+                  "youtube": "",
+                  "facebook_id": "",
+                  "birthday": "1968-05-11"
+                }
+              ],
               "actions": [
                 {
                   "type": "action",
-                  "text": "Introduced in Senate",
+                  "text": "Motion to reconsider laid on the table Agreed to without objection.",
                   "references": [],
-                  "action_code": "10000",
-                  "acted_at": "2016-05-18"
+                  "action_code": "H38310",
+                  "acted_at": "2016-12-08T10:51:14-05:00"
                 },
                 {
-                  "type": "topresident",
-                  "text": "Presented to President.",
-                  "references": [],
-                  "action_code": "E20000",
-                  "acted_at": "2016-12-14"
+                  "where": "h",
+                  "vote_type": "vote",
+                  "type": "vote",
+                  "text": "On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 346 - 66 (Roll no. 619).",
+                  "suspension": true,
+                  "status": "PASS_OVER:HOUSE",
+                  "roll": "619",
+                  "result": "pass",
+                  "references": [
+                    {
+                      "type": "text",
+                      "reference": "CR 12/7/2016 H7333-7335"
+                    }
+                  ],
+                  "how": "roll",
+                  "action_code": "H37300",
+                  "acted_at": "2016-12-08T10:51:13-05:00"
                 }
-              ]
-            }
+              ],
+              "full_text_url": null,
+               "introduced_at": "2016-04-12",
+               "amendments": [],
+               "source_url": "https://www.gpo.gov/fdsys/bulkdata/BILLSTATUS/114/hr/BILLSTATUS-114hr4919.xml",
+               "summary_text": "Kevin and Avonte's Law of 2016Missing Americans Alert Program Act of 2016This bill amends the Violent Crime Control and Law Enforcement Act of 1994 to revise and rename the Missing Alzheimer's Disease Patient Alert Program as the Missing Americans Alert Program and to reauthorize it through FY2021.It directs the Department of Justice's (DOJ's) Bureau of Justice Assistance to award grants to state and local law enforcement or public safety agencies and nonprofit organizations to prevent wandering and locate missing individuals with dementia or developmental disabilities.DOJ must establish and certain grant recipients must comply with standards and best practices related to the use of tracking technology to locate missing individuals with dementia or developmental disabilities.The bill amends the Missing Children's Assistance Act to specify that, with respect to training and technical assistance provided by the National Center for Missing and Exploited Children, cases involving missing and exploited children include cases involving children with developmental disabilities such as autism.",
+               "status_at": "2016-12-08T10:51:13"
+              }
