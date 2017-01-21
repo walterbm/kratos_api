@@ -46,25 +46,5 @@ defmodule KratosApi.DistrictControllerTest do
     assert one["birthday"] == "1952-11-09"
     assert one["bioguide"] == "B000944"
     assert one["bio"] == nil
-
-    term = one["terms"] |> List.first
-    assert term["class"] == "1"
-    assert term["district"] == nil
-    assert term["end"] == "2019-01-03"
-    assert term["is_current"] == nil
-    assert term["party_affiliations"] == nil
-    assert term["start"] == "2013-01-03"
-    assert term["type"] == "Senate"
-    assert term["address"] == "713 Hart Senate Office Building Washington DC 20510"
-    assert term["caucus"] == nil
-    assert term["contact_form"] == "http://www.brown.senate.gov/contact"
-    assert term["fax"] == "202-228-6321"
-    assert term["office"] == "713 Hart Senate Office Building"
-    assert term["party"] == "Democrat"
-    assert term["phone"] == "202-224-2315"
-    assert term["rss_url"] == "http://www.brown.senate.gov/rss/feeds/?type=all&amp;"
-    assert term["state"] == "OH"
-    assert term["state_rank"] == "senior"
-    assert term["url"] == "https://www.brown.senate.gov"
   end
 end
