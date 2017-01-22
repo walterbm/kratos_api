@@ -53,6 +53,7 @@ defmodule KratosApi.PersonControllerTest do
     assert response["current_office"] == "Senate"
     assert response["current_state"] == "OH"
     assert response["current_district"] == nil
+    assert response["current_party"] == "Democrat"
 
     term = response["terms"] |> List.first
     assert term["class"] == "1"

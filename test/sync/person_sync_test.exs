@@ -43,6 +43,7 @@ defmodule KratosApi.PersonSyncTest do
     assert person.current_office == "Senate"
     assert person.current_state == "OH"
     assert person.current_district == nil
+    assert person.current_party == "Democrat"
 
     assert person.fec
     assert Enum.map(person.fec, fn fec -> fec.number end) |> Enum.sort == ["H2OH13033", "S6OH00163"]
