@@ -40,6 +40,7 @@ defmodule KratosApi.Person do
     field :current_office, :string
     field :current_state, :string
     field :current_district, :integer
+    field :current_party, :string
 
     has_many :fec, KratosApi.Fec
     has_many :committee_memberships, KratosApi.CommitteeMember
@@ -55,7 +56,7 @@ defmodule KratosApi.Person do
   @required_fields ~w(bioguide)a
   @allowed_fields ~w(bioguide thomas lis opensecrets votesmart cspan wikipedia house_history ballotpedia maplight icpsr wikidata
     google_entity_id first_name last_name official_full_name birthday gender religion twitter facebook youtube instagram facebook_id youtube_id
-    twitter_id instagram_id image_url is_current current_office current_state current_district)a
+    twitter_id instagram_id image_url is_current current_office current_state current_district current_party)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

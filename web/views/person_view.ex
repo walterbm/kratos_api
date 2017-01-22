@@ -48,6 +48,7 @@ defmodule KratosApi.PersonView do
       current_office: person.current_office,
       current_state: person.current_state,
       current_district: person.current_district,
+      current_party: person.current_party,
 
       terms: render_many(terms, KratosApi.TermView, "term.json")
     }
@@ -72,6 +73,7 @@ defmodule KratosApi.PersonView do
       current_office: person.current_office,
       current_state: person.current_state,
       current_district: person.current_district,
+      current_party: person.current_party,
     }
   end
 
