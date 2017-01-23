@@ -87,7 +87,8 @@ defmodule KratosApi.PersonSyncTest do
 
   test "syncing a duplicate Person updates that person" do
     KratosApi.Sync.Person.sync
-
+    KratosApi.Sync.Person.sync
+    
     person = Repo.one!(
       from p in Person,
       where: p.bioguide == "B000944",

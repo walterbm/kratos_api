@@ -22,7 +22,7 @@ defmodule KratosApi.Committee do
     field :minority_url, :string
     field :past_names, :map
 
-    has_many :members, KratosApi.CommitteeMember
+    has_many :members, KratosApi.CommitteeMember, on_replace: :delete
 
     timestamps()
   end
@@ -40,12 +40,4 @@ defmodule KratosApi.Committee do
     |> cast(params, @allowed_fields)
     |> validate_required(@required_fields)
   end
-
-  def find_or_create(data) do
-    case Repo.get_by(Committee, govtrack_id: data["id"]) do
-      nil -> KratosApi.Sync.Committee.save(data)
-      committee -> committee
-    end
-  end
-
 end

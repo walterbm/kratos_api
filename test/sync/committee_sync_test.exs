@@ -62,4 +62,25 @@ defmodule KratosApi.CommitteeSyncTest do
     assert membership.committee |> Repo.preload(:members) == committee
   end
 
+  test "syncing an existing Committee updates it's Membership" do
+    KratosApi.Sync.Person.sync
+    KratosApi.Sync.Committee.sync
+    KratosApi.Sync.Committee.Membership.sync
+    KratosApi.Sync.Committee.Membership.sync
+
+    committee = Repo.one!(
+      from c in Committee,
+      where: c.thomas_id == "HSII",
+      preload: [:members])
+
+    person = Repo.one!(
+      from p in Person,
+      where: p.bioguide == "B001250",
+      preload: [:committee_memberships])
+
+    assert committee.members |> Enum.count == 1
+    assert person.committee_memberships |> Enum.count == 1
+    assert committee.members |> List.first == person.committee_memberships |> List.first
+  end
+
 end
