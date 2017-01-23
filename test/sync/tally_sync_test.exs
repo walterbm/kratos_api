@@ -33,7 +33,8 @@ defmodule KratosApi.TallySyncTest do
     assert tally.congress_number.number == 114
     assert tally.bill.official_title == "To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air."
     assert tally.bill.gpo_id == "hr3608-114"
-    assert tally.bill_title == tally.bill.official_title
+    assert tally.bill_official_title == tally.bill.official_title
+    assert tally.bill_short_title == tally.bill.short_title
   end
 
 end
