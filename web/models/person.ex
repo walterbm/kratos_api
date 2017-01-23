@@ -1,11 +1,6 @@
 defmodule KratosApi.Person do
   use KratosApi.Web, :model
 
-  alias KratosApi.{
-    Repo,
-    Person
-  }
-
   schema "persons" do
     field :bioguide, :string
     field :thomas, :string
@@ -65,12 +60,5 @@ defmodule KratosApi.Person do
     struct
     |> cast(params, @allowed_fields)
     |> validate_required(@required_fields)
-  end
-
-  def find_or_create(data) do
-    case Repo.get_by(Person, govtrack_id: data["id"]) do
-      nil -> KratosApi.Sync.Person.save(data)
-      person -> person
-    end
   end
 end

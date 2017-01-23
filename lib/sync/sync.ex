@@ -1,3 +1,28 @@
+# @TODO
+# ** (DBConnection.ConnectionError) tcp recv: connection timed out - :etimedout
+#     (ecto) lib/ecto/adapters/postgres/connection.ex:99: Ecto.Adapters.Postgres.Connection.execute/4
+#     (ecto) lib/ecto/adapters/sql.ex:243: Ecto.Adapters.SQL.sql_call/6
+#     (ecto) lib/ecto/adapters/sql.ex:193: Ecto.Adapters.SQL.query!/5
+#     (ecto) lib/ecto/adapters/postgres.ex:86: Ecto.Adapters.Postgres.insert_all/7
+#     (ecto) lib/ecto/repo/schema.ex:52: Ecto.Repo.Schema.do_insert_all/7
+#     (ecto) lib/ecto/association.ex:963: Ecto.Association.ManyToMany.on_repo_change/4
+#     (ecto) lib/ecto/association.ex:330: anonymous fn/7 in Ecto.Association.on_repo_change/6
+#     (elixir) lib/enum.ex:1755: Enum."-reduce/3-lists^foldl/2-0-"/3
+#     (ecto) lib/ecto/association.ex:327: Ecto.Association.on_repo_change/6
+#     (elixir) lib/enum.ex:1755: Enum."-reduce/3-lists^foldl/2-0-"/3
+#     (ecto) lib/ecto/association.ex:293: Ecto.Association.on_repo_change/3
+#     (ecto) lib/ecto/repo/schema.ex:609: Ecto.Repo.Schema.process_children/4
+#     (ecto) lib/ecto/repo/schema.ex:676: anonymous fn/3 in Ecto.Repo.Schema.wrap_in_transaction/6
+#     (ecto) lib/ecto/adapters/sql.ex:615: anonymous fn/3 in Ecto.Adapters.SQL.do_transaction/3
+#     (db_connection) lib/db_connection.ex:1274: DBConnection.transaction_run/4
+#     (db_connection) lib/db_connection.ex:1198: DBConnection.run_begin/3
+#     (db_connection) lib/db_connection.ex:789: DBConnection.transaction/3
+#     (kratos_api) lib/sync/sync.ex:52: KratosApi.SyncHelpers.save/2
+#     (elixir) lib/enum.ex:1229: Enum."-map/2-lists^map/1-0-"/2
+#     (elixir) lib/enum.ex:1229: Enum."-map/2-lists^map/1-0-"/2
+
+
+
 defmodule KratosApi.SyncHelpers do
 
   def apply_assoc(changeset, _, nil), do: changeset
@@ -75,28 +100,49 @@ defmodule KratosApi.Sync.Person do
 
   @remote_storage Application.get_env(:kratos_api, :remote_storage)
   @term_types %{"sen" => "Senate", "rep" => "House"}
+  @files %{current: "legislators-current.yaml", historical: "legislators-historical.yaml"}
 
-  def sync do
-    {document, hash} = @remote_storage.fetch_file("legislators-current.yaml")
+  def sync(type \\ :current) do
+    {document, hash} = @remote_storage.fetch_file(@files[type])
     document
       |> @remote_storage.parse_file
       |> Enum.map(&SyncHelpers.convert_to_map/1)
-      |> Enum.map(&save/1)
+      |> Enum.map(&(save(&1, type)))
   end
 
-  def save(data) do
-    params = prepare(data)
+  defp save(data, type) do
+    params = prepare(data, type)
     changeset = Person.changeset(%Person{}, params) |> add_associations(data)
     SyncHelpers.save(changeset, [bioguide: data['id']['bioguide'] |> to_string ])
   end
 
-  def prepare(data) do
+  defp prepare(data, :current) do
 
     current_term =
       Map.get(data, 'terms', [%{}])
       |> Enum.sort(&(&1['end'] >= &2['end']))
       |> List.first
 
+    Map.merge(prepare_common(data), %{
+      is_current: true,
+      current_office: @term_types[current_term['type'] |> to_string],
+      current_state: current_term['state'] |> to_string,
+      current_district: current_term['district'] |> to_string,
+      current_party: current_term['party']|> to_string,
+    })
+  end
+
+  defp prepare(data, :historical) do
+    Map.merge(prepare_common(data), %{
+      is_current: false,
+      current_office: nil,
+      current_state: nil,
+      current_district: nil,
+      current_party: nil,
+    })
+  end
+
+  defp prepare_common(data) do
     %{
       bioguide: data['id']['bioguide'] |> to_string,
       thomas: data['id']['thomas'] |> to_string,
@@ -117,15 +163,11 @@ defmodule KratosApi.Sync.Person do
       birthday: SyncHelpers.convert_date(data['bio']['birthday']),
       gender: data['bio']['gender'] |> to_string,
       religion: data['bio']['religion'] |> to_string,
-      image_url: "#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{data['id']['bioguide'] |> to_string}.jpg",
-      is_current: true,
-      current_office: @term_types[current_term['type'] |> to_string],
-      current_state: current_term['state'] |> to_string,
-      current_district: current_term['district'] |> to_string,
+      image_url: "#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{data['id']['bioguide'] |> to_string}.jpg"
     }
   end
 
-  def add_associations(changeset, data) do
+  defp add_associations(changeset, data) do
     fec = Enum.map(Map.get(data['id'],'fec', []), &(Fec.create(&1 |> to_string))) |> Enum.reject(&is_nil/1)
     terms = Enum.map(Map.get(data, 'terms', []), fn(term) ->
       term |> KratosApi.Sync.Term.prepare |> Term.create
@@ -185,14 +227,14 @@ defmodule KratosApi.Sync.Person.SocialMedia do
       |> Enum.map(&save/1)
   end
 
-  def save(data) do
+  defp save(data) do
     params = prepare(data)
     Repo.get_by!(Person, bioguide: data['id']['bioguide'] |> to_string)
       |> Ecto.Changeset.change(params)
       |> Repo.update!
   end
 
-  def prepare(data) do
+  defp prepare(data) do
     %{
       facebook: data['social']['facebook'] |> to_string,
       facebook_id: data['social']['facebook_id'] |> to_string,
@@ -222,13 +264,13 @@ defmodule KratosApi.Sync.Committee do
       |> Enum.map(&save/1)
   end
 
-  def save(data) do
+  defp save(data) do
     params = prepare(data)
     changeset = Committee.changeset(%Committee{}, params)
     SyncHelpers.save(changeset, [thomas_id: data['thomas_id'] |> to_string ])
   end
 
-  def prepare (data) do
+  defp prepare (data) do
     %{
       type: data['type'] |> to_string,
       name: data['name'] |> to_string,
@@ -255,6 +297,7 @@ defmodule KratosApi.Sync.Committee.Membership do
     Repo,
     Person,
     Committee,
+    CommitteeMember,
     SyncHelpers,
   }
 
@@ -268,20 +311,26 @@ defmodule KratosApi.Sync.Committee.Membership do
       |> Enum.map(&save/1)
   end
 
-  def save(data) do
+  defp save(data) do
     thomas_id = Map.keys(data) |> List.first |> to_string
     Repo.one(from c in Committee, where: c.thomas_id == ^thomas_id, preload: [:members])
       |> build_members(data)
   end
 
-  def build_members(nil, _data), do: false
-  def build_members(committee, data) do
-    unless committee.members |> Enum.empty?, do: Repo.delete_all committee.members
+  defp build_members(nil, _data), do: false
+  defp build_members(committee, data) do
+    unless committee.members |> Enum.empty?, do: delete_all_members(committee.id)
     changeset = Committee.changeset(committee) |> add_associations(data)
     SyncHelpers.save(changeset, [thomas_id: committee.thomas_id])
   end
 
-  def add_associations(changeset, data) do
+  defp delete_all_members(committee_id) do
+     from(member in CommitteeMember,
+     where: member.committee_id == ^committee_id)
+     |> Repo.delete_all
+  end
+
+  defp add_associations(changeset, data) do
     [ members ] = Map.values(data)
     members = Enum.map(members, fn(member) ->
       person = Repo.get_by(Person, bioguide: member['bioguide'] |> to_string)
@@ -312,7 +361,7 @@ defmodule KratosApi.Sync.Bill do
     @remote_queue.fetch_queue("congress-bills") |> Enum.map(&save/1)
   end
 
-  def save(raw_message) do
+  defp save(raw_message) do
     unless KratosApi.Repo.get_by(Bill, md5_of_body: raw_message.md5_of_body) do
       case Poison.decode(raw_message.body) do
         {:ok, data} ->
@@ -324,7 +373,7 @@ defmodule KratosApi.Sync.Bill do
     end
   end
 
-  def prepare(data, raw_message) do
+  defp prepare(data, raw_message) do
     %{
       actions: Enum.sort(data["actions"], &(&1["acted_at"] >= &2["acted_at"])),
       amendments: data["amendments"],
@@ -354,7 +403,7 @@ defmodule KratosApi.Sync.Bill do
     }
   end
 
-  def add_associations(changeset, data) do
+  defp add_associations(changeset, data) do
     congress_number = CongressNumber.find_or_create(elem(Integer.parse(data["congress"]),0))
     sponsor = Repo.get_by(Person, bioguide: data["sponsor"]["bioguide_id"])
     committees =
@@ -398,7 +447,7 @@ defmodule KratosApi.Sync.Tally do
     @remote_queue.fetch_queue("congress-votes") |> Enum.map(&save/1)
   end
 
-  def save(raw_message) do
+  defp save(raw_message) do
     unless Repo.get_by(Tally, md5_of_body: raw_message.md5_of_body) do
       case Poison.decode(raw_message.body) do
         {:ok, data} ->
@@ -410,7 +459,7 @@ defmodule KratosApi.Sync.Tally do
     end
   end
 
-  def prepare(data, raw_message) do
+  defp prepare(data, raw_message) do
     %{
       amendment: Map.get(data, "amendment", nil),
       treaty: Map.get(data, "treaty", nil),
@@ -432,7 +481,7 @@ defmodule KratosApi.Sync.Tally do
     }
   end
 
-  def add_associations(changeset, data) do
+  defp add_associations(changeset, data) do
     congress_number = CongressNumber.find_or_create(data["congress"])
     bill = if data["bill"], do: Repo.get_by(Bill, gpo_id: "#{data["bill"]["type"]}#{data["bill"]["number"]}-#{data["bill"]["congress"]}")
     nomination = if data["nomination"], do: Nomination.create(data["nomination"])
