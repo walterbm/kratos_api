@@ -18,7 +18,8 @@ defmodule KratosApi.Tally do
     field :type, :string
     field :record_updated_at, Ecto.DateTime
     field :gpo_id, :string
-    field :bill_title, :string
+    field :bill_short_title, :string
+    field :bill_official_title, :string
     field :md5_of_body, :string
 
     belongs_to :bill, KratosApi.Bill
@@ -31,7 +32,8 @@ defmodule KratosApi.Tally do
   end
 
   @required_fields ~w(gpo_id)a
-  @allowed_fields ~w(gpo_id amendment treaty category chamber date number question requires result result_text session source_url subject type record_updated_at bill_title md5_of_body)a
+  @allowed_fields ~w(gpo_id amendment treaty category chamber date number question requires result result_text
+    session source_url subject type record_updated_at bill_short_title  bill_official_title md5_of_body)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

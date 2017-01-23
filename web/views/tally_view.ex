@@ -21,6 +21,8 @@ defmodule KratosApi.TallyView do
       type: tally.type,
       record_updated_at: tally.record_updated_at,
       gpo_id: tally.gpo_id,
+      bill_official_title: tally.bill_official_title,
+      bill_short_title: tally.bill_short_title,
       votes: render_many(tally.votes, KratosApi.VoteView, "vote.json")
     }, KratosApi.Tally.tallyup_votes(tally.votes))
   end
@@ -42,6 +44,9 @@ defmodule KratosApi.TallyView do
       subject: tally.subject,
       type: tally.type,
       record_updated_at: tally.record_updated_at,
+      gpo_id: tally.gpo_id,
+      bill_official_title: tally.bill_official_title,
+      bill_short_title: tally.bill_short_title,
     }
   end
 
