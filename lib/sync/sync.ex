@@ -476,14 +476,20 @@ defmodule KratosApi.Sync.Tally do
       subject: Map.get(data, "subject", nil),
       type: Map.get(data, "type", nil),
       updated_at: Map.get(data, "updated_at", nil) |> SyncHelpers.convert_datetime,
-      gpo_id: data["vote_id"],
+      gpo_id: extract_gpo_id(data["vote_id"]),
       md5_of_body: raw_message.md5_of_body
     }
   end
 
+  defp extract_gpo_id(raw_vote_id) do
+    ~r/(?<gpo_id>\S+)\.(?<year>\S+)/
+    |> Regex.named_captures(raw_vote_id)
+    |> Map.get("gpo_id", nil)
+  end
+
   defp add_associations(changeset, data) do
     congress_number = CongressNumber.find_or_create(data["congress"])
-    bill = if data["bill"], do: Repo.get_by(Bill, gpo_id: "#{data["bill"]["type"]}#{data["bill"]["number"]}-#{data["bill"]["congress"]}")
+    bill = Repo.get_by(Bill, gpo_id: extract_gpo_id(data["vote_id"]))
     nomination = if data["nomination"], do: Nomination.create(data["nomination"])
     votes = Vote.mass_create(data["votes"])
 
