@@ -1,13 +1,31 @@
 defmodule KratosApi.Sync do
 
-  def sync do
-    KratosApi.Sync.Person.sync
-    KratosApi.Sync.Person.sync(:historical)
-    KratosApi.Sync.Person.SocialMedia.sync
-    KratosApi.Sync.Committee.sync
-    KratosApi.Sync.Committee.Membership.sync
-    KratosApi.Sync.Bill.sync
-    KratosApi.Sync.Tally.sync
+  def sync(source \\ :all) do
+    case source do
+      :all ->
+        KratosApi.Sync.Person.sync
+        KratosApi.Sync.Person.sync(:historical)
+        KratosApi.Sync.Person.SocialMedia.sync
+        KratosApi.Sync.Committee.sync
+        KratosApi.Sync.Committee.Membership.sync
+        KratosApi.Sync.Bill.sync
+        KratosApi.Sync.Tally.sync
+      :queue ->
+        IO.puts "STARTING BILL SYNC"
+        KratosApi.Sync.Bill.sync
+        IO.puts "FINISHED BILL SYNC"
+        IO.puts "STARTING TALLY SYNC"
+        KratosApi.Sync.Tally.sync
+        IO.puts "FINISHED TALLY SYNC"
+      :store ->
+        KratosApi.Sync.Person.sync
+        KratosApi.Sync.Person.sync(:historical)
+        KratosApi.Sync.Person.SocialMedia.sync
+        KratosApi.Sync.Committee.sync
+        KratosApi.Sync.Committee.Membership.sync
+      _ -> IO.puts "NO SYNC"
+    end
+
   end
 
 end
