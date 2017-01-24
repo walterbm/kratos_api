@@ -1,3 +1,18 @@
+defmodule KratosApi.Sync do
+
+  def sync do
+    KratosApi.Sync.Person.sync
+    KratosApi.Sync.Person.sync(:historical)
+    KratosApi.Sync.Person.SocialMedia.sync
+    KratosApi.Sync.Committee.sync
+    KratosApi.Sync.Committee.Membership.sync
+    KratosApi.Sync.Bill.sync
+    KratosApi.Sync.Tally.sync
+  end
+
+end
+
+
 # @TODO
 # ** (DBConnection.ConnectionError) tcp recv: connection timed out - :etimedout
 #     (ecto) lib/ecto/adapters/postgres/connection.ex:99: Ecto.Adapters.Postgres.Connection.execute/4
@@ -20,3 +35,4 @@
 #     (kratos_api) lib/sync/sync.ex:52: KratosApi.SyncHelpers.save/2
 #     (elixir) lib/enum.ex:1229: Enum."-map/2-lists^map/1-0-"/2
 #     (elixir) lib/enum.ex:1229: Enum."-map/2-lists^map/1-0-"/2
+#
