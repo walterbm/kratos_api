@@ -1,11 +1,6 @@
 defmodule KratosApi.Committee do
   use KratosApi.Web, :model
 
-  alias KratosApi.{
-    Repo,
-    Committee
-  }
-
   schema "committees" do
     field :type, :string
     field :name, :string
