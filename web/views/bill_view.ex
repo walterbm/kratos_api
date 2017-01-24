@@ -23,7 +23,7 @@ defmodule KratosApi.BillView do
       status: bill.status,
       status_at: bill.status_at,
       top_term: bill.top_term,
-      summary_text: bill.summary_text,
+      summary_text: bill.summary_text |> take_words(500),
       summary_date: bill.summary_date,
       titles: bill.titles,
       gpo_data_updated_at: bill.gpo_data_updated_at,
@@ -39,6 +39,14 @@ defmodule KratosApi.BillView do
       related_bills: render_many(bill.related_bills, KratosApi.RelatedBillView, "related_bill.json"),
       tallies: render_many(bill.tallies, KratosApi.TallyView, "tally.json")
     }
+  end
+
+  defp take_words(summary_text, number) do
+    summary_text
+      |> String.split(" ")
+      |> Enum.take(number)
+      |> Enum.join(" ")
+      <> ". . ."
   end
 
 end
