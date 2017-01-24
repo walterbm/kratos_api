@@ -8,7 +8,7 @@ defmodule KratosApi.Bill do
     field :gpo_id, :string
     field :type, :string
     field :committee_history, {:array, :map}
-    field :enacted_as, :string
+    field :enacted_as, :map
     field :active, :boolean
     field :awaiting_signature, :boolean
     field :enacted, :boolean
