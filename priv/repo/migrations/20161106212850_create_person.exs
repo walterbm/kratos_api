@@ -37,6 +37,7 @@ defmodule KratosApi.Repo.Migrations.CreatePerson do
       add :current_office, :string
       add :current_state, :string
       add :current_district, :integer
+      add :current_party, :string
 
       timestamps()
     end
