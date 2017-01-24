@@ -47,20 +47,17 @@ defmodule KratosApi.Sync.Tally do
       subject: Map.get(data, "subject", nil),
       type: Map.get(data, "type", nil),
       updated_at: Map.get(data, "updated_at", nil) |> SyncHelpers.convert_datetime,
-      gpo_id: extract_gpo_id(data["vote_id"]),
+      gpo_id: extract_gpo_id(data["bill"]),
       bill_short_title: get_bill_attribute(data, :short_title),
       bill_official_title: get_bill_attribute(data, :official_title),
       md5_of_body: raw_message.md5_of_body
     }
   end
 
-  defp extract_gpo_id(raw_vote_id) do
-    ~r/(?<gpo_id>\S+)\.(?<year>\S+)/
-    |> Regex.named_captures(raw_vote_id)
-    |> Map.get("gpo_id", nil)
-  end
+  defp extract_gpo_id(nil), do: nil
+  defp extract_gpo_id(data), do: "#{data["type"]}#{data["number"]}-#{data["congress"]}"
 
-  defp get_bill(data), do: Repo.get_by(Bill, gpo_id: extract_gpo_id(data["vote_id"]))
+  defp get_bill(data), do: Repo.get_by(Bill, gpo_id: extract_gpo_id(data["bill"]))
 
   defp get_bill_attribute(data, attribute) do
     case get_bill(data) do
