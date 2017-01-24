@@ -20,6 +20,8 @@ defmodule KratosApi.Repo.Migrations.CreateTally do
       add :record_updated_at, :utc_datetime
       add :gpo_id, :string
       add :md5_of_body, :string
+      add :bill_short_title, :text
+      add :bill_official_title, :text
 
       add :bill_id, references(:bills, on_delete: :nothing)
       add :nomination_id, references(:nominations, on_delete: :nothing)
