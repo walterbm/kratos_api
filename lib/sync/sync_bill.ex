@@ -59,6 +59,7 @@ defmodule KratosApi.Sync.Bill do
     }
   end
 
+  defp convert_enacted_as(nil), do: nil
   defp convert_enacted_as(enacted_as) when is_map(enacted_as), do: enacted_as
   defp convert_enacted_as(enacted_as) when is_binary(enacted_as), do: %{"law" => enacted_as}
 
