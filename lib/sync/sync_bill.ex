@@ -36,7 +36,7 @@ defmodule KratosApi.Sync.Bill do
       gpo_id: data["bill_id"],
       type: data["bill_type"],
       committee_history: data["committees"],
-      enacted_as: data["enacted_as"],
+      enacted_as: convert_enacted_as(data["enacted_as"]),
       active: data["history"]["active"],
       awaiting_signature: data["history"]["awaiting_signature"],
       enacted: data["history"]["enacted"],
@@ -58,6 +58,9 @@ defmodule KratosApi.Sync.Bill do
       md5_of_body: raw_message.md5_of_body
     }
   end
+
+  defp convert_enacted_as(enacted_as) when is_map(enacted_as), do: enacted_as
+  defp convert_enacted_as(enacted_as) when is_binary(enacted_as), do: %{"law" => enacted_as}
 
   defp add_associations(changeset, data) do
     congress_number = CongressNumber.find_or_create(elem(Integer.parse(data["congress"]),0))
