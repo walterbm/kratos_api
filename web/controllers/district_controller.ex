@@ -6,7 +6,8 @@ defmodule KratosApi.DistrictController do
   def show(conn, params) do
     query = from p in KratosApi.Person,
       where: p.current_state == ^String.upcase(params["state"]),
-      where: p.current_district == ^params["id"] or p.current_office ==  "Senate"
+      where: p.current_district == ^params["id"] or p.current_office ==  "Senate",
+      preload: [:terms]
 
 
     {representatives, kerosene} = query |> KratosApi.Repo.paginate(params)
