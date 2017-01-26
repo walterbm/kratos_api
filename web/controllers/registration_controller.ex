@@ -1,14 +1,16 @@
 defmodule KratosApi.RegistrationController do
   use KratosApi.Web, :controller
 
-  alias KratosApi.{Repo, User}
+  alias KratosApi.{
+    Repo,
+    User,
+    FindDistrict
+  }
 
   plug :scrub_params, "user" when action in [:create]
 
-  @geocodio Application.get_env(:kratos_api, :geocodio)
-
   def create(conn, %{"user" => user_params}) do
-    new_user = Map.merge(user_params, get_congressional_district(user_params))
+    new_user = Map.merge(user_params, FindDistrict.by_address(user_params))
 
     changeset = User.changeset(%User{}, new_user)
 
@@ -26,13 +28,4 @@ defmodule KratosApi.RegistrationController do
         |> render(KratosApi.RegistrationView, "error.json", changeset: changeset)
     end
   end
-
-  defp get_congressional_district(%{"address" => address, "city" => city, "state" => state, "zip" => zip}) do
-    geocodio_response =
-      HTTPotion.get(@geocodio[:api_url], query: %{q: "#{address} #{city} #{state} #{zip}", api_key: @geocodio[:api_key], fields: "cd"}).body
-      |> Poison.decode!
-      
-    %{"district" => List.first(geocodio_response["results"])["fields"]["congressional_district"]["district_number"]}
-  end
-
 end

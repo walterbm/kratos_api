@@ -8,7 +8,8 @@ defmodule KratosApi.CurrentUserController do
   alias KratosApi.{
     Repo,
     User,
-    UserAction
+    UserAction,
+    FindDistrict
   }
 
   def show(conn, _) do
@@ -20,7 +21,8 @@ defmodule KratosApi.CurrentUserController do
   end
 
   def update(conn, %{"user" => user_params }) do
-    changeset = User.update_changeset(Guardian.Plug.current_resource(conn), user_params)
+    updated_user = Map.merge(user_params, FindDistrict.by_address(user_params))
+    changeset = User.update_changeset(Guardian.Plug.current_resource(conn), updated_user)
 
     case Repo.update(changeset) do
       {:ok, user} ->

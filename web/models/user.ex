@@ -31,7 +31,7 @@ defmodule KratosApi.User do
 
   @required_fields ~w(password email)a
   @allowed_fields ~w(password encrypted_password email phone address city zip state district first_name last_name party birthday apn_token)a
-  @updated_fields ~w(apn_token phone address city zip state district first_name last_name party birthday)a
+  @updated_fields ~w(password apn_token phone address city zip state first_name last_name party birthday)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -53,6 +53,8 @@ defmodule KratosApi.User do
     struct
     |> cast(params, @updated_fields)
     |> unique_constraint(:phone, message: "An account with that phone number already exists")
+    |> unique_constraint(:apn_token, message: "An account with that APN token already exists")
+    |> generate_encrypted_password
   end
 
   defp generate_encrypted_password(current_changeset) do
