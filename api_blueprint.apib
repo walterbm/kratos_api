@@ -134,8 +134,6 @@ Get & update information on the current user based on the session.
 
 ### Update My information [POST]
 
-Note! Does not automatically update district when address details are updated!
-
 + Request (application/json)
     + Headers
 
@@ -144,9 +142,9 @@ Note! Does not automatically update district when address details are updated!
     + Attributes(object)
 
         + user
+            + password: `super_sekrit` (string, required)
             + phone: `1111111111` (number)
             + apn_token: `<goat>` (string)
-            + district: 11 (number)
             + first_name: `Lebron` (string)
             + last_name: `James` (string)
             + address: `Quicken Loans Arena` (string)
@@ -279,7 +277,7 @@ Read, update, & destroy the current user's individual votes.
 
 + Parameters
 
-    + id: `3` (number, required) - individual vote database ID.
+    + id: `420` (number, required) - TALLY ID.
 
 + Response 200 (application/json)
 
@@ -322,7 +320,7 @@ Read, update, & destroy the current user's individual votes.
 
 + Parameters
 
-    + id: `3` (number, required) - individual vote database ID.
+    + id: `420` (number, required) - TALLY ID.
 
 + Response 200 (application/json)
 
@@ -360,7 +358,7 @@ Read, update, & destroy the current user's individual votes.
 
 + Parameters
 
-    + id: `3` (number, required) - individual vote database ID.
+    + id: `420` (number, required) - TALLY ID.
 
 + Response 200 (application/json)
 
@@ -441,7 +439,29 @@ Find information and representatives for a congressional district.
                 "bioguide": "S000148",
                 "first_name": "Charles",
                 "lis": "S270",
-                "terms": [],
+                "terms": [
+                  {
+                    "url": "https://www.schumer.senate.gov",
+                    "type": "Senate",
+                    "state_rank": "senior",
+                    "state": "NY",
+                    "start": "2017-01-03",
+                    "rss_url": null,
+                    "phone": "202-224-6542",
+                    "party_affiliations": null,
+                    "party": "Democrat",
+                    "office": "322 Hart Senate Office Building",
+                    "is_current": null,
+                    "id": 42560,
+                    "fax": null,
+                    "end": "2023-01-03",
+                    "district": null,
+                    "contact_form": "http://www.schumer.senate.gov/contact/email-chuck",
+                    "class": "3",
+                    "caucus": null,
+                    "address": "322 Hart Senate Office Building Washington DC 20510"
+                  },
+                ],
                 "religion": "Jewish",
                 "instagram_id": "",
                 "wikidata": "Q380900",
