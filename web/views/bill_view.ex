@@ -41,12 +41,13 @@ defmodule KratosApi.BillView do
     }
   end
 
-  defp take_words(summary_text, number) do
+  defp take_words(summary_text, number) when length(summary_text) > number do
     summary_text = summary_text
       |> String.split(" ")
       |> Enum.take(number)
       |> Enum.join(" ")
     summary_text <> " . . ."
   end
+  defp take_words(summary_text, _number), do: summary_text
 
 end
