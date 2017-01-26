@@ -16,7 +16,9 @@ config :kratos_api, KratosApi.Repo,
   password: "postgres",
   database: "kratos_api_test",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  pool: Ecto.Adapters.SQL.Sandbox,
+  timeout: :infinity,
+  pool_timeout: :infinity
 
 # Environment Dependencies
 

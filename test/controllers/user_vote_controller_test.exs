@@ -12,7 +12,7 @@ defmodule KratosApi.UserVoteControllerTest do
     KratosApi.Sync.Tally.sync
     tally = Repo.all(Tally) |> List.first
     user = Repo.insert!(User.changeset(%User{}, KratosApi.Teststubs.user))
-    _vote = Repo.insert!(%UserVote{user_id: user.id, tally_id: tally.id, value: "Aye", })
+    Repo.insert!(%UserVote{user_id: user.id, tally_id: tally.id, value: "Aye", })
 
     {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
     %{jwt: jwt}
@@ -42,7 +42,7 @@ defmodule KratosApi.UserVoteControllerTest do
 
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
-      |> get("/api/me/votes/#{vote.id}")
+      |> get("/api/me/votes/#{vote.tally_id}")
 
     voting_record = json_response(conn, 200)
     assert voting_record["id"] == vote.id
@@ -89,7 +89,7 @@ defmodule KratosApi.UserVoteControllerTest do
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> put_req_header("content-type", "application/json")
-      |> patch("/api/me/votes/#{vote.id}", Poison.encode!(%{vote: %{value: "Abstain"}}))
+      |> patch("/api/me/votes/#{vote.tally_id}", Poison.encode!(%{vote: %{value: "Abstain"}}))
 
       voting_record = json_response(conn, 200)
       assert voting_record["id"] == vote.id
@@ -112,7 +112,7 @@ defmodule KratosApi.UserVoteControllerTest do
 
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
-      |> delete("/api/me/votes/#{vote.id}")
+      |> delete("/api/me/votes/#{vote.tally_id}")
 
     assert json_response(conn, 200) == %{"ok" => true}
     assert Repo.all(UserVote) |> Enum.empty?
