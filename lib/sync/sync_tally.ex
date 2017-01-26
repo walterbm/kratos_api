@@ -57,10 +57,11 @@ defmodule KratosApi.Sync.Tally do
   defp extract_gpo_id(nil), do: nil
   defp extract_gpo_id(data), do: "#{data["type"]}#{data["number"]}-#{data["congress"]}"
 
-  defp get_bill(data), do: Repo.get_by(Bill, gpo_id: extract_gpo_id(data["bill"]))
+  defp get_bill(nil), do: nil
+  defp get_bill(gpo_id), do: Repo.get_by(Bill, gpo_id: gpo_id)
 
   defp get_bill_attribute(data, attribute) do
-    case get_bill(data) do
+    case extract_gpo_id(data["bill"]) |> get_bill do
       nil -> nil
       bill -> Map.get(bill, attribute)
     end
@@ -68,7 +69,7 @@ defmodule KratosApi.Sync.Tally do
 
   defp add_associations(changeset, data) do
     congress_number = CongressNumber.find_or_create(data["congress"])
-    bill = get_bill(data)
+    bill = extract_gpo_id(data["bill"]) |> get_bill
     nomination = if data["nomination"], do: Nomination.create(data["nomination"])
     votes = Vote.mass_create(data["votes"])
 
