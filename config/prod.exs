@@ -23,7 +23,7 @@ config :kratos_api, KratosApi.Endpoint,
 config :kratos_api, :govtrack_api, Govtrack
 config :kratos_api, :remote_queue, KratosApi.RemoteQueue
 config :kratos_api, :remote_storage, KratosApi.RemoteStorage
-config :kratos_api, :token_gen, Token
+config :kratos_api, :token_gen, KratosApi.TokenGen
 config :kratos_api, :url, "https://kratos.website"
 
 # Do not print debug messages in production
