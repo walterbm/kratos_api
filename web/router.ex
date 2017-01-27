@@ -21,6 +21,9 @@ defmodule KratosApi.Router do
    pipe_through :browser
 
    get "/doc", DocumentationController, :index
+   get "/reset-password", ForgotPasswordController, :reset_password
+   post "/reset-password", ForgotPasswordController, :new_password
+
  end
 
   scope "/api", KratosApi do
@@ -40,6 +43,7 @@ defmodule KratosApi.Router do
     post "/registrations", RegistrationController, :create
 
     post "/login", SessionController, :create
+    post "/forgot-password", ForgotPasswordController, :forgot_password
 
     scope "/me" do
       get "/", CurrentUserController, :show
