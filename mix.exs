@@ -33,6 +33,7 @@ defmodule KratosApi.Mixfile do
         :comeonin,
         :joken,
         :bamboo,
+        :bamboo_smtp,
         :kerosene,
         :sweet_xml,
         :yamerl,
