@@ -1035,3 +1035,43 @@ Resources related congressional bills & resolutions.
                "summary_text": "Kevin and Avonte's Law of 2016Missing Americans Alert Program Act of 2016This bill amends the Violent Crime Control and Law Enforcement Act of 1994 to revise and rename the Missing Alzheimer's Disease Patient Alert Program as the Missing Americans Alert Program and to reauthorize it through FY2021.It directs the Department of Justice's (DOJ's) Bureau of Justice Assistance to award grants to state and local law enforcement or public safety agencies and nonprofit organizations to prevent wandering and locate missing individuals with dementia or developmental disabilities.DOJ must establish and certain grant recipients must comply with standards and best practices related to the use of tracking technology to locate missing individuals with dementia or developmental disabilities.The bill amends the Missing Children's Assistance Act to specify that, with respect to training and technical assistance provided by the National Center for Missing and Exploited Children, cases involving missing and exploited children include cases involving children with developmental disabilities such as autism.",
                "status_at": "2016-12-08T10:51:13"
               }
+
+## Group Feedback
+
+Get a list of questions and respond with feedback
+
+## Feedback [/api/feedback]
+
+### Get Feedback Questions [GET]
+
++ Request
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+            {
+              "questions": [
+                "Does Donald Trump resemble a rotten pumpkin?",
+                "How could Kratos be improved?"
+              ]
+            }
+
+### Post Feedback Answers [POST]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
+    + Attributes(object)
+
+        + user-id: `4` (number, required)
+        + questions: `Does Donald Trump resemble a rotten pumpkin?`: `HELL YES`,  `How could Kratos be improved?`: `More Obama` (array, required)
+
++ Response 200 (application/json)
+
+              {
+                "ok":true
+              }
