@@ -974,25 +974,31 @@
     <span class="hljs-string">"Does Donald Trump resemble a rotten pumpkin?"</span>,
     <span class="hljs-string">"How could Kratos be improved?"</span>
   ]
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="feedback-feedback-post" class="action post"><h4 class="action-heading"><div class="name">Post Feedback Answers</div><a href="#feedback-feedback-post" class="method post">POST</a><code class="uri">/api/feedback</code></h4><h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.website</span>/api/feedback</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;token&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">user</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span></span>,
-  "<span class="hljs-attribute">questions</span>": <span class="hljs-value">[
-    <span class="hljs-string">"Does Donald Trump resemble a rotten pumpkin?"</span>,
-    <span class="hljs-string">"How could Kratos be improved?"</span>
-  ]
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="feedback-feedback-post" class="action post"><h4 class="action-heading"><div class="name">Post Feedback Answers</div><a href="#feedback-feedback-post" class="method post">POST</a><code class="uri">/api/feedback</code></h4><p>The request body should match this example:</p>
+<pre><code>{
+    "<span class="hljs-attribute">answers</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">Does Donald Trump resemble a rotten pumpkin?</span>": <span class="hljs-value"><span class="hljs-string">"HELL YES"</span></span>,
+      "<span class="hljs-attribute">How could Kratos be improved?</span>": <span class="hljs-value"><span class="hljs-string">"ALOT"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">user-id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
+  </span>}</code></pre>
+<h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.website</span>/api/feedback</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;token&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">user-id</span>": <span class="hljs-value"><span class="hljs-number">4</span></span>,
+  "<span class="hljs-attribute">questions</span>": <span class="hljs-value">{}
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"id: `4` (number, required)"</span>
+    "<span class="hljs-attribute">user-id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
     </span>}</span>,
     "<span class="hljs-attribute">questions</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span>
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{}
     </span>}
   </span>}</span>,
   "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+    <span class="hljs-string">"user-id"</span>,
     <span class="hljs-string">"questions"</span>
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{

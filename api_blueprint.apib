@@ -1060,6 +1060,17 @@ Get a list of questions and respond with feedback
 
 ### Post Feedback Answers [POST]
 
+The request body should match this example:
+```
+  {
+    "answers": {
+      "Does Donald Trump resemble a rotten pumpkin?": "HELL YES",
+      "How could Kratos be improved?": "ALOT"
+    },
+    "user-id": 1
+  }
+```
+
 + Request (application/json)
     + Headers
 
@@ -1067,8 +1078,8 @@ Get a list of questions and respond with feedback
 
     + Attributes(object)
 
-        + user-id: `4` (number, required)
-        + questions: `Does Donald Trump resemble a rotten pumpkin?`: `HELL YES`,  `How could Kratos be improved?`: `More Obama` (array, required)
+        + `user-id`: `4` (number, required)
+        + questions: "Does Donald Trump resemble a rotten pumpkin?": "HELL YES",  "How could Kratos be improved?": "More Obama" (array, required)
 
 + Response 200 (application/json)
 
