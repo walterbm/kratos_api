@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+    <center>
+      <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+        <tr>
+          <td align="center" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="600" align="center">
+              <tr>
+                <td align="center">
+                  <br />
+                  <img src="https://s3.amazonaws.com/kratos-assets/KratosLogo.png" height="191" width="191" title="Kratos" alt="Kratos" />
+                  <br /><br />
+                </td>
+              </tr>
+            </table>
+
+            <%= render @view_module, @view_template, assigns %>
+            <p>- The Kratos Team.</p>
+            <table border="0" cellpadding="30" cellspacing="0" width="600" align="center" bgcolor="#757b82">
+                <tr>
+                  <td>
+                  </td>
+                </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>

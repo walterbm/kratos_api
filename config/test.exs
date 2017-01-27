@@ -25,6 +25,8 @@ config :kratos_api, KratosApi.Repo,
 config :kratos_api, :govtrack_api, KratosApi.Govtrack.InMemory
 config :kratos_api, :remote_queue, KratosApi.RemoteQueue.InMemory
 config :kratos_api, :remote_storage, KratosApi.RemoteStorage.InMemory
+config :kratos_api, :token_gen, KratosApi.TokenGen.InMemory
+config :kratos_api, :url, "https://lol.com"
 
 # Authentication
 config :guardian, Guardian,
@@ -36,3 +38,11 @@ config :guardian, Guardian,
 
 # Assets
 config :kratos_api, :assets_url, "https://supersecretdatabase.com"
+
+# Joken
+config :joken,
+  secret_key: "super-secret"
+
+# Email
+config :kratos_api, KratosApi.Mailer,
+  adapter: Bamboo.TestAdapter
