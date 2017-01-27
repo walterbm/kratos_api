@@ -52,6 +52,9 @@ defmodule KratosApi.Router do
       resources "/votes", CurrentUserVoteController, except: [:edit, :new]
     end
 
+    get "/feedback", FeedbackController, :index
+    post "/feedback", FeedbackController, :create
+
   end
 
 end
