@@ -1060,7 +1060,7 @@ Get a list of questions and respond with feedback
 
 ### Post Feedback Answers [POST]
 
-The request body should match this example:
+The request body should match this example with the question as a string and the value set to the feedback answer.
 ```
   {
     "answers": {
@@ -1079,7 +1079,8 @@ The request body should match this example:
     + Attributes(object)
 
         + `user-id`: `4` (number, required)
-        + questions: "Does Donald Trump resemble a rotten pumpkin?": "HELL YES",  "How could Kratos be improved?": "More Obama" (array, required)
+        + questions
+          + `Does Donald Trump resemble a rotten pumpkin?`: `HELL YES!` (string, required)
 
 + Response 200 (application/json)
 
