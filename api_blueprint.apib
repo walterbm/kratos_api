@@ -394,6 +394,25 @@ Create User Actions to record when a user contacts specific representatives.
               "ok":true
             }
 
+## Reset Password [/api/forgot-password]
+
+Handle a User who does not remember their passoword.
+
+### Request a password reset email [POST]
+
++ Request (application/json)
+
+    + Attributes(object)
+
+        + email: `lebronjames@cavs.nba` (string, required)
+
++ Response 200 (application/json)
+
+            {
+              "ok": true
+            }
+
+
 
 ## Group Districts
 
