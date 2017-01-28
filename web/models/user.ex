@@ -60,6 +60,7 @@ defmodule KratosApi.User do
   def reset_password_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:password])
+    |> validate_length(:password, min: 8)
     |> generate_encrypted_password
   end
 
