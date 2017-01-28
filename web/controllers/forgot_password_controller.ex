@@ -44,9 +44,8 @@ defmodule KratosApi.ForgotPasswordController do
         case Repo.update(changeset) do
           {:ok, _user} ->
             conn
-             |> put_flash(:info, "Password successfully reset!")
              |> put_layout(false)
-             |> render("reset_password.html", reset_token: "dummy")
+             |> render("new_password.html")
 
           {:error, _changeset} ->
             conn
