@@ -38,5 +38,8 @@ defmodule KratosApi.Endpoint do
     key: "_kratos_api_key",
     signing_salt: "b1TneAj0"
 
+  plug KratosApi.PrometheusExporter
+  plug KratosApi.PipelineInstrumenter
+
   plug KratosApi.Router
 end

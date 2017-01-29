@@ -39,7 +39,11 @@ defmodule KratosApi.Mixfile do
         :yamerl,
         :exrm,
         :edeliver,
-        :ex_aws
+        :ex_aws,
+        :prometheus_ex,
+        :prometheus_ecto,
+        :prometheus_phoenix,
+        :prometheus_plugs,
       ]
     ]
   end
@@ -73,7 +77,11 @@ defmodule KratosApi.Mixfile do
       {:yamerl, "~> 0.4.0"},
       {:kerosene, "~> 0.5.0"},
       {:exrm, "~> 1.0.8"},
-      {:edeliver, "~> 1.3.0"}
+      {:edeliver, "~> 1.3.0"},
+      {:prometheus_ex, "~> 1.1"},
+      {:prometheus_ecto, "~> 1.0"},
+      {:prometheus_phoenix, "~> 1.0"},
+      {:prometheus_plugs, "~> 1.1"},
     ]
   end
 
