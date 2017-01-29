@@ -16,6 +16,12 @@ defmodule KratosApi do
       # worker(KratosApi.Worker, [arg1, arg2, arg3]),
     ]
 
+    # Bootstrap Prometheus monitoring
+    KratosApi.PhoenixInstrumenter.setup()
+    KratosApi.PipelineInstrumenter.setup()
+    KratosApi.RepoInstrumenter.setup()
+    KratosApi.PrometheusExporter.setup()
+
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: KratosApi.Supervisor]
