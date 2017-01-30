@@ -19,6 +19,7 @@ defmodule KratosApi.Mixfile do
   def application do
     [mod: {KratosApi, []},
      applications: [
+        :appsignal,
         :phoenix,
         :phoenix_pubsub,
         :phoenix_html,
@@ -39,11 +40,7 @@ defmodule KratosApi.Mixfile do
         :yamerl,
         :exrm,
         :edeliver,
-        :ex_aws,
-        :prometheus_ex,
-        :prometheus_ecto,
-        :prometheus_phoenix,
-        :prometheus_plugs,
+        :ex_aws
       ]
     ]
   end
@@ -78,10 +75,7 @@ defmodule KratosApi.Mixfile do
       {:kerosene, "~> 0.5.0"},
       {:exrm, "~> 1.0.8"},
       {:edeliver, "~> 1.3.0"},
-      {:prometheus_ex, "~> 1.1"},
-      {:prometheus_ecto, "~> 1.0"},
-      {:prometheus_phoenix, "~> 1.0"},
-      {:prometheus_plugs, "~> 1.1"},
+      {:appsignal, "~> 0.0"}
     ]
   end
 
