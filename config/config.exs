@@ -11,6 +11,7 @@ config :kratos_api,
 
 # Configures the endpoint
 config :kratos_api, KratosApi.Endpoint,
+  instrumenters: [Appsignal.Phoenix.Instrumenter],
   url: [host: "localhost"],
   secret_key_base: "***REMOVED***",
   render_errors: [view: KratosApi.ErrorView, accepts: ~w(html json)],
