@@ -43,6 +43,7 @@ defmodule KratosApi.User do
     |> validate_length(:password, min: 8)
     |> validate_confirmation(:password, message: "Password does not match")
     |> validate_format(:email, ~r/@/)
+    |> lower_case(:email)
     |> unique_constraint(:email, message: "An account with that email already exists")
     |> unique_constraint(:phone, message: "An account with that phone number already exists")
     |> unique_constraint(:apn_token, message: "An account with that APN token already exists")
@@ -71,6 +72,14 @@ defmodule KratosApi.User do
       _ ->
         current_changeset
     end
+  end
+
+  defp lower_case(changeset, field) do
+    lowered_field = case Map.get(changeset.changes, field) do
+      nil -> nil
+      field ->  String.downcase(field)
+    end
+    put_change(changeset, field, lowered_field)
   end
 
 end

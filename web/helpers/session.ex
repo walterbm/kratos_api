@@ -2,7 +2,7 @@ defmodule KratosApi.Session do
   alias KratosApi.{Repo, User}
 
   def authenticate(%{"email" => email, "password" => password}) do
-    user = Repo.get_by(User, email: email)
+    user = Repo.get_by(User, email: String.downcase(email))
 
     if check_password(user, password) do
       {:ok, user}
