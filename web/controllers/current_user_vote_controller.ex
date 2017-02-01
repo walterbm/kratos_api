@@ -29,8 +29,10 @@ defmodule KratosApi.CurrentUserVoteController do
         where: v.user_id == ^user.id,
         preload: [:tally]
 
-    vote = Repo.one!(query)
-    render(conn, VoteView, "vote_record.json", vote: vote)
+    case Repo.one(query) do
+      nil ->  json conn, %{error: "User has not voted on this question yet!"}
+      vote -> render(conn, VoteView, "vote_record.json", vote: vote)
+    end
   end
 
   def create(conn, %{"vote" => %{"tally_id" => tally_id, "value" => value} }) do
