@@ -33,8 +33,10 @@ defmodule KratosApi.Router do
 
     get "/districts/:state/:id", DistrictController, :show
 
-    get "/people/:id", PersonController, :show
-    get "/people/:id/votes", VoteController, :index
+    scope "/people" do
+      get "/:id", PersonController, :show
+      get "/:id/votes", VoteController, :index
+    end
 
     get "/bills/:id", BillController, :show
 
@@ -54,6 +56,8 @@ defmodule KratosApi.Router do
 
     get "/feedback", FeedbackController, :index
     post "/feedback", FeedbackController, :create
+
+    post "/signup", EmailSignupController, :create
 
   end
 
