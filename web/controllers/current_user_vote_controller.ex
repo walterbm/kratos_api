@@ -26,8 +26,7 @@ defmodule KratosApi.CurrentUserVoteController do
     user = Guardian.Plug.current_resource(conn)
     query = from v in UserVote,
         where: v.tally_id == ^tally_id,
-        where: v.user_id == ^user.id,
-        preload: [:tally]
+        where: v.user_id == ^user.id
 
     case Repo.one(query) do
       nil ->  json conn, %{error: "User has not voted on this question yet!"}
