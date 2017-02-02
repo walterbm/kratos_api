@@ -6,7 +6,17 @@ defmodule KratosApi.EmailSignupController do
     signup = %{"date" => now, "email" => email}
     ExAws.Dynamo.put_item("kratos-beta-signups", signup) |> ExAws.request!
 
-    json conn, %{ok: true}
+    json allow_cors(conn), %{ok: true}
+  end
+
+  def options(conn, _params) do
+    text allow_cors(conn), ""
+  end
+
+  defp allow_cors(conn) do
+    conn
+    |> put_resp_header("Access-Control-Allow-Origin", "*")
+    |> put_resp_header("Access-Control-Allow-Headers", "Content-Type")
   end
 
 end
