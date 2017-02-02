@@ -58,6 +58,7 @@ defmodule KratosApi.Router do
     post "/feedback", FeedbackController, :create
 
     post "/signup", EmailSignupController, :create
+    options  "/signup", EmailSignupController, :options
 
   end
 
