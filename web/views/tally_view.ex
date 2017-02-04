@@ -30,6 +30,7 @@ defmodule KratosApi.TallyView do
   def render("tally_flat.json", %{tally: tally}) do
     %{
       id: tally.id,
+      bill_id: tally.bill_id,
       amendment: tally.amendment,
       treaty: tally.treaty,
       category: tally.category,
