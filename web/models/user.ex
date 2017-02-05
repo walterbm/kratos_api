@@ -31,7 +31,7 @@ defmodule KratosApi.User do
 
   @required_fields ~w(password email)a
   @allowed_fields ~w(password encrypted_password email phone address city zip state district first_name last_name party birthday apn_token)a
-  @updated_fields ~w(password apn_token phone address city zip state first_name last_name party birthday)a
+  @updated_fields ~w(password apn_token phone address city zip state district first_name last_name party birthday)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
