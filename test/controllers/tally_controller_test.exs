@@ -5,8 +5,10 @@ defmodule KratosApi.TallyControllerTest do
   setup do
     KratosApi.Sync.Person.sync
     KratosApi.Sync.Committee.sync
-    KratosApi.Sync.Bill.sync
-    KratosApi.Sync.Tally.sync
+    KratosApi.Sync.sync(:bill)
+    :timer.sleep(100)
+    KratosApi.Sync.sync(:tally)
+    :timer.sleep(500)
 
     changeset = KratosApi.User.changeset(%KratosApi.User{}, KratosApi.Teststubs.user)
     {:ok, user} = KratosApi.Repo.insert(changeset)

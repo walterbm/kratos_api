@@ -20,9 +20,11 @@ defmodule KratosApi.CurrentUserControllerTest do
   test "POST /api/me/actions", %{conn: conn, jwt: jwt} do
     KratosApi.Sync.Person.sync
     person = Repo.all(Person) |> List.first
-    KratosApi.Sync.Bill.sync
+    KratosApi.Sync.sync(:bill)
+    :timer.sleep(100)
     bill = Repo.all(Bill) |> List.first
-    KratosApi.Sync.Tally.sync
+    KratosApi.Sync.sync(:tally)
+    :timer.sleep(500)
     tally = Repo.all(Tally) |> List.first
 
 

@@ -9,7 +9,8 @@ defmodule KratosApi.UserVoteControllerTest do
   }
 
   setup do
-    KratosApi.Sync.Tally.sync
+    KratosApi.Sync.sync(:tally)
+    :timer.sleep(500)
     tally = Repo.all(Tally) |> List.first
     user = Repo.insert!(User.changeset(%User{}, KratosApi.Teststubs.user))
     Repo.insert!(%UserVote{user_id: user.id, tally_id: tally.id, value: "Aye", })
@@ -39,7 +40,7 @@ defmodule KratosApi.UserVoteControllerTest do
 
   test "GET /api/me/votes/:id", %{conn: conn, jwt: jwt} do
     vote = Repo.all(UserVote) |> List.first
-
+    tally = Repo.all(Tally) |> List.first
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> get("/api/me/votes/#{vote.tally_id}")
@@ -47,16 +48,8 @@ defmodule KratosApi.UserVoteControllerTest do
     voting_record = json_response(conn, 200)
     assert voting_record["id"] == vote.id
     assert voting_record["value"] == "Aye"
-    assert voting_record["tally"]["chamber"] == "House"
-    assert voting_record["tally"]["category"] == "passage-suspension"
-    assert voting_record["tally"]["number"] == 593
-    assert voting_record["tally"]["question"] == "On Motion to Suspend the Rules and Pass: H R 6393 Intelligence Authorization Act for Fiscal Year 2017"
-    assert voting_record["tally"]["requires"] == "2/3"
-    assert voting_record["tally"]["result"] == "Passed"
-    assert voting_record["tally"]["result_text"] == "Passed"
-    assert voting_record["tally"]["session"] == "2016"
-    assert voting_record["tally"]["subject"] == "Intelligence Authorization Act for Fiscal Year 2017"
-    assert voting_record["tally"]["type"] == "On Motion to Suspend the Rules and Pass"
+    assert voting_record["tally_id"] == tally.id
+
   end
 
   test "POST /api/me/votes", %{conn: conn, jwt: jwt} do
@@ -116,6 +109,7 @@ defmodule KratosApi.UserVoteControllerTest do
 
     assert json_response(conn, 200) == %{"ok" => true}
     assert Repo.all(UserVote) |> Enum.empty?
+    
   end
 
 end
