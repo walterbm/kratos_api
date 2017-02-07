@@ -18,6 +18,14 @@ defmodule KratosApi.VoteView do
     }
   end
 
+  def render("user_vote_record.json", %{vote: vote}) do
+    %{
+      id: vote.id,
+      value: vote.value,
+      tally_id: vote.tally_id
+    }
+  end
+
   def render("user_votes.json", %{user_votes: user_votes, kerosene: kerosene, conn: conn}) do
     %{
       data: %{
