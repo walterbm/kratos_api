@@ -1,4 +1,23 @@
-defmodule KratosApi.Sync.Bill do
+defmodule KratosApi.Sync.Bill.Producer do
+  use GenStage
+
+  @remote_queue Application.get_env(:kratos_api, :remote_queue)
+
+  def init(state) do
+    {:producer, state}
+  end
+
+  def handle_demand(demand, state) when demand > 0 do
+    @remote_queue.dequeue("congress-bills", state)
+    |> reply(state)
+  end
+
+  defp reply([], _state), do: {:stop, :normal, 0}
+  defp reply(events, state), do: {:noreply, events, state + length(events)}
+end
+
+defmodule KratosApi.Sync.Bill.Processor do
+  use GenStage
 
   alias KratosApi.{
     Repo,
@@ -11,25 +30,34 @@ defmodule KratosApi.Sync.Bill do
     SyncHelpers
   }
 
-  @remote_queue Application.get_env(:kratos_api, :remote_queue)
-
-  def sync do
-    @remote_queue.fetch_queue("congress-bills") |> Enum.map(&save/1)
+  def init(state) do
+    {:producer_consumer, state}
   end
 
-  defp save(raw_message) do
-    unless KratosApi.Repo.get_by(Bill, md5_of_body: raw_message.md5_of_body) do
-      case Poison.decode(raw_message.body) do
-        {:ok, data} ->
-          params = prepare(data, raw_message)
-          changeset = Bill.changeset(%Bill{}, params) |> add_associations(data)
-          SyncHelpers.save(changeset, [gpo_id: data["bill_id"]])
-        {:error, message} -> message
-      end
+  def handle_events(events, _from, state) do
+    events =
+      Enum.map(events, &(process(&1)))
+      |> Enum.reject(&(is_nil(&1)))
+    {:noreply, events, state + length(events)}
+  end
+
+  defp process(raw_message) do
+    case Repo.get_by(Bill, md5_of_body: raw_message.md5_of_body) do
+      nil -> raw_message |> create_changeset
+      _ -> nil
     end
   end
 
-  defp prepare(data, raw_message) do
+  defp create_changeset(raw_message) do
+    case Poison.decode(raw_message.body) do
+      {:ok, data} ->
+        params = stage(data, raw_message)
+        Bill.changeset(%Bill{}, params) |> add_associations(data)
+      {:error, _message} -> raise SQSParseError
+    end
+  end
+
+  defp stage(data, raw_message) do
     %{
       actions: Enum.sort(data["actions"], &(&1["acted_at"] >= &2["acted_at"])),
       amendments: data["amendments"],
@@ -64,12 +92,12 @@ defmodule KratosApi.Sync.Bill do
   defp convert_enacted_as(enacted_as) when is_binary(enacted_as), do: %{"law" => enacted_as}
 
   defp add_associations(changeset, data) do
-    congress_number = CongressNumber.find_or_create(elem(Integer.parse(data["congress"]),0))
+    congress_number = CongressNumber.find_or_create(data["congress"])
     sponsor = Repo.get_by(Person, bioguide: data["sponsor"]["bioguide_id"])
+    subjects = Enum.map(data["subjects"], &(Subject.find_or_create(&1)))
     committees =
       Enum.map(data["committees"], &(Repo.get_by(Committee, thomas_id: &1["committee_id"])))
       |> Enum.reject(&(is_nil(&1)))
-    subjects = Enum.map(data["subjects"], &(Subject.find_or_create(&1)))
     cosponsors =
       Enum.map(data["cosponsors"],&(Repo.get_by(Person, bioguide: &1["bioguide_id"])))
       |> Enum.reject(&(is_nil(&1)))
@@ -84,5 +112,32 @@ defmodule KratosApi.Sync.Bill do
       |> SyncHelpers.apply_assoc(:cosponsors, cosponsors)
       |> SyncHelpers.apply_assoc(:subjects, subjects)
       |> SyncHelpers.apply_assoc(:related_bills, related_bills)
+  end
+end
+
+defmodule KratosApi.Sync.Bill.Consumer do
+  use GenStage
+
+  alias KratosApi.{
+    SyncHelpers
+  }
+
+  @slack Application.get_env(:kratos_api, :slack)
+
+  def init(:ok) do
+    {:consumer, :the_state_does_not_matter}
+  end
+
+  def handle_events(events, _from, state) do
+    Enum.map(events, &(save(&1)))
+    {:noreply, [], state}
+  end
+
+  def terminate(_reason, _state) do
+    @slack.notify("`Bill` data mounted and saved to database")
+  end
+
+  defp save(changeset) do
+    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id])
   end
 end
