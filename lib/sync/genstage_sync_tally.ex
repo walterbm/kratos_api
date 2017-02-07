@@ -1,4 +1,23 @@
-defmodule KratosApi.Sync.Tally do
+defmodule KratosApi.Sync.Tally.Producer do
+  use GenStage
+
+  @remote_queue Application.get_env(:kratos_api, :remote_queue)
+
+  def init(state) do
+    {:producer, state}
+  end
+
+  def handle_demand(demand, state) when demand > 0 do
+    @remote_queue.dequeue("congress-votes", state)
+    |> reply(state)
+  end
+
+  defp reply([], _state), do: {:stop, :normal, 0}
+  defp reply(events, state), do: {:noreply, events, state + length(events)}
+end
+
+defmodule KratosApi.Sync.Tally.Processor do
+  use GenStage
 
   alias KratosApi.{
     SyncHelpers,
@@ -10,27 +29,36 @@ defmodule KratosApi.Sync.Tally do
     Repo
   }
 
-  @remote_queue Application.get_env(:kratos_api, :remote_queue)
-
   @chambers %{"s" => "Senate", "h" => "House"}
 
-  def sync do
-    @remote_queue.fetch_queue("congress-votes") |> Enum.map(&save/1)
+  def init(state) do
+    {:producer_consumer, state}
   end
 
-  defp save(raw_message) do
-    unless Repo.get_by(Tally, md5_of_body: raw_message.md5_of_body) do
-      case Poison.decode(raw_message.body) do
-        {:ok, data} ->
-          params = prepare(data, raw_message)
-          changeset = Tally.changeset(%Tally{}, params) |> add_associations(data)
-          SyncHelpers.save(changeset, [gpo_id: data["vote_id"]])
-        {:error, message} -> message
-      end
+  def handle_events(events, _from, state) do
+    events =
+      Enum.map(events, &(process(&1)))
+      |> Enum.reject(&(is_nil(&1)))
+    {:noreply, events, state + length(events)}
+  end
+
+  defp process(raw_message) do
+    case Repo.get_by(Tally, md5_of_body: raw_message.md5_of_body) do
+      nil -> raw_message |> create_changeset
+      _ -> nil
     end
   end
 
-  defp prepare(data, raw_message) do
+  defp create_changeset(raw_message) do
+    case Poison.decode(raw_message.body) do
+      {:ok, data} ->
+        params = stage(data, raw_message)
+        Tally.changeset(%Tally{}, params) |> add_associations(data)
+      {:error, _message} -> raise SQSParseError
+    end
+  end
+
+  defp stage(data, raw_message) do
     %{
       amendment: Map.get(data, "amendment", nil),
       treaty: Map.get(data, "treaty", nil),
@@ -78,5 +106,32 @@ defmodule KratosApi.Sync.Tally do
       |> SyncHelpers.apply_assoc(:bill, bill)
       |> SyncHelpers.apply_assoc(:nomination, nomination)
       |> SyncHelpers.apply_assoc(:votes, votes)
+  end
+end
+
+defmodule KratosApi.Sync.Tally.Consumer do
+  use GenStage
+
+  alias KratosApi.{
+    SyncHelpers
+  }
+
+  @slack Application.get_env(:kratos_api, :slack)
+
+  def init(:ok) do
+    {:consumer, :the_state_does_not_matter}
+  end
+
+  def handle_events(events, _from, state) do
+    Enum.map(events, &(save(&1)))
+    {:noreply, [], state}
+  end
+
+  def terminate(_reason, _state) do
+    @slack.notify("`Tally` data mounted and saved to database")
+  end
+
+  defp save(changeset) do
+    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id])
   end
 end
