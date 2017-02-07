@@ -22,6 +22,10 @@ defmodule KratosApi.CongressNumber do
     |> validate_required([:number])
   end
 
+  def find_or_create(number) when is_binary(number) do
+    {number, _} = Integer.parse(number)
+    find_or_create(number)
+  end
   def find_or_create(number) do
     case Repo.get(CongressNumber, number) do
       nil ->

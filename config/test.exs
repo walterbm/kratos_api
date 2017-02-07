@@ -26,6 +26,7 @@ config :kratos_api, :govtrack_api, KratosApi.Govtrack.InMemory
 config :kratos_api, :remote_queue, KratosApi.RemoteQueue.InMemory
 config :kratos_api, :remote_storage, KratosApi.RemoteStorage.InMemory
 config :kratos_api, :token_gen, KratosApi.TokenGen.InMemory
+config :kratos_api, :slack, KratosApi.Slack.InMemory
 config :kratos_api, :url, "https://lol.com"
 
 # Authentication
@@ -46,3 +47,6 @@ config :joken,
 # Email
 config :kratos_api, KratosApi.Mailer,
   adapter: Bamboo.TestAdapter
+
+# Slack
+config :kratos_api, :slack_url, "slack.slack"
