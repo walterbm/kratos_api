@@ -30,7 +30,7 @@ defmodule KratosApi.CurrentUserVoteController do
 
     case Repo.one(query) do
       nil ->  json conn, %{error: "User has not voted on this question yet!"}
-      vote -> render(conn, VoteView, "vote_record.json", vote: vote)
+      vote -> render(conn, VoteView, "user_vote_record.json", vote: vote)
     end
   end
 
