@@ -28,6 +28,7 @@ defmodule KratosApi.Mixfile do
         :gettext,
         :phoenix_ecto,
         :postgrex,
+        :gen_stage,
         :httpotion,
         :govtrack,
         :guardian,
