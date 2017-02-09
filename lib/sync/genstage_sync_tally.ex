@@ -75,7 +75,7 @@ defmodule KratosApi.Sync.Tally.Processor do
       subject: Map.get(data, "subject", nil),
       type: Map.get(data, "type", nil),
       updated_at: Map.get(data, "updated_at", nil) |> SyncHelpers.convert_datetime,
-      gpo_id: extract_gpo_id(data["bill"]),
+      gpo_id: Map.get(data, "vote_id"),
       bill_short_title: get_bill_attribute(data, :short_title),
       bill_official_title: get_bill_attribute(data, :official_title),
       md5_of_body: raw_message.md5_of_body
@@ -128,10 +128,11 @@ defmodule KratosApi.Sync.Tally.Consumer do
   end
 
   def terminate(_reason, _state) do
-    @slack.notify("`Tally` data mounted and saved to database")
+    IO.inspect "FINISHED TALLY SYNC"
+    # @slack.notify("`Tally` data mounted and saved to database")
   end
 
   defp save(changeset) do
-    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id])
+    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id]) # @TODO
   end
 end

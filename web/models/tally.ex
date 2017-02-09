@@ -31,7 +31,7 @@ defmodule KratosApi.Tally do
     timestamps()
   end
 
-  @required_fields ~w(gpo_id)a
+  @required_fields ~w()a
   @allowed_fields ~w(gpo_id amendment treaty category chamber date number question requires result result_text
     session source_url subject type record_updated_at bill_short_title  bill_official_title md5_of_body)a
 
