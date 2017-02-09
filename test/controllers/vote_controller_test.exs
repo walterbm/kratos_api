@@ -25,6 +25,6 @@ defmodule KratosApi.VoteControllerTest do
     response = json_response(conn, 200)
     first_vote = response["data"]["voting_record"] |> List.first
     assert first_vote["value"] == "Nay"
-    assert first_vote["tally"]["question"] == "On Cloture on the Motion to Proceed H.R. 5293"
+    assert first_vote["tally"]["question"] == "On the Nomination PN37: Elisabeth Prince DeVos, of Michigan, to be Secretary of Education"
   end
 end

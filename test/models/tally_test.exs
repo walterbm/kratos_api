@@ -10,9 +10,5 @@ defmodule KratosApi.TallyTest do
     changeset = Tally.changeset(%Tally{}, @valid_attrs)
     assert changeset.valid?
   end
-
-  test "changeset with invalid attributes" do
-    changeset = Tally.changeset(%Tally{}, @invalid_attrs)
-    refute changeset.valid?
-  end
+  
 end

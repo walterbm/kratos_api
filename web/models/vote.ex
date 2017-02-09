@@ -24,16 +24,26 @@ defmodule KratosApi.Vote do
     |> validate_required([:value])
   end
 
-  def create(data, key) do
-    person_id = case Repo.get_by(Person, bioguide: data["id"]) do
-      nil ->
-        case Repo.one(from p in Person, where: [lis: ^Map.get(data, "id")]) do
-          nil -> nil
-          person -> person.id
-        end
-      person -> person.id
+  # Handle special case for Mike Pence
+  def create("VP", key) do
+    case Repo.get_by(Person, bioguide: "P000587") do
+      nil -> nil
+      person -> Repo.insert!(%Vote{value: key, person_id: person.id})
     end
-    if person_id, do: Repo.insert!(%Vote{value: key, person_id: person_id})
+  end
+  # Senate votes
+  def create(%{"display_name" => _, "first_name" => _, "id" => id, "last_name" => _, "party" => _, "state" => _}, key) do
+    case Repo.one(from p in Person, where: [lis: ^id]) do
+      nil -> nil
+      person -> Repo.insert!(%Vote{value: key, person_id: person.id})
+    end
+  end
+  # House votes
+  def create(%{"display_name" => _, "id" => id, "party" => _, "state" => _}, key) do
+    case Repo.get_by(Person, bioguide: id) do
+      nil -> nil
+      person -> Repo.insert!(%Vote{value: key, person_id: person.id})
+    end
   end
 
   def mass_create(vote_data_map) do

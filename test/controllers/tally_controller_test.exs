@@ -18,7 +18,7 @@ defmodule KratosApi.TallyControllerTest do
 
 
   test "GET /api/tallies/:id", %{conn: conn, jwt: jwt} do
-    tally = KratosApi.Repo.one!(from t in KratosApi.Tally, where: t.gpo_id == "hr3608-114")
+    tally = KratosApi.Repo.one!(from t in KratosApi.Tally, where: t.gpo_id == "hr3608-114.2016")
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> get("/api/tallies/#{tally.id}")
@@ -37,7 +37,7 @@ defmodule KratosApi.TallyControllerTest do
     assert one["session"] == "2016"
     assert one["subject"] == "Intelligence Authorization Act for Fiscal Year 2017"
     assert one["type"] == "On Motion to Suspend the Rules and Pass"
-    assert one["gpo_id"] == "hr3608-114"
+    assert one["gpo_id"] == "hr3608-114.2016"
     assert one["bill_official_title"] == "To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air."
     assert one["Yea"] == 4
   end
