@@ -88,7 +88,7 @@ defmodule KratosApi.PersonSyncTest do
   test "syncing a duplicate Person updates that person" do
     KratosApi.Sync.Person.sync
     KratosApi.Sync.Person.sync
-    
+
     person = Repo.one!(
       from p in Person,
       where: p.bioguide == "B000944",
@@ -110,6 +110,27 @@ defmodule KratosApi.PersonSyncTest do
     assert person.youtube == "SherrodBrownOhio"
     assert person.youtube_id == "UCgy8jfERh-t_ixkKKoCmglQ"
     assert person.twitter_id == "43910797"
+  end
+
+  test "syncing executive correctly labels current terms" do
+    KratosApi.Sync.Person.sync(:executive)
+
+    person = Repo.one!(
+      from p in Person,
+      where: p.bioguide == "O000167",
+      preload: [:terms])
+
+    assert person
+    assert person.thomas == "01763"
+    assert person.lis == "S298"
+    assert person.opensecrets == "N00009638"
+    assert person.votesmart == "9490"
+    assert person.first_name == "Barack"
+    assert person.last_name == "Obama"
+    assert person.birthday == Ecto.Date.cast!("1961-08-04")
+    assert person.gender == "M"
+    assert person.is_current == false
+    assert person.terms |> Enum.count == 2
   end
 
 

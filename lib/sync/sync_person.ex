@@ -10,45 +10,53 @@ defmodule KratosApi.Sync.Person do
 
   @remote_storage Application.get_env(:kratos_api, :remote_storage)
   @term_types %{"sen" => "Senate", "rep" => "House"}
-  @files %{current: "legislators-current.yaml", historical: "legislators-historical.yaml"}
+  @files %{
+    current: "legislators-current.yaml",
+    historical: "legislators-historical.yaml",
+    executive: "executive.yaml"
+  }
 
   def sync(type \\ :current) do
     {document, hash} = @remote_storage.fetch_file(@files[type])
     document
       |> @remote_storage.parse_file
       |> Enum.map(&SyncHelpers.convert_to_map/1)
-      |> Enum.map(&(save(&1, type)))
+      |> Enum.map(&(save(&1)))
   end
 
-  defp save(data, type) do
-    params = prepare(data, type)
+  defp save(data) do
+    params = prepare(data)
     changeset = Person.changeset(%Person{}, params) |> add_associations(data)
     SyncHelpers.save(changeset, [bioguide: data['id']['bioguide'] |> to_string ])
   end
 
-  defp prepare(data, :current) do
-
-    current_term =
+  defp prepare(data) do
+    last_term =
       Map.get(data, 'terms', [%{}])
       |> Enum.sort(&(&1['end'] >= &2['end']))
       |> List.first
 
-    Map.merge(prepare_common(data), %{
-      is_current: true,
-      current_office: @term_types[current_term['type'] |> to_string],
-      current_state: current_term['state'] |> to_string,
-      current_district: current_term['district'] |> to_string,
-      current_party: current_term['party']|> to_string,
-    })
+    current? = Date.compare(SyncHelpers.convert_date(last_term['end']), Date.utc_today())
+    is_current?(data, current?, last_term)
   end
 
-  defp prepare(data, :historical) do
+  defp is_current?(data, :lt, _) do
     Map.merge(prepare_common(data), %{
       is_current: false,
       current_office: nil,
       current_state: nil,
       current_district: nil,
       current_party: nil,
+    })
+  end
+
+  defp is_current?(data, :gt, current_term) do
+    Map.merge(prepare_common(data), %{
+      is_current: true,
+      current_office: @term_types[current_term['type'] |> to_string],
+      current_state: current_term['state'] |> to_string,
+      current_district: current_term['district'] |> to_string,
+      current_party: current_term['party']|> to_string,
     })
   end
 
