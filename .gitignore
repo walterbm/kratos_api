@@ -16,7 +16,7 @@ erl_crash.dump
 /config/*.secret.exs
 
 # Deployment
-.deliver/
+.deliver/releases
 rel/
 node_modules
 npm-debug.log
