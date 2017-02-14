@@ -1,6 +1,8 @@
 APP="kratos_api"
 AUTO_VERSION=commit-count+git-revision
 
+LINK_SYS_CONFIG="/etc/kratos_api.config"
+
 BUILD_HOST="kratos.website"
 BUILD_USER="builder"
 BUILD_AT="/tmp/edeliver/kratos_api/builds"
@@ -10,7 +12,7 @@ STAGING_USER="deploy"
 DELIVER_TO="/opt"
 
 PRODUCTION_HOSTS="ec2-54-174-179-130.compute-1.amazonaws.com"
-PRODUCTION_USER="production"
+PRODUCTION_USER="deploy"
 DELIVER_TO="/opt"
 
 # For *Phoenix* projects, symlink prod.secret.exs to our tmp source
