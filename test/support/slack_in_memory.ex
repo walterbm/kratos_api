@@ -1,3 +1,3 @@
 defmodule KratosApi.Slack.InMemory do
-  def notify(message), do: nil
+  def notify(_), do: nil
 end
