@@ -36,6 +36,7 @@ defmodule KratosApi.Router do
     scope "/people" do
       get "/:id", PersonController, :show
       get "/:id/votes", VoteController, :index
+      get "/:id/bills", BillController, :sponsored
     end
 
     get "/bills/:id", BillController, :show

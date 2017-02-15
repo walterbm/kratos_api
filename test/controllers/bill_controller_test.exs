@@ -35,4 +35,21 @@ defmodule KratosApi.BillControllerTest do
     assert one["committees"] |> List.first |> Map.get("thomas_id") == "HSAG"
     assert one["related_bills"] |> List.first |> Map.get("reason") == "identical"
   end
+
+  test "GET /api/people/:id/bills", %{conn: conn, jwt: jwt} do
+    person = KratosApi.Repo.get_by!(KratosApi.Person, bioguide: "B000575")
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/people/#{person.id}/bills")
+
+    response = json_response(conn, 200)
+    assert response["pagination"]
+    assert response["data"] |> Enum.count == 2
+    one = response["data"] |> List.first
+    assert one["gpo_id"] == "hr3609-114"
+    assert one["congress_number"] == 114
+    assert one["number"] == "3609"
+    assert one["official_title"] == "To amend title XVIII of the Social Security Act to modify requirements for payment under the Medicare program for ambulance services furnished by critical access hospitals, and for other purposes."
+    assert one["source_url"] == "https://www.gpo.gov/fdsys/bulkdata/BILLSTATUS/114/hr/BILLSTATUS-114hr3609.xml"
+  end
 end

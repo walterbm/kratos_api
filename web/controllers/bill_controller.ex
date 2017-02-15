@@ -13,4 +13,13 @@ defmodule KratosApi.BillController do
     render conn, "bill.json", bill: bill
   end
 
+  def sponsored(conn, params) do
+    query = from b in KratosApi.Bill,
+      where: b.sponsor_id == ^params["id"]
+
+    {bills, kerosene} = query |> KratosApi.Repo.paginate(params)
+
+    render(conn, "bills.json", bills: bills, kerosene: kerosene)
+  end
+
 end

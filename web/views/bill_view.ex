@@ -1,5 +1,6 @@
 defmodule KratosApi.BillView do
   use KratosApi.Web, :view
+  import Kerosene.JSON
 
   def render("bill.json", %{bill: bill}) do
     %{
@@ -38,6 +39,45 @@ defmodule KratosApi.BillView do
       subjects: render_many(bill.subjects, KratosApi.SubjectView, "subject.json"),
       related_bills: render_many(bill.related_bills, KratosApi.RelatedBillView, "related_bill.json"),
       tallies: render_many(bill.tallies, KratosApi.TallyView, "tally.json")
+    }
+  end
+
+  def render("bill_light.json", %{ bill: bill }) do
+    %{
+      id: bill.id,
+      actions: bill.actions,
+      amendments: bill.amendments,
+      gpo_id: bill.gpo_id,
+      type: bill.type,
+      committee_history: bill.committee_history,
+      enacted_as: bill.enacted_as,
+      active: bill.active,
+      awaiting_signature: bill.awaiting_signature,
+      enacted: bill.enacted,
+      vetoed: bill.vetoed,
+      history: bill.history,
+      introduced_at: bill.introduced_at,
+      number: bill.number,
+      official_title: bill.official_title,
+      popular_title: bill.popular_title,
+      short_title: bill.short_title,
+      status: bill.status,
+      status_at: bill.status_at,
+      top_term: bill.top_term,
+      summary_text: bill.summary_text |> take_words(500),
+      summary_date: bill.summary_date,
+      titles: bill.titles,
+      gpo_data_updated_at: bill.gpo_data_updated_at,
+      source_url: bill.source_url,
+      full_text_url: bill.full_text_url,
+      congress_number: bill.congress_number_id
+    }
+  end
+
+  def render("bills.json", %{bills: bills, kerosene: kerosene, conn: conn}) do
+    %{
+      data: render_many(bills, KratosApi.BillView, "bill_light.json"),
+      pagination: paginate(conn, kerosene)
     }
   end
 
