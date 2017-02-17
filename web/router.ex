@@ -33,6 +33,8 @@ defmodule KratosApi.Router do
 
     get "/districts/:state/:id", DistrictController, :show
 
+    get "/states/:state", StateController, :show
+
     scope "/people" do
       get "/:id", PersonController, :show
       get "/:id/votes", VoteController, :index
