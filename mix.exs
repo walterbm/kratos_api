@@ -77,7 +77,8 @@ defmodule KratosApi.Mixfile do
       {:kerosene, "~> 0.5.0"},
       {:exrm, "~> 1.0.8"},
       {:edeliver, "~> 1.3.0"},
-      {:appsignal, "~> 0.0"}
+      {:appsignal, "~> 0.0"},
+      {:credo, "~> 0.5", only: [:dev, :test]}
     ]
   end
 
