@@ -5,9 +5,7 @@ defmodule KratosApi.VoteControllerTest do
   setup do
     KratosApi.Sync.Person.sync
     KratosApi.Sync.sync(:bill)
-    :timer.sleep(100)
     KratosApi.Sync.sync(:tally)
-    :timer.sleep(600)
 
     changeset = KratosApi.User.changeset(%KratosApi.User{}, KratosApi.Teststubs.user)
     {:ok, user} = KratosApi.Repo.insert(changeset)

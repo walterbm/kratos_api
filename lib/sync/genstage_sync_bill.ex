@@ -122,8 +122,6 @@ defmodule KratosApi.Sync.Bill.Consumer do
     SyncHelpers
   }
 
-  @slack Application.get_env(:kratos_api, :slack)
-
   def init(:ok) do
     {:consumer, :the_state_does_not_matter}
   end
@@ -131,10 +129,6 @@ defmodule KratosApi.Sync.Bill.Consumer do
   def handle_events(events, _from, state) do
     Enum.map(events, &(save(&1)))
     {:noreply, [], state}
-  end
-
-  def terminate(_reason, _state) do
-    @slack.notify("`Bill` data mounted and saved to database")
   end
 
   defp save(changeset) do
