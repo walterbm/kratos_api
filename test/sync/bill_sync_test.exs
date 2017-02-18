@@ -6,7 +6,7 @@ defmodule KratosApi.BillSyncTest do
 
   test "syncing creates Bill models" do
     KratosApi.Sync.sync(:bill)
-    :timer.sleep(100)
+
     bill = KratosApi.Repo.one(from b in Bill, where: b.gpo_id == "hr3608-114")
     assert bill
     assert bill.gpo_id == "hr3608-114"
@@ -26,7 +26,7 @@ defmodule KratosApi.BillSyncTest do
     assert person
 
     KratosApi.Sync.sync(:bill)
-    :timer.sleep(100)
+    
     bill = KratosApi.Repo.one(from b in Bill, where: b.gpo_id == "hr3608-114", preload: [:congress_number, :subjects, :sponsor, :cosponsors, :related_bills])
     assert bill
     assert bill.congress_number.number == 114

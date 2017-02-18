@@ -10,7 +10,6 @@ defmodule KratosApi.UserVoteControllerTest do
 
   setup do
     KratosApi.Sync.sync(:tally)
-    :timer.sleep(500)
     tally = Repo.all(Tally) |> List.first
     user = Repo.insert!(User.changeset(%User{}, KratosApi.Teststubs.user))
     Repo.insert!(%UserVote{user_id: user.id, tally_id: tally.id, value: "Aye", })
@@ -109,7 +108,7 @@ defmodule KratosApi.UserVoteControllerTest do
 
     assert json_response(conn, 200) == %{"ok" => true}
     assert Repo.all(UserVote) |> Enum.empty?
-    
+
   end
 
 end

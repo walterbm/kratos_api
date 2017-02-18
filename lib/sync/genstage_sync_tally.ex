@@ -116,8 +116,6 @@ defmodule KratosApi.Sync.Tally.Consumer do
     SyncHelpers
   }
 
-  @slack Application.get_env(:kratos_api, :slack)
-
   def init(:ok) do
     {:consumer, :the_state_does_not_matter}
   end
@@ -127,12 +125,7 @@ defmodule KratosApi.Sync.Tally.Consumer do
     {:noreply, [], state}
   end
 
-  def terminate(_reason, _state) do
-    IO.inspect "FINISHED TALLY SYNC"
-    # @slack.notify("`Tally` data mounted and saved to database")
-  end
-
   defp save(changeset) do
-    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id]) # @TODO
+    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id])
   end
 end

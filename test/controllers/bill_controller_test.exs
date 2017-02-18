@@ -6,7 +6,6 @@ defmodule KratosApi.BillControllerTest do
     KratosApi.Sync.Person.sync
     KratosApi.Sync.Committee.sync
     KratosApi.Sync.sync(:bill)
-    :timer.sleep(100)
 
     changeset = KratosApi.User.changeset(%KratosApi.User{}, KratosApi.Teststubs.user)
     {:ok, user} = KratosApi.Repo.insert(changeset)
