@@ -25,7 +25,7 @@ config :kratos_api, :remote_queue, KratosApi.RemoteQueue
 config :kratos_api, :remote_storage, KratosApi.RemoteStorage
 config :kratos_api, :token_gen, KratosApi.TokenGen
 config :kratos_api, :slack, KratosApi.Slack
-config :kratos_api, :url, "https://kratos.site"
+config :kratos_api, :url, "https://kratos.website"
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -73,4 +73,4 @@ config :phoenix, :serve_endpoints, true
 #
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-import_config "prod.secret.exs"
+import_config "stage.secret.exs"
