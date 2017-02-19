@@ -1,7 +1,7 @@
 defmodule KratosApi.JobController do
   use KratosApi.Web, :controller
 
-  plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
+  plug KratosApi.BasicAuth
 
   def run(conn, %{"type" => type}) do
     type
