@@ -12,6 +12,6 @@ defmodule Mix.Tasks.Prep.Prod do
 
   def run(_) do
     Mix.env(:prod)
-    KratosApi.ConfigConverter.convert("config/config.ex")
+    KratosApi.ConfigConverter.convert("config/config.exs")
   end
 end
