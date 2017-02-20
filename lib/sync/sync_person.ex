@@ -8,7 +8,6 @@ defmodule KratosApi.Sync.Person do
     Term
   }
 
-  @remote_storage Application.get_env(:kratos_api, :remote_storage)
   @term_types %{"sen" => "Senate", "rep" => "House"}
   @files %{
     current: "legislators-current.yaml",
@@ -17,11 +16,7 @@ defmodule KratosApi.Sync.Person do
   }
 
   def sync(type \\ :current) do
-    {document, hash} = @remote_storage.fetch_file(@files[type])
-    document
-      |> @remote_storage.parse_file
-      |> Enum.map(&SyncHelpers.convert_to_map/1)
-      |> Enum.map(&(save(&1)))
+    SyncHelpers.sync_from_storage(@files[type], &save/1)
   end
 
   defp save(data) do
@@ -104,14 +99,8 @@ defmodule KratosApi.Sync.Person.SocialMedia do
     SyncHelpers
   }
 
-  @remote_storage Application.get_env(:kratos_api, :remote_storage)
-
   def sync do
-    {document, hash} = @remote_storage.fetch_file("legislators-social-media.yaml")
-    document
-      |> @remote_storage.parse_file
-      |> Enum.map(&SyncHelpers.convert_to_map/1)
-      |> Enum.map(&save/1)
+    SyncHelpers.sync_from_storage("legislators-social-media.yaml", &save/1)
   end
 
   defp save(data) do
