@@ -1,5 +1,7 @@
 defmodule KratosApi.SyncHelpers do
 
+  @remote_storage Application.get_env(:kratos_api, :remote_storage)
+
   def apply_assoc(changeset, _, nil), do: changeset
   def apply_assoc(changeset, field, data), do: Ecto.Changeset.put_assoc(changeset, field, data)
 
@@ -44,6 +46,20 @@ defmodule KratosApi.SyncHelpers do
     end)
   end
   def flat_map_to_string(nil), do: nil
+
+  def sync_from_storage(file_name, save_fx) do
+    {document, hash} = @remote_storage.fetch_file(file_name)
+    run_sync_from_storage(save_fx, document, KratosApi.FileHash.exists?(hash, file_name))
+  end
+
+  defp run_sync_from_storage(save_fx, document, {:ok, :new}) do
+    document
+      |> @remote_storage.parse_file
+      |> Enum.map(&convert_to_map/1)
+      |> Enum.map(&(save_fx.(&1)))
+  end
+
+  defp run_sync_from_storage(_save_fx, _document, _exists), do: false
 
   def save(changeset, kargs) do
     result =

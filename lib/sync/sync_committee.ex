@@ -4,14 +4,8 @@ defmodule KratosApi.Sync.Committee do
     SyncHelpers
   }
 
-  @remote_storage Application.get_env(:kratos_api, :remote_storage)
-
   def sync do
-    {document, hash} = @remote_storage.fetch_file("committees-current.yaml")
-    document
-      |> @remote_storage.parse_file
-      |> Enum.map(&SyncHelpers.convert_to_map/1)
-      |> Enum.map(&save/1)
+    SyncHelpers.sync_from_storage("committees-current.yaml", &save/1)
   end
 
   defp save(data) do
@@ -51,14 +45,8 @@ defmodule KratosApi.Sync.Committee.Membership do
     SyncHelpers,
   }
 
-  @remote_storage Application.get_env(:kratos_api, :remote_storage)
-
   def sync do
-    {document, hash} = @remote_storage.fetch_file("committee-membership-current.yaml")
-    document
-      |> @remote_storage.parse_file
-      |> Enum.map(&SyncHelpers.convert_to_map/1)
-      |> Enum.map(&save/1)
+    SyncHelpers.sync_from_storage("committee-membership-current.yaml", &save/1)
   end
 
   defp save(data) do
