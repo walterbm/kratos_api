@@ -4,11 +4,12 @@ defmodule KratosApi.JobController do
   plug KratosApi.BasicAuth
 
   def run(conn, %{"type" => type}) do
-    type
-    |> String.to_atom
-    |> KratosApi.Sync.sync
+    response = case Task.start(KratosApi.Sync, :sync, [String.to_atom(type)]) do
+      {:ok, _pid} -> %{ok: "job started"}
+      _ -> %{error: "job failed to start"}
+    end
 
-    json conn, %{ok: true}
+    json conn, response
   end
 
   def run(conn, _) do

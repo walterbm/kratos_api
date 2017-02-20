@@ -4,7 +4,7 @@ defmodule KratosApi.Sync do
 
   @slack Application.get_env(:kratos_api, :slack)
 
-  def sync(source \\ :all) do
+  def sync(source) do
     case source do
       :all ->
         sync(:person)
@@ -25,6 +25,7 @@ defmodule KratosApi.Sync do
         @slack.notify("`Tally` data mounted and saved to database")
       :person ->
         Sync.Person.sync
+        Sync.Person.sync(:executive)
         Sync.Person.sync(:historical)
         Sync.Person.SocialMedia.sync
         @slack.notify("`Person` data mounted and saved to database")
