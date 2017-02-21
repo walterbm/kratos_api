@@ -4,7 +4,12 @@ defmodule  KratosApi.Sync.Term do
     SyncHelpers
   }
 
-  @term_types %{"sen" => "Senate", "rep" => "House"}
+  @term_types %{
+    "sen" => "Senate",
+    "rep" => "House",
+    "prez" => "President",
+    "viceprez" => "VP"
+  }
 
   def prepare(data) do
     %{

@@ -3,7 +3,7 @@ defmodule KratosApi.Term do
 
   schema "terms" do
 
-    field :type, :string # Either "sen" for senators or "rep" for representatives
+    field :type, :string
     field :start, Ecto.Date
     field :end, Ecto.Date
     field :state, :string

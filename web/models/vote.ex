@@ -3,6 +3,7 @@ defmodule KratosApi.Vote do
 
   alias KratosApi.{
     Vote,
+    Term,
     Person,
     Repo
   }
@@ -24,11 +25,11 @@ defmodule KratosApi.Vote do
     |> validate_required([:value])
   end
 
-  # Handle special case for Mike Pence
+  # Handle special case for Vice Presidents
   def create("VP", key) do
-    case Repo.get_by(Person, bioguide: "P000587") do
+    case Repo.one(from t in Term, where: t.type == "VP", where: t.end > ^Date.utc_today()) do
       nil -> nil
-      person -> Repo.insert!(%Vote{value: key, person_id: person.id})
+      term -> Repo.insert!(%Vote{value: key, person_id: term.person_id})
     end
   end
   # Senate votes

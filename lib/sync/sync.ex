@@ -24,9 +24,9 @@ defmodule KratosApi.Sync do
         run_tallies()
         @slack.notify("`Tally` data mounted and saved to database")
       :person ->
-        Sync.Person.sync
-        Sync.Person.sync(:executive)
         Sync.Person.sync(:historical)
+        Sync.Person.sync(:executive)
+        Sync.Person.sync
         Sync.Person.SocialMedia.sync
         @slack.notify("`Person` data mounted and saved to database")
       :committee ->
