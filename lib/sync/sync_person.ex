@@ -57,7 +57,7 @@ defmodule KratosApi.Sync.Person do
 
   defp prepare_common(data) do
     %{
-      bioguide: data['id']['bioguide'] |> to_string,
+      bioguide: data['id'] |> bioguide?,
       thomas: data['id']['thomas'] |> to_string,
       lis: data['id']['lis'] |> to_string,
       opensecrets: data['id']['opensecrets'] |> to_string,
@@ -78,6 +78,14 @@ defmodule KratosApi.Sync.Person do
       religion: data['bio']['religion'] |> to_string,
       image_url: "#{Application.get_env(:kratos_api, :assets_url)}/225x275/#{data['id']['bioguide'] |> to_string}.jpg"
     }
+  end
+
+  defp bioguide?(id_data) do
+    if id_data['bioguide'] do
+      id_data['bioguide'] |> to_string
+    else
+      id_data['wikipedia'] |> to_string
+    end
   end
 
   defp add_associations(changeset, data) do
