@@ -43,8 +43,6 @@ defmodule KratosApi.Person do
     has_many :leadership_roles, KratosApi.LeadershipRole
     has_many :votes, KratosApi.Vote
 
-    many_to_many :committee_assignments, KratosApi.Committee, join_through: "person_committees", join_keys: [person_id: :id, committeeassignment_id: :committee_id]
-
     timestamps()
   end
 
@@ -61,4 +59,16 @@ defmodule KratosApi.Person do
     |> cast(params, @allowed_fields)
     |> validate_required(@required_fields)
   end
+
+
+  def update(struct, params \\ %{}) do
+    struct
+    |> cast(params, @allowed_fields)
+    |> validate_required(@required_fields)
+    |> put_assoc(:terms, KratosApi.Model.Utils.append_current(:terms, struct, params))
+    |> put_assoc(:fec, KratosApi.Model.Utils.append_current(:fec, struct, params))
+    |> put_assoc(:committee_memberships, KratosApi.Model.Utils.append_current(:committee_memberships, struct, params))
+    |> put_assoc(:leadership_roles, KratosApi.Model.Utils.append_current(:leadership_roles, struct, params))
+  end
+
 end

@@ -44,6 +44,12 @@ defmodule KratosApi.Tally do
     |> validate_required(@required_fields)
   end
 
+  def update(struct, params \\ %{}) do
+    struct
+    |> cast(params, @allowed_fields)
+    |> validate_required(@required_fields)
+  end
+
   def tallyup_votes(votes) do
     Enum.reduce(votes, %{}, fn (vote, acc) ->
       Map.put(acc, vote.value, Map.get(acc, vote.value, 0) + 1)

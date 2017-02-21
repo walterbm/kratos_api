@@ -141,7 +141,7 @@ defmodule KratosApi.PersonSyncTest do
 
     assert person
     assert person.last_name == "Pence"
-
+  
     term = person.terms |> List.last
     assert term.type == "VP"
   end
@@ -157,7 +157,7 @@ defmodule KratosApi.PersonSyncTest do
 
     assert person
     assert person.last_name == "Pence"
-    assert person.terms |> Enum.count == 6
+    assert person.terms |> Enum.count == 7
   end
 
 end
