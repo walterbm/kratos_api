@@ -67,7 +67,9 @@ defmodule KratosApi.SyncHelpers do
         nil  ->
           KratosApi.Repo.insert(changeset)
         record ->
-          changes = changeset.data.__struct__.changeset(record, changeset.changes)
+          record = KratosApi.Repo.preload(record, changeset.data.__struct__.__schema__(:associations) |> List.delete(:votes))
+
+          changes = changeset.data.__struct__.update(record, changeset.changes)
           KratosApi.Repo.update(changes)
       end
 
