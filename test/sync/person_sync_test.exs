@@ -133,7 +133,31 @@ defmodule KratosApi.PersonSyncTest do
     assert person.gender == "M"
     assert person.is_current == false
     assert person.terms |> Enum.count == 2
+
+    person = Repo.one!(
+      from p in Person,
+      where: p.bioguide == "P000587",
+      preload: [:terms])
+
+    assert person
+    assert person.last_name == "Pence"
+
+    term = person.terms |> List.last
+    assert term.type == "VP"
   end
 
+  test "updating people who served in both the legislature and the executive" do
+    KratosApi.Sync.Person.sync(:historical)
+    KratosApi.Sync.Person.sync(:executive)
+
+    person = Repo.one!(
+      from p in Person,
+      where: p.bioguide == "P000587",
+      preload: [:terms])
+
+    assert person
+    assert person.last_name == "Pence"
+    assert person.terms |> Enum.count == 6
+  end
 
 end

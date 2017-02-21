@@ -135,6 +135,81 @@ defmodule KratosApi.RemoteStorage.InMemory do
     }
   end
 
+  # - id:
+  #   bioguide: P000587
+  #   thomas: '01649'
+  #   govtrack: 400315
+  #   opensecrets: N00003765
+  #   votesmart: 34024
+  #   fec:
+  #   - H8IN02060
+  #   wikipedia: Mike Pence
+  #   house_history: 20013
+  #   icpsr: 20117
+  #   wikidata: Q24313
+  #   google_entity_id: kg:/m/022r9r
+  # name:
+  #   first: Mike
+  #   last: Pence
+  #   official_full: Mike Pence
+  # bio:
+  #   birthday: '1959-06-07'
+  #   gender: M
+  #   religion: Christian
+  # terms:
+  # - type: rep
+  #   start: '2001-01-03'
+  #   end: '2003-01-03'
+  #   state: IN
+  #   district: 2
+  #   party: Republican
+  # - type: rep
+  #   start: '2003-01-07'
+  #   end: '2005-01-03'
+  #   state: IN
+  #   district: 6
+  #   party: Republican
+  #   url: http://www.house.gov/pence
+  # - type: rep
+  #   start: '2005-01-04'
+  #   end: '2007-01-03'
+  #   state: IN
+  #   district: 6
+  #   party: Republican
+  #   url: http://www.house.gov/pence
+  # - type: rep
+  #   start: '2007-01-04'
+  #   end: '2009-01-03'
+  #   state: IN
+  #   district: 6
+  #   party: Republican
+  #   url: http://mikepence.house.gov
+  # - type: rep
+  #   start: '2009-01-06'
+  #   end: '2011-01-03'
+  #   state: IN
+  #   district: 6
+  #   party: Republican
+  #   url: http://mikepence.house.gov
+  # - type: rep
+  #   start: '2011-01-05'
+  #   end: '2013-01-03'
+  #   state: IN
+  #   district: 6
+  #   party: Republican
+  #   url: http://mikepence.house.gov
+  #   address: 100 Cannon HOB; Washington DC 20515-1406
+  #   phone: 202-225-3021
+  #   fax: 202-225-3382
+  #   contact_form: https://forms.house.gov/pence/IMA/contact_form.htm
+  #   office: 100 Cannon House Office Building
+  def fetch_file("legislators-historical.yaml") do
+    {
+      "- id:\n    bioguide: P000587\n    thomas: '01649'\n    govtrack: 400315\n    opensecrets: N00003765\n    votesmart: 34024\n    fec:\n    - H8IN02060\n    wikipedia: Mike Pence\n    house_history: 20013\n    icpsr: 20117\n    wikidata: Q24313\n    google_entity_id: kg:/m/022r9r\n  name:\n    first: Mike\n    last: Pence\n    official_full: Mike Pence\n  bio:\n    birthday: '1959-06-07'\n    gender: M\n    religion: Christian\n  terms:\n  - type: rep\n    start: '2001-01-03'\n    end: '2003-01-03'\n    state: IN\n    district: 2\n    party: Republican\n  - type: rep\n    start: '2003-01-07'\n    end: '2005-01-03'\n    state: IN\n    district: 6\n    party: Republican\n    url: http://www.house.gov/pence\n  - type: rep\n    start: '2005-01-04'\n    end: '2007-01-03'\n    state: IN\n    district: 6\n    party: Republican\n    url: http://www.house.gov/pence\n  - type: rep\n    start: '2007-01-04'\n    end: '2009-01-03'\n    state: IN\n    district: 6\n    party: Republican\n    url: http://mikepence.house.gov\n  - type: rep\n    start: '2009-01-06'\n    end: '2011-01-03'\n    state: IN\n    district: 6\n    party: Republican\n    url: http://mikepence.house.gov\n  - type: rep\n    start: '2011-01-05'\n    end: '2013-01-03'\n    state: IN\n    district: 6\n    party: Republican\n    url: http://mikepence.house.gov\n    address: 100 Cannon HOB; Washington DC 20515-1406\n    phone: 202-225-3021\n    fax: 202-225-3382\n    contact_form: https://forms.house.gov/pence/IMA/contact_form.htm\n    office: 100 Cannon House Office Building\n",
+      "\"bad5ccb35b3f35b853870e8e1b24140a\""
+    }
+  end
+
   # - type: house\n
   #   name: House Committee on Agriculture\n
   #   url: http://agriculture.house.gov/\n
