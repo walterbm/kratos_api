@@ -29,6 +29,7 @@ config :kratos_api, KratosApi.Endpoint,
 config :kratos_api, :govtrack_api, Govtrack
 config :kratos_api, :remote_queue, KratosApi.RemoteQueue
 config :kratos_api, :remote_storage, KratosApi.RemoteStorage
+config :kratos_api, :remote_service, KratosApi.RemoteService
 config :kratos_api, :token_gen, KratosApi.TokenGen
 config :kratos_api, :slack, KratosApi.Slack
 config :kratos_api, :url, "http://localhost:4000/"
