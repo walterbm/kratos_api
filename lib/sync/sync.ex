@@ -28,6 +28,7 @@ defmodule KratosApi.Sync do
         Sync.Person.sync(:executive)
         Sync.Person.sync
         Sync.Person.SocialMedia.sync
+        KratosApi.Sync.Person.Bio.sync
         @slack.notify("`Person` data mounted and saved to database")
       :committee ->
         Sync.Committee.sync
