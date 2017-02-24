@@ -11,9 +11,13 @@
 ## Deploy
 Deployment uses edeliver.
 
-    $ mix edeliver update
+    $ mix prep.stage
 
-    $ mix edeliver start
+    $ mix edeliver build release
+
+    $ mix edeliver deploy release
+
+    $ mix edeliver restart
 
 ## Generate Documentation
 API documentation uses api_blueprint.
