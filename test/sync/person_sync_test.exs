@@ -141,7 +141,7 @@ defmodule KratosApi.PersonSyncTest do
 
     assert person
     assert person.last_name == "Pence"
-  
+
     term = person.terms |> List.last
     assert term.type == "VP"
   end
@@ -158,6 +158,28 @@ defmodule KratosApi.PersonSyncTest do
     assert person
     assert person.last_name == "Pence"
     assert person.terms |> Enum.count == 7
+  end
+
+  test "updates the bios for all current members of the legislature and the executive" do
+    KratosApi.Sync.Person.sync
+    KratosApi.Sync.Person.Bio.sync
+
+    person = Repo.one!(
+      from p in Person,
+      where: p.bioguide == "B000575")
+
+    assert person
+    assert person.is_current == true
+    assert person.bio == "Roy Dean Blunt (born January 10, 1950) is an American politician who currently serves as the junior United States Senator from Missouri, having been in office since 2011. He is a member of the Republican Party.\nBlunt served as the United States Representative from Missouri's 7th congressional district from 1997 to 2011. The district contains most of Southwest Missouri, anchored in the city of Springfield, as well as the cities of Joplin, Carthage, and Neosho, and the popular tourist destination of Branson.\nBlunt served as House Majority Whip from 2003 to 2007, and was acting House Majority Leader from September 2005 to February 2006."
+
+    person = Repo.one!(
+      from p in Person,
+      where: p.bioguide == "R000593")
+
+    assert person
+    assert person.is_current == true
+    assert person.bio == "Dennis Alan Ross (born October 18, 1959) is an American politician who has been a member of the United States House of Representatives since 2011. A Republican from Florida, his district was numbered as Florida's 12th congressional district during his first two years in Congress; it has been the 15th district since 2013."
+
   end
 
 end

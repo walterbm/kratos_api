@@ -131,3 +131,51 @@ defmodule KratosApi.Sync.Person.SocialMedia do
     }
   end
 end
+
+defmodule KratosApi.Sync.Person.Bio do
+  alias KratosApi.{
+    Repo,
+    Person
+  }
+  import Ecto.Query
+
+  @remote_service Application.get_env(:kratos_api, :remote_service)
+
+  def sync do
+    current_reps()
+    |> Flow.from_enumerable()
+    |> Flow.map(&fetch_bio/1)
+    |> Flow.map(&save_bio/1)
+    |> Flow.reject(&(elem(&1,0) == :ok))
+    |> Enum.to_list()
+    |> verifty()
+  end
+
+  defp current_reps do
+    Repo.all(
+      from p in Person,
+      where: p.is_current == true,
+      select: %{
+        id: p.id,
+        wikipedia: p.wikipedia
+      })
+  end
+
+  defp fetch_bio(%{id: id, wikipedia: wikipedia}) do
+    %{
+      id: id,
+      bio: @remote_service.fetch_bio(wikipedia)
+    }
+  end
+
+  defp save_bio(%{id: id, bio: bio}) do
+    person = Repo.get!(Person, id) |> Ecto.Changeset.change(bio: bio)
+    Repo.update(person)
+  end
+
+  defp verifty([]), do: {:ok, "success"}
+  defp verifty(failed_records) do
+    raise BioSyncError, message: "Bio sync failed for People with id(s): #{Enum.map(failed_records, &(elem(&1,1).id))}"
+  end
+
+end
