@@ -21,6 +21,7 @@ defmodule KratosApi.User do
     field :party, :string
     field :birthday, Ecto.Date
     field :apn_token, :string
+    field :last_online_at, Ecto.DateTime
     field :password, :string, virtual: true
 
     has_many :votes, KratosApi.UserVote
@@ -63,6 +64,11 @@ defmodule KratosApi.User do
     |> cast(params, [:password])
     |> validate_length(:password, min: 8)
     |> generate_encrypted_password
+  end
+
+  def last_online_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:last_online_at])
   end
 
   defp generate_encrypted_password(current_changeset) do
