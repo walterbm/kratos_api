@@ -9,6 +9,7 @@ defmodule KratosApi.DistrictController do
       where: p.current_district == ^params["id"] or p.current_office ==  "Senate",
       preload: [:terms]
 
+    conn |> Guardian.Plug.current_resource |> KratosApi.UserAnalytics.mark_online
 
     {representatives, kerosene} = query |> KratosApi.Repo.paginate(params)
 
