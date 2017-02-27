@@ -40,6 +40,6 @@ defmodule KratosApi.Committee do
     struct
     |> cast(params, @allowed_fields)
     |> validate_required(@required_fields)
-    |> put_assoc(:members, KratosApi.Model.Utils.append_current(:members, struct, params))
+    |> put_assoc(:members, KratosApi.Model.Utils.append_current(:members, struct, params, :person_id))
   end
 end

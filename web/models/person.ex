@@ -1,6 +1,8 @@
 defmodule KratosApi.Person do
   use KratosApi.Web, :model
 
+  alias KratosApi.Model.Utils
+
   schema "persons" do
     field :bioguide, :string
     field :thomas, :string
@@ -65,10 +67,10 @@ defmodule KratosApi.Person do
     struct
     |> cast(params, @allowed_fields)
     |> validate_required(@required_fields)
-    |> put_assoc(:terms, KratosApi.Model.Utils.append_current(:terms, struct, params))
-    |> put_assoc(:fec, KratosApi.Model.Utils.append_current(:fec, struct, params))
-    |> put_assoc(:committee_memberships, KratosApi.Model.Utils.append_current(:committee_memberships, struct, params))
-    |> put_assoc(:leadership_roles, KratosApi.Model.Utils.append_current(:leadership_roles, struct, params))
+    |> put_assoc(:terms, Utils.append_current(:terms, struct, params, :start))
+    |> put_assoc(:fec, Utils.append_current(:fec, struct, params, :number))
+    |> put_assoc(:committee_memberships, Utils.append_current(:committee_memberships, struct, params, :title))
+    |> put_assoc(:leadership_roles, Utils.append_current(:leadership_roles, struct, params, :start))
   end
 
 end

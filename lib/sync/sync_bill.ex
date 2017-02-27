@@ -119,6 +119,7 @@ defmodule KratosApi.Sync.Bill.Consumer do
   use GenStage
 
   alias KratosApi.{
+    Bill,
     SyncHelpers
   }
 
@@ -132,6 +133,11 @@ defmodule KratosApi.Sync.Bill.Consumer do
   end
 
   defp save(changeset) do
-    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id])
+    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id], &update/2)
+  end
+
+  defp update(record, changeset) do
+    Repo.preload(record, [:related_bills, :tallies])
+    |> Bill.update(changeset.changes)
   end
 end

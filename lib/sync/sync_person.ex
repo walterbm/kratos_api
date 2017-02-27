@@ -22,7 +22,12 @@ defmodule KratosApi.Sync.Person do
   defp save(data) do
     params = prepare(data)
     changeset = Person.changeset(%Person{}, params) |> add_associations(data)
-    SyncHelpers.save(changeset, [bioguide: data['id']['bioguide'] |> to_string ])
+    SyncHelpers.save(changeset, [bioguide: data['id']['bioguide'] |> to_string ], &update/2)
+  end
+
+  defp update(record, changeset) do
+    Repo.preload(record, [:fec, :terms, :committee_memberships, :leadership_roles])
+    |> Person.update(changeset.changes)
   end
 
   defp prepare(data) do
@@ -148,7 +153,7 @@ defmodule KratosApi.Sync.Person.Bio do
     |> Flow.map(&save_bio/1)
     |> Flow.reject(&(elem(&1,0) == :ok))
     |> Enum.to_list()
-    |> verifty()
+    |> verify()
   end
 
   defp current_reps do
@@ -173,8 +178,8 @@ defmodule KratosApi.Sync.Person.Bio do
     Repo.update(person)
   end
 
-  defp verifty([]), do: {:ok, "success"}
-  defp verifty(failed_records) do
+  defp verify([]), do: {:ok, "success"}
+  defp verify(failed_records) do
     raise BioSyncError, message: "Bio sync failed for People with id(s): #{Enum.map(failed_records, &(elem(&1,1).id))}"
   end
 

@@ -113,6 +113,7 @@ defmodule KratosApi.Sync.Tally.Consumer do
   use GenStage
 
   alias KratosApi.{
+    Tally,
     SyncHelpers
   }
 
@@ -126,6 +127,12 @@ defmodule KratosApi.Sync.Tally.Consumer do
   end
 
   defp save(changeset) do
-    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id])
+    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id], &update/2)
   end
+
+  defp update(record, changeset) do
+    Tally.update(record, changeset.changes)
+  end
+
+
 end

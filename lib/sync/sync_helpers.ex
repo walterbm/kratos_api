@@ -61,16 +61,13 @@ defmodule KratosApi.SyncHelpers do
 
   defp run_sync_from_storage(_save_fx, _document, _exists), do: false
 
-  def save(changeset, kargs) do
+  def save(changeset, kargs, update_fx) do
     result =
       case KratosApi.Repo.get_by(changeset.data.__struct__, kargs) do
         nil  ->
           KratosApi.Repo.insert(changeset)
         record ->
-          record = KratosApi.Repo.preload(record, changeset.data.__struct__.__schema__(:associations) |> List.delete(:votes))
-
-          changes = changeset.data.__struct__.update(record, changeset.changes)
-          KratosApi.Repo.update(changes)
+          record |> update_fx.(changeset) |> KratosApi.Repo.update
       end
 
     case result do

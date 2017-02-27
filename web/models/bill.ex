@@ -61,8 +61,8 @@ defmodule KratosApi.Bill do
     struct
     |> cast(params, @allowed_fields)
     |> validate_required(@required_fields)
-    |> put_assoc(:related_bills, KratosApi.Model.Utils.append_current(:related_bills, struct, params))
-    |> put_assoc(:tallies, KratosApi.Model.Utils.append_current(:tallies, struct, params))
+    |> put_assoc(:related_bills, KratosApi.Model.Utils.append_current(:related_bills, struct, params, :related_bill_id))
+    |> put_assoc(:tallies, KratosApi.Model.Utils.append_current(:tallies, struct, params, :gpo_id))
   end
 
 end
