@@ -87,6 +87,17 @@ defmodule KratosApi.PersonSyncTest do
 
   test "syncing a duplicate Person updates that person" do
     KratosApi.Sync.Person.sync
+
+    person = Repo.one!(
+      from p in Person,
+      where: p.bioguide == "B000944",
+      preload: [:fec, :terms])
+
+    assert person
+    assert person.terms |> Enum.count == 9
+    assert person.fec |> Enum.count == 2
+
+    Repo.delete_all(KratosApi.FileHash)
     KratosApi.Sync.Person.sync
 
     person = Repo.one!(
@@ -95,6 +106,8 @@ defmodule KratosApi.PersonSyncTest do
       preload: [:fec, :terms])
 
     assert person
+    assert person.terms |> Enum.count == 9
+    assert person.fec |> Enum.count == 2
   end
 
   test "syncing social media adds social media info to existing Person" do
