@@ -11,7 +11,12 @@ defmodule KratosApi.Sync.Committee do
   defp save(data) do
     params = prepare(data)
     changeset = Committee.changeset(%Committee{}, params)
-    SyncHelpers.save(changeset, [thomas_id: data['thomas_id'] |> to_string ])
+    SyncHelpers.save(changeset, [thomas_id: data['thomas_id'] |> to_string], &update/2)
+  end
+
+  defp update(record, changeset) do
+    Repo.preload(record, [:members])
+    |> Committee.update(changeset.changes)
   end
 
   defp prepare (data) do
@@ -59,7 +64,12 @@ defmodule KratosApi.Sync.Committee.Membership do
   defp build_members(committee, data) do
     unless committee.members |> Enum.empty?, do: delete_all_members(committee.id)
     changeset = Committee.changeset(committee) |> add_associations(data)
-    SyncHelpers.save(changeset, [thomas_id: committee.thomas_id])
+    SyncHelpers.save(changeset, [thomas_id: committee.thomas_id], &update_record/2)
+  end
+
+  defp update_record(record, changeset) do
+    Repo.preload(record, [:members])
+    |> Committee.update(changeset.changes)
   end
 
   defp delete_all_members(committee_id) do
