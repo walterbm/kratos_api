@@ -1,19 +1,24 @@
 defmodule KratosApi.Model.Utils do
 
-  def append_current(assoc, current, new, unique_by) do
+  def append_current(assoc, old, new, unique_key) do
     new =
       Map.get(new, assoc, [])
       |> Enum.map(&(&1.data))
 
-    current =
-      Map.get(current, assoc, [])
+    old =
+      Map.get(old, assoc, [])
 
-    collection = current ++ new
-
-    collection
-    |> Enum.uniq_by(fn x -> Map.get(x, unique_by) end)
-    |> Enum.reject(&is_nil/1)
+    compare_and_merge(new, old, unique_key)
   end
 
+  defp compare_and_merge(new, old, unique_key) do
+    if (Enum.count(new) == Enum.count(old)) do
+      new
+    else
+      new
+      |> Kernel.++(old)
+      |> Enum.uniq_by(&(Map.get(&1, unique_key)))
+    end
+  end
 
 end

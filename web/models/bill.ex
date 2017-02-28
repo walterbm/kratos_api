@@ -33,8 +33,8 @@ defmodule KratosApi.Bill do
     belongs_to :congress_number, KratosApi.CongressNumber, references: :number
     belongs_to :sponsor, KratosApi.Person
 
-    has_many :related_bills, KratosApi.RelatedBill
-    has_many :tallies, KratosApi.Tally
+    has_many :related_bills, KratosApi.RelatedBill, on_replace: :delete
+    has_many :tallies, KratosApi.Tally, on_replace: :delete
 
     many_to_many :committees, KratosApi.Committee, join_through: "bill_committees"
     many_to_many :cosponsors, KratosApi.Person, join_through: "bill_cosponsors", join_keys: [bill_id: :id, cosponsor_id: :id]
