@@ -1,5 +1,6 @@
 defmodule KratosApi.Sync.Committee do
   alias KratosApi.{
+    Repo,
     Committee,
     SyncHelpers
   }
