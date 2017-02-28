@@ -97,7 +97,14 @@ defmodule KratosApi.PersonSyncTest do
     assert person.terms |> Enum.count == 9
     assert person.fec |> Enum.count == 2
 
+    term = person.terms
+    |> List.first
+    |> Ecto.Changeset.change(end: Ecto.Date.cast!("3000-01-03"))
+
+    Repo.update! term
+
     Repo.delete_all(KratosApi.FileHash)
+
     KratosApi.Sync.Person.sync
 
     person = Repo.one!(
@@ -108,6 +115,8 @@ defmodule KratosApi.PersonSyncTest do
     assert person
     assert person.terms |> Enum.count == 9
     assert person.fec |> Enum.count == 2
+    term = person.terms |> List.first
+    assert term.end == Ecto.Date.cast!("2019-01-03")
   end
 
   test "syncing social media adds social media info to existing Person" do
