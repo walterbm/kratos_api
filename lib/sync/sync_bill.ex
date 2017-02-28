@@ -119,6 +119,7 @@ defmodule KratosApi.Sync.Bill.Consumer do
   use GenStage
 
   alias KratosApi.{
+    Repo,
     Bill,
     SyncHelpers
   }
