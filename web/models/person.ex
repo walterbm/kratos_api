@@ -39,10 +39,10 @@ defmodule KratosApi.Person do
     field :current_district, :integer
     field :current_party, :string
 
-    has_many :fec, KratosApi.Fec
-    has_many :committee_memberships, KratosApi.CommitteeMember
-    has_many :terms, KratosApi.Term
-    has_many :leadership_roles, KratosApi.LeadershipRole
+    has_many :fec, KratosApi.Fec, on_replace: :delete
+    has_many :committee_memberships, KratosApi.CommitteeMember, on_replace: :delete
+    has_many :terms, KratosApi.Term, on_replace: :delete
+    has_many :leadership_roles, KratosApi.LeadershipRole, on_replace: :delete
     has_many :votes, KratosApi.Vote
 
     timestamps()
