@@ -34,6 +34,9 @@ defmodule KratosApi.Sync do
         Sync.Committee.sync
         Sync.Committee.Membership.sync
         @slack.notify("`Committee` data mounted and saved to database")
+      :recess ->
+        Sync.Recess.sync
+        @slack.notify("`Recess` data mounted and saved to database")
       _ -> IO.puts "NO SYNC"
     end
   end

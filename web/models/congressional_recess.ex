@@ -14,7 +14,7 @@ defmodule KratosApi.CongressionalRecess do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:start, :end])
-    |> validate_required([:start, :end])
+    |> cast(params, [:year, :start, :end])
+    |> validate_required([:year, :start, :end])
   end
 end
