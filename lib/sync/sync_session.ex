@@ -1,8 +1,8 @@
-defmodule KratosApi.Sync.Session do
+defmodule KratosApi.Sync.Recess do
 
   @remote_scrape Application.get_env(:kratos_api, :remote_scraper)
 
-  @congress_session_source %{
+  @congress_recess_source %{
     base_url: "https://www.senate.gov/legislative/",
     route: "_schedule.htm",
     dom_node: "table"
@@ -30,7 +30,7 @@ defmodule KratosApi.Sync.Session do
 
   def sync(), do: sync(Date.utc_today() |> Map.get(:year))
   def sync(year) do
-    @remote_scrape.scrape(page(year), @congress_session_source.dom_node)
+    @remote_scrape.scrape(page(year), @congress_recess_source.dom_node)
     |> scrape_dates
     |> extract_dates
     |> Enum.map(&(convert_date(&1, year)))
@@ -38,7 +38,7 @@ defmodule KratosApi.Sync.Session do
   end
 
   defp page(year) do
-     "#{@congress_session_source.base_url}#{year}#{@congress_session_source.route}"
+     "#{@congress_recess_source.base_url}#{year}#{@congress_recess_source.route}"
   end
 
   defp scrape_dates(html) do
@@ -65,7 +65,7 @@ defmodule KratosApi.Sync.Session do
 
   defp convert(date, year) do
     [month, day] = String.split(date)
-    Date.from_iso8601!("#{year}-#{Map.get(@months, String.to_atom(month))}-#{String.pad_leading(day, 2, "0")}")
+    Ecto.Date.cast!({year, Map.get(@months, String.to_atom(month)), day})
   end
 
   defp save([start_date, end_date], year) do
