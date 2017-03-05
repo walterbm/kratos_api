@@ -31,6 +31,8 @@ defmodule KratosApi.Router do
 
     get "/", RootController, :index
 
+    get "/congress/recess", RecessController, :index
+
     get "/districts/:state/:id", DistrictController, :show
 
     get "/states/:state", StateController, :show
