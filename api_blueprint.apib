@@ -379,7 +379,7 @@ Create User Actions to record when a user contacts specific representatives.
 
 ## Reset Password [/api/forgot-password]
 
-Handle a User who does not remember their passoword.
+Handle a User who does not remember their password.
 
 ### Request a password reset email [POST]
 
@@ -393,6 +393,24 @@ Handle a User who does not remember their passoword.
 
             {
               "ok": true
+            }
+
+
+## Congressional Recess [/api/congress/recess]
+
+Determine if Congress is in recess. 
+
+### Is Congress in recess today? [GET]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+            {
+              "recess": false
             }
 
 
