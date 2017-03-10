@@ -398,7 +398,7 @@ Handle a User who does not remember their password.
 
 ## Congressional Recess [/api/congress/recess]
 
-Determine if Congress is in recess. 
+Determine if Congress is in recess.
 
 ### Is Congress in recess today? [GET]
 
@@ -1172,6 +1172,26 @@ Get information about States
                   8
                 ]
               }
+
+## State Image [/api/states/{state}/image]
+
+### Get hero image for each State [GET]
+
++ Request
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+
+    + state: `md` (string, required) - state's two character abbreviation
+
++ Response 200 (application/json)
+
+              {
+                "url": "https://s3.amazonaws.com/kratos-assets/state-images/statue-of-liberty-539318_1280.jpg"
+              }
+
 
 ## Group Feedback
 
