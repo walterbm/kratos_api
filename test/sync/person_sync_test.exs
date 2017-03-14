@@ -115,7 +115,7 @@ defmodule KratosApi.PersonSyncTest do
     assert person
     assert person.terms |> Enum.count == 9
     assert person.fec |> Enum.count == 2
-    term = person.terms |> List.first
+    term = person.terms |> List.last
     assert term.end == Ecto.Date.cast!("2019-01-03")
   end
 

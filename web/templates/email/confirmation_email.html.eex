@@ -5,10 +5,10 @@
 
       <font size="3" face="Arial, Helvetica" style="font-size: 15px;" color="#757b82">
         <br /><br />
-        Forgot Your Kratos Password? Click this link to reset:
+        Confirm your Kratos account by following this link:
         <br /><br />
-        <a href="<%= @url %><%= @reset_token %>">
-          <font color="#757b82"><%= @url %><%= @reset_token %></font>
+        <a href="<%= @url %><%= @confirmation_token %>">
+          <font color="#757b82"><%= @url %><%= @confirmation_token %></font>
         </a>
         <br /><br /><br />
       </font>
