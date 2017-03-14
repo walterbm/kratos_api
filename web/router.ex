@@ -21,8 +21,9 @@ defmodule KratosApi.Router do
    pipe_through :browser
 
    get "/doc", DocumentationController, :index
-   get "/reset-password", ForgotPasswordController, :reset_password
-   post "/reset-password", ForgotPasswordController, :new_password
+   get "/reset-password", RegistrationController, :reset_password
+   get "/confirmation", RegistrationController, :confirmation_page
+   post "/reset-password", RegistrationController, :new_password
 
  end
 
@@ -31,29 +32,32 @@ defmodule KratosApi.Router do
 
     get "/", RootController, :index
 
-    get "/congress/recess", RecessController, :index
+    scope "/congress" do
+      get "/recess", RecessController, :index
+    end
 
-    get "/districts/:state/:id", DistrictController, :show
+    scope "/districts" do
+      get "/:state/:id", DistrictController, :show
+    end
 
     scope "/states" do
       get "/:state", StateController, :show
       get "/:state/image", StateController, :image
     end
-    
+
     scope "/people" do
       get "/:id", PersonController, :show
       get "/:id/votes", VoteController, :index
       get "/:id/bills", BillController, :sponsored
     end
 
-    get "/bills/:id", BillController, :show
+    scope "/bills" do
+      get "/:id", BillController, :show
+    end
 
-    get "/tallies/:id", TallyController, :show
-
-    post "/registrations", RegistrationController, :create
-
-    post "/login", SessionController, :create
-    post "/forgot-password", ForgotPasswordController, :forgot_password
+    scope "/tallies" do
+      get "/:id", TallyController, :show
+    end
 
     scope "/me" do
       get "/", CurrentUserController, :show
@@ -61,6 +65,14 @@ defmodule KratosApi.Router do
       post "/actions", CurrentUserController, :record_action
       resources "/votes", CurrentUserVoteController, except: [:edit, :new]
     end
+    post "/login", SessionController, :create
+
+    post "/registrations", RegistrationController, :create
+
+    post "/forgot-password", RegistrationController, :forgot_password
+
+    post "/confirmation", RegistrationController, :confirm
+    post "/confirmation/request", RegistrationController, :confirmation_request
 
     get "/feedback", FeedbackController, :index
     post "/feedback", FeedbackController, :create
