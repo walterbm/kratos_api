@@ -19,20 +19,21 @@ defmodule KratosApi.ForgotPasswordControllerTest do
       |> post("/api/confirmation/request", Poison.encode!(%{email: email}))
 
     assert json_response(conn, 200)
-    assert_delivered_email Email.confirmation(email, TokenGen.InMemory.get_token())
+    assert_delivered_email Email.confirmation(email, TokenGen.InMemory.get_test_token())
   end
 
-  test "GET /confirmation", %{conn: conn} do
-    conn = conn |> get("/confirmation?token=super-sekrit-confirmation-reset-token")
-    assert html_response(conn, 200) =~ "super-sekrit-confirmation-reset-token"
+  test "GET /confirmation", %{conn: conn, email: email} do
+    conn = conn |> get("/confirmation?token=#{TokenGen.InMemory.get_test_token()}")
+    assert html_response(conn, 200) =~ "Confirmed account!"
+
+    assert Repo.get_by(User, email: email).confirmed_email_at
   end
 
-  test "POST /api/confirm", %{conn: conn, email: _email} do
-    conn = conn
-      |> put_req_header("content-type", "application/x-www-form-urlencoded")
-      |> post("/api/confirm", %{token: TokenGen.InMemory.get_token()})
+  test "GET /confirmation with bunk token", %{conn: conn, email: email} do
+    conn = conn |> get("/confirmation?token=bunk")
+    assert html_response(conn, 200) =~ "Failed to confirm account!"
 
-    assert html_response(conn, 200) =~ "Email confirmed!"
+    refute Repo.get_by(User, email: email).confirmed_email_at
   end
 
   test "POST /api/forgot-password", %{conn: conn, email: email} do
@@ -41,7 +42,7 @@ defmodule KratosApi.ForgotPasswordControllerTest do
       |> post("/api/forgot-password", Poison.encode!(%{email: email}))
 
     assert json_response(conn, 200)
-    assert_delivered_email Email.forgot_password(email, TokenGen.InMemory.get_token())
+    assert_delivered_email Email.forgot_password(email, TokenGen.InMemory.get_test_token())
   end
 
   test "GET /reset-password", %{conn: conn} do
@@ -52,7 +53,7 @@ defmodule KratosApi.ForgotPasswordControllerTest do
   test "POST /reset-password", %{conn: conn, email: _email} do
     conn = conn
       |> put_req_header("content-type", "application/x-www-form-urlencoded")
-      |> post("/reset-password", %{reset_token: TokenGen.InMemory.get_token(), password: "new-password"})
+      |> post("/reset-password", %{reset_token: TokenGen.InMemory.get_test_token(), password: "new-password"})
 
     assert html_response(conn, 200) =~ "Password successfully reset!"
   end

@@ -22,7 +22,7 @@ defmodule KratosApi.Router do
 
    get "/doc", DocumentationController, :index
    get "/reset-password", RegistrationController, :reset_password
-   get "/confirmation", RegistrationController, :confirmation_page
+   get "/confirmation", RegistrationController, :confirm
    post "/reset-password", RegistrationController, :new_password
 
  end
@@ -71,7 +71,6 @@ defmodule KratosApi.Router do
 
     post "/forgot-password", RegistrationController, :forgot_password
 
-    post "/confirmation", RegistrationController, :confirm
     post "/confirmation/request", RegistrationController, :confirmation_request
 
     get "/feedback", FeedbackController, :index
