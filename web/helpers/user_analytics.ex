@@ -6,4 +6,14 @@ defmodule KratosApi.UserAnalytics do
 
     Task.start(KratosApi.Repo, :update, [changeset])
   end
+
+  def confirm_email(user \\ %KratosApi.User{}) do
+    if user do
+      user
+        |> KratosApi.User.confirm_email_changeset(%{confirmed_email_at: Ecto.DateTime.utc()})
+        |> KratosApi.Repo.update
+    else
+      {:error, "User not found"}
+    end
+  end
 end
