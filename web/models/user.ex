@@ -22,6 +22,7 @@ defmodule KratosApi.User do
     field :birthday, Ecto.Date
     field :apn_token, :string
     field :last_online_at, Ecto.DateTime
+    field :confirmed_email_at, Ecto.DateTime
     field :password, :string, virtual: true
 
     has_many :votes, KratosApi.UserVote
@@ -71,6 +72,11 @@ defmodule KratosApi.User do
     |> cast(params, [:last_online_at])
   end
 
+  def confirm_email_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:confirmed_email_at])
+  end
+
   defp generate_encrypted_password(current_changeset) do
     case current_changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
@@ -82,8 +88,8 @@ defmodule KratosApi.User do
 
   defp lower_case(changeset, field) do
     lowered_field = case Map.get(changeset.changes, field) do
-      nil -> nil
-      field ->  String.downcase(field)
+      nil   -> nil
+      field -> String.downcase(field)
     end
     put_change(changeset, field, lowered_field)
   end
