@@ -7,7 +7,8 @@ defmodule KratosApi.RegistrationController do
     User,
     Mailer,
     Time,
-    FindDistrict
+    FindDistrict,
+    UserAnalytics
   }
 
   @token_gen Application.get_env(:kratos_api, :token_gen)
@@ -86,28 +87,22 @@ defmodule KratosApi.RegistrationController do
     json conn, %{ok: true}
   end
 
-  def confirmation_page(conn, %{"token" => token}) do
-    conn
-    |> put_layout(false)
-    |> render("confirm_email.html", token: token)
-  end
-
-  def confirm(conn, %{"confirmation_token" => confirmation_token}) do
-    case verify_token(confirmation_token) do
-      {:ok, claims} ->
-        User
-          |> Repo.get_by(email: claims["email"])
-          |> User.confirm()
-          |> Repo.update!
-
+  def confirm(conn, %{"token" => token}) do
+    with {:ok, claims} <- verify_token(token),
+         {:ok, _user}  <- Repo.get_by(User, email: claims["email"]) |> UserAnalytics.confirm_email()
+    do
+      {:ok, "success"}
+    end |> case do
+      {:ok, _success} ->
         conn
-         |> put_layout(false)
-         |> render("confirmed.html")
-      {:error, _message} ->
+          |> put_flash(:success, "Confirmed account!")
+          |> put_layout(false)
+          |> render("confirm_email.html")
+      {:error, _error} ->
         conn
           |> put_flash(:error, "Failed to confirm account!")
           |> put_layout(false)
-          |> render("failed.html", confirmation_token: confirmation_token)
+          |> render("confirm_email.html")
     end
   end
 
@@ -120,8 +115,8 @@ defmodule KratosApi.RegistrationController do
       |> @token_gen.get_compact
   end
 
-  defp verify_token(reset_token) do
-    reset_token
+  defp verify_token(token) do
+    token
       |> @token_gen.token
       |> @token_gen.with_validation("exp", &(&1 > Time.current))
       |> @token_gen.with_signer(@token_gen.hs256(Application.get_env(:joken, :secret_key)))
