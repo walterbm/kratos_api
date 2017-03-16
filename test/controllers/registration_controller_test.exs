@@ -1,4 +1,4 @@
-defmodule KratosApi.ForgotPasswordControllerTest do
+defmodule KratosApi.RegistrationControllerTest do
   use KratosApi.ConnCase
   use Bamboo.Test
 
@@ -11,6 +11,30 @@ defmodule KratosApi.ForgotPasswordControllerTest do
   setup do
     user = Repo.insert!(User.changeset(%User{}, KratosApi.Teststubs.user))
     %{email: user.email}
+  end
+
+  test "POST /api/registrations", %{conn: conn} do
+    conn = conn
+      |> put_req_header("content-type", "application/json")
+      |> post("/api/registrations",
+        Poison.encode!(%{
+          user: %{
+            first_name: "Kawhi",
+            last_name: "Leonard",
+            email: "kawhi@goat.com",
+            password: "1stTeamAllDefense",
+            address: "1 AT&T Center Parkway",
+            city: "San Antonio",
+            state: "TX",
+            zip: 78219,
+            apn_token: "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
+          }
+        })
+      )
+
+    assert json_response(conn, 201)
+    assert_delivered_email Email.confirmation("kawhi@goat.com", TokenGen.InMemory.get_test_token())
+    refute Repo.get_by(User, email: "kawhi@goat.com").confirmed_email_at
   end
 
   test "POST /api/confirmation/request", %{conn: conn, email: email} do

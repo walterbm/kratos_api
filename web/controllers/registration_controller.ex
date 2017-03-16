@@ -51,30 +51,24 @@ defmodule KratosApi.RegistrationController do
   end
 
   def new_password(conn, %{"reset_token" => reset_token, "password" => password}) do
-    case verify_token(reset_token) do
-      {:ok, claims} ->
-        changeset =
-          Repo.get_by(User, email: claims["email"])
-          |> User.reset_password_changeset(%{password: password})
-
-        case Repo.update(changeset) do
-          {:ok, _user} ->
-            conn
-             |> put_layout(false)
-             |> render("new_password.html")
-
-          {:error, _changeset} ->
-            conn
-             |> put_flash(:error, "Password failed to update")
-             |> put_layout(false)
-             |> render("reset_password.html", reset_token: reset_token)
-        end
-
-      {:error, _message} ->
+    with  {:ok, claims} <- verify_token(reset_token),
+          {:ok, _user}  <-
+            Repo.get_by(User, email: claims["email"])
+            |> User.reset_password_changeset(%{password: password})
+            |> Repo.update
+    do
+      {:ok, "success"}
+    end
+    |> case do
+      {:ok, _user} ->
         conn
-         |> put_flash(:error, "Password failed to update")
          |> put_layout(false)
-         |> render("reset_password.html", reset_token: reset_token)
+         |> render("new_password.html")
+     {:error, _changeset} ->
+       conn
+        |> put_flash(:error, "Password failed to update")
+        |> put_layout(false)
+        |> render("reset_password.html", reset_token: reset_token)
     end
   end
 
