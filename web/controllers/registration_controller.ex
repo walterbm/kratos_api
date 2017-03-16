@@ -7,16 +7,16 @@ defmodule KratosApi.RegistrationController do
     User,
     Mailer,
     Time,
-    FindDistrict,
     UserAnalytics
   }
 
   @token_gen Application.get_env(:kratos_api, :token_gen)
+  @find_district Application.get_env(:kratos_api, :remote_district_lookup)
 
   plug :scrub_params, "user" when action in [:create]
 
   def create(conn, %{"user" => user_params}) do
-    new_user = Map.merge(user_params, FindDistrict.by_address(user_params))
+    new_user = Map.merge(user_params, @find_district.by_address(user_params))
 
     changeset = User.changeset(%User{}, new_user)
 
@@ -24,10 +24,11 @@ defmodule KratosApi.RegistrationController do
       {:ok, user} ->
         {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user, :token)
 
+        Email.confirmation(user.email, generate_token(user.email)) |> Mailer.deliver_now
+
         conn
         |> put_status(:created)
         |> render(KratosApi.SessionView, "show.json", jwt: jwt, user: user)
-
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -57,18 +58,15 @@ defmodule KratosApi.RegistrationController do
             |> User.reset_password_changeset(%{password: password})
             |> Repo.update
     do
-      {:ok, "success"}
-    end
-    |> case do
-      {:ok, _user} ->
-        conn
-         |> put_layout(false)
-         |> render("new_password.html")
-     {:error, _changeset} ->
-       conn
-        |> put_flash(:error, "Password failed to update")
-        |> put_layout(false)
-        |> render("reset_password.html", reset_token: reset_token)
+      conn
+       |> put_layout(false)
+       |> render("new_password.html")
+
+    else
+      _ -> conn
+       |> put_flash(:error, "Password failed to update")
+       |> put_layout(false)
+       |> render("reset_password.html", reset_token: reset_token)
     end
   end
 
@@ -85,14 +83,12 @@ defmodule KratosApi.RegistrationController do
     with {:ok, claims} <- verify_token(token),
          {:ok, _user}  <- Repo.get_by(User, email: claims["email"]) |> UserAnalytics.confirm_email()
     do
-      {:ok, "success"}
-    end |> case do
-      {:ok, _success} ->
-        conn
-          |> put_flash(:success, "Confirmed account!")
-          |> put_layout(false)
-          |> render("confirm_email.html")
-      {:error, _error} ->
+      conn
+        |> put_flash(:success, "Confirmed account!")
+        |> put_layout(false)
+        |> render("confirm_email.html")
+    else
+      _ ->
         conn
           |> put_flash(:error, "Failed to confirm account!")
           |> put_layout(false)

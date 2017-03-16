@@ -8,7 +8,7 @@ defmodule KratosApi.FindDistrict do
       |> Poison.decode!
       |> Map.get("results")
       |> List.first
-      
+
     %{
       "district" => geocodio_response["fields"]["congressional_district"]["district_number"],
       "state" => geocodio_response["address_components"]["state"],
@@ -16,7 +16,6 @@ defmodule KratosApi.FindDistrict do
       "zip" => geocodio_response["address_components"]["zip"],
     }
   end
-
   def by_address(_), do: %{}
 
 end
