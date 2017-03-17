@@ -13,28 +13,74 @@ defmodule KratosApi.RegistrationControllerTest do
     %{email: user.email}
   end
 
-  test "POST /api/registrations", %{conn: conn} do
+  test "Create unconfirmed account and send confirmation email", %{conn: conn} do
     conn = conn
       |> put_req_header("content-type", "application/json")
-      |> post("/api/registrations",
-        Poison.encode!(%{
-          user: %{
-            first_name: "Kawhi",
-            last_name: "Leonard",
-            email: "kawhi@goat.com",
-            password: "1stTeamAllDefense",
-            address: "1 AT&T Center Parkway",
-            city: "San Antonio",
-            state: "TX",
-            zip: 78219,
-            apn_token: "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
-          }
-        })
-      )
+      |> post("/api/registrations", Poison.encode!(KratosApi.Teststubs.kawhi))
+
+    user = Repo.get_by(User, email: "kawhi@goat.com")
+    refute user.confirmed_email_at
+
+    assert_delivered_email Email.confirmation("kawhi@goat.com", TokenGen.InMemory.get_test_token())
+    assert json_response(conn, 201) == %{
+      "address" => user.address,
+      "apn_token" => user.apn_token,
+      "birthday" => nil, "city" => user.city, "district" => user.district,
+      "email" => user.email, "first_name" => user.first_name, "id" => user.id,
+      "last_name" => user.last_name, "party" => nil, "phone" => nil, "state" => user.state,
+      "zip" => user.zip
+    }
+  end
+
+  test "Unconfirmed account cannot get a token", %{conn: conn} do
+    conn = conn
+      |> put_req_header("content-type", "application/json")
+      |> post("/api/registrations", Poison.encode!(KratosApi.Teststubs.kawhi))
 
     assert json_response(conn, 201)
     assert_delivered_email Email.confirmation("kawhi@goat.com", TokenGen.InMemory.get_test_token())
-    refute Repo.get_by(User, email: "kawhi@goat.com").confirmed_email_at
+
+    user = Repo.get_by(User, email: "kawhi@goat.com")
+    refute user.confirmed_email_at
+
+    conn = recycle(conn)
+      |> put_req_header("content-type", "application/json")
+      |> post("/api/login", Poison.encode!(%{
+          session: %{
+            email: "kawhi@goat.com",
+            password: "1stTeamAllDefense"
+          }
+        }))
+
+    assert json_response(conn, 422) == %{"errors" => [%{"error" => "Account has not been confirmed"}]}
+  end
+
+  test "Confirmed account can get a token", %{conn: conn} do
+    conn = conn
+      |> put_req_header("content-type", "application/json")
+      |> post("/api/registrations", Poison.encode!(KratosApi.Teststubs.kawhi))
+
+    assert json_response(conn, 201)
+    assert_delivered_email Email.confirmation("kawhi@goat.com", TokenGen.InMemory.get_test_token())
+
+    user = Repo.get_by(User, email: "kawhi@goat.com")
+    refute user.confirmed_email_at
+
+    KratosApi.UserAnalytics.confirm_email(user)
+
+    user = Repo.get_by(User, email: "kawhi@goat.com")
+    assert user.confirmed_email_at
+
+    conn = recycle(conn)
+      |> put_req_header("content-type", "application/json")
+      |> post("/api/login", Poison.encode!(%{
+          session: %{
+            email: "kawhi@goat.com",
+            password: "1stTeamAllDefense"
+          }
+        }))
+
+    assert json_response(conn, 201)
   end
 
   test "POST /api/confirmation/request", %{conn: conn, email: email} do
