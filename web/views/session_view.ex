@@ -5,10 +5,10 @@ defmodule KratosApi.SessionView do
     %{ token: jwt, user: user }
   end
 
-  def render("error.json", _) do
+  def render("error.json", %{message: message}) do
     %{
       errors: [
-        %{ error: "Invalid email or password" }
+        %{ error: message }
       ]
     }
   end
