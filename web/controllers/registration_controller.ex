@@ -22,13 +22,12 @@ defmodule KratosApi.RegistrationController do
 
     case Repo.insert(changeset) do
       {:ok, user} ->
-        {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user, :token)
 
         Email.confirmation(user.email, generate_token(user.email)) |> Mailer.deliver_now
 
         conn
         |> put_status(:created)
-        |> render(KratosApi.SessionView, "show.json", jwt: jwt, user: user)
+        |> render(KratosApi.CurrentUserView, "show.json", user: user)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
