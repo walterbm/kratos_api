@@ -25,7 +25,7 @@ Resources related users, on-boarding, and registration.
 
 ## Register [/api/registrations]
 
-Register and modify user's information.
+Register and modify user's information. After registration a user will be unable to get a token until they have verified their email. Once the user's email has been confirmed, a new token can be request through `/api/login`.
 
 ### Create A New User Registration [POST]
 
@@ -33,39 +33,35 @@ Register and modify user's information.
 
     + Attributes(object)
 
-        + user
-            + password: `password` (string, required)
-            + email: `legalize@ranch.com` (string, required)
-            + apn_token: `<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>` (string)
-            + phone: `1234567890` (number)
-            + first_name: `Eric` (string)
-            + last_name: `Andre` (string)
-            + address: `700 Ranch` (string)
-            + city: `Brooklyn` (string)
-            + state: `NY` (string)
-            + zip: `11211` (number)
-            + party: `Democrat` (string)
-            + birthday: `2001-03-11` (string)
+          + password: `password` (string, required)
+          + email: `legalize@ranch.com` (string, required)
+          + apn_token: `<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>` (string)
+          + phone: `1234567890` (number)
+          + first_name: `Eric` (string)
+          + last_name: `Andre` (string)
+          + address: `700 Ranch` (string)
+          + city: `Brooklyn` (string)
+          + state: `NY` (string)
+          + zip: `11211` (number)
+          + party: `Democrat` (string)
+          + birthday: `2001-03-11` (string)
 
 + Response 200 (application/json)
 
             {
-              "user": {
-                "zip": 11211,
-                "state": "NY",
-                "phone": 1234567890,
-                "email": "legalize@ranch.com",
-                "last_name": "Andre",
-                "id": 4,
-                "first_name": "Eric",
-                "district": 7,
-                "city": "Brooklyn",
-                "address": "700 Ranch"
-                "party": "Democrat",
-                "birthday": "2001-03-11",
-                "apn_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
-              },
-              "token": "eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"
+              "zip": 11211,
+              "state": "NY",
+              "phone": 1234567890,
+              "email": "legalize@ranch.com",
+              "last_name": "Andre",
+              "id": 4,
+              "first_name": "Eric",
+              "district": 7,
+              "city": "Brooklyn",
+              "address": "700 Ranch"
+              "party": "Democrat",
+              "birthday": "2001-03-11",
+              "apn_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
             }
 
 ## Login [/api/login]
@@ -101,6 +97,20 @@ Login and existing user and start a session.
                 "apn_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
               },
               "token": "eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"
+            }
+
+## Request Another Confirmation Email [/api/confirmation/request]
+
+Manually request a confirmation email (in case the first one was lost)
+
+### Request Confirmation Email [POST]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+            {
+              "email": "legalize@ranch.com"
             }
 
 ## Me [/api/me]
