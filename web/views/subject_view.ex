@@ -6,7 +6,10 @@ defmodule KratosApi.SubjectView do
   end
 
   def render("subject.json", %{subject: subject}) do
-    subject.name
+    %{
+      name: subject.name,
+      id: subject.id
+    }
   end
 
 end

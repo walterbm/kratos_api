@@ -59,6 +59,10 @@ defmodule KratosApi.Router do
       get "/:id", TallyController, :show
     end
 
+    scope "/subjects" do
+      get "/", SubjectController, :index
+    end
+
     scope "/me" do
       get "/", CurrentUserController, :show
       post "/", CurrentUserController, :update
