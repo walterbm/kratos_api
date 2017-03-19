@@ -24,7 +24,7 @@ defmodule KratosApi.BillControllerTest do
     assert one["type"] == "hr"
     assert one["vetoed"] == false
     assert one["summary_text"] == "(Sec. 1) This bill amends the Internal Revenue Code to exempt from the excise tax on transportation of persons and property by air amounts paid by an aircraft owner or lessee for aircraft management services related to maintenance and support of the aircraft or flights on such aircraft.\n\nAircraft management services include assisting an aircraft owner with administrative and support services; obtaining insurance; maintenance, storage and fueling of aircraft; hiring, training, and provision of pilots and crew; establishing and complying with safety standards; or other services necessary to support flights operated by an aircraft owner.\n\nIn the case of an aircraft owner that is wholly-owned by another person, amounts paid by the other person on behalf of the aircraft owner must be treated as having been paid directly by the aircraft owner."
-    assert one["subjects"] |> List.first == "Aviation and airports"
+    assert one["subjects"] |> List.first |> Map.get("name") == "Aviation and airports"
     assert one["sponsor"]["bioguide"] == "B000575"
     assert one["sponsor"]["terms"] |> List.first |> Map.get("type") == "Senate"
     assert one["gpo_id"] == "hr3608-114"

@@ -798,8 +798,14 @@
       </span>}</span>,
       "<span class="hljs-attribute">enacted</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
       "<span class="hljs-attribute">subjects</span>": <span class="hljs-value">[
-        <span class="hljs-string">"Right of privacy"</span>,
-        <span class="hljs-string">"Neurological disorders"</span>
+        {
+          "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Right of privacy"</span></span>,
+          "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">49</span>
+        </span>},
+        {
+          "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Neurological disorders"</span></span>,
+          "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">8</span>
+        </span>}
       ]</span>,
       "<span class="hljs-attribute">sponsor</span>": <span class="hljs-value">{
         "<span class="hljs-attribute">maplight</span>": <span class="hljs-value"><span class="hljs-string">"469"</span></span>,
