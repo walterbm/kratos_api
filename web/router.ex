@@ -52,6 +52,7 @@ defmodule KratosApi.Router do
     end
 
     scope "/bills" do
+      get "/", BillController, :index
       get "/:id", BillController, :show
     end
 

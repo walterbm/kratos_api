@@ -14,6 +14,20 @@ defmodule KratosApi.BillControllerTest do
   end
 
 
+  test "get all bills and filter by top subjects", %{conn: conn, jwt: jwt} do
+    bill_one = KratosApi.Repo.one!(from b in KratosApi.Bill, where: b.gpo_id == "hr3609-114")
+    bill_two = KratosApi.Repo.one!(from b in KratosApi.Bill, where: b.gpo_id == "hr3608-114")
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/bills?subjects[]=#{bill_two.top_subject_id}&subjects[]=#{bill_one.top_subject_id}")
+
+    response = json_response(conn, 200)
+    assert response["data"] |> Enum.count == 2
+    one = response["data"] |> List.first
+    assert one["top_subject_id"] == bill_one.top_subject_id
+  end
+
+
   test "GET /api/bills/:id", %{conn: conn, jwt: jwt} do
     bill = KratosApi.Repo.one!(from b in KratosApi.Bill, where: b.gpo_id == "hr3608-114")
     conn = conn

@@ -98,6 +98,7 @@ defmodule KratosApi.PersonSyncTest do
     assert person.fec |> Enum.count == 2
 
     term = person.terms
+    |> Enum.sort(fn(term_one, term_two) -> term_one.end > term_two.end end)
     |> List.first
     |> Ecto.Changeset.change(end: Ecto.Date.cast!("3000-01-03"))
 
@@ -115,7 +116,10 @@ defmodule KratosApi.PersonSyncTest do
     assert person
     assert person.terms |> Enum.count == 9
     assert person.fec |> Enum.count == 2
-    term = person.terms |> List.last
+    term = person.terms
+    |> Enum.sort(fn(term_one, term_two) -> term_one.end > term_two.end end)
+    |> List.first
+
     assert term.end == Ecto.Date.cast!("2019-01-03")
   end
 

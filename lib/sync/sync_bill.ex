@@ -77,7 +77,6 @@ defmodule KratosApi.Sync.Bill.Processor do
       short_title: data["short_title"],
       status: data["status"],
       status_at: SyncHelpers.convert_datetime(data["status_at"]),
-      top_term: data["subjects_top_term"],
       summary_text: data["summary"]["text"],
       summary_date: SyncHelpers.convert_datetime(data["summary"]["date"]),
       titles: data["titles"],
@@ -94,6 +93,7 @@ defmodule KratosApi.Sync.Bill.Processor do
   defp add_associations(changeset, data) do
     congress_number = CongressNumber.find_or_create(data["congress"])
     sponsor = Repo.get_by(Person, bioguide: data["sponsor"]["bioguide_id"])
+    top_subject = Subject.find_or_create(data["subjects_top_term"])
     subjects = Enum.map(data["subjects"], &(Subject.find_or_create(&1)))
     committees =
       Enum.map(data["committees"], &(Repo.get_by(Committee, thomas_id: &1["committee_id"])))
@@ -108,6 +108,7 @@ defmodule KratosApi.Sync.Bill.Processor do
     changeset
       |> SyncHelpers.apply_assoc(:congress_number, congress_number)
       |> SyncHelpers.apply_assoc(:sponsor, sponsor)
+      |> SyncHelpers.apply_assoc(:top_subject, top_subject)
       |> SyncHelpers.apply_assoc(:committees, committees)
       |> SyncHelpers.apply_assoc(:cosponsors, cosponsors)
       |> SyncHelpers.apply_assoc(:subjects, subjects)
