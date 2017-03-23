@@ -23,7 +23,6 @@ defmodule KratosApi.BillView do
       short_title: bill.short_title,
       status: bill.status,
       status_at: bill.status_at,
-      top_term: bill.top_term,
       summary_text: bill.summary_text |> take_words(500),
       summary_date: bill.summary_date,
       titles: bill.titles,
@@ -33,6 +32,7 @@ defmodule KratosApi.BillView do
       congress_number: bill.congress_number_id,
 
       sponsor: render_one(bill.sponsor, KratosApi.PersonView, "person.json"),
+      top_subject: render_one(bill.top_subject, KratosApi.SubjectView, "subject.json"),
 
       committees: render_many(bill.committees, KratosApi.CommitteeView, "committee.json"),
       cosponsors: render_many(bill.cosponsors, KratosApi.PersonView, "person.json"),
@@ -63,14 +63,14 @@ defmodule KratosApi.BillView do
       short_title: bill.short_title,
       status: bill.status,
       status_at: bill.status_at,
-      top_term: bill.top_term,
       summary_text: bill.summary_text |> take_words(500),
       summary_date: bill.summary_date,
       titles: bill.titles,
       gpo_data_updated_at: bill.gpo_data_updated_at,
       source_url: bill.source_url,
       full_text_url: bill.full_text_url,
-      congress_number: bill.congress_number_id
+      congress_number: bill.congress_number_id,
+      top_subject_id: bill.top_subject_id
     }
   end
 
