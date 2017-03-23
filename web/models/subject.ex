@@ -21,11 +21,10 @@ defmodule KratosApi.Subject do
     |> validate_required([:name])
   end
 
+  def find_or_create(nil), do: find_or_create("Unknown")
   def find_or_create(data) do
     case Repo.get_by(Subject, name: data) do
-      nil ->
-        {:ok, subject} = Repo.insert(%Subject{name: data})
-        subject
+      nil -> Repo.insert!(%Subject{name: data})
       subject -> subject
     end
   end
