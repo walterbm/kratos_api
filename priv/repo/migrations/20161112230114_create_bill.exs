@@ -21,7 +21,6 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
       add :short_title, :text
       add :status, :string
       add :status_at, :utc_datetime
-      add :top_term, :text
       add :summary_text, :text
       add :summary_date, :utc_datetime
       add :titles, :map
@@ -31,6 +30,7 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
       add :md5_of_body, :string
 
       add :congress_number_id, references(:congress_numbers, on_delete: :nothing, column: :number)
+      add :top_subject_id, references(:subjects, on_delete: :nothing)
       add :sponsor_id, references(:persons, on_delete: :nothing)
 
       timestamps()
