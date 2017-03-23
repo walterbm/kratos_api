@@ -21,7 +21,6 @@ defmodule KratosApi.Bill do
     field :short_title, :string
     field :status, :string
     field :status_at, Ecto.DateTime
-    field :top_term, :string
     field :summary_text, :string
     field :summary_date, Ecto.DateTime
     field :titles, {:array, :map}
@@ -32,6 +31,7 @@ defmodule KratosApi.Bill do
 
     belongs_to :congress_number, KratosApi.CongressNumber, references: :number
     belongs_to :sponsor, KratosApi.Person
+    belongs_to :top_subject, KratosApi.Subject
 
     has_many :related_bills, KratosApi.RelatedBill, on_replace: :delete
     has_many :tallies, KratosApi.Tally, on_replace: :delete
@@ -46,7 +46,7 @@ defmodule KratosApi.Bill do
   @required_fields ~w(gpo_id)a
   @allowed_fields ~w(gpo_id actions amendments gpo_id type committee_history enacted_as active awaiting_signature
     enacted vetoed history introduced_at number official_title popular_title short_title
-    status status_at top_term summary_text summary_date titles gpo_data_updated_at source_url full_text_url md5_of_body)a
+    status status_at summary_text summary_date titles gpo_data_updated_at source_url full_text_url md5_of_body)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

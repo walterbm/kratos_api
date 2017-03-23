@@ -16,6 +16,8 @@ defmodule KratosApi.Repo.Migrations.CreateUser do
       add :zip, :integer
       add :district, :integer
       add :encrypted_password, :string, null: false
+      add :confirmed_email_at, :utc_datetime
+      add :last_online_at, :utc_datetime
 
       timestamps()
     end
