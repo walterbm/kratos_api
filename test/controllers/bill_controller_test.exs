@@ -13,6 +13,16 @@ defmodule KratosApi.BillControllerTest do
     %{jwt: jwt}
   end
 
+  test "get all bills ordered by introduced_at descending", %{conn: conn, jwt: jwt} do
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/bills")
+
+    response = json_response(conn, 200)
+    assert response["data"] |> Enum.count == 2
+    one = response["data"] |> List.first
+    assert one["gpo_id"] == "hr3609-114"
+  end
 
   test "get all bills and filter by top subjects", %{conn: conn, jwt: jwt} do
     bill_one = KratosApi.Repo.one!(from b in KratosApi.Bill, where: b.gpo_id == "hr3609-114")
