@@ -863,6 +863,109 @@ Resources related congressional tallies (votes & questions on Bills).
 
 Resources related congressional bills & resolutions.
 
+## Bills [/api/bills?subjects%5B%5D={id_one}&subjects%5B%5D={id_two}]
+
+### Get Bills By Subject [GET]
+The pattern can be repeated for any number of subjects.
+
++ Request
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+    + id_one: `1` (number) - subject ID.
+    + id_two: `1` (number) - subject ID.
+
++ Response 200 (application/json)
+
+            {
+              "pagination": [
+                {
+                  "url": "/api/bills?page=1&subjects[]=1&subjects[]=2",
+                  "page": 1,
+                  "label": "1",
+                  "current": true
+                }
+              ],
+              "data": [
+                {
+                  "vetoed": false,
+                  "type": "hconres",
+                  "top_subject_id": 1,
+                  "titles": [
+                    {
+                      "type": "official",
+                      "title": "Supporting the designation of the week of September 11 to September 17 as \"Patriot Week\".",
+                      "is_for_portion": false,
+                      "as": "introduced"
+                    },
+                    {
+                      "type": "display",
+                      "title": "Supporting the designation of the week of September 11 to September 17 as \"Patriot Week\".",
+                      "is_for_portion": false,
+                      "as": null
+                    }
+                  ],
+                  "summary_text": "Expresses support for the designation of Patriot Week.\n\nRecognizes that each generation should renew the spirit of the nation based on the first principles, historical figures, founding documents, and symbols of the United States.",
+                  "summary_date": "2017-01-24T05:00:00",
+                  "status_at": null,
+                  "status": "REFERRED",
+                  "source_url": "https://www.gpo.gov/fdsys/bulkdata/BILLSTATUS/115/hconres/BILLSTATUS-115hconres12.xml",
+                  "short_title": null,
+                  "popular_title": null,
+                  "official_title": "Supporting the designation of the week of September 11 to September 17 as \"Patriot Week\".",
+                  "number": "12",
+                  "introduced_at": "2017-01-24",
+                  "id": 1,
+                  "history": {
+                    "vetoed": false,
+                    "enacted": false,
+                    "awaiting_signature": false,
+                    "active": false
+                  },
+                  "gpo_id": "hconres12-115",
+                  "gpo_data_updated_at": null,
+                  "full_text_url": null,
+                  "enacted_as": null,
+                  "enacted": false,
+                  "congress_number": 115,
+                  "committee_history": [
+                    {
+                      "committee_id": "HSGO",
+                      "committee": "House Oversight and Government Reform",
+                      "activity": [
+                        "referral"
+                      ]
+                    }
+                  ],
+                  "awaiting_signature": false,
+                  "amendments": [],
+                  "active": false,
+                  "actions": [
+                    {
+                      "type": "action",
+                      "text": "Introduced in House",
+                      "references": [],
+                      "action_code": "Intro-H",
+                      "acted_at": "2017-01-24"
+                    },
+                    {
+                      "type": "referral",
+                      "text": "Referred to the House Committee on Oversight and Government Reform.",
+                      "status": "REFERRED",
+                      "references": [],
+                      "committees": [
+                        "HSGO"
+                      ],
+                      "action_code": "H11100",
+                      "acted_at": "2017-01-24"
+                    }
+                  ]
+                },
+              ]
+            }
+
 ## Bill [/api/bills/{id}]
 
 ### Get Detailed Bill Information [GET]
@@ -1290,7 +1393,7 @@ The request body should match this example with the question as a string and the
   {
     "answers": {
       "Does Donald Trump resemble a rotten pumpkin?": "HELL YES",
-      "How could Kratos be improved?": "ALOT"
+      "How could Kratos be improved?": "A LOT"
     },
     "user-id": 1
   }
