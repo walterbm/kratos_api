@@ -863,6 +863,104 @@ Resources related congressional tallies (votes & questions on Bills).
 
 Resources related congressional bills & resolutions.
 
+# Bills [/api/bills]
+
+### Get All Bills [GET]
+
++ Request
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+            {
+              "pagination": [
+                {
+                  "url": "/api/bills?page=1",
+                  "page": 1,
+                  "label": "1",
+                  "current": true
+                }
+              ],
+              "data": [
+                {
+                  "vetoed": false,
+                  "type": "s",
+                  "top_subject_id": 157,
+                  "titles": [
+                    {
+                      "type": "official",
+                      "title": "A bill to establish a national program to identify and reduce losses from landslide hazards, to establish a national 3D Elevation Program, and for other purposes.",
+                      "is_for_portion": false,
+                      "as": "introduced"
+                    },
+                    {
+                      "type": "display",
+                      "title": "A bill to establish a national program to identify and reduce losses from landslide hazards, to establish a national 3D Elevation Program, and for other purposes.",
+                      "is_for_portion": false,
+                      "as": null
+                    }
+                  ],
+                  "summary_text": null,
+                  "summary_date": null,
+                  "status_at": null,
+                  "status": "REFERRED",
+                  "source_url": "https://www.gpo.gov/fdsys/bulkdata/BILLSTATUS/115/s/BILLSTATUS-115s698.xml",
+                  "short_title": null,
+                  "popular_title": null,
+                  "official_title": "A bill to establish a national program to identify and reduce losses from landslide hazards, to establish a national 3D Elevation Program, and for other purposes.",
+                  "number": "698",
+                  "introduced_at": "2017-03-22",
+                  "id": 14884,
+                  "history": {
+                    "vetoed": false,
+                    "enacted": false,
+                    "awaiting_signature": false,
+                    "active": false
+                  },
+                  "gpo_id": "s698-115",
+                  "gpo_data_updated_at": null,
+                  "full_text_url": null,
+                  "enacted_as": null,
+                  "enacted": false,
+                  "congress_number": 115,
+                  "committee_history": [
+                    {
+                      "committee_id": "SSCM",
+                      "committee": "Senate Commerce, Science, and Transportation",
+                      "activity": [
+                        "referral"
+                      ]
+                    }
+                  ],
+                  "awaiting_signature": false,
+                  "amendments": [],
+                  "active": false,
+                  "actions": [
+                    {
+                      "type": "action",
+                      "text": "Introduced in Senate",
+                      "references": [],
+                      "action_code": "10000",
+                      "acted_at": "2017-03-22"
+                    },
+                    {
+                      "type": "referral",
+                      "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+                      "status": "REFERRED",
+                      "references": [],
+                      "committees": [
+                        "SSCM"
+                      ],
+                      "action_code": "",
+                      "acted_at": "2017-03-22"
+                    }
+                  ]
+                },
+              ]
+            }
+
 ## Bills [/api/bills?subjects%5B%5D={id_one}&subjects%5B%5D={id_two}]
 
 ### Get Bills By Subject [GET]

@@ -65,4 +65,14 @@ defmodule KratosApi.Bill do
     |> put_assoc(:tallies, KratosApi.Model.Utils.append_current(:tallies, struct, params, :gpo_id))
   end
 
+  def query_all(%{"subjects" => subjects}) do
+    from b in __MODULE__,
+    where: b.top_subject_id in ^subjects,
+    order_by: [desc: b.introduced_at]
+  end
+  def query_all(_) do
+    from b in __MODULE__,
+    order_by: [desc: b.introduced_at]
+  end
+
 end
