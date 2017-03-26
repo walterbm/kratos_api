@@ -27,6 +27,7 @@ defmodule KratosApi.User do
 
     has_many :votes, KratosApi.UserVote
     has_many :actions, KratosApi.UserAction
+    has_many :bills, KratosApi.UserBill
 
     timestamps()
   end
