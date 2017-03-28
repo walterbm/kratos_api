@@ -55,7 +55,7 @@ defmodule KratosApi.UserBillControllerTest do
 
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
-      |> delete("/api/me/bills/#{my_bill.id}")
+      |> delete("/api/me/bills/#{my_bill.bill_id}")
 
     assert json_response(conn, 200) == %{"ok" => true}
     assert Repo.all(UserBill) |> Enum.empty?
