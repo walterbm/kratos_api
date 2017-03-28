@@ -16,4 +16,11 @@ defmodule KratosApi.UserBill do
     |> cast(params, [])
     |> validate_required([])
   end
+
+  def get_or_create(user_id, bill_id) do
+    case __MODULE__ |> KratosApi.Repo.get_by([user_id: user_id, bill_id: bill_id]) do
+      nil -> KratosApi.Repo.insert!(%__MODULE__{bill_id: bill_id, user_id: user_id})
+      bill -> bill
+    end
+  end
 end
