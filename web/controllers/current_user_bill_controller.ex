@@ -34,9 +34,9 @@ defmodule KratosApi.CurrentUserBillController do
 
   def create(conn, %{"follow" => %{"bill_id" => bill_id} }) do
     user = Guardian.Plug.current_resource(conn)
-    bill = UserBill.get_or_create(user.id, bill_id)
+    UserBill.get_or_create(user.id, bill_id)
 
-    render(conn, BillView, "bill_light.json", bill: bill)
+    json conn, %{following: bill_id}
   end
 
   def delete(conn, %{"id" => bill_id}) do
