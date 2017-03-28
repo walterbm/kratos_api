@@ -69,6 +69,7 @@ defmodule KratosApi.Router do
       post "/", CurrentUserController, :update
       post "/actions", CurrentUserController, :record_action
       resources "/votes", CurrentUserVoteController, except: [:edit, :new]
+      resources "/bills", CurrentUserBillController, except: [:edit, :update, :new]
     end
     post "/login", SessionController, :create
 
