@@ -24,6 +24,10 @@ defmodule KratosApi.UserBillControllerTest do
       |> get("/api/me/bills")
 
     assert json_response(conn, 200)
+    response = json_response(conn, 200)
+    assert response["data"] |> Enum.count == 1
+    one = response["data"] |> List.first
+    assert one["gpo_id"] == "hr3609-114"
   end
 
   test "GET /api/me/bills/:id", %{conn: conn, jwt: jwt} do
@@ -35,19 +39,21 @@ defmodule KratosApi.UserBillControllerTest do
 
     bill = json_response(conn, 200)
     assert bill["id"] == real_bill.id
-
   end
 
   test "POST /api/me/bills", %{conn: conn, jwt: jwt} do
     Repo.delete_all(UserBill)
     bill = Repo.all(Bill) |> List.first
+    user = Repo.get_by(User, email: KratosApi.Teststubs.user.email)
 
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> put_req_header("content-type", "application/json")
       |> post("/api/me/bills", Poison.encode!(%{follow: %{bill_id: bill.id}}))
 
-      assert json_response(conn, 200)
+    assert json_response(conn, 200)
+    following = Repo.get_by(UserBill, user_id: user.id)
+    assert following.bill_id == bill.id
   end
 
   test "DELETE /api/me/bills/:id", %{conn: conn, jwt: jwt} do

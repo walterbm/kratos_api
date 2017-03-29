@@ -14,8 +14,9 @@ defmodule KratosApi.CurrentUserBillController do
 
   def index(conn, params) do
     user = Guardian.Plug.current_resource(conn)
-    query = from b in UserBill,
-        where: b.user_id == ^user.id
+    query = from b in Bill,
+      join: following in UserBill, on: b.id == following.bill_id,
+      where: following.user_id == ^user.id
 
     {user_bills, kerosene} = query |> Repo.paginate(params)
 
