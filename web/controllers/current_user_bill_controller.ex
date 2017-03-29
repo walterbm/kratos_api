@@ -3,7 +3,7 @@ defmodule KratosApi.CurrentUserBillController do
 
   plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
-  plug :scrub_params, "follow" when action in [:create]
+  plug :scrub_params, "track" when action in [:create]
 
   alias KratosApi.{
     Repo,
@@ -33,11 +33,14 @@ defmodule KratosApi.CurrentUserBillController do
     end
   end
 
-  def create(conn, %{"follow" => %{"bill_id" => bill_id} }) do
+  def create(conn, %{"track" => %{"bill_id" => bill_id} }) do
     user = Guardian.Plug.current_resource(conn)
     UserBill.get_or_create(user.id, bill_id)
 
     json conn, %{following: bill_id}
+  end
+  def create(conn, _) do
+    json conn, %{error: "Malformed JSON body"}
   end
 
   def delete(conn, %{"id" => bill_id}) do

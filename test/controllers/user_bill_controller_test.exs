@@ -49,7 +49,7 @@ defmodule KratosApi.UserBillControllerTest do
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> put_req_header("content-type", "application/json")
-      |> post("/api/me/bills", Poison.encode!(%{follow: %{bill_id: bill.id}}))
+      |> post("/api/me/bills", Poison.encode!(%{track: %{bill_id: bill.id}}))
 
     assert json_response(conn, 200)
     following = Repo.get_by(UserBill, user_id: user.id)

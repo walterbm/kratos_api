@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://kratos.website
+HOST: https://kratos.site
 
 # Kratos API
 
@@ -181,6 +181,237 @@ Get & update information on the current user based on the session.
               "birthday": "1984-12-30",
               "apn_token": "<goat>"
             }
+
+## My Bills [/api/me/bills]
+
+Track Bills and view all tracked Bills.
+
+### All Tracked Bills [GET]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+            {
+              "pagination": [
+                {
+                  "url": "/api/me/bills?page=1",
+                  "page": 1,
+                  "label": "1",
+                  "current": true
+                }
+              ],
+              "data": [
+                {
+                  "vetoed": false,
+                  "type": "s",
+                  "top_term": "Public lands and natural resources",
+                  "titles": [
+                    {
+                      "type": "official",
+                      "title": "A bill to extend the authorization of the Highlands Conservation Act.",
+                      "is_for_portion": false,
+                      "as": "introduced"
+                    },
+                    {
+                      "type": "display",
+                      "title": "A bill to extend the authorization of the Highlands Conservation Act.",
+                      "is_for_portion": false,
+                      "as": null
+                    }
+                  ],
+                  "summary_text": "This bill amends the Highlands Conservation Act to reauthorize through FY2021: (1) land conservation partnership projects in the highlands regions of Connecticut, New Jersey, New York, and Pennsylvania; and (2) Forest Service and Department of Agriculture programs to assist states, units of local government, and private forest and farm landowners in the conservation of land and natural resources in that region.",
+                  "summary_date": "2016-03-08T05:00:00",
+                  "status_at": null,
+                  "status": "REFERRED",
+                  "source_url": "https://www.gpo.gov/fdsys/bulkdata/BILLSTATUS/114/s/BILLSTATUS-114s2652.xml",
+                  "short_title": null,
+                  "popular_title": null,
+                  "official_title": "A bill to extend the authorization of the Highlands Conservation Act.",
+                  "number": "2652",
+                  "introduced_at": "2016-03-08",
+                  "id": 1793,
+                  "history": {
+                    "vetoed": false,
+                    "enacted": false,
+                    "awaiting_signature": false,
+                    "active": false
+                  },
+                  "gpo_id": "s2652-114",
+                  "gpo_data_updated_at": "2016-11-02T23:46:18",
+                  "full_text_url": null,
+                  "enacted_as": null,
+                  "enacted": false,
+                  "congress_number": 114,
+                  "committee_history": [
+                    {
+                      "committee_id": "SSEG",
+                      "committee": "Senate Energy and Natural Resources",
+                      "activity": [
+                        "referral"
+                      ]
+                    }
+                  ],
+                  "awaiting_signature": false,
+                  "amendments": [],
+                  "active": false,
+                  "actions": [
+                    {
+                      "type": "action",
+                      "text": "Introduced in Senate",
+                      "references": [],
+                      "action_code": "10000",
+                      "acted_at": "2016-03-08"
+                    },
+                    {
+                      "type": "referral",
+                      "text": "Read twice and referred to the Committee on Energy and Natural Resources.",
+                      "status": "REFERRED",
+                      "references": [],
+                      "committees": [
+                        "SSEG"
+                      ],
+                      "action_code": "",
+                      "acted_at": "2016-03-08"
+                    }
+                  ]
+                }
+              ]
+            }
+
+### Track a Bill [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
+    + Attributes(object)
+
+        + track
+            + bill_id: `1793` (number, required)
+
++ Response 200 (application/json)
+
+            {
+              "following": 1793
+            }
+
+## My Individual bills [/api/me/bills/{id}]
+
+View & delete a current user's tracked bill.
+
+### View Tracked Bill [GET]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+
+    + id: `1793` (number, required) - Bill ID.
+
++ Response 200 (application/json)
+
+            {
+              "vetoed": false,
+              "type": "s",
+              "top_term": "Public lands and natural resources",
+              "titles": [
+                {
+                  "type": "official",
+                  "title": "A bill to extend the authorization of the Highlands Conservation Act.",
+                  "is_for_portion": false,
+                  "as": "introduced"
+                },
+                {
+                  "type": "display",
+                  "title": "A bill to extend the authorization of the Highlands Conservation Act.",
+                  "is_for_portion": false,
+                  "as": null
+                }
+              ],
+              "summary_text": "This bill amends the Highlands Conservation Act to reauthorize through FY2021: (1) land conservation partnership projects in the highlands regions of Connecticut, New Jersey, New York, and Pennsylvania; and (2) Forest Service and Department of Agriculture programs to assist states, units of local government, and private forest and farm landowners in the conservation of land and natural resources in that region.",
+              "summary_date": "2016-03-08T05:00:00",
+              "status_at": null,
+              "status": "REFERRED",
+              "source_url": "https://www.gpo.gov/fdsys/bulkdata/BILLSTATUS/114/s/BILLSTATUS-114s2652.xml",
+              "short_title": null,
+              "popular_title": null,
+              "official_title": "A bill to extend the authorization of the Highlands Conservation Act.",
+              "number": "2652",
+              "introduced_at": "2016-03-08",
+              "id": 1793,
+              "history": {
+                "vetoed": false,
+                "enacted": false,
+                "awaiting_signature": false,
+                "active": false
+              },
+              "gpo_id": "s2652-114",
+              "gpo_data_updated_at": "2016-11-02T23:46:18",
+              "full_text_url": null,
+              "enacted_as": null,
+              "enacted": false,
+              "congress_number": 114,
+              "committee_history": [
+                {
+                  "committee_id": "SSEG",
+                  "committee": "Senate Energy and Natural Resources",
+                  "activity": [
+                    "referral"
+                  ]
+                }
+              ],
+              "awaiting_signature": false,
+              "amendments": [],
+              "active": false,
+              "actions": [
+                {
+                  "type": "action",
+                  "text": "Introduced in Senate",
+                  "references": [],
+                  "action_code": "10000",
+                  "acted_at": "2016-03-08"
+                },
+                {
+                  "type": "referral",
+                  "text": "Read twice and referred to the Committee on Energy and Natural Resources.",
+                  "status": "REFERRED",
+                  "references": [],
+                  "committees": [
+                    "SSEG"
+                  ],
+                  "action_code": "",
+                  "acted_at": "2016-03-08"
+                }
+              ]
+            }
+
+### Stop Tracking a Bill [DELETE]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+
+    + id: `1793` (number, required) - Bill ID.
+
++ Response 200 (application/json)
+
+            {
+              "ok":true
+            }
+
 
 ## My Voting Record [/api/me/votes]
 
@@ -391,7 +622,7 @@ Create User Actions to record when a user contacts specific representatives.
 
 Handle a User who does not remember their password.
 
-### Request a password reset email [POST]
+### Request password reset email [POST]
 
 + Request (application/json)
 
