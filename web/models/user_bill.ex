@@ -13,14 +13,14 @@ defmodule KratosApi.UserBill do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [])
-    |> validate_required([])
+    |> cast(params, [:user_id, :subject_id])
+    |> validate_required([:user_id, :subject_id])
   end
 
   def get_or_create(user_id, bill_id) do
     case __MODULE__ |> KratosApi.Repo.get_by([user_id: user_id, bill_id: bill_id]) do
       nil -> KratosApi.Repo.insert!(%__MODULE__{bill_id: bill_id, user_id: user_id})
-      bill -> bill
+      user_bill -> user_bill
     end
   end
 end

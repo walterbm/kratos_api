@@ -65,7 +65,6 @@ defmodule KratosApi.UserBillControllerTest do
 
     assert json_response(conn, 200) == %{"ok" => true}
     assert Repo.all(UserBill) |> Enum.empty?
-
   end
 
 end
