@@ -16,4 +16,11 @@ defmodule KratosApi.UserSubject do
     |> cast(params, [:user_id, :subject_id])
     |> validate_required([:user_id, :subject_id])
   end
+
+  def get_or_create(user_id, subject_id) do
+    case __MODULE__ |> KratosApi.Repo.get_by([user_id: user_id, subject_id: subject_id]) do
+      nil -> KratosApi.Repo.insert!(%__MODULE__{subject_id: subject_id, user_id: user_id})
+      user_subject -> user_subject
+    end
+  end
 end
