@@ -413,6 +413,93 @@ View & delete a current user's tracked bill.
             }
 
 
+## My Subjects [/api/me/subjects]
+
+Follow specific Congressional Subjects.
+
+### All My Subjects [GET]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+            {
+              "data": [
+                {
+                  "name": "Immigration",
+                  "id": 1
+                },
+                {
+                  "name": "Intergovernmental relations",
+                  "id": 2
+                },
+                {
+                  "name": "Middle East",
+                  "id": 3
+                },
+                {
+                  "name": "Refugees, asylum, displaced persons",
+                  "id": 4
+                },
+                {
+                  "name": "State and local government operations",
+                  "id": 5
+                },
+                {
+                  "name": "Syria",
+                  "id": 6
+                },
+                {
+                  "name": "Asia",
+                  "id": 7
+                }
+              ]
+            }
+
+### Follow a Subject [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
+    + Attributes(object)
+
+        + follow
+            + subject_id: `7` (number, required)
+
++ Response 200 (application/json)
+
+            {
+              "following": "Asia"
+            }
+
+## My Individual Subject [/api/me/subjects/{id}]
+
+Delete a current user's tracked subject.
+
+### Unfollow a Subject [DELETE]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+
+    + id: `7` (number, required) - Subject ID.
+
++ Response 200 (application/json)
+
+            {
+              "ok":true
+            }
+
 ## My Voting Record [/api/me/votes]
 
 List the current user's voting record and create new votes.
