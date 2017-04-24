@@ -5,6 +5,7 @@ defmodule KratosApi.TallyView do
     Map.merge(%{
       id: tally.id,
       bill_id: tally.bill_id,
+      nomination_id: tally.nomination_id,
       amendment: tally.amendment,
       treaty: tally.treaty,
       category: tally.category,
@@ -31,6 +32,7 @@ defmodule KratosApi.TallyView do
     %{
       id: tally.id,
       bill_id: tally.bill_id,
+      nomination_id: tally.nomination_id,
       amendment: tally.amendment,
       treaty: tally.treaty,
       category: tally.category,
