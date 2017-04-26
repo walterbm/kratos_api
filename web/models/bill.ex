@@ -6,6 +6,7 @@ defmodule KratosApi.Bill do
     field :actions, {:array, :map}
     field :amendments, {:array, :map}
     field :gpo_id, :string
+    field :pretty_gpo, :string
     field :type, :string
     field :committee_history, {:array, :map}
     field :enacted_as, :map
@@ -44,7 +45,7 @@ defmodule KratosApi.Bill do
   end
 
   @required_fields ~w(gpo_id)a
-  @allowed_fields ~w(gpo_id actions amendments gpo_id type committee_history enacted_as active awaiting_signature
+  @allowed_fields ~w(gpo_id pretty_gpo actions amendments gpo_id type committee_history enacted_as active awaiting_signature
     enacted vetoed history introduced_at number official_title popular_title short_title
     status status_at summary_text summary_date titles gpo_data_updated_at source_url full_text_url md5_of_body)a
 
