@@ -23,7 +23,10 @@ defmodule KratosApi.UserVoteControllerTest do
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> get("/api/me/votes")
 
-    one = json_response(conn, 200)["data"]["voting_record"] |> List.first
+    one =
+      json_response(conn, 200)["data"]["voting_record"]
+      |> Enum.find(fn x -> x["tally"]["number"] == 593 end)
+
     assert one["value"] == "Aye"
     assert one["tally"]["chamber"] == "House"
     assert one["tally"]["category"] == "passage-suspension"

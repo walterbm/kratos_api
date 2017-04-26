@@ -62,6 +62,7 @@ defmodule KratosApi.Sync.Bill.Processor do
       actions: Enum.sort(data["actions"], &(&1["acted_at"] >= &2["acted_at"])),
       amendments: data["amendments"],
       gpo_id: data["bill_id"],
+      pretty_gpo: make_gpo_pretty(data["bill_id"]),
       type: data["bill_type"],
       committee_history: data["committees"],
       enacted_as: convert_enacted_as(data["enacted_as"]),
@@ -89,6 +90,17 @@ defmodule KratosApi.Sync.Bill.Processor do
   defp convert_enacted_as(nil), do: nil
   defp convert_enacted_as(enacted_as) when is_map(enacted_as), do: enacted_as
   defp convert_enacted_as(enacted_as) when is_binary(enacted_as), do: %{"law" => enacted_as}
+
+  defp make_gpo_pretty(gpo_id) do
+    [chamber | number] = Regex.run(~r/^([a-zA-Z]+)(\d+)-/, gpo_id, [capture: :all_but_first])
+    chamber =
+      chamber
+      |> String.upcase
+      |> String.split("")
+      |> Enum.join(".")
+
+    "#{chamber} #{number}"
+  end
 
   defp add_associations(changeset, data) do
     congress_number = CongressNumber.find_or_create(data["congress"])

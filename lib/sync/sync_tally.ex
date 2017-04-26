@@ -78,6 +78,7 @@ defmodule KratosApi.Sync.Tally.Processor do
       gpo_id: Map.get(data, "vote_id"),
       bill_short_title: get_bill_attribute(data, :short_title),
       bill_official_title: get_bill_attribute(data, :official_title),
+      bill_pretty_gpo: get_bill_attribute(data, :pretty_gpo),
       md5_of_body: raw_message.md5_of_body
     }
   end

@@ -6,6 +6,7 @@ defmodule KratosApi.Repo.Migrations.CreateBill do
       add :actions, :map
       add :amendments, :map
       add :gpo_id, :string
+      add :pretty_gpo, :string
       add :type, :string
       add :committee_history, :map
       add :enacted_as, :map

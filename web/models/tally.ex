@@ -20,6 +20,7 @@ defmodule KratosApi.Tally do
     field :gpo_id, :string
     field :bill_short_title, :string
     field :bill_official_title, :string
+    field :bill_pretty_gpo, :string
     field :md5_of_body, :string
 
     belongs_to :bill, KratosApi.Bill
@@ -28,12 +29,14 @@ defmodule KratosApi.Tally do
 
     has_many :votes, KratosApi.Vote
 
+    many_to_many :subjects, KratosApi.Subject, join_through: "bill_subjects", join_keys: [bill_id: :bill_id, subject_id: :id]
+
     timestamps()
   end
 
   @required_fields ~w()a
   @allowed_fields ~w(gpo_id amendment treaty category chamber date number question requires result result_text
-    session source_url subject type record_updated_at bill_short_title  bill_official_title md5_of_body)a
+    session source_url subject type record_updated_at bill_short_title  bill_official_title bill_pretty_gpo md5_of_body)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
