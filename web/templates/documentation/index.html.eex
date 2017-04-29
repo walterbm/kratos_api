@@ -481,9 +481,17 @@
           "<span class="hljs-attribute">requires</span>": <span class="hljs-value"><span class="hljs-string">"2/3"</span></span>,
           "<span class="hljs-attribute">record_updated_at</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
           "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On Motion to Suspend the Rules and Pass: H R 6393 Intelligence Authorization Act for Fiscal Year 2017"</span></span>,
-          "<span class="hljs-attribute">bill_pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 6393"</span></span>,
-          "<span class="hljs-attribute">bill_short_title</span>": <span class="hljs-value"><span class="hljs-string">"H R 6393 Intelligence Authorization Act for Fiscal Year 2017"</span></span>,
-          "<span class="hljs-attribute">bill_official_title</span>": <span class="hljs-value"><span class="hljs-string">"On Motion to Suspend the Rules and Pass: H R 6393 Intelligence Authorization Act for Fiscal Year 2017"</span></span>,
+          "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"hr"</span></span>,
+            "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+            "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"H R 6393 Intelligence Authorization Act for Fiscal Year 2017"</span></span>,
+            "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 6393"</span></span>,
+            "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">official_title</span>": <span class="hljs-value"><span class="hljs-string">"On Motion to Suspend the Rules and Pass: H R 6393 Intelligence Authorization Act for Fiscal Year 2017"</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">14466</span></span>,
+            "<span class="hljs-attribute">gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"hr-6393-115"</span></span>,
+            "<span class="hljs-attribute">congress_number</span>": <span class="hljs-value"><span class="hljs-number">114</span>
+          </span>}</span>,
           "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-number">593</span></span>,
           "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
           "<span class="hljs-attribute">date</span>": <span class="hljs-value"><span class="hljs-string">"2016-11-30T18:47:00"</span></span>,
@@ -532,9 +540,17 @@
     "<span class="hljs-attribute">requires</span>": <span class="hljs-value"><span class="hljs-string">"3/5"</span></span>,
     "<span class="hljs-attribute">record_updated_at</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
     "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On Cloture on the Motion to Proceed H.R. 5293"</span></span>,
-    "<span class="hljs-attribute">bill_pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
-    "<span class="hljs-attribute">bill_short_title</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
-    "<span class="hljs-attribute">bill_official_title</span>": <span class="hljs-value"><span class="hljs-string">"On Cloture on the Motion to Proceed H.R. 5293"</span></span>,
+    "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"hr"</span></span>,
+      "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+      "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
+      "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
+      "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+      "<span class="hljs-attribute">official_title</span>": <span class="hljs-value"><span class="hljs-string">"On Cloture on the Motion to Proceed H.R. 5293"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">14466</span></span>,
+      "<span class="hljs-attribute">gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"hr-5293-115"</span></span>,
+      "<span class="hljs-attribute">congress_number</span>": <span class="hljs-value"><span class="hljs-number">114</span>
+    </span>}</span>,
     "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-number">133</span></span>,
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">420</span></span>,
     "<span class="hljs-attribute">date</span>": <span class="hljs-value"><span class="hljs-string">"2016-07-14T12:46:00"</span></span>,
@@ -582,12 +598,19 @@
     "<span class="hljs-attribute">requires</span>": <span class="hljs-value"><span class="hljs-string">"3/5"</span></span>,
     "<span class="hljs-attribute">record_updated_at</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
     "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On Cloture on the Motion to Proceed H.R. 5293"</span></span>,
-    "<span class="hljs-attribute">bill_pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
-    "<span class="hljs-attribute">bill_short_title</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
-    "<span class="hljs-attribute">bill_official_title</span>": <span class="hljs-value"><span class="hljs-string">"On Cloture on the Motion to Proceed H.R. 5293"</span></span>,
+    "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"hr"</span></span>,
+      "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+      "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
+      "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
+      "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+      "<span class="hljs-attribute">official_title</span>": <span class="hljs-value"><span class="hljs-string">"On Cloture on the Motion to Proceed H.R. 5293"</span></span>,
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">689</span></span>,
+      "<span class="hljs-attribute">gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"hr-5293-115"</span></span>,
+      "<span class="hljs-attribute">congress_number</span>": <span class="hljs-value"><span class="hljs-number">114</span>
+    </span>}</span>,
     "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-number">133</span></span>,
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">420</span></span>,
-    "<span class="hljs-attribute">bill_id</span>": <span class="hljs-value"><span class="hljs-number">689</span></span>,
     "<span class="hljs-attribute">nomination_id</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
     "<span class="hljs-attribute">date</span>": <span class="hljs-value"><span class="hljs-string">"2016-07-14T12:46:00"</span></span>,
     "<span class="hljs-attribute">chamber</span>": <span class="hljs-value"><span class="hljs-string">"Senate"</span></span>,
@@ -838,12 +861,19 @@
               "<span class="hljs-attribute">requires</span>": <span class="hljs-value"><span class="hljs-string">"1/2"</span></span>,
               "<span class="hljs-attribute">record_updated_at</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
               "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On the Motion (Motion to Concur in the House Amendment to S. 612)"</span></span>,
-              "<span class="hljs-attribute">bill_pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"S. 612"</span></span>,
-              "<span class="hljs-attribute">bill_short_title</span>": <span class="hljs-value"><span class="hljs-string">"S. 612"</span></span>,
-              "<span class="hljs-attribute">bill_official_title</span>": <span class="hljs-value"><span class="hljs-string">"House Amendment to S. 612"</span></span>,
+              "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"s"</span></span>,
+                "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+                "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"S. 612"</span></span>,
+                "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"S. 612"</span></span>,
+                "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+                "<span class="hljs-attribute">official_title</span>": <span class="hljs-value"><span class="hljs-string">"House Amendment to S. 612"</span></span>,
+                "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">689</span></span>,
+                "<span class="hljs-attribute">gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"s612-115"</span></span>,
+                "<span class="hljs-attribute">congress_number</span>": <span class="hljs-value"><span class="hljs-number">115</span>
+              </span>}</span>,
               "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-number">163</span></span>,
               "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">769</span></span>,
-              "<span class="hljs-attribute">bill_id</span>": <span class="hljs-value"><span class="hljs-number">689</span></span>,
               "<span class="hljs-attribute">nomination_id</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
               "<span class="hljs-attribute">date</span>": <span class="hljs-value"><span class="hljs-string">"2016-12-10T00:57:00"</span></span>,
               "<span class="hljs-attribute">chamber</span>": <span class="hljs-value"><span class="hljs-string">"Senate"</span></span>,
@@ -1004,16 +1034,23 @@
       "<span class="hljs-attribute">requires</span>": <span class="hljs-value"><span class="hljs-string">"2/3"</span></span>,
       "<span class="hljs-attribute">record_updated_at</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
       "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On Motion to Suspend the Rules and Pass, as Amended: H R 4919 To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer’s Disease and Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism"</span></span>,
-      "<span class="hljs-attribute">bill_official_title</span>": <span class="hljs-value"><span class="hljs-string">"To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer's Disease Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism."</span></span>,
-      "<span class="hljs-attribute">bill_short_title</span>": <span class="hljs-value"><span class="hljs-string">"Kevin and Avonte's Law of 2016"</span></span>,
-      "<span class="hljs-attribute">bill_pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 4919"</span></span>,
+      "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"s"</span></span>,
+        "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+        "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"Kevin and Avonte's Law of 2016"</span></span>,
+        "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 4919"</span></span>,
+        "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+        "<span class="hljs-attribute">official_title</span>": <span class="hljs-value"><span class="hljs-string">"To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer's Disease Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism."</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">10867</span></span>,
+        "<span class="hljs-attribute">gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"hr4919-114"</span></span>,
+        "<span class="hljs-attribute">congress_number</span>": <span class="hljs-value"><span class="hljs-number">114</span>
+      </span>}</span>,
       "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-number">619</span></span>,
       "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">286</span></span>,
       "<span class="hljs-attribute">gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"h619-114.2016"</span></span>,
       "<span class="hljs-attribute">date</span>": <span class="hljs-value"><span class="hljs-string">"2016-12-08T10:50:00"</span></span>,
       "<span class="hljs-attribute">chamber</span>": <span class="hljs-value"><span class="hljs-string">"House"</span></span>,
       "<span class="hljs-attribute">category</span>": <span class="hljs-value"><span class="hljs-string">"passage-suspension"</span></span>,
-      "<span class="hljs-attribute">bill_id</span>": <span class="hljs-value"><span class="hljs-number">10867</span></span>,
       "<span class="hljs-attribute">nomination_id</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
       "<span class="hljs-attribute">amendment</span>": <span class="hljs-value"><span class="hljs-literal">null</span>
     </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="bills" class="resource-group"><h2 class="group-heading">Bills <a href="#bills" class="permalink">&para;</a></h2><p>Resources related congressional bills &amp; resolutions.</p>
@@ -1323,9 +1360,6 @@
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"On Motion to Suspend the Rules and Pass, as Amended"</span></span>,
           "<span class="hljs-attribute">treaty</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
           "<span class="hljs-attribute">subject</span>": <span class="hljs-value"><span class="hljs-string">"To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer’s Disease and Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism"</span></span>,
-          "<span class="hljs-attribute">bill_official_title</span>": <span class="hljs-value"><span class="hljs-string">"To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer's Disease Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism."</span></span>,
-          "<span class="hljs-attribute">bill_short_title</span>": <span class="hljs-value"><span class="hljs-string">"Kevin and Avonte's Law of 2016"</span></span>,
-          "<span class="hljs-attribute">bill_pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 4919"</span></span>,
           "<span class="hljs-attribute">source_url</span>": <span class="hljs-value"><span class="hljs-string">"http://clerk.house.gov/evs/2016/roll619.xml"</span></span>,
           "<span class="hljs-attribute">session</span>": <span class="hljs-value"><span class="hljs-string">"2016"</span></span>,
           "<span class="hljs-attribute">result_text</span>": <span class="hljs-value"><span class="hljs-string">"Passed"</span></span>,
@@ -1339,7 +1373,6 @@
           "<span class="hljs-attribute">date</span>": <span class="hljs-value"><span class="hljs-string">"2016-12-08T10:50:00"</span></span>,
           "<span class="hljs-attribute">chamber</span>": <span class="hljs-value"><span class="hljs-string">"House"</span></span>,
           "<span class="hljs-attribute">category</span>": <span class="hljs-value"><span class="hljs-string">"passage-suspension"</span></span>,
-          "<span class="hljs-attribute">bill_id</span>": <span class="hljs-value"><span class="hljs-number">10867</span></span>,
           "<span class="hljs-attribute">nomination_id</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
           "<span class="hljs-attribute">amendment</span>": <span class="hljs-value"><span class="hljs-literal">null</span>
         </span>}
@@ -1569,7 +1602,7 @@
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">ok</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 26 Apr 2017</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 29 Apr 2017</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
