@@ -10,11 +10,20 @@ defmodule KratosApi.VoteView do
     }
   end
 
+  def render("voting_records.json", %{voting_records: voting_records, kerosene: kerosene, conn: conn}) do
+    %{
+      data: %{
+        voting_record: render_many(voting_records, KratosApi.VoteView, "vote_record.json", as: :vote),
+      },
+      pagination: paginate(conn, kerosene)
+    }
+  end
+
   def render("vote_record.json", %{vote: vote}) do
     %{
       id: vote.id,
       value: vote.value,
-      tally: render_one(vote.tally, KratosApi.TallyView, "tally_flat.json"),
+      tally: render_one(vote.tally, KratosApi.TallyView, "tally_with_small_bill.json"),
     }
   end
 

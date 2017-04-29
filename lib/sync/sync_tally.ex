@@ -76,9 +76,6 @@ defmodule KratosApi.Sync.Tally.Processor do
       type: Map.get(data, "type", nil),
       updated_at: Map.get(data, "updated_at", nil) |> SyncHelpers.convert_datetime,
       gpo_id: Map.get(data, "vote_id"),
-      bill_short_title: get_bill_attribute(data, :short_title),
-      bill_official_title: get_bill_attribute(data, :official_title),
-      bill_pretty_gpo: get_bill_attribute(data, :pretty_gpo),
       md5_of_body: raw_message.md5_of_body
     }
   end
@@ -88,13 +85,6 @@ defmodule KratosApi.Sync.Tally.Processor do
 
   defp get_bill(nil), do: nil
   defp get_bill(gpo_id), do: Repo.get_by(Bill, gpo_id: gpo_id)
-
-  defp get_bill_attribute(data, attribute) do
-    case extract_gpo_id(data["bill"]) |> get_bill do
-      nil -> nil
-      bill -> Map.get(bill, attribute)
-    end
-  end
 
   defp add_associations(changeset, data) do
     congress_number = CongressNumber.find_or_create(data["congress"])
