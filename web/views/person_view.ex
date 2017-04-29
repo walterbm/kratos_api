@@ -1,6 +1,5 @@
 defmodule KratosApi.PersonView do
   use KratosApi.Web, :view
-  import Kerosene.JSON
 
   def render("persons.json", %{persons: persons}) do
     %{data: render_many(persons, KratosApi.PersonView, "person.json", as: :person)}
@@ -51,15 +50,6 @@ defmodule KratosApi.PersonView do
       current_party: person.current_party,
 
       terms: render_many(terms, KratosApi.TermView, "term.json")
-    }
-  end
-
-  def render("voting_records.json", %{voting_records: voting_records, kerosene: kerosene, conn: conn}) do
-    %{
-      data: %{
-        voting_record: render_many(voting_records, KratosApi.VoteView, "vote_record.json", as: :vote),
-      },
-      pagination: paginate(conn, kerosene)
     }
   end
 

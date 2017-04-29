@@ -15,7 +15,7 @@ defmodule KratosApi.CurrentUserVoteController do
     user = Guardian.Plug.current_resource(conn)
     query = from v in UserVote,
         where: v.user_id == ^user.id,
-        preload: [:tally]
+        preload: [tally: :bill]
 
     {user_votes, kerosene} = query |> Repo.paginate(params)
 
@@ -26,7 +26,8 @@ defmodule KratosApi.CurrentUserVoteController do
     user = Guardian.Plug.current_resource(conn)
     query = from v in UserVote,
         where: v.tally_id == ^tally_id,
-        where: v.user_id == ^user.id
+        where: v.user_id == ^user.id,
+        preload: [tally: :bill]
 
     case Repo.one(query) do
       nil ->  json conn, %{error: "User has not voted on this question yet!"}
@@ -36,7 +37,9 @@ defmodule KratosApi.CurrentUserVoteController do
 
   def create(conn, %{"vote" => %{"tally_id" => tally_id, "value" => value} }) do
     user = Guardian.Plug.current_resource(conn)
-    vote = UserVote.get_or_create(user.id, tally_id, value)
+    vote =
+      UserVote.get_or_create(user.id, tally_id, value)
+      |> Repo.preload(tally: :bill)
 
     render(conn, VoteView, "vote_record.json", vote: vote)
   end
@@ -45,12 +48,13 @@ defmodule KratosApi.CurrentUserVoteController do
     user = Guardian.Plug.current_resource(conn)
     query = from v in UserVote,
         where: v.tally_id == ^tally_id,
-        where: v.user_id == ^user.id
+        where: v.user_id == ^user.id,
+        preload: [tally: :bill]
 
     updated_vote =
       Ecto.Changeset.change(Repo.one!(query), value: value)
       |> Repo.update!
-      |> Repo.preload([:tally])
+      |> Repo.preload([tally: :bill])
 
     render(conn, VoteView, "vote_record.json", vote: updated_vote)
   end

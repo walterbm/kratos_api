@@ -9,11 +9,11 @@ defmodule KratosApi.VoteController do
       join: t in KratosApi.Tally,
       where: v.tally_id == t.id,
       order_by: [desc: t.date],
-      preload: [:tally]
+      preload: [tally: :bill]
 
     {voting_records, kerosene} = query |> KratosApi.Repo.paginate(params)
 
-    render(conn, KratosApi.PersonView, "voting_records.json", voting_records: voting_records, kerosene: kerosene)
+    render(conn, KratosApi.VoteView, "voting_records.json", voting_records: voting_records, kerosene: kerosene)
   end
 
 end

@@ -36,7 +36,9 @@ defmodule KratosApi.TallyControllerTest do
     assert one["subject"] == "Intelligence Authorization Act for Fiscal Year 2017"
     assert one["type"] == "On Motion to Suspend the Rules and Pass"
     assert one["gpo_id"] == "hr3608-114.2016"
-    assert one["bill_official_title"] == "To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air."
+    assert one["bill"]["official_title"] == "To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air."
+    assert one["bill"]["gpo_id"] == "hr3608-114"
+    assert one["bill"]["pretty_gpo"] == "H.R. 3608"
     assert one["Yea"] == 4
   end
 end
