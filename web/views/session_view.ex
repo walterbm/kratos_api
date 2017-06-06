@@ -1,8 +1,8 @@
 defmodule KratosApi.SessionView do
   use KratosApi.Web, :view
 
-  def render("show.json", %{jwt: jwt, user: user}) do
-    %{ token: jwt, user: user }
+  def render("show.json", %{jwt: jwt}) do
+    %{ token: jwt }
   end
 
   def render("error.json", %{message: message}) do
