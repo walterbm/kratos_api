@@ -63,20 +63,20 @@
     <span class="hljs-string">"email"</span>
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-      "<span class="hljs-attribute">zip</span>": <span class="hljs-value"><span class="hljs-number">11211</span></span>,
-      "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"NY"</span></span>,
-      "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1234567890</span></span>,
-      "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"legalize@ranch.com"</span></span>,
-      "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Andre"</span></span>,
-      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">4</span></span>,
-      "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Eric"</span></span>,
-      "<span class="hljs-attribute">district</span>": <span class="hljs-value"><span class="hljs-number">7</span></span>,
-      "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Brooklyn"</span></span>,
-      "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span>
-      <span class="hljs-string">"party"</span>: <span class="hljs-string">"Democrat"</span></span>,
-      "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
-      "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
-    </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="user-login" class="resource"><h3 class="resource-heading">Login <a href="#user-login" class="permalink">&nbsp;&para;</a></h3><p>Login and existing user and start a session.</p>
+  "<span class="hljs-attribute">zip</span>": <span class="hljs-value"><span class="hljs-number">11211</span></span>,
+  "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"NY"</span></span>,
+  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1234567890</span></span>,
+  "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"legalize@ranch.com"</span></span>,
+  "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Andre"</span></span>,
+  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">4</span></span>,
+  "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Eric"</span></span>,
+  "<span class="hljs-attribute">district</span>": <span class="hljs-value"><span class="hljs-number">7</span></span>,
+  "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Brooklyn"</span></span>,
+  "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span></span>,
+  "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
+  "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
+  "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="user-login" class="resource"><h3 class="resource-heading">Login <a href="#user-login" class="permalink">&nbsp;&para;</a></h3><p>Login and existing user and start a session.</p>
 <div id="user-login-post" class="action post"><h4 class="action-heading"><div class="name">Login & Create a New Session</div><a href="#user-login-post" class="method post">POST</a><code class="uri">/api/login</code></h4><h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.site</span>/api/login</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">session</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"1234567890"</span></span>,
@@ -103,21 +103,6 @@
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">zip</span>": <span class="hljs-value"><span class="hljs-number">11211</span></span>,
-    "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"NY"</span></span>,
-    "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1234567890</span></span>,
-    "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"legalize@ranch.com"</span></span>,
-    "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Andre"</span></span>,
-    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">4</span></span>,
-    "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Eric"</span></span>,
-    "<span class="hljs-attribute">district</span>": <span class="hljs-value"><span class="hljs-number">7</span></span>,
-    "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Brooklyn"</span></span>,
-    "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span></span>,
-    "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
-    "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
-    "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
-  </span>}</span>,
   "<span class="hljs-attribute">token</span>": <span class="hljs-value"><span class="hljs-string">"eyJhbGciOiguyagiuafhkugafI6IkpXVCJ9.eygiluafglafhufaleHAiOjE0NzU5ODk1NjMsImlhdCI6MTQ3MzM5NzU2MywiaXNzIjoiS3JhdG9zQXBpRGV2IiwianRpIjoiYmI2NjY1YjEtMjFlMi00YjFkLTlmMzEtY2U5NWU3NTdmMWNjIiwicGVtIahdgjghjkafbhjafwIjoidG9rZW4ifQ.y5oGphNTemlGLU3xhnPc5qplkLLK5hw2RmIZrbm_pc-ThjkafjkafnjlYOMpNcNVhcfJzQZjwY3o3BJUUfhYA"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="user-request-another-confirmation-email" class="resource"><h3 class="resource-heading">Request Another Confirmation Email <a href="#user-request-another-confirmation-email" class="permalink">&nbsp;&para;</a></h3><p>Manually request a confirmation email (in case the first one was lost)</p>
 <div id="user-request-another-confirmation-email-post" class="action post"><h4 class="action-heading"><div class="name">Request Confirmation Email</div><a href="#user-request-another-confirmation-email-post" class="method post">POST</a><code class="uri">/api/confirmation/request</code></h4><h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.site</span>/api/confirmation/request</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
@@ -1602,7 +1587,7 @@
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">ok</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 29 Apr 2017</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 05 Jun 2017</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
