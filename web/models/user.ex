@@ -32,7 +32,7 @@ defmodule KratosApi.User do
     timestamps()
   end
 
-  @required_fields ~w(password email)a
+  @required_fields ~w(password email address city zip state district first_name last_name birthday)a
   @allowed_fields ~w(password encrypted_password email phone address city zip state district first_name last_name party birthday apn_token)a
   @updated_fields ~w(password apn_token phone address city zip state district first_name last_name party birthday)a
 
