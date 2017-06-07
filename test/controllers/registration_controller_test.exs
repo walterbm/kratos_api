@@ -5,20 +5,21 @@ defmodule KratosApi.RegistrationControllerTest do
   alias KratosApi.{
     Repo,
     User,
-    TokenGen
+    TokenGen,
+    Teststubs
   }
 
   setup do
-    user = Repo.insert!(User.changeset(%User{}, KratosApi.Teststubs.user))
+    user = Repo.insert!(User.changeset(%User{}, Teststubs.user))
     %{email: user.email}
   end
 
   test "Create unconfirmed account and send confirmation email", %{conn: conn} do
     conn = conn
       |> put_req_header("content-type", "application/json")
-      |> post("/api/registrations", Poison.encode!(KratosApi.Teststubs.kawhi))
+      |> post("/api/registrations", Poison.encode!(Teststubs.kawhi))
 
-    user = Repo.get_by(User, email: "kawhi@goat.com")
+    user = Repo.get_by(User, email: Teststubs.kawhi.user.email)
     refute user.confirmed_email_at
 
     assert_delivered_email Email.confirmation("kawhi@goat.com", TokenGen.InMemory.get_test_token())
@@ -35,20 +36,20 @@ defmodule KratosApi.RegistrationControllerTest do
   test "Unconfirmed account cannot get a token", %{conn: conn} do
     conn = conn
       |> put_req_header("content-type", "application/json")
-      |> post("/api/registrations", Poison.encode!(KratosApi.Teststubs.kawhi))
+      |> post("/api/registrations", Poison.encode!(Teststubs.kawhi))
 
     assert json_response(conn, 201)
-    assert_delivered_email Email.confirmation("kawhi@goat.com", TokenGen.InMemory.get_test_token())
+    assert_delivered_email Email.confirmation(Teststubs.kawhi.user.email, TokenGen.InMemory.get_test_token())
 
-    user = Repo.get_by(User, email: "kawhi@goat.com")
+    user = Repo.get_by(User, email: Teststubs.kawhi.user.email)
     refute user.confirmed_email_at
 
     conn = recycle(conn)
       |> put_req_header("content-type", "application/json")
       |> post("/api/login", Poison.encode!(%{
           session: %{
-            email: "kawhi@goat.com",
-            password: "1stTeamAllDefense"
+            email: Teststubs.kawhi.user.email,
+            password: Teststubs.kawhi.user.password
           }
         }))
 
@@ -61,22 +62,22 @@ defmodule KratosApi.RegistrationControllerTest do
       |> post("/api/registrations", Poison.encode!(KratosApi.Teststubs.kawhi))
 
     assert json_response(conn, 201)
-    assert_delivered_email Email.confirmation("kawhi@goat.com", TokenGen.InMemory.get_test_token())
+    assert_delivered_email Email.confirmation(Teststubs.kawhi.user.email, TokenGen.InMemory.get_test_token())
 
-    user = Repo.get_by(User, email: "kawhi@goat.com")
+    user = Repo.get_by(User, email: Teststubs.kawhi.user.email)
     refute user.confirmed_email_at
 
     KratosApi.UserAnalytics.confirm_email(user)
 
-    user = Repo.get_by(User, email: "kawhi@goat.com")
+    user = Repo.get_by(User, email: Teststubs.kawhi.user.email)
     assert user.confirmed_email_at
 
     conn = recycle(conn)
       |> put_req_header("content-type", "application/json")
       |> post("/api/login", Poison.encode!(%{
           session: %{
-            email: "kawhi@goat.com",
-            password: "1stTeamAllDefense"
+            email: Teststubs.kawhi.user.email,
+            password: Teststubs.kawhi.user.password
           }
         }))
 
