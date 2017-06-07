@@ -1,5 +1,15 @@
 defmodule KratosApi.Teststubs do
-  @user %{email: "test@mctest.com", apn_token: "<mock>", password: "password"}
+  @user %{
+    first_name: "Tim",
+    last_name: "Duncan",
+    email: "timmy@goat.com",
+    password: "FiveRings",
+    address: "1 AT&T Center Parkway",
+    city: "San Antonio",
+    state: "TX",
+    zip: 78219,
+    apn_token: "<mock>",
+  }
   def user, do: @user
 
   @kawhi %{
@@ -16,5 +26,5 @@ defmodule KratosApi.Teststubs do
     }
   }
   def kawhi, do: @kawhi
-  
+
 end

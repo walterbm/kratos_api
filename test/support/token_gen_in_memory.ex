@@ -8,7 +8,7 @@ defmodule KratosApi.TokenGen.InMemory do
   def with_validation(t, _, _), do: t
   def with_signer(t, _), do: t
   def hs256(t), do: t
-  def verify!(@token), do: {:ok, %{"email" => "test@mctest.com"}}
+  def verify!(@token), do: {:ok, %{"email" => KratosApi.Teststubs.user.email}}
   def verify!(_), do: {:error, "Invalid signature"}
 
   def get_test_token(), do: @token
