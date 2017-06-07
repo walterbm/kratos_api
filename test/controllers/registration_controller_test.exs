@@ -26,9 +26,16 @@ defmodule KratosApi.RegistrationControllerTest do
     assert json_response(conn, 201) == %{
       "address" => user.address,
       "apn_token" => user.apn_token,
-      "birthday" => nil, "city" => user.city, "district" => user.district,
-      "email" => user.email, "first_name" => user.first_name, "id" => user.id,
-      "last_name" => user.last_name, "party" => nil, "phone" => nil, "state" => user.state,
+      "birthday" => Ecto.Date.to_string(user.birthday),
+      "city" => user.city,
+      "district" => user.district,
+      "email" => user.email,
+      "first_name" => user.first_name,
+      "id" => user.id,
+      "last_name" => user.last_name,
+      "party" => user.party,
+      "phone" => user.phone,
+      "state" => user.state,
       "zip" => user.zip
     }
   end
