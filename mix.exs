@@ -41,7 +41,7 @@ defmodule KratosApi.Mixfile do
         :sweet_xml,
         :floki,
         :yamerl,
-        :exrm,
+        :distillery,
         :edeliver,
         :ex_aws
       ]
@@ -79,7 +79,7 @@ defmodule KratosApi.Mixfile do
       {:sweet_xml, "~> 0.6.2"},
       {:yamerl, "~> 0.4.0"},
       {:kerosene, "~> 0.5.0"},
-      {:exrm, "~> 1.0.8"},
+      {:distillery, "~> 1.4"},
       {:edeliver, "~> 1.3.0"},
       {:appsignal, "~> 0.0"},
       {:credo, "~> 0.5", only: [:dev, :test]}
