@@ -1,6 +1,8 @@
 APP="kratos_api"
 AUTO_VERSION=commit-count+git-revision
 
+TARGET_MIX_ENV="stage"
+
 BUILD_HOST="***REMOVED***"
 BUILD_USER="root"
 BUILD_AT="/tmp/edeliver/kratos_api/builds"
@@ -13,18 +15,15 @@ PRODUCTION_HOSTS="ec2-54-174-179-130.compute-1.amazonaws.com"
 PRODUCTION_USER="deploy"
 DELIVER_TO="/opt"
 
-# For *Phoenix* projects, symlink prod.secret.exs to our tmp source
-
 pre_erlang_get_and_update_deps() {
   if [ "$TARGET_MIX_ENV" = "prod" ]; then
     local _local_secret_config_file="./config/prod.secret.exs"
     status "Copying '$_local_secret_config_file' file to build host"
-    scp "$_local_secret_config_file" "$BUILD_USER@$BUILD_HOST:$BUILD_AT/config/secret.exs"
+    scp "$_local_secret_config_file" "$BUILD_USER@$BUILD_HOST:$BUILD_AT/config/prod.secret.exs"
   fi
-}
-
-
-pre_erlang_get_and_update_deps() {
-  local _prod_secret_path="/home/builder/prod.secret.exs"
-  __sync_remote "ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'"
+  if [ "$TARGET_MIX_ENV" = "stage" ]; then
+    local _local_secret_config_file="./config/stage.secret.exs"
+    status "Copying '$_local_secret_config_file' file to build host"
+    scp "$_local_secret_config_file" "$BUILD_USER@$BUILD_HOST:$BUILD_AT/config/stage.secret.exs"
+  fi
 }
