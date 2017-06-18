@@ -19,7 +19,6 @@ defmodule KratosApi.Mixfile do
   def application do
     [mod: {KratosApi, []},
      applications: [
-        :appsignal,
         :phoenix,
         :phoenix_pubsub,
         :phoenix_html,
@@ -31,7 +30,6 @@ defmodule KratosApi.Mixfile do
         :gen_stage,
         :flow,
         :httpotion,
-        :govtrack,
         :guardian,
         :comeonin,
         :joken,
@@ -68,7 +66,6 @@ defmodule KratosApi.Mixfile do
       {:flow, "~> 0.11"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:govtrack, "~> 0.7.3"},
       {:httpotion, "~> 3.0.0"},
       {:guardian, "~> 0.12.0"},
       {:comeonin, "~> 2.5"},
@@ -82,8 +79,8 @@ defmodule KratosApi.Mixfile do
       {:kerosene, "~> 0.5.0"},
       {:distillery, "~> 1.4"},
       {:edeliver, "~> 1.4.2"},
-      {:appsignal, "~> 0.0"},
-      {:credo, "~> 0.5", only: [:dev, :test]}
+      {:appsignal, "~> 1.2"},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
     ]
   end
 
