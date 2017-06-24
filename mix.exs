@@ -19,6 +19,7 @@ defmodule KratosApi.Mixfile do
   def application do
     [mod: {KratosApi, []},
      applications: [
+        :appsignal,
         :phoenix,
         :phoenix_pubsub,
         :phoenix_html,
