@@ -1,15 +1,11 @@
 APP="kratos_api"
 AUTO_VERSION=mix-env+commit-count+git-revision
 
-TARGET_MIX_ENV="stage"
+TARGET_MIX_ENV="prod"
 
 BUILD_HOST="173.199.123.26"
 BUILD_USER="root"
 BUILD_AT="/tmp/edeliver/kratos_api/builds"
-
-STAGING_HOSTS="kratos.website"
-STAGING_USER="deploy"
-DELIVER_TO="/opt"
 
 PRODUCTION_HOSTS="ec2-54-174-179-130.compute-1.amazonaws.com"
 PRODUCTION_USER="deploy"
