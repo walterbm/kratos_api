@@ -6,8 +6,10 @@ defmodule KratosApi.SyncHelpers do
   def apply_assoc(changeset, field, data), do: Ecto.Changeset.put_assoc(changeset, field, data)
 
   def convert_date(date_as_string), do: convert_date_or_datetime(date_as_string, Date)
+  def convert_date(date_as_string, format_string), do: convert_date_or_datetime_with_timex(date_as_string, format_string) |> DateTime.to_date
 
   def convert_datetime(date_as_string), do: convert_date_or_datetime(date_as_string, NaiveDateTime)
+  def convert_datetime(date_as_string, format_string), do: convert_date_or_datetime_with_timex(date_as_string, format_string)
 
   defp convert_date_or_datetime(date, date_module) when is_list(date) do
     convert_date_or_datetime(to_string(date), date_module)
@@ -19,6 +21,10 @@ defmodule KratosApi.SyncHelpers do
         {:error, _} -> nil
       end
     end
+  end
+
+  defp convert_date_or_datetime_with_timex(date_as_string, format_string) do
+    Timex.parse!(date_as_string, "{#{format_string}}")
   end
 
   def convert_to_map([head | tail]) when is_list(head) do
@@ -74,5 +80,9 @@ defmodule KratosApi.SyncHelpers do
       {:ok, record}       -> record
       {:error, changeset} -> changeset.errors
     end
+  end
+
+  def gen_md5(value) do
+    :crypto.hash(:sha256, value) |> Base.encode64
   end
 end
