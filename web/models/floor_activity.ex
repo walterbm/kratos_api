@@ -6,14 +6,15 @@ defmodule KratosApi.FloorActivity do
     field :title, :string
     field :description, :string
     field :link, :string
-    field :day, Ecto.Date
+    field :published_at, Ecto.DateTime
+    field :md5, :string
     belongs_to :bill, KratosApi.Bill
 
     timestamps()
   end
 
-  @required_fields ~w(chamber title day)a
-  @allowed_fields ~w(chamber title description link day)a
+  @required_fields ~w(chamber title published_at md5)a
+  @allowed_fields ~w(chamber title description link published_at md5)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
