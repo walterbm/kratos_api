@@ -4,16 +4,16 @@ defmodule KratosApi.Repo.Migrations.CreateFloorActivity do
   def change do
     create table(:flooractivities) do
       add :chamber, :string
-      add :title, :string
-      add :description, :string
+      add :title, :text
+      add :description, :text
       add :link, :string
-      add :day, :date
+      add :published_at, :utc_datetime
+      add :md5, :string
       add :bill_id, references(:bills, on_delete: :nothing)
 
       timestamps()
     end
     create index(:flooractivities, [:bill_id])
-    create index(:flooractivities, [:day])
 
   end
 end
