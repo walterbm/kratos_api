@@ -2,7 +2,6 @@ defmodule KratosApi.Sync.Floor do
   import SweetXml
 
   alias KratosApi.{
-    Repo,
     SyncHelpers,
     FloorActivity
   }
@@ -10,7 +9,7 @@ defmodule KratosApi.Sync.Floor do
   @remote_scrape Application.get_env(:kratos_api, :remote_scraper)
 
   @congress_on_the_floor_source %{
-    senate: "https://www.congress.gov/rss/senate-floor-today.xml",
+    senate: "https://www.congress.gov/rss/senate-floor-today.xml", # is this the best source for the senate?
     house: "http://clerk.house.gov/floorsummary/floor-rss.ashx"
   }
 
@@ -26,7 +25,7 @@ defmodule KratosApi.Sync.Floor do
       title: ~x"./title/text()"s,
       description: ~x"./description/text()"s,
       link: ~x"./link/text()"s,
-      day: ~x"./pubDate/text()"s,
+      guid: ~x"./guid/text()"s,
     ]}]
   }
 
@@ -46,20 +45,25 @@ defmodule KratosApi.Sync.Floor do
     Map.get(@congress_on_the_floor_source, chamber)
   end
 
-  defp stage(:house, %{title: title, description: description, link: link, day: day}) do
+  defp stage(:house, %{title: title, description: description, link: link, guid: guid}) do
     %{
       link: link,
       title: title,
       chamber: "house",
       description: description,
-      published_at: SyncHelpers.convert_datetime(day, "RFC1123"),
+      published_at: guid_to_datetime(guid),
       md5: SyncHelpers.gen_md5(title <> description)
     }
   end
 
+  def guid_to_datetime(guid) do
+    String.slice(guid, 0, 4) <> "-" <> String.slice(guid, 4, 2) <> "-" <> String.slice(guid, 6, byte_size(guid)) <> "-04:00"
+    |> KratosApi.SyncHelpers.convert_datetime("ISO:Extended")
+  end
+
   defp save(params) do
-    FloorActivity.changeset(%FloorActivity{}, params)
-    |> Repo.insert!
+    changeset = FloorActivity.changeset(%FloorActivity{}, params)
+    SyncHelpers.save(changeset, [md5: changeset.changes.md5])
   end
 
 end

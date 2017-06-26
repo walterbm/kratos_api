@@ -25,6 +25,7 @@ defmodule KratosApi.SyncHelpers do
 
   defp convert_date_or_datetime_with_timex(date_as_string, format_string) do
     Timex.parse!(date_as_string, "{#{format_string}}")
+    |> Timex.Timezone.convert("UTC")
   end
 
   def convert_to_map([head | tail]) when is_list(head) do
@@ -79,6 +80,13 @@ defmodule KratosApi.SyncHelpers do
     case result do
       {:ok, record}       -> record
       {:error, changeset} -> changeset.errors
+    end
+  end
+
+  def save(changeset, kargs) do
+    case KratosApi.Repo.get_by(changeset.data.__struct__, kargs) do
+      nil    -> KratosApi.Repo.insert!(changeset)
+      record -> record
     end
   end
 
