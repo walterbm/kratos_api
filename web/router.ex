@@ -33,7 +33,8 @@ defmodule KratosApi.Router do
     get "/", RootController, :index
 
     scope "/congress" do
-      get "/recess", RecessController, :index
+      get "/recess", CongressController, :recess
+      get "/:chamber/activity", CongressController, :activity
     end
 
     scope "/districts" do
