@@ -13,7 +13,7 @@ defmodule KratosApi.CongressView do
 
   def render("activities.json", %{activities: activities}) do
     %{
-      data: render_many(activities, KratosApi.CongressView, "activity.json"),
+      data: render_many(activities, KratosApi.CongressView, "activity.json", as: :activity),
     }
   end
 

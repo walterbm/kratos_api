@@ -1,4 +1,4 @@
-defmodule KratosApi.RecessController do
+defmodule KratosApi.CongressController do
   use KratosApi.Web, :controller
 
   alias KratosApi.{
@@ -10,8 +10,7 @@ defmodule KratosApi.RecessController do
 
   def recess(conn, _params) do
     query = from r in KratosApi.CongressionalRecess,
-      where: r.start_date <= ^Ecto.Date.utc,
-      where: r.end_date >= ^Ecto.Date.utc
+      where: r.start_date <= ^Ecto.Date.utc and r.end_date >= ^Ecto.Date.utc
 
     recess? = case Repo.all(query) do
       [] -> false
@@ -21,13 +20,10 @@ defmodule KratosApi.RecessController do
     json conn, %{"recess": recess?}
   end
 
-  def activity(conn, %{"chamber" => chamber}) do
-    query =
-      from activity in FloorActivity,
-      where: activity.chamber == ^chamber,
-      order_by: [desc: activity.published_at]
+  def activity(conn, %{"chamber" => chamber} = params) do
+    date = Map.get(params, "date", Date.utc_today() |> Date.to_string)
 
-    render conn, "activity.json", activity: Repo.all(query)
+    render conn, "activities.json", activities: FloorActivity.on_this_date(chamber, date)
   end
 
 end
