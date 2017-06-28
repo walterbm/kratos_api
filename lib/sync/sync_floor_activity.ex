@@ -9,16 +9,16 @@ defmodule KratosApi.Sync.Floor do
   @remote_scrape Application.get_env(:kratos_api, :remote_scraper)
 
   @congress_on_the_floor_source %{
-    senate: "https://www.congress.gov/rss/senate-floor-today.xml", # is this the best source for the senate?
-    house: "http://clerk.house.gov/floorsummary/floor-rss.ashx"
+    senate: "https://www.senate.gov/reference/active_bill_type/115.xml",
+    house: "http://clerk.house.gov/floorsummary/floor-rss.ashx" # or http://docs.house.gov/billsthisweek/20170626/20170626.xml ?
   }
 
   @mapping %{
     senate: [{:on_the_floor, [
-      ~x"//item"l,
-      guid: ~x"./title/text()"s,
-      description: ~x"./description/text()"s,
-      link: ~x"./link/text()"s,
+      ~x"///active_legislation/item"l,
+      title: ~x"./name/text()"s,
+      senate_bill_number: ~x"./senate/article/text()"s,
+      house_bill_number: ~x"./house/article/text()"s,
     ]}],
     house: [{:on_the_floor, [
       ~x"//item"l,
@@ -56,7 +56,7 @@ defmodule KratosApi.Sync.Floor do
     }
   end
 
-  def guid_to_datetime(guid) do
+  defp guid_to_datetime(guid) do
     String.slice(guid, 0, 4) <> "-" <> String.slice(guid, 4, 2) <> "-" <> String.slice(guid, 6, byte_size(guid)) <> "-04:00"
     |> SyncHelpers.convert_datetime("ISO:Extended")
   end
