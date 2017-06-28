@@ -1,6 +1,11 @@
 defmodule KratosApi.FloorActivity do
   use KratosApi.Web, :model
 
+  alias KratosApi.{
+    Repo,
+    FloorActivity
+  }
+
   schema "flooractivities" do
     field :chamber, :string
     field :title, :string
@@ -23,5 +28,19 @@ defmodule KratosApi.FloorActivity do
     struct
     |> cast(params, @allowed_fields)
     |> validate_required(@required_fields)
+  end
+
+  def on_this_date(chamber, date) do
+    start_time = Ecto.DateTime.cast!(date <> " 00:00:00")
+    end_time = Ecto.DateTime.cast!(date <> " 23:59:59")
+
+    query =
+      from activity in FloorActivity,
+      where: activity.chamber == ^chamber,
+      where: activity.published_at >= ^start_time
+        and activity.published_at <= ^end_time,
+      order_by: [desc: activity.published_at]
+
+    Repo.all(query)
   end
 end

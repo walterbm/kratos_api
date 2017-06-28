@@ -58,7 +58,7 @@ defmodule KratosApi.Sync.Floor do
 
   def guid_to_datetime(guid) do
     String.slice(guid, 0, 4) <> "-" <> String.slice(guid, 4, 2) <> "-" <> String.slice(guid, 6, byte_size(guid)) <> "-04:00"
-    |> KratosApi.SyncHelpers.convert_datetime("ISO:Extended")
+    |> SyncHelpers.convert_datetime("ISO:Extended")
   end
 
   defp save(params) do
