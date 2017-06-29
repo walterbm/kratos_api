@@ -9,12 +9,12 @@ defmodule KratosApi.CongressControllerTest do
   end
 
 
-  test "GET /congress/house/activity", %{conn: conn, jwt: jwt} do
+  test "GET /congress/house/floor", %{conn: conn, jwt: jwt} do
     KratosApi.Sync.Floor.sync(:house)
 
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
-      |> get("/api/congress/house/activity")
+      |> get("/api/congress/house/floor")
 
     response = json_response(conn, 200)
 
@@ -22,12 +22,12 @@ defmodule KratosApi.CongressControllerTest do
     assert response["data"] == []
   end
 
-  test "GET /congress/house/activity with a specific date", %{conn: conn, jwt: jwt} do
+  test "GET /congress/house/floor with a specific date", %{conn: conn, jwt: jwt} do
     KratosApi.Sync.Floor.sync(:house)
 
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
-      |> get("/api/congress/house/activity?date=2017-06-23")
+      |> get("/api/congress/house/floor?date=2017-06-23")
 
     response = json_response(conn, 200)
 
