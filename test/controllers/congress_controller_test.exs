@@ -42,4 +42,17 @@ defmodule KratosApi.CongressControllerTest do
     assert first["published_at"] == "2017-06-23T16:51:58"
     assert first["chamber"] == "house"
   end
+
+  test "GET /congress/senate/floor with a specific date", %{conn: conn, jwt: jwt} do
+    KratosApi.Sync.Floor.sync(:senate)
+
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/congress/senate/floor?date=2017-06-23")
+
+    response = json_response(conn, 200)
+
+    assert response
+    assert response["data"]
+  end
 end

@@ -2,6 +2,8 @@ defmodule KratosApi.Sync.Floor do
   import SweetXml
 
   alias KratosApi.{
+    Repo,
+    Bill,
     SyncHelpers,
     FloorActivity
   }
@@ -15,10 +17,10 @@ defmodule KratosApi.Sync.Floor do
 
   @mapping %{
     senate: [{:on_the_floor, [
-      ~x"///active_legislation/item"l,
+      ~x"///item"l,
       title: ~x"./name/text()"s,
-      senate_bill_number: ~x"./senate/article/text()"s,
-      house_bill_number: ~x"./house/article/text()"s,
+      senate_bill: ~x"./senate/article/text()"s,
+      house_bill: ~x"./house/article/text()"s,
     ]}],
     house: [{:on_the_floor, [
       ~x"//item"l,
@@ -30,16 +32,23 @@ defmodule KratosApi.Sync.Floor do
   }
 
   def sync() do
-    # sync(:senate)
+    sync(:senate)
     sync(:house)
   end
 
   def sync(chamber) do
+    pre_sync(chamber)
+
     @remote_scrape.scrape(:xml, url(chamber), Map.get(@mapping, chamber))
     |> Map.get(:on_the_floor)
     |> Enum.map(&(stage(chamber, &1)))
     |> Enum.each(&save/1)
   end
+
+  defp pre_sync(:senate) do
+    FloorActivity.delete_all("senate")
+  end
+  defp pre_sync(_), do: nil
 
   defp url(chamber) do
     Map.get(@congress_on_the_floor_source, chamber)
@@ -54,6 +63,32 @@ defmodule KratosApi.Sync.Floor do
       published_at: guid_to_datetime(guid),
       md5: SyncHelpers.gen_md5(title <> description)
     }
+  end
+
+  defp stage(:senate, %{title: title, senate_bill: senate_bill, house_bill: house_bill}) do
+    bill_number = if byte_size(senate_bill) == 0 do house_bill else senate_bill end
+    %{
+      active: true,
+      title: title,
+      chamber: "senate",
+      bill_id: get_bill(bill_number),
+      published_at: Ecto.DateTime.utc(),
+      md5: SyncHelpers.gen_md5(bill_number)
+    }
+  end
+
+  defp get_bill(bill_number) do
+    gpo_id =
+      bill_number
+      |> String.trim
+      |> String.downcase
+      |> String.replace(".", "")
+      |> String.replace(" ", "")
+
+    case Repo.get_by(Bill, gpo_id: gpo_id) do
+      nil -> nil
+      bill -> bill.id
+    end
   end
 
   defp guid_to_datetime(guid) do
