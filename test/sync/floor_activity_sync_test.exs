@@ -32,8 +32,27 @@ defmodule KratosApi.FloorSyncTest do
   end
 
   test "syncing creates a record of floor activities for the Senate" do
+    KratosApi.Sync.sync(:bill)
     KratosApi.Sync.Floor.sync(:senate)
 
+    assert Repo.all(FloorActivity) |> Enum.count == 17
+    activity = Repo.one(from fa in FloorActivity, where: fa.title == "Health care, repeal and replace ACA", preload: [:bill])
+    assert activity
+    assert activity.md5
+    assert activity.active == true
+    assert activity.chamber == "senate"
+    assert activity.bill
+    assert activity.bill.gpo_id == "H.R. 3608"
+  end
+
+  test "mutiple syncing does not create duplicate records of floor activities for the Senate" do
+    KratosApi.Sync.Floor.sync(:senate)
+
+    assert Repo.all(FloorActivity) |> Enum.count == 17
+
+    KratosApi.Sync.Floor.sync(:senate)
+
+    assert Repo.all(FloorActivity) |> Enum.count == 17
   end
 
 end
