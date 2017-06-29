@@ -20,7 +20,7 @@ defmodule KratosApi.CongressController do
     json conn, %{"recess": recess?}
   end
 
-  def activity(conn, %{"chamber" => chamber} = params) do
+  def floor(conn, %{"chamber" => chamber} = params) do
     date = Map.get(params, "date", Date.utc_today() |> Date.to_string)
 
     render conn, "activities.json", activities: FloorActivity.on_this_date(chamber, date)
