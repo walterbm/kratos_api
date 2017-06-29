@@ -11,6 +11,7 @@ defmodule KratosApi.FloorActivity do
     field :title, :string
     field :description, :string
     field :link, :string
+    field :active, :boolean
     field :published_at, Ecto.DateTime
     field :md5, :string
     belongs_to :bill, KratosApi.Bill
@@ -19,7 +20,7 @@ defmodule KratosApi.FloorActivity do
   end
 
   @required_fields ~w(chamber title published_at md5)a
-  @allowed_fields ~w(chamber title description link published_at md5)a
+  @allowed_fields ~w(chamber title active description link published_at md5)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -42,5 +43,13 @@ defmodule KratosApi.FloorActivity do
       order_by: [desc: activity.published_at]
 
     Repo.all(query)
+  end
+
+  def delete_all(chamber) do
+    query =
+      from activity in FloorActivity,
+      where: activity.chamber == ^chamber
+
+    Repo.delete_all(query)
   end
 end
