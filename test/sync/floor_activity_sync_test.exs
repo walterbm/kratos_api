@@ -42,7 +42,7 @@ defmodule KratosApi.FloorSyncTest do
     assert activity.active == true
     assert activity.chamber == "senate"
     assert activity.bill
-    assert activity.bill.gpo_id == "H.R. 3608"
+    assert activity.bill.gpo_id == "hr3608-114"
   end
 
   test "mutiple syncing does not create duplicate records of floor activities for the Senate" do

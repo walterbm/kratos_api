@@ -5,13 +5,14 @@ defmodule KratosApi.Sync.Floor do
     Repo,
     Bill,
     SyncHelpers,
-    FloorActivity
+    FloorActivity,
+    CongressNumber,
   }
 
   @remote_scrape Application.get_env(:kratos_api, :remote_scraper)
 
   @congress_on_the_floor_source %{
-    senate: "https://www.senate.gov/reference/active_bill_type/115.xml",
+    senate: "https://www.senate.gov/reference/active_bill_type/",
     house: "http://clerk.house.gov/floorsummary/floor-rss.ashx" # or http://docs.house.gov/billsthisweek/20170626/20170626.xml ?
   }
 
@@ -50,8 +51,15 @@ defmodule KratosApi.Sync.Floor do
   end
   defp pre_sync(_), do: nil
 
+  defp url(:senate) do
+    Map.get(@congress_on_the_floor_source, :senate) <> "#{current_congress()}" <> ".xml"
+  end
   defp url(chamber) do
     Map.get(@congress_on_the_floor_source, chamber)
+  end
+
+  defp current_congress do
+    CongressNumber.current()
   end
 
   defp stage(:house, %{title: title, description: description, link: link, guid: guid}) do
@@ -84,6 +92,7 @@ defmodule KratosApi.Sync.Floor do
       |> String.downcase
       |> String.replace(".", "")
       |> String.replace(" ", "")
+      |> Kernel.<>("-#{current_congress()}")
 
     case Repo.get_by(Bill, gpo_id: gpo_id) do
       nil -> nil
