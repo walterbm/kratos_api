@@ -20,7 +20,7 @@ defmodule KratosApi.FloorActivity do
   end
 
   @required_fields ~w(chamber title published_at md5)a
-  @allowed_fields ~w(chamber title active description link published_at md5)a
+  @allowed_fields ~w(chamber title active description link published_at md5 bill_id)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
