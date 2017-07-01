@@ -13,7 +13,7 @@ defmodule KratosApi.Sync.Floor do
 
   @congress_on_the_floor_source %{
     senate: "https://www.senate.gov/reference/active_bill_type/",
-    house: "http://clerk.house.gov/floorsummary/floor-rss.ashx" # or http://docs.house.gov/billsthisweek/20170626/20170626.xml ?
+    house: "http://docs.house.gov/billsthisweek/"
   }
 
   @mapping %{
@@ -24,11 +24,9 @@ defmodule KratosApi.Sync.Floor do
       house_bill: ~x"./house/article/text()"s,
     ]}],
     house: [{:on_the_floor, [
-      ~x"//item"l,
-      title: ~x"./title/text()"s,
-      description: ~x"./description/text()"s,
-      link: ~x"./link/text()"s,
-      guid: ~x"./guid/text()"s,
+      ~x"//floor-item"l,
+      title: ~x"./floor-text/text()"s,
+      bill_number: ~x"./legis-num/text()"s,
     ]}]
   }
 
@@ -52,24 +50,30 @@ defmodule KratosApi.Sync.Floor do
   defp pre_sync(_), do: nil
 
   defp url(:senate) do
-    Map.get(@congress_on_the_floor_source, :senate) <> "#{current_congress()}" <> ".xml"
+    Map.get(@congress_on_the_floor_source, :senate) <> "#{current_congress()}.xml"
   end
-  defp url(chamber) do
-    Map.get(@congress_on_the_floor_source, chamber)
+  defp url(:house) do
+    Map.get(@congress_on_the_floor_source, :house) <> "#{current_monday()}/#{current_monday()}.xml"
   end
 
   defp current_congress do
     CongressNumber.current()
   end
 
-  defp stage(:house, %{title: title, description: description, link: link, guid: guid}) do
+  defp current_monday do
+    Timex.today
+    |> Timex.beginning_of_week
+    |> Date.to_string
+    |> String.replace("-", "")
+  end
+
+  defp stage(:house, %{title: title, bill_number: bill_number}) do
     %{
-      link: link,
+      active: true,
       title: title,
       chamber: "house",
-      description: description,
-      published_at: guid_to_datetime(guid),
-      md5: SyncHelpers.gen_md5(title <> description)
+      bill_id: get_bill(bill_number),
+      md5: SyncHelpers.gen_md5(bill_number)
     }
   end
 
@@ -98,11 +102,6 @@ defmodule KratosApi.Sync.Floor do
       nil -> nil
       bill -> bill.id
     end
-  end
-
-  defp guid_to_datetime(guid) do
-    String.slice(guid, 0, 4) <> "-" <> String.slice(guid, 4, 2) <> "-" <> String.slice(guid, 6, byte_size(guid)) <> "-04:00"
-    |> SyncHelpers.convert_datetime("ISO:Extended")
   end
 
   defp save(params) do
