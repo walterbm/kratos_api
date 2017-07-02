@@ -18,6 +18,7 @@ defmodule KratosApi.FloorSyncTest do
     assert activity.md5
     assert activity.active == true
     assert activity.chamber == "house"
+    assert activity.bill_gpo_id == "hr3608-114"
     assert activity.bill
     assert activity.bill.gpo_id == "hr3608-114"
   end
@@ -42,6 +43,7 @@ defmodule KratosApi.FloorSyncTest do
     assert activity.md5
     assert activity.active == true
     assert activity.chamber == "senate"
+    assert activity.bill_gpo_id == "hr3608-114"
     assert activity.bill
     assert activity.bill.gpo_id == "hr3608-114"
   end
