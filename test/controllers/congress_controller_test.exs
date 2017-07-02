@@ -25,6 +25,7 @@ defmodule KratosApi.CongressControllerTest do
     assert first["title"] == "Coast Guard Improvement and Reform Act of 2017"
     assert first["chamber"] == "house"
     assert first["bill_gpo_id"] == "hr1726-115"
+    assert first["pretty_bill_gpo_id"] == "H.R. 1726"
   end
 
   test "GET /congress/senate/floor", %{conn: conn, jwt: jwt} do
@@ -44,5 +45,6 @@ defmodule KratosApi.CongressControllerTest do
     assert first["title"] == "Abortion, no taxpayer funding"
     assert first["chamber"] == "senate"
     assert first["bill_gpo_id"] == "hr7-115"
+    assert first["pretty_bill_gpo_id"] == "H.R.7"
   end
 end
