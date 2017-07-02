@@ -5,9 +5,8 @@ defmodule KratosApi.CongressView do
     %{
       chamber: activity.chamber,
       title: activity.title,
-      description: activity.description,
-      link: activity.link,
-      published_at: activity.published_at
+      bill_id: activity.bill_id,
+      bill_gpo_id: activity.bill_gpo_id
     }
   end
 
