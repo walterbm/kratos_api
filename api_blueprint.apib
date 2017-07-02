@@ -759,6 +759,48 @@ Determine if Congress is in recess.
               "recess": false
             }
 
+## Congress Bills on the Floor [/api/congress/{chamber}/floor]
+
+View the bills that are on the floor for each chamber (house, senate)
+
+### Get bills on the floor [GET]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+
+    + chamber: `house` (string, required) - chamber enum (house, senate)
+
++ Response 200 (application/json)
+
+            {
+              "data":[
+                {
+                  "title":"Coast Guard Improvement and Reform Act of 2017",
+                  "pretty_bill_gpo_id":"H.R. 1726",
+                  "chamber":"house",
+                  "bill_id":3006,
+                  "bill_gpo_id":"hr1726-115"
+                },
+                {
+                  "title":"Veterans Expanded Trucking Opportunities Act of 2017",
+                  "pretty_bill_gpo_id":"H.R. 2547",
+                  "chamber":"house",
+                  "bill_id":2784,
+                  "bill_gpo_id":"hr2547-115"
+                },
+                {
+                  "title":"Disaster Assistance Support for Communities and Homeowners Act of 2017",
+                  "pretty_bill_gpo_id":"H.R. 1684",
+                  "chamber":"house",
+                  "bill_id":3705,
+                  "bill_gpo_id":"hr1684-115"
+                }
+              ]
+            }
 
 
 ## Group Districts
