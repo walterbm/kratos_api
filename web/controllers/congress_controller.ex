@@ -21,7 +21,6 @@ defmodule KratosApi.CongressController do
   end
 
   def floor(conn, %{"chamber" => chamber}) do
-
     render conn, "activities.json", activities: FloorActivity.active(chamber)
   end
 
