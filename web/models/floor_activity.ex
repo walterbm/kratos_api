@@ -13,13 +13,14 @@ defmodule KratosApi.FloorActivity do
     field :published_at, Ecto.DateTime
     field :md5, :string
     field :bill_gpo_id, :string
+    field :pretty_bill_gpo_id, :string
     belongs_to :bill, KratosApi.Bill
 
     timestamps()
   end
 
-  @required_fields ~w(chamber title published_at md5 bill_gpo_id)a
-  @allowed_fields ~w(chamber title active published_at md5 bill_id bill_gpo_id)a
+  @required_fields ~w(chamber title published_at md5)a
+  @allowed_fields ~w(chamber title active published_at md5 bill_id bill_gpo_id pretty_bill_gpo_id)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.

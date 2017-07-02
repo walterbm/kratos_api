@@ -73,6 +73,7 @@ defmodule KratosApi.Sync.Floor do
       chamber: to_string(chamber),
       bill_id: get_bill(bill_number),
       bill_gpo_id: get_bill_gpo_id(bill_number),
+      pretty_bill_gpo_id: bill_number,
       published_at: Ecto.DateTime.utc(),
       md5: SyncHelpers.gen_md5(to_string(chamber) <> bill_number)
     }
