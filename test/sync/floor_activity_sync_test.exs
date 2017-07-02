@@ -8,27 +8,28 @@ defmodule KratosApi.FloorSyncTest do
   }
 
   test "syncing creates a record of floor activities for the House" do
+    KratosApi.Sync.sync(:bill)
     KratosApi.Sync.Floor.sync(:house)
 
-    assert Repo.all(FloorActivity) |> Enum.count == 51
+    assert Repo.all(FloorActivity) |> Enum.count == 15
 
-    activity = Repo.one(from fa in FloorActivity, where: fa.title == "Legislative Day Of June 23, 2017  - 10:43:09 A.M.")
+    activity = Repo.one(from fa in FloorActivity, where: fa.title == "Santa Ana River Wash Plan Land Exchange Act", preload: [:bill])
     assert activity
     assert activity.md5
+    assert activity.active == true
     assert activity.chamber == "house"
-    assert activity.description == "\nOn agreeing to the Krishnamoorthi amendment; Agreed to by recorded vote: 380 - 32 <a rel=\"vote\" href=\"http://clerk.house.gov/cgi-bin/vote.asp?year=2017&amp;rollnumber=320\">(Roll no. 320)</a>.\n"
-    assert activity.link == "http://clerk.house.gov/floorsummary/floor.aspx?day=20170623"
-    assert activity.published_at == Ecto.DateTime.cast!("2017-06-23T14:43:09Z")
+    assert activity.bill
+    assert activity.bill.gpo_id == "hr3608-114"
   end
 
   test "mutiple syncing does not create duplicate records of floor activities for the House" do
     KratosApi.Sync.Floor.sync(:house)
 
-    assert Repo.all(FloorActivity) |> Enum.count == 51
+    assert Repo.all(FloorActivity) |> Enum.count == 15
 
     KratosApi.Sync.Floor.sync(:house)
 
-    assert Repo.all(FloorActivity) |> Enum.count == 51
+    assert Repo.all(FloorActivity) |> Enum.count == 15
   end
 
   test "syncing creates a record of floor activities for the Senate" do

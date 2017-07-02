@@ -44,10 +44,9 @@ defmodule KratosApi.Sync.Floor do
     |> Enum.each(&save/1)
   end
 
-  defp pre_sync(:senate) do
-    FloorActivity.delete_all("senate")
+  defp pre_sync(chamber) do
+    FloorActivity.delete_all(to_string(chamber))
   end
-  defp pre_sync(_), do: nil
 
   defp url(:senate) do
     Map.get(@congress_on_the_floor_source, :senate) <> "#{current_congress()}.xml"
@@ -70,10 +69,11 @@ defmodule KratosApi.Sync.Floor do
   defp stage(:house, %{title: title, bill_number: bill_number}) do
     %{
       active: true,
-      title: title,
+      title: String.trim(title),
       chamber: "house",
       bill_id: get_bill(bill_number),
-      md5: SyncHelpers.gen_md5(bill_number)
+      published_at: Ecto.DateTime.utc(),
+      md5: SyncHelpers.gen_md5("house" <> bill_number)
     }
   end
 
@@ -85,7 +85,7 @@ defmodule KratosApi.Sync.Floor do
       chamber: "senate",
       bill_id: get_bill(bill_number),
       published_at: Ecto.DateTime.utc(),
-      md5: SyncHelpers.gen_md5(bill_number)
+      md5: SyncHelpers.gen_md5("senate" <> bill_number)
     }
   end
 
