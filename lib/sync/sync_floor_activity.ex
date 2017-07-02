@@ -66,37 +66,34 @@ defmodule KratosApi.Sync.Floor do
     |> String.replace("-", "")
   end
 
-  defp stage(:house, %{title: title, bill_number: bill_number}) do
+  defp stage(chamber, %{title: title, bill_number: bill_number}) do
     %{
       active: true,
       title: String.trim(title),
-      chamber: "house",
+      chamber: to_string(chamber),
       bill_id: get_bill(bill_number),
+      bill_gpo_id: get_bill_gpo_id(bill_number),
       published_at: Ecto.DateTime.utc(),
-      md5: SyncHelpers.gen_md5("house" <> bill_number)
+      md5: SyncHelpers.gen_md5(to_string(chamber) <> bill_number)
     }
   end
 
   defp stage(:senate, %{title: title, senate_bill: senate_bill, house_bill: house_bill}) do
     bill_number = if byte_size(senate_bill) == 0 do house_bill else senate_bill end
-    %{
-      active: true,
-      title: title,
-      chamber: "senate",
-      bill_id: get_bill(bill_number),
-      published_at: Ecto.DateTime.utc(),
-      md5: SyncHelpers.gen_md5("senate" <> bill_number)
-    }
+    stage(:senate, %{title: title, bill_number: bill_number})
+  end
+
+  defp get_bill_gpo_id(bill_number) do
+    bill_number
+    |> String.trim
+    |> String.downcase
+    |> String.replace(".", "")
+    |> String.replace(" ", "")
+    |> Kernel.<>("-#{current_congress()}")
   end
 
   defp get_bill(bill_number) do
-    gpo_id =
-      bill_number
-      |> String.trim
-      |> String.downcase
-      |> String.replace(".", "")
-      |> String.replace(" ", "")
-      |> Kernel.<>("-#{current_congress()}")
+    gpo_id = get_bill_gpo_id(bill_number)
 
     case Repo.get_by(Bill, gpo_id: gpo_id) do
       nil -> nil
