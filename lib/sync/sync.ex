@@ -11,6 +11,8 @@ defmodule KratosApi.Sync do
         sync(:committee)
         sync(:bill)
         sync(:tally)
+        sync(:recess)
+        sync(:floor)
       :queue ->
         sync(:bill)
         sync(:tally)
@@ -37,6 +39,9 @@ defmodule KratosApi.Sync do
       :recess ->
         Sync.Recess.sync
         @slack.notify("`Recess` data mounted and saved to database")
+      :floor ->
+        Sync.Floor.sync
+        @slack.notify("`Floor` data mounted and saved to database")
       _ -> IO.puts "NO SYNC"
     end
   end
