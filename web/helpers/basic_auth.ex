@@ -31,7 +31,8 @@ defmodule KratosApi.BasicAuth do
 
   defp send_unauthorized_response(conn) do
     conn
-    |> Plug.Conn.send_resp(401, "401 Unauthorized")
+    |> Plug.Conn.put_resp_header("www-authenticate", "basic")
+    |> Plug.Conn.send_resp(401, "Unauthorized")
     |> Plug.Conn.halt
   end
 
