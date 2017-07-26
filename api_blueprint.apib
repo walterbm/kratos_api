@@ -167,11 +167,14 @@ Get & update information on the current user based on the session.
               "apn_token": "<goat>"
             }
 
-## My Bills [/api/me/bills]
+## My Bills [/api/me/bills{?onlyids}]
 
 Track Bills and view all tracked Bills.
 
 ### All Tracked Bills [GET]
+
++ Parameters
+    + onlyids (optional, boolean, `false`) - return only an array of ids for all tracked bills
 
 + Request (application/json)
     + Headers
@@ -267,6 +270,20 @@ Track Bills and view all tracked Bills.
                 }
               ]
             }
+
+
++ Request ?onlyids=true (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+            {
+              "data": [1,4]
+            }
+
+
 
 ### Track a Bill [POST]
 

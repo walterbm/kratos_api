@@ -30,6 +30,21 @@ defmodule KratosApi.UserBillControllerTest do
     assert one["gpo_id"] == "hr3609-114"
   end
 
+  @tag :wip
+  test "GET /api/me/bills only IDs", %{conn: conn, jwt: jwt} do
+    real_bill = Repo.all(Bill) |> List.first
+
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/me/bills?onlyids=true")
+
+    assert json_response(conn, 200)
+    response = json_response(conn, 200)
+    assert response["data"] |> Enum.count == 1
+    one = response["data"] |> List.first
+    assert one == real_bill.id
+  end
+
   test "GET /api/me/bills/:id", %{conn: conn, jwt: jwt} do
     my_bill = Repo.all(UserBill) |> List.first
     real_bill = Repo.all(Bill) |> List.first

@@ -12,6 +12,16 @@ defmodule KratosApi.CurrentUserBillController do
     BillView
   }
 
+  def index(conn, %{"onlyids" => "true"}) do
+    user = Guardian.Plug.current_resource(conn)
+    query = from b in Bill,
+      join: following in UserBill, on: b.id == following.bill_id,
+      where: following.user_id == ^user.id
+
+    bill_ids = Repo.all(query) |> Enum.map(&(&1.id))
+
+    json conn, %{data: bill_ids}
+  end
   def index(conn, params) do
     user = Guardian.Plug.current_resource(conn)
     query = from b in Bill,
