@@ -7,6 +7,6 @@
     "doc": "node_modules/.bin/aglio --theme-variables flatly -i api_blueprint.apib -o web/templates/documentation/index.html.eex"
   },
   "devDependencies": {
-    "aglio": "^2.2.1"
+    "aglio": "^2.3.0"
   }
 }
