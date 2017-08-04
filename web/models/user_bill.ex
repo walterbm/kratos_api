@@ -1,6 +1,12 @@
 defmodule KratosApi.UserBill do
   use KratosApi.Web, :model
 
+  alias KratosApi.{
+    Repo,
+    Bill,
+    UserBill
+  }
+
   schema "user_bills" do
     belongs_to :user, KratosApi.User
     belongs_to :bill, KratosApi.Bill
@@ -24,4 +30,17 @@ defmodule KratosApi.UserBill do
       user_bill -> user_bill
     end
   end
+
+  def following_query(user_id) do
+    from b in Bill,
+    join: following in UserBill, on: b.id == following.bill_id,
+    where: following.user_id == ^user_id
+  end
+
+  def following_ids(user_id) do
+    __MODULE__.following_query(user_id)
+    |> Repo.all
+    |> Enum.map(&(&1.id))
+  end
+
 end
