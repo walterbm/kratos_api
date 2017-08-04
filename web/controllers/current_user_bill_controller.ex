@@ -14,19 +14,13 @@ defmodule KratosApi.CurrentUserBillController do
 
   def index(conn, %{"onlyids" => "true"}) do
     user = Guardian.Plug.current_resource(conn)
-    query = from b in Bill,
-      join: following in UserBill, on: b.id == following.bill_id,
-      where: following.user_id == ^user.id
-
-    bill_ids = Repo.all(query) |> Enum.map(&(&1.id))
+    bill_ids = UserBill.following_ids(user.id)
 
     json conn, %{data: bill_ids}
   end
   def index(conn, params) do
     user = Guardian.Plug.current_resource(conn)
-    query = from b in Bill,
-      join: following in UserBill, on: b.id == following.bill_id,
-      where: following.user_id == ^user.id
+    query = UserBill.following_query(user.id)
 
     {user_bills, kerosene} = query |> Repo.paginate(params)
 
@@ -46,8 +40,9 @@ defmodule KratosApi.CurrentUserBillController do
   def create(conn, %{"track" => %{"bill_id" => bill_id} }) do
     user = Guardian.Plug.current_resource(conn)
     UserBill.get_or_create(user.id, bill_id)
+    bill_ids = UserBill.following_ids(user.id)
 
-    json conn, %{following: bill_id}
+    json conn, %{data: bill_ids}
   end
   def create(conn, _) do
     json conn, %{error: "Malformed JSON body"}

@@ -66,6 +66,11 @@ defmodule KratosApi.UserBillControllerTest do
       |> post("/api/me/bills", Poison.encode!(%{track: %{bill_id: bill.id}}))
 
     assert json_response(conn, 200)
+    response = json_response(conn, 200)
+    assert response["data"] |> Enum.count == 1
+    one = response["data"] |> List.first
+    assert one == bill.id
+
     following = Repo.get_by(UserBill, user_id: user.id)
     assert following.bill_id == bill.id
   end
