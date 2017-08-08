@@ -79,14 +79,15 @@ defmodule KratosApi.BillView do
   def render("bill_small.json", %{ bill: bill }) do
     %{
       id: bill.id,
-      gpo_id: bill.gpo_id,
-      pretty_gpo: bill.pretty_gpo,
       type: bill.type,
-      official_title: bill.official_title,
-      popular_title: bill.popular_title,
+      gpo_id: bill.gpo_id,
+      actions: bill.actions,
+      pretty_gpo: bill.pretty_gpo,
       short_title: bill.short_title,
-      congress_number: bill.congress_number_id,
-      top_subject_id: bill.top_subject_id
+      popular_title: bill.popular_title,
+      top_subject_id: bill.top_subject_id,
+      official_title: bill.official_title,
+      congress_number: bill.congress_number_id
     }
   end
 

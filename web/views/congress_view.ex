@@ -5,9 +5,7 @@ defmodule KratosApi.CongressView do
     %{
       chamber: activity.chamber,
       title: activity.title,
-      bill_id: activity.bill_id,
-      bill_gpo_id: activity.bill_gpo_id,
-      pretty_bill_gpo_id: activity.pretty_bill_gpo_id
+      bill: render_one(activity.bill, KratosApi.BillView, "bill_small.json"),
     }
   end
 

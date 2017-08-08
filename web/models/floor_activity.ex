@@ -50,6 +50,7 @@ defmodule KratosApi.FloorActivity do
       from activity in FloorActivity,
       where: activity.chamber == ^chamber,
       where: activity.active == true,
+      preload: [:bill],
       order_by: [desc: activity.published_at]
 
     Repo.all(query)
