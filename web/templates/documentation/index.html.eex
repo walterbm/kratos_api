@@ -692,30 +692,163 @@
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="congress-congress-bills-on-the-floor" class="resource"><h3 class="resource-heading">Congress Bills on the Floor <a href="#congress-congress-bills-on-the-floor" class="permalink">&nbsp;&para;</a></h3><p>View the bills that are on the floor for each chamber (house, senate)</p>
 <div id="congress-congress-bills-on-the-floor-get" class="action get"><h4 class="action-heading"><div class="name">Get bills on the floor</div><a href="#congress-congress-bills-on-the-floor-get" class="method get">GET</a><code class="uri">/api/congress/{chamber}/floor</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.site</span>/api/congress/<span class="hljs-attribute" title="chamber">house</span>/floor</span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>chamber</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>house</span></span><p>chamber enum (house, senate)</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;token&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
-    {
-      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Coast Guard Improvement and Reform Act of 2017"</span></span>,
-      "<span class="hljs-attribute">pretty_bill_gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 1726"</span></span>,
-      "<span class="hljs-attribute">chamber</span>": <span class="hljs-value"><span class="hljs-string">"house"</span></span>,
-      "<span class="hljs-attribute">bill_id</span>": <span class="hljs-value"><span class="hljs-number">3006</span></span>,
-      "<span class="hljs-attribute">bill_gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"hr1726-115"</span>
-    </span>},
-    {
-      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Veterans Expanded Trucking Opportunities Act of 2017"</span></span>,
-      "<span class="hljs-attribute">pretty_bill_gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 2547"</span></span>,
-      "<span class="hljs-attribute">chamber</span>": <span class="hljs-value"><span class="hljs-string">"house"</span></span>,
-      "<span class="hljs-attribute">bill_id</span>": <span class="hljs-value"><span class="hljs-number">2784</span></span>,
-      "<span class="hljs-attribute">bill_gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"hr2547-115"</span>
-    </span>},
-    {
-      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Disaster Assistance Support for Communities and Homeowners Act of 2017"</span></span>,
-      "<span class="hljs-attribute">pretty_bill_gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 1684"</span></span>,
-      "<span class="hljs-attribute">chamber</span>": <span class="hljs-value"><span class="hljs-string">"house"</span></span>,
-      "<span class="hljs-attribute">bill_id</span>": <span class="hljs-value"><span class="hljs-number">3705</span></span>,
-      "<span class="hljs-attribute">bill_gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"hr1684-115"</span>
-    </span>}
-  ]
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="districts" class="resource-group"><h2 class="group-heading">Districts <a href="#districts" class="permalink">&para;</a></h2><p>Resources related congressional districts.</p>
+      "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
+        {
+          "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"A bill to authorize appropriations for the Veterans Choice Program, and for other purposes, as amended"</span></span>,
+          "<span class="hljs-attribute">chamber</span>": <span class="hljs-value"><span class="hljs-string">"house"</span></span>,
+          "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"s"</span></span>,
+            "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">61</span></span>,
+            "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"Department of Veterans Affairs Bonus Transparency Act"</span></span>,
+            "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"S. 114"</span></span>,
+            "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
+            "<span class="hljs-attribute">official_title</span>": <span class="hljs-value"><span class="hljs-string">"A bill to amend title 38, United States Code, to require the Secretary of Veterans Affairs to submit an annual report regarding performance awards and bonuses awarded to certain high-level employees of the Department of Veterans Affairs."</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">712</span></span>,
+            "<span class="hljs-attribute">gpo_id</span>": <span class="hljs-value"><span class="hljs-string">"s114-115"</span></span>,
+            "<span class="hljs-attribute">congress_number</span>": <span class="hljs-value"><span class="hljs-number">115</span></span>,
+            "<span class="hljs-attribute">actions</span>": <span class="hljs-value">[
+              {
+                "<span class="hljs-attribute">where</span>": <span class="hljs-value"><span class="hljs-string">"h"</span></span>,
+                "<span class="hljs-attribute">vote_type</span>": <span class="hljs-value"><span class="hljs-string">"vote2"</span></span>,
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"vote"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"On motion to suspend the rules and pass the bill, as amended Failed by the Yeas and Nays: (2/3 required): 219 - 186 (Roll no. 408)."</span></span>,
+                "<span class="hljs-attribute">suspension</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+                "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"PROV_KILL:SUSPENSIONFAILED"</span></span>,
+                "<span class="hljs-attribute">roll</span>": <span class="hljs-value"><span class="hljs-string">"408"</span></span>,
+                "<span class="hljs-attribute">result</span>": <span class="hljs-value"><span class="hljs-string">"fail"</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+                "<span class="hljs-attribute">how</span>": <span class="hljs-value"><span class="hljs-string">"roll"</span></span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"H37300"</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-07-24T19:03:54-04:00"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Considered as unfinished business."</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[
+                  {
+                    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"consideration"</span></span>,
+                    "<span class="hljs-attribute">reference</span>": <span class="hljs-value"><span class="hljs-string">"CR H6196-6197"</span>
+                  </span>}
+                ]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"H30000"</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-07-24T18:55:59-04:00"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the Chair announced that further proceedings on the motion would be postponed."</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"H37220"</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-07-24T14:47:14-04:00"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"DEBATE - The House proceeded with forty minutes of debate on S. 114."</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"H8D000"</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-07-24T14:11:15-04:00"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Considered under suspension of the rules."</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[
+                  {
+                    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"consideration"</span></span>,
+                    "<span class="hljs-attribute">reference</span>": <span class="hljs-value"><span class="hljs-string">"CR H6151-6158"</span>
+                  </span>},
+                  {
+                    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"text of measure as introduced"</span></span>,
+                    "<span class="hljs-attribute">reference</span>": <span class="hljs-value"><span class="hljs-string">"CR H6151"</span>
+                  </span>}
+                ]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"H30000"</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-07-24T14:11:13-04:00"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Mr. Roe (TN) moved to suspend the rules and pass the bill, as amended."</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"H30300"</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-07-24T14:11:11-04:00"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Received in the House."</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"H14000"</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-05-26T10:02:06-04:00"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"referral"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Referred to the House Committee on Veterans' Affairs."</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+                "<span class="hljs-attribute">committees</span>": <span class="hljs-value">[
+                  <span class="hljs-string">"HSVR"</span>
+                ]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"H11100"</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-05-26"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Senate Committee on Veterans' Affairs discharged by Unanimous Consent."</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[
+                  {
+                    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"consideration"</span></span>,
+                    "<span class="hljs-attribute">reference</span>": <span class="hljs-value"><span class="hljs-string">"CR S3190"</span>
+                  </span>}
+                ]</span>,
+                "<span class="hljs-attribute">committees</span>": <span class="hljs-value">[
+                    <span class="hljs-string">"SSVA"</span>
+                ]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-05-25"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">where</span>": <span class="hljs-value"><span class="hljs-string">"s"</span></span>,
+                "<span class="hljs-attribute">vote_type</span>": <span class="hljs-value"><span class="hljs-string">"vote"</span></span>,
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"vote"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Passed Senate without amendment by Unanimous Consent."</span></span>,
+                "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"PASS_OVER:SENATE"</span></span>,
+                "<span class="hljs-attribute">result</span>": <span class="hljs-value"><span class="hljs-string">"pass"</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[
+                  {
+                    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"text"</span></span>,
+                    "<span class="hljs-attribute">reference</span>": <span class="hljs-value"><span class="hljs-string">"CR S3190"</span>
+                  </span>}
+                ]</span>,
+                "<span class="hljs-attribute">how</span>": <span class="hljs-value"><span class="hljs-string">"by Unanimous Consent"</span></span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-05-25"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Message on Senate action sent to the House."</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-05-25"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"action"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Introduced in Senate"</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">"10000"</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-01-12"</span>
+              </span>},
+              {
+                "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"referral"</span></span>,
+                "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Read twice and referred to the Committee on Veterans' Affairs."</span></span>,
+                "<span class="hljs-attribute">status</span>": <span class="hljs-value"><span class="hljs-string">"REFERRED"</span></span>,
+                "<span class="hljs-attribute">references</span>": <span class="hljs-value">[]</span>,
+                "<span class="hljs-attribute">committees</span>": <span class="hljs-value">[
+                  <span class="hljs-string">"SSVA"</span>
+                ]</span>,
+                "<span class="hljs-attribute">action_code</span>": <span class="hljs-value"><span class="hljs-string">""</span></span>,
+                "<span class="hljs-attribute">acted_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-01-12"</span>
+              </span>}
+            ]
+          </span>}
+        </span>},
+      ]
+    </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="districts" class="resource-group"><h2 class="group-heading">Districts <a href="#districts" class="permalink">&para;</a></h2><p>Resources related congressional districts.</p>
 <div id="districts-show-district" class="resource"><h3 class="resource-heading">Show District <a href="#districts-show-district" class="permalink">&nbsp;&para;</a></h3><p>Find information and representatives for a congressional district.</p>
 <div id="districts-show-district-get" class="action get"><h4 class="action-heading"><div class="name">Show Congressional District</div><a href="#districts-show-district-get" class="method get">GET</a><code class="uri">/api/districts/{state}/{id}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.site</span>/api/districts/<span class="hljs-attribute" title="state">NY</span>/<span class="hljs-attribute" title="id">7</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>state</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>NY</span></span><p>state abbreviation.</p>
 </dd><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>7</span></span><p>number for the congressional district.</p>
@@ -1628,7 +1761,7 @@
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">ok</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 03 Aug 2017</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 07 Aug 2017</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
