@@ -2,12 +2,15 @@ defmodule KratosApi.CongressControllerTest do
   use KratosApi.ConnCase
 
   setup do
+    KratosApi.Sync.sync(:bill)
+
     changeset = KratosApi.User.changeset(%KratosApi.User{}, KratosApi.Teststubs.user)
     {:ok, user} = KratosApi.Repo.insert(changeset)
     {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
     %{jwt: jwt}
   end
 
+  @tag :wip
   test "GET /congress/house/floor", %{conn: conn, jwt: jwt} do
     KratosApi.Sync.Floor.sync(:house)
 
@@ -21,13 +24,18 @@ defmodule KratosApi.CongressControllerTest do
     assert response["data"]
     assert response["data"] |> Enum.count == 15
 
-    [first | _rest] = response["data"]
-    assert first["title"] == "Coast Guard Improvement and Reform Act of 2017"
+    first =
+      response["data"]
+      |> Enum.filter(fn activity -> activity["title"] == "Santa Ana River Wash Plan Land Exchange Act" end)
+      |> List.first
+
+    assert first["title"] == "Santa Ana River Wash Plan Land Exchange Act"
     assert first["chamber"] == "house"
-    assert first["bill_gpo_id"] == "hr1726-115"
-    assert first["pretty_bill_gpo_id"] == "H.R. 1726"
+    assert first["bill"]["pretty_gpo"] == "H.R. 3608"
+    assert first["bill"]["gpo_id"] == "hr3608-114"
   end
 
+  @tag :wip
   test "GET /congress/senate/floor", %{conn: conn, jwt: jwt} do
     KratosApi.Sync.Floor.sync(:senate)
 
@@ -41,10 +49,14 @@ defmodule KratosApi.CongressControllerTest do
     assert response["data"]
     assert response["data"] |> Enum.count == 17
 
-    [first | _rest] = response["data"]
-    assert first["title"] == "Abortion, no taxpayer funding"
+    first =
+      response["data"]
+      |> Enum.filter(fn activity -> activity["title"] == "Health care, repeal and replace ACA" end)
+      |> List.first
+
+    assert first["title"] == "Health care, repeal and replace ACA"
     assert first["chamber"] == "senate"
-    assert first["bill_gpo_id"] == "hr7-115"
-    assert first["pretty_bill_gpo_id"] == "H.R.7"
+    assert first["bill"]["pretty_gpo"] == "H.R. 3608"
+    assert first["bill"]["gpo_id"] == "hr3608-114"
   end
 end
