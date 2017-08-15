@@ -42,6 +42,7 @@ defmodule KratosApi.Mixfile do
         :yamerl,
         :ex_aws,
         :timex,
+        :tirexs,
         :decorator,
         :distillery,
         :edeliver
@@ -58,7 +59,7 @@ defmodule KratosApi.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.2.0"},
+      {:phoenix, "~> 1.3.0"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
@@ -80,6 +81,7 @@ defmodule KratosApi.Mixfile do
       {:yamerl, "~> 0.4.0"},
       {:kerosene, "~> 0.5.0"},
       {:timex, "~> 3.1"},
+      {:tirexs, "~> 0.8"},
       {:distillery, "~> 1.4"},
       {:edeliver, "~> 1.4.2"},
       {:appsignal, "~> 1.2"},
