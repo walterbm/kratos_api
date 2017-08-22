@@ -10,7 +10,6 @@ defmodule KratosApi.CongressControllerTest do
     %{jwt: jwt}
   end
 
-  @tag :wip
   test "GET /congress/house/floor", %{conn: conn, jwt: jwt} do
     KratosApi.Sync.Floor.sync(:house)
 
@@ -20,22 +19,19 @@ defmodule KratosApi.CongressControllerTest do
 
     response = json_response(conn, 200)
 
-    assert response
     assert response["data"]
-    assert response["data"] |> Enum.count == 15
+    assert response["data"] |> Enum.count == 1
 
     first =
       response["data"]
-      |> Enum.filter(fn activity -> activity["title"] == "Santa Ana River Wash Plan Land Exchange Act" end)
+      |> Enum.filter(fn bill -> bill["gpo_id"] == "hr3608-114" end)
       |> List.first
 
-    assert first["title"] == "Santa Ana River Wash Plan Land Exchange Act"
-    assert first["chamber"] == "house"
-    assert first["bill"]["pretty_gpo"] == "H.R. 3608"
-    assert first["bill"]["gpo_id"] == "hr3608-114"
+    assert first["official_title"] == "To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air."
+    assert first["type"] == "hr"
+    assert first["pretty_gpo"] == "H.R. 3608"
   end
 
-  @tag :wip
   test "GET /congress/senate/floor", %{conn: conn, jwt: jwt} do
     KratosApi.Sync.Floor.sync(:senate)
 
@@ -45,18 +41,16 @@ defmodule KratosApi.CongressControllerTest do
 
     response = json_response(conn, 200)
 
-    assert response
     assert response["data"]
-    assert response["data"] |> Enum.count == 17
+    assert response["data"] |> Enum.count == 1
 
     first =
       response["data"]
-      |> Enum.filter(fn activity -> activity["title"] == "Health care, repeal and replace ACA" end)
+      |> Enum.filter(fn bill -> bill["gpo_id"] == "hr3608-114" end)
       |> List.first
 
-    assert first["title"] == "Health care, repeal and replace ACA"
-    assert first["chamber"] == "senate"
-    assert first["bill"]["pretty_gpo"] == "H.R. 3608"
-    assert first["bill"]["gpo_id"] == "hr3608-114"
+    assert first["official_title"] == "To amend the Internal Revenue Code of 1986 to exempt amounts paid for aircraft management services from the excise taxes imposed on transportation by air."
+    assert first["type"] == "hr"
+    assert first["pretty_gpo"] == "H.R. 3608"
   end
 end

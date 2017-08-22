@@ -45,17 +45,6 @@ defmodule KratosApi.FloorActivity do
     Repo.all(query)
   end
 
-  def active(chamber) do
-    query =
-      from activity in FloorActivity,
-      where: activity.chamber == ^chamber,
-      where: activity.active == true,
-      preload: [:bill],
-      order_by: [desc: activity.published_at]
-
-    Repo.all(query)
-  end
-
   def delete_all(chamber) do
     query =
       from activity in FloorActivity,
