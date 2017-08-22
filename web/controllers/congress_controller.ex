@@ -2,11 +2,12 @@ defmodule KratosApi.CongressController do
   use KratosApi.Web, :controller
 
   alias KratosApi.{
+    Bill,
     Repo,
-    FloorActivity
+    BillView,
   }
 
-  plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
+  # plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
   def recess(conn, _params) do
     query = from r in KratosApi.CongressionalRecess,
@@ -21,7 +22,7 @@ defmodule KratosApi.CongressController do
   end
 
   def floor(conn, %{"chamber" => chamber}) do
-    render conn, "activities.json", activities: FloorActivity.active(chamber)
+    render conn, BillView, "bills.json", bills: Bill.active_in(chamber)
   end
 
 end

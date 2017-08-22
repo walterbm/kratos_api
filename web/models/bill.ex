@@ -1,6 +1,11 @@
 defmodule KratosApi.Bill do
   use KratosApi.Web, :model
 
+  alias KratosApi.{
+    Repo,
+    FloorActivity,
+  }
+
   schema "bills" do
 
     field :actions, {:array, :map}
@@ -74,6 +79,18 @@ defmodule KratosApi.Bill do
   def query_all(_) do
     from b in __MODULE__,
     order_by: [desc: b.introduced_at]
+  end
+
+  def active_in(chamber) do
+    query =
+      from bill in __MODULE__,
+      join: activity in FloorActivity,
+      where: activity.bill_id == bill.id,
+      where: activity.chamber == ^chamber,
+      where: activity.active == true,
+      order_by: [desc: activity.published_at]
+
+    Repo.all(query)
   end
 
 end

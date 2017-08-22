@@ -97,6 +97,11 @@ defmodule KratosApi.BillView do
       pagination: paginate(conn, kerosene)
     }
   end
+  def render("bills.json", %{bills: bills, conn: conn}) do
+    %{
+      data: render_many(bills, KratosApi.BillView, "bill_light.json")
+    }
+  end
 
   defp take_words(summary_text, number) when length(summary_text) > number do
     summary_text = summary_text
