@@ -25,35 +25,40 @@ defmodule KratosApi.Vote do
     |> validate_required([:value])
   end
 
+  def create(params, key) do
+    create_changeset(params, key) |> Repo.insert!
+  end
+
   # Handle special case for Vice Presidents
-  def create("VP", key) do
+  def create_changeset("VP", key) do
     case Repo.one(from t in Term, where: t.type == "VP", where: t.end > ^Date.utc_today()) do
       nil -> nil
-      term -> Repo.insert!(%Vote{value: key, person_id: term.person_id})
+      term -> Vote.changeset(%Vote{}, %{value: key, person_id: term.person_id})
     end
   end
   # Senate votes
-  def create(%{"display_name" => _, "first_name" => _, "id" => id, "last_name" => _, "party" => _, "state" => _}, key) do
+  def create_changeset(%{"display_name" => _, "first_name" => _, "id" => id, "last_name" => _, "party" => _, "state" => _}, key) do
     case Repo.one(from p in Person, where: [lis: ^id]) do
       nil -> nil
-      person -> Repo.insert!(%Vote{value: key, person_id: person.id})
+      person -> Vote.changeset(%Vote{}, %{value: key, person_id: person.id})
     end
   end
   # House votes
-  def create(%{"display_name" => _, "id" => id, "party" => _, "state" => _}, key) do
+  def create_changeset(%{"display_name" => _, "id" => id, "party" => _, "state" => _}, key) do
     case Repo.get_by(Person, bioguide: id) do
       nil -> nil
-      person -> Repo.insert!(%Vote{value: key, person_id: person.id})
+      person -> Vote.changeset(%Vote{}, %{value: key, person_id: person.id})
     end
   end
 
-  def mass_create(vote_data_map) do
-    Map.keys(vote_data_map)
+  def mass_create_changeset(vote_data_map) do
+    vote_data_map
+    |> Map.keys
     |> Enum.map(fn vote_key ->
-      Enum.map(vote_data_map[vote_key],&(Vote.create(&1, vote_key)))
+      Enum.map(vote_data_map[vote_key],&(create_changeset(&1, vote_key)))
     end)
     |> List.flatten
-    |> Enum.reject(&(is_nil(&1)))
+    |> Enum.reject(&is_nil/1)
   end
 
 end
