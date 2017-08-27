@@ -76,7 +76,7 @@ defmodule KratosApi.Mixfile do
       {:bamboo, "~> 0.8.0"},
       {:bamboo_smtp, "~> 1.3.0"},
       {:ex_aws, "~> 1.1.0"},
-      {:elastix, git: "https://github.com/walterbm/elastix.git", branch: "make-path-remove-double-backslash"},
+      {:elastix, git: "https://github.com/werbitzky/elastix.git", branch: "master"},
       {:floki, "~> 0.14.0"},
       {:sweet_xml, "~> 0.6.2"},
       {:yamerl, "~> 0.4.0"},
