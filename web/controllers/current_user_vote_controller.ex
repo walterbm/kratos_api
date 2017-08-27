@@ -8,7 +8,7 @@ defmodule KratosApi.CurrentUserVoteController do
   alias KratosApi.{
     Repo,
     UserVote,
-    VoteView
+    VoteView,
   }
 
   def index(conn, params) do
@@ -30,7 +30,7 @@ defmodule KratosApi.CurrentUserVoteController do
         preload: [tally: :bill]
 
     case Repo.one(query) do
-      nil ->  json conn, %{error: "User has not voted on this question yet!"}
+      nil ->  render(conn, ErrorView, "not_voted.json")
       vote -> render(conn, VoteView, "user_vote_record.json", vote: vote)
     end
   end

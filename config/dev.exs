@@ -8,7 +8,8 @@ use Mix.Config
 # with brunch.io to recompile .js and .css sources.
 config :kratos_api, KratosApi.Endpoint,
   http: [port: 4000],
-  debug_errors: true,
+  debug_errors: false,
+  render_errors: [view: KratosApi.ErrorView, accepts: ~w(json)],
   code_reloader: true,
   check_origin: false,
   watchers: []

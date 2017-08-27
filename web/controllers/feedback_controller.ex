@@ -3,12 +3,14 @@ defmodule KratosApi.FeedbackController do
 
   plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
+  alias KratosApi.ErrorView
+
   def index(conn, _params) do
     result = case ExAws.Dynamo.scan("kratos-feedback-questions") |> ExAws.request do
       {:ok, data} ->
         %{ "questions" => Enum.map(data["Items"], &(&1["question"]["S"])) }
       {:error, {_exception, message}} ->
-        %{ error: message }
+        %{ error: message } |> ErrorView.wrap
     end
     json conn, result
   end
