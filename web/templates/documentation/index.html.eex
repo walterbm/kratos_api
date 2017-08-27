@@ -483,7 +483,10 @@
           "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On Motion to Suspend the Rules and Pass: H R 6393 Intelligence Authorization Act for Fiscal Year 2017"</span></span>,
           "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
             "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"hr"</span></span>,
-            "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+            "<span class="hljs-attribute">top_subject</span>": <span class="hljs-value">{
+              "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Health"</span></span>,
+              "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">56</span>
+            </span>}</span>,
             "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"H R 6393 Intelligence Authorization Act for Fiscal Year 2017"</span></span>,
             "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 6393"</span></span>,
             "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
@@ -542,7 +545,10 @@
     "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On Cloture on the Motion to Proceed H.R. 5293"</span></span>,
     "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"hr"</span></span>,
-      "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+      "<span class="hljs-attribute">top_subject</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Health"</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">56</span>
+      </span>}</span>,
       "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
       "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
       "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
@@ -600,7 +606,10 @@
     "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On Cloture on the Motion to Proceed H.R. 5293"</span></span>,
     "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"hr"</span></span>,
-      "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+      "<span class="hljs-attribute">top_subject</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Health"</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">56</span>
+      </span>}</span>,
       "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
       "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 5293"</span></span>,
       "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
@@ -695,7 +704,10 @@
   "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
     {
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"s"</span></span>,
-      "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">61</span></span>,
+      "<span class="hljs-attribute">top_subject</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Health"</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">56</span>
+      </span>}</span>,
       "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"Department of Veterans Affairs Bonus Transparency Act"</span></span>,
       "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"S. 114"</span></span>,
       "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
@@ -1018,7 +1030,10 @@
               "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On the Motion (Motion to Concur in the House Amendment to S. 612)"</span></span>,
               "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
                 "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"s"</span></span>,
-                "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+                "<span class="hljs-attribute">top_subject</span>": <span class="hljs-value">{
+                  "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Health"</span></span>,
+                  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">56</span>
+                </span>}</span>,
                 "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"S. 612"</span></span>,
                 "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"S. 612"</span></span>,
                 "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
@@ -1191,7 +1206,10 @@
       "<span class="hljs-attribute">question</span>": <span class="hljs-value"><span class="hljs-string">"On Motion to Suspend the Rules and Pass, as Amended: H R 4919 To amend the Violent Crime Control and Law Enforcement Act of 1994, to reauthorize the Missing Alzheimer’s Disease and Patient Alert Program, and to promote initiatives that will reduce the risk of injury and death relating to the wandering characteristics of some children with autism"</span></span>,
       "<span class="hljs-attribute">bill</span>": <span class="hljs-value">{
         "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"s"</span></span>,
-        "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">66</span></span>,
+        "<span class="hljs-attribute">top_subject</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Health"</span></span>,
+          "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">56</span>
+        </span>}</span>,
         "<span class="hljs-attribute">short_title</span>": <span class="hljs-value"><span class="hljs-string">"Kevin and Avonte's Law of 2016"</span></span>,
         "<span class="hljs-attribute">pretty_gpo</span>": <span class="hljs-value"><span class="hljs-string">"H.R. 4919"</span></span>,
         "<span class="hljs-attribute">popular_title</span>": <span class="hljs-value"><span class="hljs-literal">null</span></span>,
@@ -1222,7 +1240,10 @@
         {
           "<span class="hljs-attribute">vetoed</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"s"</span></span>,
-          "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">157</span></span>,
+          "<span class="hljs-attribute">top_subject</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Health"</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">56</span>
+          </span>}</span>,
           "<span class="hljs-attribute">titles</span>": <span class="hljs-value">[
             {
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"official"</span></span>,
@@ -1311,7 +1332,10 @@
         {
           "<span class="hljs-attribute">vetoed</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"hconres"</span></span>,
-          "<span class="hljs-attribute">top_subject_id</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+          "<span class="hljs-attribute">top_subject</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Health"</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">56</span>
+          </span>}</span>,
           "<span class="hljs-attribute">titles</span>": <span class="hljs-value">[
             {
               "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"official"</span></span>,
@@ -1757,7 +1781,7 @@
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">ok</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 22 Aug 2017</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 27 Aug 2017</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
