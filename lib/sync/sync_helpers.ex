@@ -69,24 +69,22 @@ defmodule KratosApi.SyncHelpers do
   defp run_sync_from_storage(_save_fx, _document, _exists), do: false
 
   def save(changeset, kargs, update_fx) do
-    result =
-      case KratosApi.Repo.get_by(changeset.data.__struct__, kargs) do
-        nil  ->
-          KratosApi.Repo.insert(changeset)
-        record ->
-          record |> update_fx.(changeset) |> KratosApi.Repo.update
-      end
-
-    case result do
-      {:ok, record}       -> record
-      {:error, changeset} -> changeset.errors
+    case KratosApi.Repo.get_by(changeset.data.__struct__, kargs) do
+      nil  ->
+        KratosApi.Repo.insert!(changeset)
+      record ->
+        record
+        |> update_fx.(changeset)
+        |> KratosApi.Repo.update
     end
   end
 
   def save(changeset, kargs) do
-    case KratosApi.Repo.get_by(changeset.data.__struct__, kargs) do
-      nil    -> KratosApi.Repo.insert!(changeset)
-      record -> record
+    record = KratosApi.Repo.get_by(changeset.data.__struct__, kargs)
+    if record do
+      record
+    else
+      KratosApi.Repo.insert!(changeset)
     end
   end
 
