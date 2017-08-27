@@ -30,10 +30,11 @@ defmodule KratosApi.CurrentUserBillController do
 
   def show(conn, %{"id" => bill_id}) do
     query = from b in Bill,
-        where: b.id == ^bill_id
+      where: b.id == ^bill_id,
+      preload: [:top_subject]
 
     case Repo.one(query) do
-      nil ->  render(conn, ErrorView, "not_following_bill.json")
+      nil  -> render(conn, ErrorView, "not_following_bill.json")
       bill -> render(conn, BillView, "bill_light.json", bill: bill)
     end
   end

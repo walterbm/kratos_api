@@ -72,7 +72,7 @@ defmodule KratosApi.BillView do
       source_url: bill.source_url,
       full_text_url: bill.full_text_url,
       congress_number: bill.congress_number_id,
-      top_subject_id: bill.top_subject_id
+      top_subject: render_one(bill.top_subject, KratosApi.SubjectView, "subject.json"),
     }
   end
 
@@ -85,9 +85,10 @@ defmodule KratosApi.BillView do
       pretty_gpo: bill.pretty_gpo,
       short_title: bill.short_title,
       popular_title: bill.popular_title,
-      top_subject_id: bill.top_subject_id,
       official_title: bill.official_title,
-      congress_number: bill.congress_number_id
+      congress_number: bill.congress_number_id,
+
+      top_subject: render_one(bill.top_subject, KratosApi.SubjectView, "subject.json")
     }
   end
 

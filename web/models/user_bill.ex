@@ -34,7 +34,8 @@ defmodule KratosApi.UserBill do
   def following_query(user_id) do
     from b in Bill,
     join: following in UserBill, on: b.id == following.bill_id,
-    where: following.user_id == ^user_id
+    where: following.user_id == ^user_id,
+    preload: [:top_subject]
   end
 
   def following_ids(user_id) do
