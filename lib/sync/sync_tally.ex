@@ -90,7 +90,7 @@ defmodule KratosApi.Sync.Tally.Processor do
     congress_number = CongressNumber.find_or_create(data["congress"])
     bill = extract_gpo_id(data["bill"]) |> get_bill
     nomination = if data["nomination"], do: Nomination.create(data["nomination"])
-    votes = Vote.mass_create(data["votes"])
+    votes = Vote.mass_create_changeset(data["votes"])
 
     changeset
       |> SyncHelpers.apply_assoc(:congress_number, congress_number)
