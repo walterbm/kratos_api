@@ -1,4 +1,4 @@
-defmodule Kratos.Search.Auth do
+defmodule KratosApi.Search.Auth do
 
   @config Application.get_env(:kratos_api, :elastic_search, %{})
 

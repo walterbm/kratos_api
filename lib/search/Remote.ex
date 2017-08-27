@@ -1,4 +1,4 @@
-defmodule Kratos.Search.Remote do
+defmodule KratosApi.Search.Remote do
 
   @config Application.get_env(:kratos_api, :elastic_search, %{})
 
