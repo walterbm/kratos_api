@@ -4,12 +4,13 @@ defmodule KratosApi.VoteController do
   plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
   def index(conn, params) do
-    query = from v in KratosApi.Vote,
-      where: v.person_id == ^params["id"],
-      join: t in KratosApi.Tally,
-      where: v.tally_id == t.id,
-      order_by: [desc: t.date],
-      preload: [tally: :bill]
+    query = from vote in KratosApi.Vote,
+      where: vote.person_id == ^params["id"],
+      left_join: tally in assoc(vote, :tally),
+      left_join: bill in assoc(tally, :bill),
+      left_join: top_subject in assoc(bill, :top_subject),
+      preload: [tally: {tally, bill: {bill, top_subject: top_subject}}],
+      order_by: [desc: tally.date]
 
     {voting_records, kerosene} = query |> KratosApi.Repo.paginate(params)
 

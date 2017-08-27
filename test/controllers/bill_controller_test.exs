@@ -22,6 +22,7 @@ defmodule KratosApi.BillControllerTest do
     assert response["data"] |> Enum.count == 2
     one = response["data"] |> List.first
     assert one["gpo_id"] == "hr3609-114"
+    assert one["top_subject"]["id"]
   end
 
   test "get all bills and filter by top subjects", %{conn: conn, jwt: jwt} do
@@ -34,7 +35,7 @@ defmodule KratosApi.BillControllerTest do
     response = json_response(conn, 200)
     assert response["data"] |> Enum.count == 2
     one = response["data"] |> List.first
-    assert one["top_subject_id"] == bill_one.top_subject_id
+    assert one["top_subject"]["id"] == bill_one.top_subject_id
   end
 
 
@@ -74,5 +75,6 @@ defmodule KratosApi.BillControllerTest do
     assert one["number"] == "3609"
     assert one["official_title"] == "To amend title XVIII of the Social Security Act to modify requirements for payment under the Medicare program for ambulance services furnished by critical access hospitals, and for other purposes."
     assert one["source_url"] == "https://www.gpo.gov/fdsys/bulkdata/BILLSTATUS/114/hr/BILLSTATUS-114hr3609.xml"
+    assert one["top_subject"]["id"]
   end
 end

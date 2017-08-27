@@ -74,11 +74,19 @@ defmodule KratosApi.Bill do
   def query_all(%{"subjects" => subjects}) do
     from b in __MODULE__,
     where: b.top_subject_id in ^subjects,
+    preload: [:top_subject],
     order_by: [desc: b.introduced_at]
   end
   def query_all(_) do
     from b in __MODULE__,
+    preload: [:top_subject],
     order_by: [desc: b.introduced_at]
+  end
+
+  def query_sponsored(%{"id" => id}) do
+    from b in __MODULE__,
+    where: b.sponsor_id == ^id,
+    preload: [:top_subject]
   end
 
   def active_in(chamber) do
@@ -88,6 +96,7 @@ defmodule KratosApi.Bill do
       where: activity.bill_id == bill.id,
       where: activity.chamber == ^chamber,
       where: activity.active == true,
+      preload: [:top_subject],
       order_by: [desc: activity.published_at]
 
     Repo.all(query)

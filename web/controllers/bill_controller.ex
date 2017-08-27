@@ -24,10 +24,7 @@ defmodule KratosApi.BillController do
   end
 
   def sponsored(conn, params) do
-    query = from b in Bill,
-      where: b.sponsor_id == ^params["id"]
-
-    {bills, kerosene} = query |> Repo.paginate(params)
+    {bills, kerosene} = Bill.query_sponsored(params) |> Repo.paginate(params)
 
     render(conn, "bills.json", bills: bills, kerosene: kerosene)
   end
