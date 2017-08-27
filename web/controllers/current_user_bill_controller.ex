@@ -9,7 +9,8 @@ defmodule KratosApi.CurrentUserBillController do
     Repo,
     Bill,
     UserBill,
-    BillView
+    BillView,
+    ErrorView,
   }
 
   def index(conn, %{"onlyids" => "true"}) do
@@ -32,7 +33,7 @@ defmodule KratosApi.CurrentUserBillController do
         where: b.id == ^bill_id
 
     case Repo.one(query) do
-      nil ->  json conn, %{error: "User is not following this Bill"}
+      nil ->  render(conn, ErrorView, "not_following_bill.json")
       bill -> render(conn, BillView, "bill_light.json", bill: bill)
     end
   end
@@ -45,7 +46,7 @@ defmodule KratosApi.CurrentUserBillController do
     json conn, %{data: bill_ids}
   end
   def create(conn, _) do
-    json conn, %{error: "Malformed JSON body"}
+    render conn, ErrorView, "500.json"
   end
 
   def delete(conn, %{"id" => bill_id}) do

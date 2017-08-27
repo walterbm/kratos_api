@@ -1,14 +1,14 @@
 defmodule KratosApi.RegistrationView do
   use KratosApi.Web, :view
 
+  alias KratosApi.ErrorView
+
   def render("error.json", %{changeset: changeset}) do
     errors = Enum.map(changeset.errors, fn {field, detail} ->
       %{} |> Map.put(field, render_detail(detail))
     end)
 
-    %{
-      errors: errors
-    }
+    errors |> ErrorView.wrap
   end
 
   defp render_detail({message, values}) do

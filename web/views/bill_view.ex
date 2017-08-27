@@ -97,7 +97,7 @@ defmodule KratosApi.BillView do
       pagination: paginate(conn, kerosene)
     }
   end
-  def render("bills.json", %{bills: bills, conn: conn}) do
+  def render("bills.json", %{bills: bills}) do
     %{
       data: render_many(bills, KratosApi.BillView, "bill_light.json")
     }

@@ -8,6 +8,7 @@ defmodule KratosApi.CurrentUserSubjectController do
   alias KratosApi.{
     Repo,
     Subject,
+    ErrorView,
     SubjectView,
     UserSubject,
   }
@@ -28,7 +29,7 @@ defmodule KratosApi.CurrentUserSubjectController do
     json conn, %{following: following.subject.name}
   end
   def create(conn, _) do
-    json conn, %{error: "Malformed JSON body"}
+    render conn, ErrorView, "500.json"
   end
 
   def delete(conn, %{"id" => subject_id}) do

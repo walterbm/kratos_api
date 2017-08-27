@@ -17,6 +17,7 @@ config :kratos_api, KratosApi.Endpoint,
   root: ".",
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
+  render_errors: [view: KratosApi.ErrorView, accepts: ~w(json)],
   version: Mix.Project.config[:version]
 
 # Environment Dependencies

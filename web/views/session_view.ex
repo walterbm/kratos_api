@@ -6,11 +6,7 @@ defmodule KratosApi.SessionView do
   end
 
   def render("error.json", %{message: message}) do
-    %{
-      errors: [
-        %{ error: message }
-      ]
-    }
+    %{ error: message } |> KratosApi.ErrorView.wrap
   end
 
   def render("delete.json", _) do
@@ -18,10 +14,6 @@ defmodule KratosApi.SessionView do
   end
 
   def render("forbidden.json", %{ error: error }) do
-    %{
-      errors: [
-        %{ error: error }
-      ]
-    }
+    %{ error: error } |> KratosApi.ErrorView.wrap
   end
 end
