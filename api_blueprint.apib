@@ -167,14 +167,16 @@ Get & update information on the current user based on the session.
               "apn_token": "<goat>"
             }
 
-## My Bills [/api/me/bills{?onlyids}]
+## My Bills [/api/me/bills{?onlyids}{?subjects%5B%5D}{?exclusive}]
 
 Track Bills and view all tracked Bills.
 
-### All Tracked Bills [GET]
+### All Tracked Bills & All Tracked Subject Bills [GET]
 
 + Parameters
     + onlyids (optional, boolean, `false`) - return only an array of ids for all tracked bills
+    + subjects%5B%5D (optional, number, `3`) - filter bills by primary subject
+    + exclusive (optional, boolean, `false`) - remove individually tracked bills
 
 + Request (application/json)
     + Headers
