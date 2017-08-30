@@ -21,7 +21,7 @@ defmodule KratosApi.CurrentUserBillController do
   end
   def index(conn, params) do
     user = Guardian.Plug.current_resource(conn)
-    query = UserBill.following_query(user.id)
+    query = Bill.query_mine(user.id, params)
 
     {user_bills, kerosene} = query |> Repo.paginate(params)
 
