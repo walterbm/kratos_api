@@ -25,7 +25,7 @@ config :logger, :console,
 
 # Configures Elastix for ElasticSearch
 config :elastix,
-  custom_headers: {Kratos.Search.Auth, :add_aws_signature, []}
+  custom_headers: {KratosApi.Search.Auth, :add_aws_signature, []}
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

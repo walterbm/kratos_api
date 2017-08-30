@@ -147,11 +147,14 @@ defmodule KratosApi.Sync.Bill.Consumer do
   end
 
   defp save(changeset) do
-    changeset |> SyncHelpers.save([gpo_id: changeset.changes.gpo_id], &update/2)
+    record = SyncHelpers.save(changeset, [gpo_id: changeset.changes.gpo_id], &update/2)
+    # test = KratosApi.BillView.render("bill_light.json", %{ bill: record })
+    # require IEx; IEx.pry
   end
 
   defp update(record, changeset) do
-    Repo.preload(record, [:related_bills, :tallies])
+    record
+    |> Repo.preload([:related_bills, :tallies])
     |> Bill.update(changeset.changes)
   end
 end

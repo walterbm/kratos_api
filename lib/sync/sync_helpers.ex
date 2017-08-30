@@ -1,5 +1,10 @@
 defmodule KratosApi.SyncHelpers do
 
+  alias KratosApi.{
+    Repo,
+    FileHash,
+  }
+
   @remote_storage Application.get_env(:kratos_api, :remote_storage)
 
   def apply_assoc(changeset, _, nil), do: changeset
@@ -24,7 +29,8 @@ defmodule KratosApi.SyncHelpers do
   end
 
   defp convert_date_or_datetime_with_timex(date_as_string, format_string) do
-    Timex.parse!(date_as_string, "{#{format_string}}")
+    date_as_string
+    |> Timex.parse!("{#{format_string}}")
     |> Timex.Timezone.convert("UTC")
   end
 
@@ -56,7 +62,7 @@ defmodule KratosApi.SyncHelpers do
 
   def sync_from_storage(file_name, save_fx) do
     {document, hash} = @remote_storage.fetch_file(file_name)
-    run_sync_from_storage(save_fx, document, KratosApi.FileHash.exists?(hash, file_name))
+    run_sync_from_storage(save_fx, document, FileHash.exists?(hash, file_name))
   end
 
   defp run_sync_from_storage(save_fx, document, {:ok, :new}) do
@@ -69,22 +75,22 @@ defmodule KratosApi.SyncHelpers do
   defp run_sync_from_storage(_save_fx, _document, _exists), do: false
 
   def save(changeset, kargs, update_fx) do
-    case KratosApi.Repo.get_by(changeset.data.__struct__, kargs) do
+    case Repo.get_by(changeset.data.__struct__, kargs) do
       nil  ->
-        KratosApi.Repo.insert!(changeset)
+        Repo.insert!(changeset)
       record ->
         record
         |> update_fx.(changeset)
-        |> KratosApi.Repo.update
+        |> Repo.update!
     end
   end
 
   def save(changeset, kargs) do
-    record = KratosApi.Repo.get_by(changeset.data.__struct__, kargs)
+    record = Repo.get_by(changeset.data.__struct__, kargs)
     if record do
       record
     else
-      KratosApi.Repo.insert!(changeset)
+      Repo.insert!(changeset)
     end
   end
 

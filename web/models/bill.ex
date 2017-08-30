@@ -4,6 +4,7 @@ defmodule KratosApi.Bill do
   alias KratosApi.{
     Repo,
     UserBill,
+    UserSubject,
     FloorActivity,
   }
 
@@ -103,10 +104,29 @@ defmodule KratosApi.Bill do
     Repo.all(query)
   end
 
-  def query_mine(user_id, params) do
+  def query_mine(_user_id, %{"subjects" => subjects, "exclusive" => "true"}) do
+    from b in base(),
+    where: b.top_subject_id in ^subjects
+  end
+  def query_mine(user_id, %{"subjects" => subjects}) do
+    from b in base(),
+    where: b.top_subject_id in ^subjects,
+    left_join: following in UserBill, on: b.id == following.bill_id,
+    or_where: following.user_id == ^user_id
+  end
+  def query_mine(user_id, _params) do
+    from b in base(),
+    left_join: subject in UserSubject, on: b.top_subject_id == subject.id,
+    where: subject.user_id == ^user_id,
+    left_join: following in UserBill, on: b.id == following.bill_id,
+    or_where: following.user_id == ^user_id
+  end
+
+  def following_ids(user_id) do
     base()
-    |> following(user_id)
-    # |> filter_subjects(params)
+    |> following_bills(user_id)
+    |> Repo.all
+    |> Enum.map(&(&1.id))
   end
 
   defp base do
@@ -115,12 +135,7 @@ defmodule KratosApi.Bill do
     order_by: [desc: b.introduced_at]
   end
 
-  defp filter_subjects(query, %{"subjects" => subjects}) do
-    from b in query,
-    where: b.top_subject_id in ^subjects
-  end
-
-  defp following(query, user_id) do
+  defp following_bills(query, user_id) do
     from b in query,
     join: following in UserBill, on: b.id == following.bill_id,
     where: following.user_id == ^user_id

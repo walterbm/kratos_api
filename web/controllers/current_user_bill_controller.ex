@@ -15,7 +15,7 @@ defmodule KratosApi.CurrentUserBillController do
 
   def index(conn, %{"onlyids" => "true"}) do
     user = Guardian.Plug.current_resource(conn)
-    bill_ids = UserBill.following_ids(user.id)
+    bill_ids = Bill.following_ids(user.id)
 
     json conn, %{data: bill_ids}
   end
@@ -42,7 +42,7 @@ defmodule KratosApi.CurrentUserBillController do
   def create(conn, %{"track" => %{"bill_id" => bill_id} }) do
     user = Guardian.Plug.current_resource(conn)
     UserBill.get_or_create(user.id, bill_id)
-    bill_ids = UserBill.following_ids(user.id)
+    bill_ids = Bill.following_ids(user.id)
 
     json conn, %{data: bill_ids}
   end
