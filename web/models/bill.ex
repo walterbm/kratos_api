@@ -3,6 +3,7 @@ defmodule KratosApi.Bill do
 
   alias KratosApi.{
     Repo,
+    UserBill,
     FloorActivity,
   }
 
@@ -100,6 +101,29 @@ defmodule KratosApi.Bill do
       order_by: [desc: activity.published_at]
 
     Repo.all(query)
+  end
+
+  def query_mine(user_id, params) do
+    base()
+    |> following(user_id)
+    # |> filter_subjects(params)
+  end
+
+  defp base do
+    from b in __MODULE__,
+    preload: [:top_subject],
+    order_by: [desc: b.introduced_at]
+  end
+
+  defp filter_subjects(query, %{"subjects" => subjects}) do
+    from b in query,
+    where: b.top_subject_id in ^subjects
+  end
+
+  defp following(query, user_id) do
+    from b in query,
+    join: following in UserBill, on: b.id == following.bill_id,
+    where: following.user_id == ^user_id
   end
 
 end
