@@ -4,6 +4,7 @@ use Mix.Config
 # you can enable the server option below.
 config :kratos_api, KratosApi.Endpoint,
   http: [port: 4001],
+  render_errors: [view: KratosApi.ErrorView, accepts: ~w(json)],
   server: false
 
 # Print only warnings and errors during test
@@ -26,6 +27,7 @@ config :kratos_api, :remote_queue, KratosApi.RemoteQueue.InMemory
 config :kratos_api, :remote_storage, KratosApi.RemoteStorage.InMemory
 config :kratos_api, :remote_service, KratosApi.RemoteService.InMemory
 config :kratos_api, :remote_scraper, KratosApi.RemoteScrape.InMemory
+config :kratos_api, :remote_search, KratosApi.Search.Remote.InMemory
 config :kratos_api, :remote_district_lookup, KratosApi.FindDistrict.InMemory
 config :kratos_api, :token_gen, KratosApi.TokenGen.InMemory
 config :kratos_api, :slack, KratosApi.Slack.InMemory
@@ -52,3 +54,16 @@ config :kratos_api, KratosApi.Mailer,
 
 # Slack
 config :kratos_api, :slack_url, "slack.slack"
+
+# AWS
+config :ex_aws,
+  access_key_id: "***REMOVED***",
+  secret_access_key: "***REMOVED***/7w2tRVNj"
+
+# ElasticSearch
+config :kratos_api, :elastic_search, %{
+  port: 443,
+  region: "us-east-1",
+  scheme: "https://",
+  host: "***REMOVED***"
+}
