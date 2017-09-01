@@ -45,14 +45,14 @@ defmodule KratosApi.UserBillControllerTest do
     assert one == bill_one.id
   end
 
-  test "GET /api/me/bills filter by primary tags", %{conn: conn, jwt: jwt} do
+  test "GET /api/me/bills filter by primary subjects", %{conn: conn, jwt: jwt} do
     [bill_one | [bill_two | _rest]] = Repo.all(Bill)
 
     assert bill_one.top_subject_id != bill_two.top_subject_id
 
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
-      |> get("/api/me/bills?subjects[]=#{bill_one.top_subject_id}")
+      |> get("/api/me/bills?subjects[]=#{bill_one.top_subject_id}&userbills=true")
 
     assert json_response(conn, 200)
     response = json_response(conn, 200)
@@ -61,20 +61,34 @@ defmodule KratosApi.UserBillControllerTest do
     assert one["top_subject"]["id"] == bill_one.top_subject_id
   end
 
-  test "GET /api/me/bills filter by primary tags exclusive", %{conn: conn, jwt: jwt} do
+  test "GET /api/me/bills filter by primary subjects without user bills", %{conn: conn, jwt: jwt} do
     [bill_one | [bill_two | _rest]] = Repo.all(Bill)
 
     assert bill_one.top_subject_id != bill_two.top_subject_id
 
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
-      |> get("/api/me/bills?subjects[]=#{bill_one.top_subject_id}&exclusive=true")
+      |> get("/api/me/bills?subjects[]=#{bill_one.top_subject_id}&userbills=false")
 
     assert json_response(conn, 200)
     response = json_response(conn, 200)
     assert response["data"] |> Enum.count == 1
     one = response["data"] |> List.first
     assert one["top_subject"]["id"] == bill_one.top_subject_id
+  end
+
+  test "GET /api/me/bills without subjects or user bills", %{conn: conn, jwt: jwt} do
+    [bill_one | [bill_two | _rest]] = Repo.all(Bill)
+
+    assert bill_one.top_subject_id != bill_two.top_subject_id
+
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/me/bills?subjects[]=false&userbills=false")
+
+    assert json_response(conn, 200)
+    response = json_response(conn, 200)
+    assert response["data"] |> Enum.count == 0
   end
 
   test "GET /api/me/bills/:id", %{conn: conn, jwt: jwt} do
