@@ -104,11 +104,20 @@ defmodule KratosApi.Bill do
     Repo.all(query)
   end
 
-  def query_mine(_user_id, %{"subjects" => subjects, "exclusive" => "true"}) do
+  def query_mine(_user_id, %{"subjects" => ["false"], "userbills" => "false"}) do
+    from b in base(),
+    where: b.id == 0
+  end
+  def query_mine(user_id, %{"subjects" => ["false"], "userbills" => "true"}) do
+    from b in base(),
+    join: following in UserBill, on: b.id == following.bill_id,
+    where: following.user_id == ^user_id
+  end
+  def query_mine(_user_id, %{"subjects" => subjects, "userbills" => "false"}) do
     from b in base(),
     where: b.top_subject_id in ^subjects
   end
-  def query_mine(user_id, %{"subjects" => subjects}) do
+  def query_mine(user_id, %{"subjects" => subjects, "userbills" => "true"}) do
     from b in base(),
     where: b.top_subject_id in ^subjects,
     left_join: following in UserBill, on: b.id == following.bill_id,
