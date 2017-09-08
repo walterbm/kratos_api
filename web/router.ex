@@ -18,14 +18,20 @@ defmodule KratosApi.Router do
   end
 
   scope "/", KratosApi do
-   pipe_through :browser
+    pipe_through :browser
 
-   get "/doc", DocumentationController, :index
-   get "/reset-password", RegistrationController, :reset_password
-   get "/confirmation", RegistrationController, :confirm
-   post "/reset-password", RegistrationController, :new_password
+    get "/doc", DocumentationController, :index
+    get "/reset-password", RegistrationController, :reset_password
+    get "/confirmation", RegistrationController, :confirm
+    post "/reset-password", RegistrationController, :new_password
+  end
 
- end
+  scope "/cms", KratosApi do
+    pipe_through :browser
+
+    get "/upload", CMSController, :new_state_image
+    post "/upload", CMSController, :upload_state_image
+  end
 
   scope "/api", KratosApi do
     pipe_through :api
