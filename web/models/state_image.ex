@@ -16,6 +16,8 @@ defmodule KratosApi.StateImage do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:state, :image_url])
+    |> unique_constraint(:state, name: :state_images_pkey)
+    |> unique_constraint(:state, name: :state_images_state_index)
     |> validate_required([:state, :image_url])
     |> validate_length(:state, is: 2)
   end
