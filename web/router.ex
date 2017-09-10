@@ -28,9 +28,10 @@ defmodule KratosApi.Router do
 
   scope "/cms", KratosApi do
     pipe_through :browser
-
-    get "/upload", CMSController, :new_state_image
-    post "/upload", CMSController, :upload_state_image
+    get "/", CMSController, :index
+    get "/state/image", CMSController, :state_image_index
+    post "/state/image", CMSController, :state_image_create
+    delete "/state/image/:state", CMSController, :state_image_delete
   end
 
   scope "/api", KratosApi do
