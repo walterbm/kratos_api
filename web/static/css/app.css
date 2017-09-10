@@ -1,0 +1,46 @@
+/* This file is for your main application css. */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.alert {
+  padding: 0;
+  margin: 0;
+  color: white;
+  line-height: 40px;
+  text-align: center;
+}
+
+.alert-info {
+  background-color: #2e7d32;
+}
+
+.alert-danger {
+  background-color: #b71c1c;
+}
+
+.nav-wrapper {
+  padding-left: 10px;
+  background-color: #1565c0;
+}
+
+.btn {
+  background-color: #8e24aa;
+}
+
+.btn:hover {
+  background-color: #6a1b9a;
+}
+
+.file-field > i:after {
+  content: "\21E7";
+  font-style: normal;
+}

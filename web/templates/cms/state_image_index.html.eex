@@ -1,0 +1,36 @@
+<%= form_for @changeset, cms_path(@conn, :state_image_create), [multipart: true], fn f -> %>
+  <div class="row">
+    <div class="col m6">
+      <div class="input-field">
+        <%= select(f, :state, states()) %>
+      </div>
+    </div>
+    <div class="col m6">
+      <div class="file-field input-field">
+        <%= file_input f, :image, class: "waves-effect waves-light btn" %>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col m12">
+      <%= error_tag f, :image %>
+      <%= submit "Upload Image", class: "waves-effect waves-light btn" %>
+    </div>
+  </div>
+<% end %>
+
+
+<%= for state_image <- @state_images do %>
+  <div class="card">
+    <div class="card-image">
+      <img src="<%= state_image.image_url %>">
+      <span class="card-title"><%= state_image.state %></span>
+    </div>
+    <div class="card-action">
+      <%= link("Delete", to: cms_path(@conn, :state_image_delete, state_image.state), method: :delete) %>
+    </div>
+  </div>
+<% end %>
