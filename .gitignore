@@ -17,6 +17,11 @@ erl_crash.dump
 /config/*.sys.config
 /config/nginx/*
 
+# Since we are building assets from web/static,
+# we ignore priv/static. You may want to comment
+# this depending on your deployment strategy.
+/priv/static/
+
 # Deployment
 .deliver/releases
 node_modules
