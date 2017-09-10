@@ -1,9 +1,0 @@
-<%= form_for @changeset, cms_path(@conn, :upload_state_image), [multipart: true], fn f -> %>
-  <div class="form-group">
-    <%= select(f, :state, states()) %>
-    <%= label f, :image, class: "control-label" %>
-    <%= file_input f, :image, class: "form-control" %>
-    <%= error_tag f, :image %>
-  </div>
-  <%= submit "Upload Image" %>
-<% end %>
