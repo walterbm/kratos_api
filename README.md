@@ -11,8 +11,6 @@
 ## Deploy
 Deployment uses edeliver.
 
-    $ mix prep.stage
-
     $ mix edeliver build release
 
     $ mix edeliver deploy release
