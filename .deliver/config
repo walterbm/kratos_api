@@ -24,3 +24,18 @@ pre_erlang_get_and_update_deps() {
     scp "$_local_secret_config_file" "$BUILD_USER@$BUILD_HOST:$BUILD_AT/config/stage.secret.exs"
   fi
 }
+
+pre_erlang_clean_compile() {
+  status "Running phoenix.digest with default directories"
+  __sync_remote " # runs the commands on the build host
+    [ -f ~/.profile ] && source ~/.profile # load profile (optional)
+    set -e # fail if any command fails (recommended)
+    cd '$BUILD_AT' # enter the build directory on the build host (required)
+    # prepare something
+    mkdir -p priv/static # required by the phoenix.digest task
+    npm install
+    ./node_modules/brunch/bin/brunch build --production
+    # run your custom task
+    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phoenix.digest # web/static -o priv/static $SILENCE
+  "
+}
