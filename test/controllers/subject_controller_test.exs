@@ -19,16 +19,9 @@ defmodule KratosApi.SubjectControllerTest do
 
     response = json_response(conn, 200) |> Map.get("data")
     assert response |> Enum.map(&(Map.get(&1, "name"))) ==
-      ["Health",
-      "Emergency medical services and trauma care",
-      "Health care coverage and access",
-      "Hospital care",
-      "Licensing and registrations",
-      "Medicare",
-      "Rural conditions and development",
-      "Taxation",
-      "Aviation and airports",
-      "Sales and excise taxes",
-      "Transportation safety and security"]
+      ["Aviation and airports", "Emergency medical services and trauma care",
+       "Health", "Health care coverage and access", "Hospital care",
+       "Licensing and registrations", "Medicare", "Rural conditions and development",
+       "Sales and excise taxes", "Taxation", "Transportation safety and security"]
   end
 end
