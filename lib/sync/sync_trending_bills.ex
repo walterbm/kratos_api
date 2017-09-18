@@ -26,7 +26,7 @@ defmodule KratosApi.Sync.TrendingBill do
     ]}]
   }
 
-  def sync(:trending) do
+  def sync() do
     sync(:congress_dot_gov)
   end
 

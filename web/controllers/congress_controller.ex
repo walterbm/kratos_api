@@ -25,4 +25,8 @@ defmodule KratosApi.CongressController do
     render conn, BillView, "bills.json", bills: Bill.active_in(chamber)
   end
 
+  def trending(conn, _params) do
+    render conn, BillView, "bills.json", bills: Bill.trending
+  end
+
 end

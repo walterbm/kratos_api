@@ -5,6 +5,7 @@ defmodule KratosApi.Bill do
     Repo,
     UserBill,
     UserSubject,
+    TrendingBill,
     FloorActivity,
   }
 
@@ -100,6 +101,17 @@ defmodule KratosApi.Bill do
       where: activity.active == true,
       preload: [:top_subject],
       order_by: [desc: activity.published_at]
+
+    Repo.all(query)
+  end
+
+  def trending() do
+    query =
+      from bill in __MODULE__,
+      join: tb in TrendingBill,
+      where: tb.bill_id == bill.id,
+      preload: [:top_subject],
+      order_by: [desc: tb.updated_at]
 
     Repo.all(query)
   end
