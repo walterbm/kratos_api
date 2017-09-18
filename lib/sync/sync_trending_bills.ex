@@ -1,4 +1,4 @@
-defmodule KratosApi.Sync.TrendingBill do
+defmodule KratosApi.Sync.Trending do
   import SweetXml
 
   alias KratosApi.{

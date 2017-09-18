@@ -13,6 +13,7 @@ defmodule KratosApi.Sync do
         sync(:tally)
         sync(:recess)
         sync(:floor)
+        sync(:trending)
       :queue ->
         sync(:bill)
         sync(:tally)
@@ -42,6 +43,9 @@ defmodule KratosApi.Sync do
       :floor ->
         Sync.Floor.sync
         @slack.notify("`Floor` data mounted and saved to database")
+      :trending ->
+        Sync.Trending.sync
+        @slack.notify("`Trending` data mounted and saved to database")
       _ -> IO.puts "NO SYNC"
     end
   end
