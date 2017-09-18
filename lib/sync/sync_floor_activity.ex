@@ -11,11 +11,11 @@ defmodule KratosApi.Sync.Floor do
 
   @remote_scrape Application.get_env(:kratos_api, :remote_scraper)
 
-  @congress_on_the_floor_source %{
+  @sources %{
     senate: "https://www.senate.gov/reference/active_bill_type/",
     house: "http://docs.house.gov/billsthisweek/"
   }
-
+  
   @mapping %{
     senate: [{:on_the_floor, [
       ~x"///item"l,
@@ -49,10 +49,10 @@ defmodule KratosApi.Sync.Floor do
   end
 
   defp url(:senate) do
-    Map.get(@congress_on_the_floor_source, :senate) <> "#{current_congress()}.xml"
+    Map.get(@sources, :senate) <> "#{current_congress()}.xml"
   end
   defp url(:house) do
-    Map.get(@congress_on_the_floor_source, :house) <> "#{current_monday()}/#{current_monday()}.xml"
+    Map.get(@sources, :house) <> "#{current_monday()}/#{current_monday()}.xml"
   end
 
   defp current_congress do

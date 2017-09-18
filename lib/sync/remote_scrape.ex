@@ -12,5 +12,13 @@ defmodule KratosApi.RemoteScrape do
     |> SweetXml.parse
     |> SweetXml.xmap(mapping)
   end
+  def scrape(:xml, url, base, mapping) do
+    HTTPoison.get!(url, [])
+    |> Map.get(:body)
+    |> SweetXml.parse
+    |> SweetXml.xpath(base)
+    |> SweetXml.parse
+    |> SweetXml.xmap(mapping)
+  end
 
 end
