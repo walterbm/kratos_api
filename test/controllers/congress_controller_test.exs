@@ -55,7 +55,7 @@ defmodule KratosApi.CongressControllerTest do
   end
 
   test "GET /congress/trending", %{conn: conn, jwt: jwt} do
-    KratosApi.Sync.TrendingBill.sync()
+    KratosApi.Sync.sync(:trending)
 
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
