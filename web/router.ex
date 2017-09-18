@@ -41,6 +41,7 @@ defmodule KratosApi.Router do
 
     scope "/congress" do
       get "/recess", CongressController, :recess
+      get "/trending", CongressController, :trending
       get "/:chamber/floor", CongressController, :floor
     end
 

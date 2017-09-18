@@ -10,7 +10,7 @@ defmodule KratosApi.TrendingBillSyncTest do
 
   test "syncing creates a records for trending bills" do
     KratosApi.Sync.sync(:bill)
-    KratosApi.Sync.TrendingBill.sync(:trending)
+    KratosApi.Sync.TrendingBill.sync()
 
     assert Repo.all(TrendingBill) |> Enum.count == 10
 
@@ -23,11 +23,11 @@ defmodule KratosApi.TrendingBillSyncTest do
   end
 
   test "mutiple syncing does not create duplicate records of trending bills" do
-    KratosApi.Sync.TrendingBill.sync(:trending)
+    KratosApi.Sync.TrendingBill.sync()
 
     assert Repo.all(TrendingBill) |> Enum.count == 10
 
-    KratosApi.Sync.TrendingBill.sync(:trending)
+    KratosApi.Sync.TrendingBill.sync()
 
     assert Repo.all(TrendingBill) |> Enum.count == 10
   end

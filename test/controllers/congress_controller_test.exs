@@ -53,4 +53,26 @@ defmodule KratosApi.CongressControllerTest do
     assert first["type"] == "hr"
     assert first["pretty_gpo"] == "H.R. 3608"
   end
+
+  test "GET /congress/trending", %{conn: conn, jwt: jwt} do
+    KratosApi.Sync.TrendingBill.sync()
+
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/congress/trending")
+
+    response = json_response(conn, 200)
+
+    assert response["data"]
+    assert response["data"] |> Enum.count == 1
+
+    first =
+      response["data"]
+      |> Enum.filter(fn bill -> bill["gpo_id"] == "hr3609-114" end)
+      |> List.first
+
+    assert first["official_title"] == "To amend title XVIII of the Social Security Act to modify requirements for payment under the Medicare program for ambulance services furnished by critical access hospitals, and for other purposes."
+    assert first["type"] == "hr"
+    assert first["pretty_gpo"] == "H.R. 3609"
+  end
 end
