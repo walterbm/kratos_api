@@ -962,6 +962,130 @@ View the bills that are on the floor for each chamber (house, senate)
               ]
             }
 
+## Congress Trending Bills [/api/congress/trending]
+
+View the bills are trending this week
+
+### Get all trending bills [GET]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+            {
+              "data": [
+              {
+                "vetoed": false,
+                "type": "hr",
+                "top_subject": {
+                  "name": "Immigration",
+                  "id": 26
+                },
+                "titles": [
+                  {
+                    "type": "short",
+                    "title": "Bar Removal of Individuals who Dream and Grow our Economy Act",
+                    "is_for_portion": false,
+                    "as": "introduced"
+                  },
+                  {
+                    "type": "short",
+                    "title": "Bar Removal of Individuals who Dream and Grow our Economy Act",
+                    "is_for_portion": false,
+                    "as": "introduced"
+                  },
+                  {
+                    "type": "short",
+                    "title": "BRIDGE Act",
+                    "is_for_portion": false,
+                    "as": "introduced"
+                  },
+                  {
+                    "type": "short",
+                    "title": "BRIDGE Act",
+                    "is_for_portion": false,
+                    "as": "introduced"
+                  },
+                  {
+                    "type": "official",
+                    "title": "To provide provisional protected presence to qualified individuals who came to the United States as children.",
+                    "is_for_portion": false,
+                    "as": "introduced"
+                  },
+                  {
+                    "type": "display",
+                    "title": "BRIDGE Act",
+                    "is_for_portion": false,
+                    "as": null
+                  }
+                ],
+                "summary_text": "Bar Removal of Individuals who Dream and Grow our Economy Act or the BRIDGE Act",
+                "summary_date": "2017-01-12T05:00:00",
+                "status_at": null,
+                "status": "REFERRED",
+                "source_url": "https://www.gpo.gov/fdsys/bulkdata/BILLSTATUS/115/hr/BILLSTATUS-115hr496.xml",
+                "short_title": "Bar Removal of Individuals who Dream and Grow our Economy Act",
+                "pretty_gpo": "H.R. 496",
+                "popular_title": null,
+                "official_title": "To provide provisional protected presence to qualified individuals who came to the United States as children.",
+                "number": "496",
+                "introduced_at": "2017-01-12",
+                "id": 4442,
+                "history": {
+                  "vetoed": false,
+                  "enacted": false,
+                  "awaiting_signature": false,
+                  "active_at": "2017-09-05",
+                  "active": true
+                },
+                "gpo_id": "hr496-115",
+                "gpo_data_updated_at": null,
+                "full_text_url": null,
+                "enacted_as": null,
+                "enacted": false,
+                "congress_number": 115,
+                "committee_history": [
+                  {
+                    "committee_id": "HSJU",
+                    "committee": "House Judiciary",
+                    "activity": [
+                      "referral"
+                    ]
+                  },
+                  {
+                    "subcommittee_id": "01",
+                    "subcommittee": "Subcommittee on Immigration and Border Security",
+                    "committee_id": "HSJU",
+                    "committee": "House Judiciary",
+                    "activity": [
+                      "referral"
+                    ]
+                  }
+                ],
+                "awaiting_signature": false,
+                "amendments": [],
+                "active": true,
+                "actions": [
+                    {
+                      "type": "action",
+                      "text": "Motion to Discharge Committee filed by Mr. Coffman. Petition No: 115-4.",
+                      "references": [
+                        {
+                          "type": null,
+                          "reference": "Discharge petition text with signatures."
+                        }
+                      ],
+                      "action_code": "H17000",
+                      "acted_at": "2017-09-05"
+                    },
+                  ]
+                }
+              ]
+            }
+
 
 ## Group Districts
 
