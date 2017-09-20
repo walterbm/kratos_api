@@ -1,24 +1,39 @@
 defmodule KratosApi.RemoteScrape do
 
+  @invalid_xml_chars ~r/[&]/
+
   def scrape(url, tag), do: scrape(:html, url, tag)
   def scrape(:html, url, tag) do
-    HTTPoison.get!(url, [], hackney: [:insecure])
-    |> Map.get(:body)
+    get(url)
     |> Floki.find(tag)
   end
   def scrape(:xml, url, mapping) do
-    HTTPoison.get!(url, [])
-    |> Map.get(:body)
+    get(url)
+    |> parse(mapping)
+  end
+  def scrape(:xml, url, base, mapping) do
+    get(url)
+    |> parse(base, mapping)
+  end
+
+  def parse(string, mapping) do
+    string
     |> SweetXml.parse
     |> SweetXml.xmap(mapping)
   end
-  def scrape(:xml, url, base, mapping) do
-    HTTPoison.get!(url, [])
-    |> Map.get(:body)
+  def parse(string, base, mapping) do
+    string
     |> SweetXml.parse
     |> SweetXml.xpath(base)
+    |> to_string
+    |> String.replace(@invalid_xml_chars, "")
     |> SweetXml.parse
     |> SweetXml.xmap(mapping)
+  end
+
+  defp get(url) do
+    HTTPoison.get!(url, [], hackney: [:insecure])
+    |> Map.get(:body)
   end
 
 end
