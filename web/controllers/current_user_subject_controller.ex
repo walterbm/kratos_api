@@ -29,7 +29,7 @@ defmodule KratosApi.CurrentUserSubjectController do
     json conn, %{following: following.subject.name}
   end
   def create(conn, _) do
-    render conn, ErrorView, "500.json"
+    render conn, ErrorView, "400.json"
   end
 
   def delete(conn, %{"id" => subject_id}) do

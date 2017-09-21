@@ -23,7 +23,7 @@ defmodule KratosApi.UserSubjectControllerTest do
     %{jwt: jwt}
   end
 
-  test "GET /api/me/subjects", %{conn: conn, jwt: jwt} do
+  test "current user can get all the subject they are following", %{conn: conn, jwt: jwt} do
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> get("/api/me/subjects")
@@ -33,7 +33,7 @@ defmodule KratosApi.UserSubjectControllerTest do
     assert response |> Enum.map(&(Map.get(&1, "name"))) == ["Health"]
   end
 
-  test "POST /api/me/subjects", %{conn: conn, jwt: jwt} do
+  test "current user can follow a new subject", %{conn: conn, jwt: jwt} do
     subject = Repo.all(Subject) |> List.first
     user = Repo.get_by(User, email: KratosApi.Teststubs.user.email)
     conn = conn
@@ -44,6 +44,29 @@ defmodule KratosApi.UserSubjectControllerTest do
     assert json_response(conn, 200) == %{"following" => subject.name}
     following = Repo.get_by(UserSubject, user_id: user.id)
     assert following.subject_id == subject.id
+  end
+
+  test "current user can follow an existing subject without errors", %{conn: conn, jwt: jwt} do
+    subject = Repo.all(Subject) |> List.first
+    user = Repo.get_by(User, email: KratosApi.Teststubs.user.email)
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> put_req_header("content-type", "application/json")
+      |> post("/api/me/subjects", Poison.encode!(%{follow: %{subject_id: subject.id}}))
+
+    assert json_response(conn, 200) == %{"following" => subject.name}
+    following = Repo.get_by(UserSubject, user_id: user.id)
+    assert following.subject_id == subject.id
+
+    conn = recycle(conn)
+    |> put_req_header("authorization", "Bearer #{jwt}")
+    |> put_req_header("content-type", "application/json")
+    |> post("/api/me/subjects", Poison.encode!(%{follow: %{subject_id: subject.id}}))
+
+    assert json_response(conn, 200) == %{"following" => subject.name}
+    following = Repo.get_by(UserSubject, user_id: user.id)
+    assert following.subject_id == subject.id
+
   end
 
   test "DELETE /api/me/subjects/:id", %{conn: conn, jwt: jwt} do
