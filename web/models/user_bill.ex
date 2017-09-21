@@ -3,7 +3,6 @@ defmodule KratosApi.UserBill do
 
   alias KratosApi.{
     Repo,
-    Bill,
     UserBill
   }
 
@@ -25,8 +24,8 @@ defmodule KratosApi.UserBill do
 
   def get_or_create(user_id, bill_id) when is_binary(bill_id), do: get_or_create(user_id, String.to_integer(bill_id))
   def get_or_create(user_id, bill_id) do
-    case __MODULE__ |> KratosApi.Repo.get_by([user_id: user_id, bill_id: bill_id]) do
-      nil -> KratosApi.Repo.insert!(%__MODULE__{bill_id: bill_id, user_id: user_id})
+    case UserBill |> Repo.get_by([user_id: user_id, bill_id: bill_id]) do
+      nil -> Repo.insert!(%UserBill{bill_id: bill_id, user_id: user_id})
       user_bill -> user_bill
     end
   end

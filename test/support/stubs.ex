@@ -8,7 +8,7 @@ defmodule KratosApi.Teststubs do
     city: "San Antonio",
     state: "TX",
     zip: 78219,
-    apn_token: "<mock>",
+    push_token: "<mock>",
     birthday: ~D[1976-04-25],
     district: "20",
     party: "Democrat",
@@ -30,7 +30,7 @@ defmodule KratosApi.Teststubs do
       birthday: ~D[1991-06-29],
       party: "Independent",
       phone: "4444444444",
-      apn_token: "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
+      push_token: "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
     }
   }
   def kawhi, do: @kawhi
