@@ -4,7 +4,7 @@ defmodule KratosApi.User do
   @derive {
     Poison.Encoder,
     except: [:__meta__],
-    only: [:id, :first_name, :last_name, :email, :phone, :address, :city, :zip, :state, :district, :party, :birthday, :apn_token]
+    only: [:id, :first_name, :last_name, :email, :phone, :address, :city, :zip, :state, :district, :party, :birthday]
   }
 
   schema "users" do
@@ -20,7 +20,7 @@ defmodule KratosApi.User do
     field :encrypted_password, :string
     field :party, :string
     field :birthday, Ecto.Date
-    field :apn_token, :string
+    field :push_token, :string
     field :last_online_at, Ecto.DateTime
     field :confirmed_email_at, Ecto.DateTime
     field :password, :string, virtual: true
@@ -33,8 +33,8 @@ defmodule KratosApi.User do
   end
 
   @required_fields ~w(password email address city zip state district first_name last_name birthday)a
-  @allowed_fields ~w(password encrypted_password email phone address city zip state district first_name last_name party birthday apn_token)a
-  @updated_fields ~w(password apn_token phone address city zip state district first_name last_name party birthday)a
+  @allowed_fields ~w(password encrypted_password email phone address city zip state district first_name last_name party birthday push_token)a
+  @updated_fields ~w(password push_token phone address city zip state district first_name last_name party birthday)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -49,7 +49,7 @@ defmodule KratosApi.User do
     |> lower_case(:email)
     |> unique_constraint(:email, message: "An account with that email already exists")
     |> unique_constraint(:phone, message: "An account with that phone number already exists")
-    |> unique_constraint(:apn_token, message: "An account with that APN token already exists")
+    |> unique_constraint(:push_token, message: "An account with that push token already exists")
     |> generate_encrypted_password
   end
 
@@ -57,7 +57,7 @@ defmodule KratosApi.User do
     struct
     |> cast(params, @updated_fields)
     |> unique_constraint(:phone, message: "An account with that phone number already exists")
-    |> unique_constraint(:apn_token, message: "An account with that APN token already exists")
+    |> unique_constraint(:push_token, message: "An account with that push token already exists")
     |> generate_encrypted_password
   end
 

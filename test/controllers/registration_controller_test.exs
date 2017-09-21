@@ -25,7 +25,6 @@ defmodule KratosApi.RegistrationControllerTest do
     assert_delivered_email Email.confirmation("kawhi@goat.com", TokenGen.InMemory.get_test_token())
     assert json_response(conn, 201) == %{
       "address" => user.address,
-      "apn_token" => user.apn_token,
       "birthday" => Ecto.Date.to_string(user.birthday),
       "city" => user.city,
       "district" => user.district,
@@ -38,6 +37,7 @@ defmodule KratosApi.RegistrationControllerTest do
       "state" => user.state,
       "zip" => user.zip
     }
+    assert user.push_token == Teststubs.kawhi.user.push_token
   end
 
   test "Unconfirmed account cannot get a token", %{conn: conn} do
