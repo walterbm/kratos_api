@@ -16,7 +16,7 @@
   "<span class="hljs-attribute">zip</span>": <span class="hljs-value"><span class="hljs-number">11211</span></span>,
   "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
   "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1234567890</span></span>,
-  "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
+  "<span class="hljs-attribute">push_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
@@ -54,7 +54,7 @@
     "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
     </span>}</span>,
-    "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">push_token</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
     </span>}
   </span>}</span>,
@@ -82,7 +82,7 @@
   "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span></span>,
   "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
   "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
-  "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
+  "<span class="hljs-attribute">push_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="user-login" class="resource"><h3 class="resource-heading">Login <a href="#user-login" class="permalink">&nbsp;&para;</a></h3><p>Login and existing user and start a session.</p>
 <div id="user-login-post" class="action post"><h4 class="action-heading"><div class="name">Login & Create a New Session</div><a href="#user-login-post" class="method post">POST</a><code class="uri">/api/login</code></h4><h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.site</span>/api/login</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">session</span>": <span class="hljs-value">{
@@ -128,12 +128,12 @@
   "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span></span>,
   "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
   "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
-  "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
+  "<span class="hljs-attribute">push_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="user-me-post" class="action post"><h4 class="action-heading"><div class="name">Update My information</div><a href="#user-me-post" class="method post">POST</a><code class="uri">/api/me</code></h4><h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.site</span>/api/me</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;token&gt;</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"super_sekrit"</span></span>,
     "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1111111111</span></span>,
-    "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;goat&gt;"</span></span>,
+    "<span class="hljs-attribute">push_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;goat&gt;"</span></span>,
     "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Lebron"</span></span>,
     "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"James"</span></span>,
     "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"Quicken Loans Arena"</span></span>,
@@ -156,7 +156,7 @@
         "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
         </span>}</span>,
-        "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">push_token</span>": <span class="hljs-value">{
           "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
         </span>}</span>,
         "<span class="hljs-attribute">first_name</span>": <span class="hljs-value">{
@@ -202,7 +202,7 @@
   "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"Quicken Loans Arena"</span></span>,
   "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
   "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"1984-12-30"</span></span>,
-  "<span class="hljs-attribute">apn_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;goat&gt;"</span>
+  "<span class="hljs-attribute">push_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;goat&gt;"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="user-my-bills" class="resource"><h3 class="resource-heading">My Bills <a href="#user-my-bills" class="permalink">&nbsp;&para;</a></h3><p>Track Bills and view all tracked Bills.</p>
 <div id="user-my-bills-get" class="action get"><h4 class="action-heading"><div class="name">All Tracked Bills & All Tracked Subject Bills</div><a href="#user-my-bills-get" class="method get">GET</a><code class="uri">/api/me/bills{?onlyids}{?userbills}</code></h4><h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.site</span>/api/me/bills?<span class="hljs-attribute">onlyids=</span><span class="hljs-literal">false</span>?<span class="hljs-attribute">userbills=</span><span class="hljs-literal">false</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>onlyids</dt><dd><code>boolean</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>false</span></span></dd><dt>subjects[]</dt><dd><code>number or boolean</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>3</span></span></dd><dt>userbills</dt><dd><code>boolean</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>false</span></span></dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer &lt;token&gt;</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">pagination</span>": <span class="hljs-value">[
@@ -1891,7 +1891,7 @@
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">ok</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 18 Sep 2017</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 20 Sep 2017</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 

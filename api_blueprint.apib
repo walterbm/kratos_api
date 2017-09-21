@@ -44,7 +44,7 @@ Register and modify user's information. After registration a user will be unable
           + zip: `11211` (number, required)
           + party: `Democrat` (string)
           + phone: `1234567890` (number)
-          + apn_token: `<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>` (string)
+          + push_token: `<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>` (string)
 
 + Response 200 (application/json)
 
@@ -61,7 +61,7 @@ Register and modify user's information. After registration a user will be unable
               "address": "700 Ranch",
               "party": "Democrat",
               "birthday": "2001-03-11",
-              "apn_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
+              "push_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
             }
 
 ## Login [/api/login]
@@ -124,7 +124,7 @@ Get & update information on the current user based on the session.
               "address": "700 Ranch",
               "party": "Democrat",
               "birthday": "2001-03-11",
-              "apn_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
+              "push_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
             }
 
 ### Update My information [POST]
@@ -139,7 +139,7 @@ Get & update information on the current user based on the session.
         + user
             + password: `super_sekrit` (string, required)
             + phone: `1111111111` (number)
-            + apn_token: `<goat>` (string)
+            + push_token: `<goat>` (string)
             + first_name: `Lebron` (string)
             + last_name: `James` (string)
             + address: `Quicken Loans Arena` (string)
@@ -164,7 +164,7 @@ Get & update information on the current user based on the session.
               "address": "Quicken Loans Arena",
               "party": "Democrat",
               "birthday": "1984-12-30",
-              "apn_token": "<goat>"
+              "push_token": "<goat>"
             }
 
 ## My Bills [/api/me/bills{?onlyids}{?subjects%5B%5D}{?userbills}]
