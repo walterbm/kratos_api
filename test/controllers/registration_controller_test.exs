@@ -35,7 +35,8 @@ defmodule KratosApi.RegistrationControllerTest do
       "party" => user.party,
       "phone" => user.phone,
       "state" => user.state,
-      "zip" => user.zip
+      "zip" => user.zip,
+      "has_push_token" => true,
     }
     assert user.push_token == Teststubs.kawhi.user.push_token
   end
