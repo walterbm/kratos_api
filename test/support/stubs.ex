@@ -8,7 +8,6 @@ defmodule KratosApi.Teststubs do
     city: "San Antonio",
     state: "TX",
     zip: 78219,
-    push_token: "<mock>",
     birthday: ~D[1976-04-25],
     district: "20",
     party: "Democrat",
