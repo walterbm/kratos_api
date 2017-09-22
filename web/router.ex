@@ -74,12 +74,21 @@ defmodule KratosApi.Router do
     end
 
     scope "/me" do
-      get "/", CurrentUserController, :show
-      post "/", CurrentUserController, :update
-      post "/actions", CurrentUserController, :record_action
-      resources "/votes", CurrentUserVoteController, except: [:edit, :new]
-      resources "/bills", CurrentUserBillController, except: [:edit, :update, :new]
-      resources "/subjects", CurrentUserSubjectController, except: [:edit, :update, :new, :show]
+      get "/", MeController, :show
+      post "/", MeController, :update
+      post "/actions", MeController, :create_action
+      get "/bills", MeController, :bills
+      post "/bills", MeController, :track_bill
+      get "/bills/:id", MeController, :bill
+      delete "/bills/:id", MeController, :untrack_bill
+      get "/subjects", MeController, :subjects
+      post "/subjects", MeController, :track_subject
+      delete "/subjects/:id", MeController, :untrack_subject
+      get "/votes", MeController, :votes
+      post "/votes", MeController, :create_vote
+      get "/votes/:id", MeController, :vote
+      patch "/votes/:id", MeController, :update_vote
+      delete "/votes/:id", MeController, :delete_vote
     end
     post "/login", SessionController, :create
 
