@@ -1,4 +1,4 @@
-defmodule KratosApi.CurrentUserView do
+defmodule KratosApi.UserView do
   use KratosApi.Web, :view
 
   def render("show.json", %{user: user}) do

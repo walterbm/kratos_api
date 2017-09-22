@@ -27,11 +27,11 @@ defmodule KratosApi.RegistrationController do
 
         conn
         |> put_status(:created)
-        |> render(KratosApi.CurrentUserView, "show.json", user: user)
+        |> render(KratosApi.UserView, "show.json", user: user)
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(KratosApi.RegistrationView, "error.json", changeset: changeset)
+        |> render("error.json", changeset: changeset)
     end
   end
 
