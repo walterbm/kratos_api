@@ -12,7 +12,7 @@ defmodule KratosApi.SubjectControllerTest do
   end
 
 
-  test "GET /api/subjects", %{conn: conn, jwt: jwt} do
+  test "get all subjects", %{conn: conn, jwt: jwt} do
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> get("/api/subjects")
@@ -23,5 +23,18 @@ defmodule KratosApi.SubjectControllerTest do
        "Health", "Health care coverage and access", "Hospital care",
        "Licensing and registrations", "Medicare", "Rural conditions and development",
        "Sales and excise taxes", "Taxation", "Transportation safety and security"]
+  end
+
+  test "get all active subjects", %{conn: conn, jwt: jwt} do
+    subjects = KratosApi.Repo.all(KratosApi.Bill)
+                |> Repo.preload(:top_subject)
+                |> Enum.map(&(&1.top_subject.name))
+
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/subjects?active=true")
+
+    response = json_response(conn, 200) |> Map.get("data")
+    assert response |> Enum.map(&(Map.get(&1, "name"))) == subjects
   end
 end
