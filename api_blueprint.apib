@@ -73,10 +73,14 @@ Confirm a user's email by entering their unique PIN. PINs are strings with 6 cha
 
 + Request (application/json)
 
+    + Attributes(object)
+
+          + pin: `123456` (string, required)
+
 + Response 200 (application/json)
 
             {
-              "pin": "123456"
+              "success": "Confirmed account!"
             }
 
 
@@ -2070,11 +2074,14 @@ The pattern can be repeated for any number of subjects.
 
 ## Group Subject
 
-Resources related bill subjects
+Resources related to bill subjects
 
-## Subjects [/api/subjects]
+## Subjects [/api/subjects{?active}]
 
 ### Get all Subjects [GET]
+
++ Parameters
+    + active: `false` (optional, boolean) - return only subjects with bills
 
 + Request
     + Headers
