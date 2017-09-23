@@ -25,7 +25,7 @@ Resources related users, on-boarding, and registration.
 
 ## Register [/api/registrations]
 
-Register and modify user's information. After registration a user will be unable to get a token until they have verified their email. Once the user's email has been confirmed, a new token can be request through `/api/login`.
+Register and modify user's information. After registration a user will be unable to get a token until they have verified their email. Once the user's email has been confirmed, a new token can be requested through `/api/login`.
 
 ### Create A New User Registration [POST]
 
@@ -63,6 +63,22 @@ Register and modify user's information. After registration a user will be unable
               "birthday": "2001-03-11",
               "push_token": "<ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969>"
             }
+
+
+## Confirm Email with PIN [/api/confirmation]
+
+Confirm a user's email by entering their unique PIN. PINs are strings with 6 characters.
+
+### Confirm with PIN [POST]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+            {
+              "pin": "123456"
+            }
+
 
 ## Login [/api/login]
 
