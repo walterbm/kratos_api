@@ -14,6 +14,7 @@ defmodule KratosApi.User do
     field :encrypted_password, :string
     field :party, :string
     field :birthday, Ecto.Date
+    field :pin, :string
     field :push_token, :string
     field :last_online_at, Ecto.DateTime
     field :confirmed_email_at, Ecto.DateTime
@@ -44,6 +45,8 @@ defmodule KratosApi.User do
     |> unique_constraint(:email, message: "An account with that email already exists")
     |> unique_constraint(:phone, message: "An account with that phone number already exists")
     |> unique_constraint(:push_token, message: "An account with that push token already exists")
+    |> generate_unique_pin
+    |> validate_length(:pin, is: 6)
     |> generate_encrypted_password
   end
 
@@ -70,14 +73,33 @@ defmodule KratosApi.User do
   def confirm_email_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:confirmed_email_at])
+    |> destroy_unique_pin
   end
 
-  defp generate_encrypted_password(current_changeset) do
-    case current_changeset do
+  defp generate_encrypted_password(changeset) do
+    case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-        put_change(current_changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(password))
+        put_change(changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(password))
       _ ->
-        current_changeset
+        changeset
+    end
+  end
+
+  defp generate_unique_pin(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true} ->
+        put_change(changeset, :pin, unique_pin())
+      _ ->
+        changeset
+    end
+  end
+
+  defp destroy_unique_pin(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true} ->
+        put_change(changeset, :pin, nil)
+      _ ->
+        changeset
     end
   end
 
@@ -87,6 +109,14 @@ defmodule KratosApi.User do
       field -> String.downcase(field)
     end
     put_change(changeset, field, lowered_field)
+  end
+
+  defp unique_pin() do
+    pin = Enum.random(100000..999999) |> to_string
+    case KratosApi.Repo.get_by(__MODULE__, pin: pin) do
+      nil   -> pin
+      _user -> unique_pin()
+    end
   end
 
 end
