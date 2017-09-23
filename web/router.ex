@@ -96,7 +96,8 @@ defmodule KratosApi.Router do
 
     post "/forgot-password", RegistrationController, :forgot_password
 
-    post "/confirmation/request", RegistrationController, :confirmation_request
+    post "/confirmation", RegistrationController, :confirm_post
+    post "/confirmation/request", RegistrationController, :confirm_request
 
     get "/feedback", FeedbackController, :index
     post "/feedback", FeedbackController, :create

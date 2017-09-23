@@ -12,12 +12,12 @@ defmodule Email do
     |> render("forgot_password.html", reset_token: reset_token, url: @url <> "/reset-password?reset_token=")
   end
 
-  def confirmation(email_address, confirmation_token) do
+  def confirmation(email_address, pin) do
     base_email()
     |> to(email_address)
     |> subject("Kratos Account Confirmation")
-    |> text_body("Confirm your Kratos account by copying this url into your browser: #{@url <> "/confirmation?token="}#{confirmation_token}")
-    |> render("confirmation_email.html", confirmation_token: confirmation_token, url: @url <> "/confirmation?token=")
+    |> text_body("Confirm your Kratos account by entering this pin into your app")
+    |> render("confirmation_email.html", pin: pin, url: @url <> "/confirmation?pin=#{pin}")
   end
 
   defp base_email do

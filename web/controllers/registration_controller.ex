@@ -4,7 +4,6 @@ defmodule KratosApi.RegistrationController do
   alias KratosApi.{
     Repo,
     User,
-    User,
     Mailer,
     Time,
     UserAnalytics
@@ -23,7 +22,7 @@ defmodule KratosApi.RegistrationController do
     case Repo.insert(changeset) do
       {:ok, user} ->
 
-        Email.confirmation(user.email, generate_token(user.email)) |> Mailer.deliver_now
+        Email.confirmation(user.email, user.pin) |> Mailer.deliver_now
 
         conn
         |> put_status(:created)
@@ -69,29 +68,43 @@ defmodule KratosApi.RegistrationController do
     end
   end
 
-  def confirmation_request(conn, %{"email" => email}) do
+  def confirm_request(conn, %{"email" => email}) do
     email = String.downcase(email)
-    token = generate_token(email)
 
-    Email.confirmation(email, token) |> Mailer.deliver_now
+    user = Repo.get_by(User, email: email)
+
+    if user do
+      Email.confirmation(email, user.pin) |> Mailer.deliver_now
+    end
 
     json conn, %{ok: true}
   end
 
-  def confirm(conn, %{"token" => token}) do
-    with {:ok, claims} <- verify_token(token),
-         {:ok, _user}  <- Repo.get_by(User, email: claims["email"]) |> UserAnalytics.confirm_email()
-    do
-      conn
-        |> put_flash(:success, "Confirmed account!")
-        |> put_layout(false)
-        |> render("confirm_email.html")
-    else
-      _ ->
+  def confirm(conn, %{"pin" => pin}) do
+    case Repo.get_by(User, pin: pin) do
+      nil  ->
         conn
           |> put_flash(:error, "Failed to confirm account!")
           |> put_layout(false)
           |> render("confirm_email.html")
+      user ->
+        UserAnalytics.confirm_email(user)
+        conn
+          |> put_flash(:success, "Confirmed account!")
+          |> put_layout(false)
+          |> render("confirm_email.html")
+    end
+  end
+
+  def confirm_post(conn, %{"pin" => pin}) do
+    case Repo.get_by(User, pin: pin) do
+      nil  ->
+        conn
+        |> put_status(:unauthorized)
+        |> json(%{error: "Invalid PIN, please try again."})
+      user ->
+        UserAnalytics.confirm_email(user)
+        json conn, %{success: "Confirmed account!"}
     end
   end
 
