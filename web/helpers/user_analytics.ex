@@ -1,17 +1,22 @@
 defmodule KratosApi.UserAnalytics do
 
+  alias KratosApi.{
+    Repo,
+    User,
+  }
+
   def mark_online(user) do
     changeset = user
-      |> KratosApi.User.last_online_changeset(%{last_online_at: Ecto.DateTime.utc()})
+      |> User.last_online_changeset(%{last_online_at: Ecto.DateTime.utc()})
 
-    Task.start(KratosApi.Repo, :update, [changeset])
+    Task.start(Repo, :update, [changeset])
   end
 
-  def confirm_email(user \\ %KratosApi.User{}) do
+  def confirm_email(user \\ %User{}) do
     if user do
       user
-        |> KratosApi.User.confirm_email_changeset(%{confirmed_email_at: Ecto.DateTime.utc()})
-        |> KratosApi.Repo.update
+        |> User.confirm_email_changeset(%{confirmed_email_at: Ecto.DateTime.utc()})
+        |> Repo.update
     else
       {:error, "User not found"}
     end
