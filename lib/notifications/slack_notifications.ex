@@ -1,4 +1,4 @@
-defmodule KratosApi.Notifcations.Slack do
+defmodule KratosApi.Notifications.Slack do
 
   @slack_url Application.get_env(:kratos_api, :slack_url, "")
 
