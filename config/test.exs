@@ -30,7 +30,7 @@ config :kratos_api, :remote_scraper, KratosApi.RemoteScrape.InMemory
 config :kratos_api, :remote_search, KratosApi.Search.Remote.InMemory
 config :kratos_api, :remote_district_lookup, KratosApi.FindDistrict.InMemory
 config :kratos_api, :token_gen, KratosApi.TokenGen.InMemory
-config :kratos_api, :slack, KratosApi.Slack.InMemory
+config :kratos_api, :slack, KratosApi.Notifications.Slack.InMemory
 config :kratos_api, :url, "https://lol.com"
 
 # Authentication

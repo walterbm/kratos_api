@@ -28,7 +28,7 @@ config :kratos_api, :remote_scraper, KratosApi.RemoteScrape
 config :kratos_api, :remote_search, KratosApi.Search.Remote
 config :kratos_api, :remote_district_lookup, KratosApi.FindDistrict
 config :kratos_api, :token_gen, KratosApi.TokenGen
-config :kratos_api, :slack, KratosApi.Slack
+config :kratos_api, :slack, KratosApi.Notifcations.Slack
 config :kratos_api, :url, "https://kratos.site"
 
 # Do not print debug messages in production
