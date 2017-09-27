@@ -64,7 +64,7 @@ defmodule KratosApi.RegistrationControllerTest do
           }
         }))
 
-    assert json_response(conn, 422) == %{"errors" => [%{"error" => "Account has not been confirmed"}]}
+    assert json_response(conn, 403) == %{"errors" => [%{"unconfirmed" => "Account has not been confirmed"}]}
   end
 
   test "Confirmed account can get a token", %{conn: conn} do

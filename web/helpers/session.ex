@@ -13,7 +13,7 @@ defmodule KratosApi.Session do
   end
 
   defp good_password_and_confirmed(true, true), do: {:ok}
-  defp good_password_and_confirmed(true, false), do: {:error, "Account has not been confirmed"}
+  defp good_password_and_confirmed(true, false), do: {:error, :unconfirmed}
   defp good_password_and_confirmed(false, _), do: {:error, "Invalid email or password"}
 
   defp check_password(nil, _password), do: false
