@@ -1,6 +1,8 @@
 defmodule KratosApi.SessionView do
   use KratosApi.Web, :view
 
+  alias KratosApi.ErrorView
+
   def render("show.json", %{jwt: jwt}) do
     %{ token: jwt }
   end
@@ -15,5 +17,9 @@ defmodule KratosApi.SessionView do
 
   def render("forbidden.json", %{ error: error }) do
     %{ error: error } |> KratosApi.ErrorView.wrap
+  end
+
+  def render("unconfirmed.json", _assigns) do
+    %{ unconfirmed: "Account has not been confirmed" } |> ErrorView.wrap
   end
 end
