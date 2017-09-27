@@ -53,6 +53,7 @@ defmodule KratosApi.User do
     |> unique_constraint(:email, message: "An account with that email already exists.")
     |> unique_constraint(:phone, message: "An account with that phone number already exists.")
     |> unique_constraint(:push_token, message: "An account with that push token already exists.")
+    |> unique_constraint(:apn_token, message: "An account with that push token already exists.")
     |> generate_unique_pin
     |> validate_length(:pin, is: 6)
     |> generate_encrypted_password
