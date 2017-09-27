@@ -5,70 +5,77 @@
 }</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="user" class="resource-group"><h2 class="group-heading">User <a href="#user" class="permalink">&para;</a></h2><p>Resources related users, on-boarding, and registration.</p>
 <div id="user-register" class="resource"><h3 class="resource-heading">Register <a href="#user-register" class="permalink">&nbsp;&para;</a></h3><p>Register and modify user’s information. After registration a user will be unable to get a token until they have verified their email. Once the user’s email has been confirmed, a new token can be requested through <code>/api/login</code>.</p>
 <div id="user-register-post" class="action post"><h4 class="action-heading"><div class="name">Create A New User Registration</div><a href="#user-register-post" class="method post">POST</a><code class="uri">/api/registrations</code></h4><h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://kratos.site</span>/api/registrations</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"password"</span></span>,
-  "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"legalize@ranch.com"</span></span>,
-  "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Eric"</span></span>,
-  "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Andre"</span></span>,
-  "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
-  "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span></span>,
-  "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Brooklyn"</span></span>,
-  "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"NY"</span></span>,
-  "<span class="hljs-attribute">zip</span>": <span class="hljs-value"><span class="hljs-number">11211</span></span>,
-  "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
-  "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1234567890</span></span>,
-  "<span class="hljs-attribute">push_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
+  "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">password</span>": <span class="hljs-value"><span class="hljs-string">"password"</span></span>,
+    "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"legalize@ranch.com"</span></span>,
+    "<span class="hljs-attribute">first_name</span>": <span class="hljs-value"><span class="hljs-string">"Eric"</span></span>,
+    "<span class="hljs-attribute">last_name</span>": <span class="hljs-value"><span class="hljs-string">"Andre"</span></span>,
+    "<span class="hljs-attribute">birthday</span>": <span class="hljs-value"><span class="hljs-string">"2001-03-11"</span></span>,
+    "<span class="hljs-attribute">address</span>": <span class="hljs-value"><span class="hljs-string">"700 Ranch"</span></span>,
+    "<span class="hljs-attribute">city</span>": <span class="hljs-value"><span class="hljs-string">"Brooklyn"</span></span>,
+    "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"NY"</span></span>,
+    "<span class="hljs-attribute">zip</span>": <span class="hljs-value"><span class="hljs-number">11211</span></span>,
+    "<span class="hljs-attribute">party</span>": <span class="hljs-value"><span class="hljs-string">"Democrat"</span></span>,
+    "<span class="hljs-attribute">phone</span>": <span class="hljs-value"><span class="hljs-number">1234567890</span></span>,
+    "<span class="hljs-attribute">push_token</span>": <span class="hljs-value"><span class="hljs-string">"&lt;ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969&gt;"</span>
+  </span>}
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">password</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">email</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">first_name</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">last_name</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">birthday</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">address</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">city</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">state</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">zip</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">party</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
-    </span>}</span>,
-    "<span class="hljs-attribute">push_token</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">password</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">email</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">first_name</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">last_name</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">birthday</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">address</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">city</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">state</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">zip</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">party</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">phone</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">push_token</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+        </span>}
+      </span>}</span>,
+      "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
+        <span class="hljs-string">"password"</span>,
+        <span class="hljs-string">"email"</span>,
+        <span class="hljs-string">"first_name"</span>,
+        <span class="hljs-string">"last_name"</span>,
+        <span class="hljs-string">"birthday"</span>,
+        <span class="hljs-string">"address"</span>,
+        <span class="hljs-string">"city"</span>,
+        <span class="hljs-string">"state"</span>,
+        <span class="hljs-string">"zip"</span>
+      ]
     </span>}
-  </span>}</span>,
-  "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
-    <span class="hljs-string">"password"</span>,
-    <span class="hljs-string">"email"</span>,
-    <span class="hljs-string">"first_name"</span>,
-    <span class="hljs-string">"last_name"</span>,
-    <span class="hljs-string">"birthday"</span>,
-    <span class="hljs-string">"address"</span>,
-    <span class="hljs-string">"city"</span>,
-    <span class="hljs-string">"state"</span>,
-    <span class="hljs-string">"zip"</span>
-  ]
+  </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">zip</span>": <span class="hljs-value"><span class="hljs-number">11211</span></span>,
   "<span class="hljs-attribute">state</span>": <span class="hljs-value"><span class="hljs-string">"NY"</span></span>,
@@ -1908,7 +1915,7 @@
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">ok</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
-</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 23 Sep 2017</p><script>/* eslint-env browser */
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 26 Sep 2017</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
