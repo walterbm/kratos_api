@@ -27,7 +27,6 @@ defmodule KratosApi.User do
     timestamps()
   end
 
-  @required_fields ~w(password email address city zip state district first_name last_name birthday)a
   @allowed_fields ~w(password encrypted_password email phone address city zip state district first_name last_name party birthday push_token)a
   @updated_fields ~w(password push_token phone address city zip state district first_name last_name party birthday)a
 
@@ -37,14 +36,23 @@ defmodule KratosApi.User do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @allowed_fields)
-    |> validate_required(@required_fields)
+    |> validate_required(:password, message: "Password can't be blank.")
+    |> validate_required(:email, message: "Email can't be blank.")
+    |> validate_required(:address, message: "Address can't be blank.")
+    |> validate_required(:city, message: "City can't be blank.")
+    |> validate_required(:zip, message: "Zip code can't be blank.")
+    |> validate_required(:state, message: "State can't be blank.")
+    |> validate_required(:district, message: "District can't be blank.")
+    |> validate_required(:first_name, message: "First name can't be blank.")
+    |> validate_required(:last_name, message: "Last name can't be blank.")
+    |> validate_required(:birthday, message: "Birthday can't be blank.")
     |> validate_length(:password, min: 8)
-    |> validate_confirmation(:password, message: "Password does not match")
+    |> validate_confirmation(:password, message: "Password does not match.")
     |> validate_format(:email, ~r/@/)
     |> lower_case(:email)
-    |> unique_constraint(:email, message: "An account with that email already exists")
-    |> unique_constraint(:phone, message: "An account with that phone number already exists")
-    |> unique_constraint(:push_token, message: "An account with that push token already exists")
+    |> unique_constraint(:email, message: "An account with that email already exists.")
+    |> unique_constraint(:phone, message: "An account with that phone number already exists.")
+    |> unique_constraint(:push_token, message: "An account with that push token already exists.")
     |> generate_unique_pin
     |> validate_length(:pin, is: 6)
     |> generate_encrypted_password
