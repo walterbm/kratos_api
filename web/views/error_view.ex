@@ -2,19 +2,23 @@ defmodule KratosApi.ErrorView do
   use KratosApi.Web, :view
 
   def render("404.json", _assigns) do
-    %{ error: "We're sorry, something went wrong" } |> wrap
+    %{ error: "We're sorry, something went wrong." } |> wrap
   end
 
   def render("500.json", _assigns) do
-    %{ error: "We're sorry, something went wrong" } |> wrap
+    %{ error: "We're sorry, something went wrong." } |> wrap
   end
 
   def render("not_following_bill.json", _assings) do
-    %{ error: "User is not following this Bill" } |> wrap
+    %{ error: "You are not following this Bill." } |> wrap
   end
 
   def render("not_voted.json", _assings) do
-    %{ error: "User has not voted on this question yet!" } |> wrap
+    %{ error: "You have not voted on this question yet." } |> wrap
+  end
+
+  def render("bad_address.json", _assings) do
+    %{ error: "Sorry, we could not find your congressional district." } |> wrap
   end
 
   # In case no render clause matches or no

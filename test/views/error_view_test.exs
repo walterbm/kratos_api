@@ -6,16 +6,16 @@ defmodule KratosApi.ErrorViewTest do
 
   test "renders 404.html" do
     assert render_to_string(KratosApi.ErrorView, "404.json", []) ==
-           "{\"errors\":[{\"error\":\"We\'re sorry, something went wrong\"}]}"
+           "{\"errors\":[{\"error\":\"We\'re sorry, something went wrong.\"}]}"
   end
 
   test "render 500.html" do
     assert render_to_string(KratosApi.ErrorView, "404.json", []) ==
-           "{\"errors\":[{\"error\":\"We\'re sorry, something went wrong\"}]}"
+           "{\"errors\":[{\"error\":\"We\'re sorry, something went wrong.\"}]}"
   end
 
   test "render any other" do
     assert render_to_string(KratosApi.ErrorView, "404.json", []) ==
-           "{\"errors\":[{\"error\":\"We\'re sorry, something went wrong\"}]}"
+           "{\"errors\":[{\"error\":\"We\'re sorry, something went wrong.\"}]}"
   end
 end

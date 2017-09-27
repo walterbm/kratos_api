@@ -6,7 +6,8 @@ defmodule KratosApi.RegistrationController do
     User,
     Mailer,
     Time,
-    UserAnalytics
+    ErrorView,
+    UserAnalytics,
   }
 
   @token_gen Application.get_env(:kratos_api, :token_gen)
@@ -15,7 +16,14 @@ defmodule KratosApi.RegistrationController do
   plug :scrub_params, "user" when action in [:create]
 
   def create(conn, %{"user" => user_params}) do
-    new_user = Map.merge(user_params, @find_district.by_address(user_params))
+    new_user = case @find_district.by_address(user_params) do
+      {:ok, address} ->
+         Map.merge(user_params, address)
+      {:error, _}    ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(ErrorView, "bad_address.json")
+    end
 
     changeset = User.changeset(%User{}, new_user)
 
