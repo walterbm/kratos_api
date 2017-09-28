@@ -7,7 +7,7 @@ BUILD_HOST="173.199.123.26"
 BUILD_USER="root"
 BUILD_AT="/tmp/edeliver/kratos_api/builds"
 
-PRODUCTION_HOSTS="ec2-54-174-179-130.compute-1.amazonaws.com"
+PRODUCTION_HOSTS="ec2-34-235-161-68.compute-1.amazonaws.com"
 PRODUCTION_USER="deploy"
 DELIVER_TO="/opt"
 
