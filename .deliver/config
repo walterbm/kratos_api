@@ -7,7 +7,7 @@ BUILD_HOST="***REMOVED***"
 BUILD_USER="root"
 BUILD_AT="/tmp/edeliver/kratos_api/builds"
 
-PRODUCTION_HOSTS="ec2-54-174-179-130.compute-1.amazonaws.com"
+PRODUCTION_HOSTS="***REMOVED***"
 PRODUCTION_USER="deploy"
 DELIVER_TO="/opt"
 
