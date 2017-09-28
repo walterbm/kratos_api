@@ -38,22 +38,12 @@ defmodule KratosApi.User do
     |> cast(params, @allowed_fields)
     |> validate_required(:password, message: "Password can't be blank.")
     |> validate_required(:email, message: "Email can't be blank.")
-    |> validate_required(:address, message: "Address can't be blank.")
-    |> validate_required(:city, message: "City can't be blank.")
-    |> validate_required(:zip, message: "Zip code can't be blank.")
-    |> validate_required(:state, message: "State can't be blank.")
-    |> validate_required(:district, message: "District can't be blank.")
-    |> validate_required(:first_name, message: "First name can't be blank.")
-    |> validate_required(:last_name, message: "Last name can't be blank.")
-    |> validate_required(:birthday, message: "Birthday can't be blank.")
     |> validate_length(:password, min: 8)
     |> validate_confirmation(:password, message: "Password does not match.")
-    |> validate_format(:email, ~r/@/)
+    |> common_validations
     |> lower_case(:email)
+    |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email, message: "An account with that email already exists.")
-    |> unique_constraint(:phone, message: "An account with that phone number already exists.")
-    |> unique_constraint(:push_token, message: "An account with that push token already exists.")
-    |> unique_constraint(:apn_token, message: "An account with that push token already exists.")
     |> generate_unique_pin
     |> validate_length(:pin, is: 6)
     |> generate_encrypted_password
@@ -62,8 +52,7 @@ defmodule KratosApi.User do
   def update_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @updated_fields)
-    |> unique_constraint(:phone, message: "An account with that phone number already exists")
-    |> unique_constraint(:push_token, message: "An account with that push token already exists")
+
     |> generate_encrypted_password
   end
 
@@ -83,6 +72,19 @@ defmodule KratosApi.User do
     struct
     |> cast(params, [:confirmed_email_at])
     |> destroy_unique_pin
+  end
+
+  defp common_validations(changeset) do
+    changeset
+    |> validate_required(:address, message: "Address can't be blank.")
+    |> validate_required(:city, message: "City can't be blank.")
+    |> validate_required(:zip, message: "Zip code can't be blank.")
+    |> validate_required(:state, message: "State can't be blank.")
+    |> validate_required(:district, message: "District can't be blank.")
+    |> validate_required(:first_name, message: "First name can't be blank.")
+    |> validate_required(:last_name, message: "Last name can't be blank.")
+    |> validate_required(:birthday, message: "Birthday can't be blank.")
+    |> unique_constraint(:phone, message: "An account with that phone number already exists.")
   end
 
   defp generate_encrypted_password(changeset) do
