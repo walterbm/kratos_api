@@ -22,9 +22,10 @@ defmodule KratosApi.MeController do
     UserAction,
     UserSubject,
     SubjectView,
-    FindDistrict,
     RegistrationView
   }
+
+  @find_district Application.get_env(:kratos_api, :remote_district_lookup)
 
   # User
 
@@ -37,7 +38,15 @@ defmodule KratosApi.MeController do
   end
 
   def update(conn, %{"user" => user_params }) do
-    updated_user = Map.merge(user_params, FindDistrict.by_address(user_params))
+    updated_user = case @find_district.by_address(user_params) do
+      {:ok, address} ->
+         Map.merge(user_params, address)
+      {:error, _}    ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(ErrorView, "bad_address.json")
+    end
+
     changeset = User.update_changeset(Guardian.Plug.current_resource(conn), updated_user)
 
     case Repo.update(changeset) do
