@@ -22,7 +22,7 @@ defmodule KratosApi.Sync.Person do
   defp save(data) do
     params = prepare(data)
     changeset = Person.changeset(%Person{}, params) |> add_associations(data)
-    SyncHelpers.save(changeset, [bioguide: data['id']['bioguide'] |> to_string ], &update/2)
+    SyncHelpers.save(changeset, [bioguide: params.bioguide ], &update/2)
   end
 
   defp update(record, changeset) do
@@ -62,7 +62,7 @@ defmodule KratosApi.Sync.Person do
 
   defp prepare_common(data) do
     %{
-      bioguide: data['id'] |> bioguide?,
+      bioguide: data |> bioguide?,
       thomas: data['id']['thomas'] |> to_string,
       lis: data['id']['lis'] |> to_string,
       opensecrets: data['id']['opensecrets'] |> to_string,
@@ -85,12 +85,12 @@ defmodule KratosApi.Sync.Person do
     }
   end
 
-  defp bioguide?(id_data) do
-    if id_data['bioguide'] do
-      id_data['bioguide'] |> to_string
-    else
-      id_data['wikipedia'] |> to_string
-    end
+  defp bioguide?(data) do
+    cond do
+      data['id']['bioguide']   -> data['id']['bioguide']
+      data['id']['wikipedia']  -> data['id']['wikipedia']
+      data['id']['icpsr_prez'] -> data['id']['icpsr_prez']
+    end |> to_string
   end
 
   defp add_associations(changeset, data) do

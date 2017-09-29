@@ -141,7 +141,7 @@ defmodule KratosApi.PersonSyncTest do
   test "syncing executive correctly labels current terms" do
     KratosApi.Sync.Person.sync(:executive)
 
-    assert Repo.all(Person) |> Enum.count == 3
+    assert Repo.all(Person) |> Enum.count == 4
 
     person = Repo.one!(
       from p in Person,
