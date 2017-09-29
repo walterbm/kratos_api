@@ -33,6 +33,7 @@ defmodule KratosApi.CurrentUserControllerTest do
     assert reponse["first_name"] == "Kobe"
     assert reponse["last_name"] == "Bryant"
     assert reponse["has_push_token"] == true
+    assert reponse["address"] == "1 AT&T Center Parkway"
   end
 
   test "POST /api/me/actions", %{conn: conn, jwt: jwt} do

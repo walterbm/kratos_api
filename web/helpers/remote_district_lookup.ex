@@ -15,7 +15,7 @@ defmodule KratosApi.FindDistrict do
       {:error, geocodio_response}
     end
   end
-  def by_address(_), do: %{}
+  def by_address(_), do: {:ok, %{}}
 
   defp address_fields_map(geocodio_response) do
     %{
