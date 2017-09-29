@@ -87,9 +87,11 @@ defmodule KratosApi.Sync.Person do
 
   defp bioguide?(data) do
     cond do
-      data['id']['bioguide']   -> data['id']['bioguide']
-      data['id']['wikipedia']  -> data['id']['wikipedia']
-      data['id']['icpsr_prez'] -> data['id']['icpsr_prez']
+      Map.has_key?(data['id'], 'bioguide')   -> data['id']['bioguide']
+      Map.has_key?(data['id'], 'wikipedia')  -> data['id']['wikipedia']
+      Map.has_key?(data['id'], 'icpsr_prez') -> data['id']['icpsr_prez']
+      Map.has_key?(data['id'], 'govtrack')   -> data['id']['govtrack']
+      true                                   -> data['name']['last']
     end |> to_string
   end
 
