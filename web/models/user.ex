@@ -52,7 +52,7 @@ defmodule KratosApi.User do
   def update_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @updated_fields)
-
+    |> common_validations
     |> generate_encrypted_password
   end
 
