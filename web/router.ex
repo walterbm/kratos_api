@@ -107,6 +107,10 @@ defmodule KratosApi.Router do
 
     get "/jobs", JobController, :run
 
+    scope "/analytics" do
+      post "/track/:resource_type/:resource_id", AnalyticsController, :track
+    end
+
   end
 
 end
