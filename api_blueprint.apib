@@ -2231,3 +2231,62 @@ The request body should match this example with the question as a string and the
               {
                 "ok":true
               }
+
+
+## Group Analytics
+
+Track various analytics events
+
+## Track Viewed Person [/api/analytics/track/person/{id}/]
+
+### Track Viewed Person [POST]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+    + id (required, number) - person id
+
++ Response 200 (application/json)
+
+              {
+                "tracked":true
+              }
+
+## Track Viewed Bill [/api/analytics/track/bill/{id}/]
+
+### Track Viewed Bill [POST]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+    + id (required, number) - bill id
+
++ Response 200 (application/json)
+
+              {
+                "tracked":true
+              }
+
+## Track Viewed Tally [/api/analytics/track/tally/{id}/]
+
+### Track Viewed Tally [POST]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Parameters
+    + id (required, number) - tally id
+
++ Response 200 (application/json)
+
+              {
+                "tracked":true
+              }
