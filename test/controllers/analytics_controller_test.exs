@@ -1,12 +1,20 @@
 defmodule KratosApi.AnalyticsControllerTest do
   use KratosApi.ConnCase
 
-  alias KratosApi.Repo
+  alias KratosApi.{
+    Sync,
+    Repo,
+    User,
+    Person,
+    UserAction,
+    Teststubs,
+  }
   alias KratosApi.Analytics.TrackResource
 
+
   setup do
-    changeset = KratosApi.User.changeset(%KratosApi.User{}, KratosApi.Teststubs.user)
-    {:ok, user} = KratosApi.Repo.insert(changeset)
+    changeset = User.changeset(%User{}, Teststubs.user)
+    {:ok, user} = Repo.insert(changeset)
     {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
     %{jwt: jwt, user: user}
   end
@@ -72,6 +80,23 @@ defmodule KratosApi.AnalyticsControllerTest do
     assert first.resource_type == "tally"
     assert first.user_id == user.id
     assert first.resource_id == 4
+  end
+
+  test "track user actions", %{conn: conn, jwt: jwt, user: user} do
+    Sync.Person.sync
+    person = Repo.all(Person) |> List.first
+
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> put_req_header("content-type", "application/json")
+      |> post("/api/analytics/track/actions", Poison.encode!(%{user_action: %{action: "call", person_id: person.id }}))
+
+    assert json_response(conn, 200) == %{"tracked" => true}
+
+    user_action = Repo.all(UserAction) |> List.first |> Repo.preload([:person])
+    assert user_action.action == "call"
+    assert user_action.person.id == person.id
+    assert user_action.user_id == user.id
   end
 
 end
