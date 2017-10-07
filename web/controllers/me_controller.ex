@@ -3,7 +3,6 @@ defmodule KratosApi.MeController do
 
   plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
   plug :scrub_params, "user" when action in [:update]
-  plug :scrub_params, "user_action" when action in [:create_action]
   plug :scrub_params, "track" when action in [:track_bill]
   plug :scrub_params, "follow" when action in [:track_subject]
   plug :scrub_params, "vote" when action in [:create_vote, :update_vote]
@@ -19,7 +18,6 @@ defmodule KratosApi.MeController do
     BillView,
     VoteView,
     ErrorView,
-    UserAction,
     UserSubject,
     SubjectView,
     RegistrationView
@@ -49,7 +47,7 @@ defmodule KratosApi.MeController do
 
     changeset = Guardian.Plug.current_resource(conn)
                 |> User.update_changeset(user_params)
-                
+
     case Repo.update(changeset) do
       {:ok, user} ->
         conn
@@ -60,16 +58,6 @@ defmodule KratosApi.MeController do
         |> put_status(:unprocessable_entity)
         |> render(RegistrationView, "error.json", changeset: changeset)
     end
-  end
-
-  # Actions
-
-  def create_action(conn, %{"user_action" => user_action }) do
-    user = Guardian.Plug.current_resource(conn)
-    changeset = UserAction.changeset(%UserAction{}, Map.merge(user_action, %{"user_id" => user.id}))
-    Repo.insert!(changeset)
-
-    json conn, %{ok: true}
   end
 
   # Bills
