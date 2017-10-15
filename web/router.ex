@@ -50,6 +50,7 @@ defmodule KratosApi.Router do
     end
 
     scope "/states" do
+      get "/", StateController, :index
       get "/:state", StateController, :show
       get "/:state/image", StateController, :image
     end

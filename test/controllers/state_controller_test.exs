@@ -10,8 +10,18 @@ defmodule KratosApi.StateControllerTest do
     %{jwt: jwt}
   end
 
+  test "get all states with nested districts", %{conn: conn, jwt: jwt} do
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/states")
 
-  test "GET /api/states/:state", %{conn: conn, jwt: jwt} do
+    reponse = json_response(conn, 200)
+    assert reponse
+    assert reponse |> Enum.count == 2
+    assert reponse == %{"FL" => [15], "UT" => [1]}
+  end
+
+  test "get single state", %{conn: conn, jwt: jwt} do
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> get("/api/states/fl")
