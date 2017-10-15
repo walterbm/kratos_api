@@ -2100,13 +2100,42 @@ Resources related to bill subjects
                 ]
               }
 
-## Group State
+## Group States
 
 Get information about States
 
-## States [/api/states/{state}]
+## States [/api/states]
 
-### Get State's Districts [GET]
+### Get All States [GET]
+
++ Request
+    + Headers
+
+            Authorization: Bearer <token>
+
++ Response 200 (application/json)
+
+              {
+                "NY": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "MD": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+
+## State [/api/states/{state}]
+
+### Get Single State's Districts [GET]
 
 + Request
     + Headers
@@ -2134,7 +2163,7 @@ Get information about States
 
 ## State Image [/api/states/{state}/image]
 
-### Get hero image for each State [GET]
+### Get State's Hero Image [GET]
 
 + Request
     + Headers
