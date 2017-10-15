@@ -9,6 +9,20 @@ defmodule KratosApi.StateController do
 
   plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
+  def index(conn, _params) do
+    query = from p in Person,
+      where: p.is_current == true,
+      where: not is_nil(p.current_district),
+      select: {p.current_state, p.current_district}
+
+    states =
+      query
+      |> Repo.all
+      |> group_districts_by_state
+
+    json conn, states
+  end
+
   def show(conn, %{ "state" => state }) do
     query = from p in Person,
       where: p.is_current == true,
@@ -31,6 +45,15 @@ defmodule KratosApi.StateController do
       state ->
         json conn, %{ url: state.image_url }
     end
+  end
+
+  defp group_districts_by_state(states) do
+    Enum.reduce(states, %{}, fn {state, district}, acc ->
+      case Map.get(acc, state) do
+        nil -> Map.put(acc, state, [district])
+        value -> Map.put(acc, state, value ++ [district])
+      end
+    end)
   end
 
 end
