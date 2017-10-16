@@ -46,6 +46,7 @@ defmodule KratosApi.Router do
     end
 
     scope "/districts" do
+      post "/", DistrictController, :find
       get "/:state/:id", DistrictController, :show
     end
 
