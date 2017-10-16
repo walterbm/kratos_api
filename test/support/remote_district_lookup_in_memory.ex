@@ -9,4 +9,8 @@ defmodule KratosApi.FindDistrict.InMemory do
     }}
   end
 
+  def by_query(_) do
+    {:ok, {"CA", 12}}
+  end
+
 end

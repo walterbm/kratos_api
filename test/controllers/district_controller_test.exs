@@ -11,8 +11,20 @@ defmodule KratosApi.DistrictControllerTest do
     %{jwt: jwt}
   end
 
+  test "find district through search", %{conn: conn, jwt: jwt} do
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> put_req_header("content-type", "application/json")
+      |> post("/api/districts", Poison.encode!(%{query: "San Fransisco"}))
 
-  test "GET /api/districts/:state/:district", %{conn: conn, jwt: jwt} do
+    assert json_response(conn, 200) == %{
+      "state" =>  "CA",
+      "district" => 12
+    }
+  end
+
+
+  test "get representatives for a specific state's district", %{conn: conn, jwt: jwt} do
     conn = conn
       |> put_req_header("authorization", "Bearer #{jwt}")
       |> get("/api/districts/oh/1")
