@@ -1084,6 +1084,28 @@ View the bills are trending this week
 
 Resources related congressional districts.
 
+## List Districts [/api/districts]
+
+Find information and representatives for a congressional district.
+
+### Find District [POST]
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer <token>
+
+    + Attributes(object)
+
+        + query: `San Fransisco` (string, required) - search query.
+
++ Response 200 (application/json)
+
+            {
+              "state": "CA",
+              "district": 12
+            }
+
 ## Show District [/api/districts/{state}/{id}]
 
 Find information and representatives for a congressional district.
