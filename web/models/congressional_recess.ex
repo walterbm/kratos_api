@@ -5,6 +5,7 @@ defmodule KratosApi.CongressionalRecess do
     field :start_date, Ecto.Date
     field :end_date, Ecto.Date
     field :year, :integer
+    field :chamber, :string
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule KratosApi.CongressionalRecess do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:year, :start, :end])
-    |> validate_required([:year, :start, :end])
+    |> cast(params, [:year, :start, :end, :chamber])
+    |> validate_required([:year, :start, :end, :chamber])
   end
 end
