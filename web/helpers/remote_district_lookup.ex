@@ -19,7 +19,13 @@ defmodule KratosApi.FindDistrict do
     geocodio_response = search("#{address} #{city} #{state} #{zip}")
 
     if geocodio_response["fields"]["congressional_district"]["district_number"] do
-      {:ok, address_fields_map(geocodio_response)}
+      if geocodio_response["address_components"]["county"] == "District of Columbia" do
+        {:ok, address_fields_map(%{
+          geocodio_response | "fields" => %{"congressional_district" => %{"district_number" => 0}}
+        })}
+      else
+        {:ok, address_fields_map(geocodio_response)}
+      end
     else
       {:error, geocodio_response}
     end
