@@ -9,7 +9,8 @@ defmodule KratosApi.RemoteScrape do
   end
   def scrape(:xml, url, mapping) do
     get(url)
-    |> parse(mapping)
+    |> IO.inspect
+    # |> parse(mapping)
   end
   def scrape(:xml, url, base, mapping) do
     get(url)

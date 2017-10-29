@@ -10,6 +10,28 @@ defmodule KratosApi.CongressControllerTest do
     %{jwt: jwt}
   end
 
+  test "get congressional recess", %{conn: conn, jwt: jwt} do
+    today =  Ecto.Date.utc
+    %KratosApi.CongressionalRecess{
+      start_date:  today,
+      end_date: today,
+      year: today.year,
+      chamber: "senate"
+    } |> KratosApi.Repo.insert!
+
+    conn = conn
+      |> put_req_header("authorization", "Bearer #{jwt}")
+      |> get("/api/congress/recess")
+
+    response = json_response(conn, 200)
+
+    assert response == %{
+      "recess" => true,
+      "senate" => true,
+      "house" => false,
+    }
+  end
+
   test "GET /congress/house/floor", %{conn: conn, jwt: jwt} do
     KratosApi.Sync.Floor.sync(:house)
 
