@@ -7,7 +7,7 @@ defmodule KratosApi.CongressController do
     BillView,
   }
 
-  # plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
+  plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
   def recess(conn, _params) do
     senate = from r in KratosApi.CongressionalRecess,

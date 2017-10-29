@@ -5,15 +5,15 @@ defmodule KratosApi.DistrictController do
     ErrorView,
   }
 
-  plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
+  # plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
   @find_district Application.get_env(:kratos_api, :remote_district_lookup)
 
   def find(conn, %{"query" => query }) do
     case @find_district.by_query(query) do
-      {:ok, {state, district}} ->
-         json conn, %{ state: state, district: district }
-      {:error, _}    ->
+      {:ok, districts} ->
+         json conn, districts
+      {:error, _}      ->
         conn
         |> put_status(:unprocessable_entity)
         |> render(ErrorView, "bad_address.json")

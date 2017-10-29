@@ -10,7 +10,7 @@ defmodule KratosApi.FindDistrict.InMemory do
   end
 
   def by_query(_) do
-    {:ok, {"CA", 12}}
+    {:ok, [%{state: "CA", district: 12}]}
   end
 
 end

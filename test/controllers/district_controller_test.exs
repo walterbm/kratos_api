@@ -17,10 +17,10 @@ defmodule KratosApi.DistrictControllerTest do
       |> put_req_header("content-type", "application/json")
       |> post("/api/districts", Poison.encode!(%{query: "San Fransisco"}))
 
-    assert json_response(conn, 200) == %{
+    assert json_response(conn, 200) == [%{
       "state" =>  "CA",
       "district" => 12
-    }
+    }]
   end
 
 
