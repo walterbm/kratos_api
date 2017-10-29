@@ -5,7 +5,7 @@ defmodule KratosApi.DistrictController do
     ErrorView,
   }
 
-  # plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
+  plug Guardian.Plug.EnsureAuthenticated, handler: KratosApi.SessionController
 
   @find_district Application.get_env(:kratos_api, :remote_district_lookup)
 
