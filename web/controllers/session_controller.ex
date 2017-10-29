@@ -1,7 +1,10 @@
 defmodule KratosApi.SessionController do
   use KratosApi.Web, :controller
 
-  alias KratosApi.Session
+  alias KratosApi.{
+    Session,
+    SessionView
+  }
 
   plug :scrub_params, "session" when action in [:create]
 
@@ -27,7 +30,7 @@ defmodule KratosApi.SessionController do
   def unauthenticated(conn, _params) do
     conn
     |> put_status(:forbidden)
-    |> render("forbidden.json", error: "Not Authenticated")
+    |> render(SessionView, "forbidden.json", error: "Not Authenticated")
   end
 
 end
