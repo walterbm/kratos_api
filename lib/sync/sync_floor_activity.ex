@@ -13,9 +13,9 @@ defmodule KratosApi.Sync.Floor do
 
   @sources %{
     senate: "https://www.senate.gov/reference/active_bill_type/",
-    house: "http://docs.house.gov/billsthisweek/"
+    house: "https://docs.house.gov/billsthisweek/"
   }
-  
+
   @mapping %{
     senate: [{:on_the_floor, [
       ~x"///item"l,
