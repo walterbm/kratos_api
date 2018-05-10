@@ -14,6 +14,7 @@ defmodule KratosApi.BillSearchTest do
     [bills: bills]
   end
 
+  @tag :skip
   test "syncing indexes bills", %{bills: [bill | _rest]} do
 
     {:ok, response} = Search.simple_search("congress", ["bill"], bill.official_title)
