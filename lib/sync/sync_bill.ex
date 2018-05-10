@@ -96,10 +96,10 @@ defmodule KratosApi.Sync.Bill.Processor do
     chamber =
       chamber
       |> String.upcase
-      |> String.split("")
+      |> String.split("", trim: true)
       |> Enum.join(".")
 
-    "#{chamber} #{number}"
+    "#{chamber}. #{number}"
   end
 
   defp add_associations(changeset, data) do
