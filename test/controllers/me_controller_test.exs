@@ -4,10 +4,6 @@ defmodule KratosApi.CurrentUserControllerTest do
   alias KratosApi.{
     Repo,
     User,
-    Tally,
-    Bill,
-    Person,
-    UserAction,
     Teststubs,
   }
 
