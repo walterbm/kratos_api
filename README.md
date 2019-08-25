@@ -6,7 +6,7 @@ This Elixir-based API pulls voting and bill data from various U.S. Government op
 
 ## Screenshots
 
-This API was co-developed with a [companion iOS app](https://apps.apple.com/us/app/kratos-build-your-democracy/id1198595150). The screenshots below illustrate the features available through this API.
+This API was co-developed with a [companion iOS app](https://apps.apple.com/us/app/kratos-build-your-democracy/id1198595150). The screenshots below illustrate some of the data and features available from the API.
 
 ![Kratos iOS home](screenshots/home.png)
 
