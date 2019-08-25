@@ -3,13 +3,13 @@ AUTO_VERSION=mix-env+commit-count+git-revision
 
 TARGET_MIX_ENV="prod"
 
-BUILD_HOST="***REMOVED***"
-BUILD_USER="root"
-BUILD_AT="/tmp/edeliver/kratos_api/builds"
+BUILD_HOST=
+BUILD_USER=
+BUILD_AT=
 
-PRODUCTION_HOSTS="***REMOVED***"
-PRODUCTION_USER="deploy"
-DELIVER_TO="/opt"
+PRODUCTION_HOSTS=
+PRODUCTION_USER=
+DELIVER_TO=
 
 
 pre_erlang_get_and_update_deps() {
