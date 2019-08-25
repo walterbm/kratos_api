@@ -13,7 +13,7 @@ defmodule KratosApi.Search.Remote.InMemory do
       headers: [{"Access-Control-Allow-Origin", "*"},
        {"Content-Type", "application/json; charset=UTF-8"},
        {"Content-Length", "355"}, {"Connection", "keep-alive"}],
-      request_url: "***REMOVED***/congress/bill/_search",
+      request_url: "test-host/congress/bill/_search",
       status_code: 404}}
   end
 

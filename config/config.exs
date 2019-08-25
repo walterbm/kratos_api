@@ -14,7 +14,7 @@ config :kratos_api, KratosApi.Endpoint,
   instrumenters: [Appsignal.Phoenix.Instrumenter],
   url: [host: "localhost"],
   # this must be overridden by environment specific secret keys!
-  secret_key_base: "***REMOVED***",
+  secret_key_base: "secret_key_base",
   render_errors: [view: KratosApi.ErrorView, accepts: ~w(html json)],
   pubsub: [name: KratosApi.PubSub,
            adapter: Phoenix.PubSub.PG2]
