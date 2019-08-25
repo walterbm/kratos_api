@@ -1,4 +1,4 @@
-# KratosApi
+# Kratos API
 
 [Kratos](https://getkratos.com/) is a platform for people to keep-up with how their elected officials are representing them in congress.
 
@@ -6,30 +6,29 @@ This Elixir-based API pulls voting and bill data from various U.S. Government op
 
 ## Screenshots
 
-This API was co-developed with a companion iOS app. The screenshots below illustrate the features available through this API.
+This API was co-developed with a [companion iOS app](https://apps.apple.com/us/app/kratos-build-your-democracy/id1198595150). The screenshots below illustrate the features available through this API.
 
-![Kratos iOS home page](screenshots/home.PNG)
+![Kratos iOS home](screenshots/home.png)
 
 The API allows quick location-based lookup of a user's current congressional district and the elected representatives for that district.
 
+![Kratos iOS representative view](screenshots/representative-view.png)
 
-![Kratos iOS home page](screenshots/representative-view.png)
+From there, using normalized `ids` for each representative, it's easy to see more information about any current elected official.
 
-From there, using normalized `ids` for each representative, it's easy to see more imformation about any current elected official.
-
-![Kratos iOS home page](screenshots/representative-votes.png)
+![Kratos iOS representative votes view](screenshots/representative-votes.png)
 
 Including viewing a representatives voting record and all the bills they have sponsored.
 
-![Kratos iOS home page](screenshots/bill-votes.png)
+![Kratos iOS bill votes view](screenshots/bill-votes.png)
 
 Every bill in congress can have multiple votes and it's easy to get a high-level overview of the amendments and changes.
 
-![Kratos iOS home page](screenshots/bill-vote.png)
+![Kratos iOS bill vote view](screenshots/bill-vote.png)
 
 And the API provides the most important data — how every elected official voted on the specific bill.
 
-![Kratos iOS home page](screenshots/bill-tracking.png)
+![Kratos iOS bill tracking](screenshots/bill-tracking.png)
 
 The API also supports user tracking of specific bills to better reveal all the votes and how a bill becomes a law.
 
