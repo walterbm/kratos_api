@@ -57,13 +57,13 @@ config :kratos_api, :slack_url, "slack.slack"
 
 # AWS
 config :ex_aws,
-  access_key_id: "***REMOVED***",
-  secret_access_key: "***REMOVED***/7w2tRVNj"
+  access_key_id: "AKIAJ67NUOVYUZGCVYVQ",
+  secret_access_key: "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"
 
 # ElasticSearch
 config :kratos_api, :elastic_search, %{
   port: 443,
   region: "us-east-1",
   scheme: "https://",
-  host: "***REMOVED***"
+  host: "search-kratos-bcmcpmthjc7jevxwmc23kt5qjy.us-east-1.es.amazonaws.com"
 }
