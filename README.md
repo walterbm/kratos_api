@@ -1,14 +1,60 @@
 # KratosApi
 
-## Start server
+[Kratos](https://getkratos.com/) is a platform for people to keep-up with how their elected officials are representing them in congress.
+
+This Elixir-based API pulls voting and bill data from various U.S. Government open data sources and normalizes everything with standardized schemas to allow modern tracking of any elected representative's voting record.
+
+## Screenshots
+
+This API was co-developed with a companion iOS app. The screenshots below illustrate the features available through this API.
+
+![Kratos iOS home page](screenshots/home.PNG)
+
+The API allows quick location-based lookup of a user's current congressional district and the elected representatives for that district.
+
+
+![Kratos iOS home page](screenshots/representative-view.png)
+
+From there, using normalized `ids` for each representative, it's easy to see more imformation about any current elected official.
+
+![Kratos iOS home page](screenshots/representative-votes.png)
+
+Including viewing a representatives voting record and all the bills they have sponsored.
+
+![Kratos iOS home page](screenshots/bill-votes.png)
+
+Every bill in congress can have multiple votes and it's easy to get a high-level overview of the amendments and changes.
+
+![Kratos iOS home page](screenshots/bill-vote.png)
+
+And the API provides the most important data — how every elected official voted on the specific bill.
+
+![Kratos iOS home page](screenshots/bill-tracking.png)
+
+The API also supports user tracking of specific bills to better reveal all the votes and how a bill becomes a law.
+
+## Future
+
+This API powers an [iOS app that is available for free](https://apps.apple.com/us/app/kratos-build-your-democracy/id1198595150). The voting and bill data continues to be updated but there's no further feature improvements at this time.
+
+## Development
+
+### Start server
 
     $ mix phoenix.server
 
-## Tests
+### Tests
 
     $ mix test
 
-## Deploy
+### Generate Documentation
+
+API documentation uses the [api blueprint](https://apiblueprint.org/) standard.
+
+    $ npm run doc
+
+### Deploy
+
 Deployment uses edeliver.
 
     $ mix edeliver build release
@@ -16,8 +62,3 @@ Deployment uses edeliver.
     $ mix edeliver deploy release
 
     $ mix edeliver restart
-
-## Generate Documentation
-API documentation uses api_blueprint.
-
-    $ npm run doc
