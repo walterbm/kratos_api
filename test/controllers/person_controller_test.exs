@@ -58,7 +58,7 @@ defmodule KratosApi.PersonControllerTest do
     term = response["terms"] |> List.first
     assert term["class"] == "1"
     assert term["district"] == nil
-    assert term["end"] == "2019-01-03"
+    assert term["end"] == "3019-01-03"
     assert term["is_current"] == nil
     assert term["party_affiliations"] == nil
     assert term["start"] == "2013-01-03"

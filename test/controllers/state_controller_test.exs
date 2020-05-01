@@ -17,8 +17,8 @@ defmodule KratosApi.StateControllerTest do
 
     reponse = json_response(conn, 200)
     assert reponse
-    assert reponse |> Enum.count == 2
-    assert reponse == %{"FL" => [15], "UT" => [1]}
+    assert reponse |> Enum.count == 1
+    assert reponse == %{"FL" => [15]}
   end
 
   test "get single state", %{conn: conn, jwt: jwt} do

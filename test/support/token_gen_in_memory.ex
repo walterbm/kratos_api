@@ -1,5 +1,5 @@
 defmodule KratosApi.TokenGen.InMemory do
-  @token "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAbWN0ZXN0LmNvbSIsImV4cCI6MTQ4NTQ5NDA1NX0.UNHlg-iTt_cNFtYOqEUIvHguMTQ51wQ4SNAozPsJZfo"
+  @token "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1ODc2MTM0NzAsImlhdCI6MTU4NzUyNzA3MCwiaXNzIjoiS3JhdG9zQXBpVGVzdCIsImp0aSI6IjZkYzE3M2NiLTc1NTItNDM5Zi05OGI1LTJjYzBiY2Q2ZjgwZCIsInBlbSI6e30sInN1YiI6IlVzZXI6MzI3NiIsInR5cCI6InRva2VuIn0.r4yBMJdGo9pzsRjF2PhfPIwkJzfw2d6Qwx2lK5wYsr5peoztGc5MAzAcWLK4_Lhc4ShdoE-a1Dbu_jhm-4WfQw"
 
   def token(t \\ @token), do: t
   def with_exp(t), do: t

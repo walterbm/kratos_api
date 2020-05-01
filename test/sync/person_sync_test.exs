@@ -57,7 +57,7 @@ defmodule KratosApi.PersonSyncTest do
     assert last
     assert last.type == "Senate"
     assert last.start == Ecto.Date.cast!("2013-01-03")
-    assert last.end == Ecto.Date.cast!("2019-01-03")
+    assert last.end == Ecto.Date.cast!("3019-01-03")
     assert last.state == "OH"
     assert last.party == "Democrat"
     assert last.class == "1"
@@ -74,7 +74,7 @@ defmodule KratosApi.PersonSyncTest do
   test "syncing creates relationship from Terms to Person" do
     KratosApi.Sync.Person.sync
 
-    end_date = Ecto.Date.cast!("2019-01-03")
+    end_date = Ecto.Date.cast!("3019-01-03")
     term = Repo.one!(
       from t in Term,
       where: t.address == "713 Hart Senate Office Building Washington DC 20510",
@@ -120,7 +120,7 @@ defmodule KratosApi.PersonSyncTest do
     |> Enum.sort(fn(term_one, term_two) -> term_one.end > term_two.end end)
     |> List.first
 
-    assert term.end == Ecto.Date.cast!("2019-01-03")
+    assert term.end == Ecto.Date.cast!("3019-01-03")
   end
 
   test "syncing social media adds social media info to existing Person" do
