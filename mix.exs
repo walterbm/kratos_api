@@ -19,7 +19,6 @@ defmodule KratosApi.Mixfile do
   def application do
     [mod: {KratosApi, []},
      applications: [
-        :appsignal,
         :phoenix,
         :phoenix_pubsub,
         :phoenix_html,
@@ -43,7 +42,6 @@ defmodule KratosApi.Mixfile do
         :ex_aws,
         :elastix,
         :timex,
-        :decorator,
         :distillery,
         :edeliver
       ]
@@ -69,8 +67,9 @@ defmodule KratosApi.Mixfile do
       {:flow, "~> 0.11"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 1.0"},
       {:httpotion, "~> 3.0.0"},
-      {:guardian, "~> 0.12.0"},
+      {:guardian, "~> 0.14.0"},
       {:comeonin, "~> 2.5"},
       {:joken, "~> 1.4"},
       {:bamboo, "~> 0.8.0"},
@@ -84,7 +83,6 @@ defmodule KratosApi.Mixfile do
       {:timex, "~> 3.1"},
       {:distillery, "~> 1.4"},
       {:edeliver, "~> 1.4.2"},
-      {:appsignal, "~> 1.2"},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
     ]
   end
@@ -99,7 +97,7 @@ defmodule KratosApi.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

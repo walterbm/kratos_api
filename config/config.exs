@@ -11,10 +11,9 @@ config :kratos_api,
 
 # Configures the endpoint
 config :kratos_api, KratosApi.Endpoint,
-  instrumenters: [Appsignal.Phoenix.Instrumenter],
+  instrumenters: [],
   url: [host: "localhost"],
-  # this must be overridden by environment specific secret keys!
-  secret_key_base: "secret_key_base",
+  secret_key_base: "6IYOy+XYU0wgMKMYSUQAIaucMkMoJ3EL+YelFu1R61g3izX35HRRBT80dlPj5lzv",
   render_errors: [view: KratosApi.ErrorView, accepts: ~w(html json)],
   pubsub: [name: KratosApi.PubSub,
            adapter: Phoenix.PubSub.PG2]
